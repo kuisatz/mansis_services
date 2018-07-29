@@ -1515,8 +1515,6 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         $xxroleid = $this->hmacObj->getRoleID(); 
      //   print_r($xxroleid) ;        
-        
-            
             
         
         $endPointFunction = $this->getRestApiEndPointFunction();

@@ -117,7 +117,21 @@ and open the template in the editor. Ğİ
             }
         });  
 
-    
+         $.ajax({ 
+          //  url : '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',   
+     url :'../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+            data : {                              
+                   
+                    url : 'getserverkontrol_sysSpecificDefinitions', 
+            },
+            method : 'GET', 
+            success: function(data, textStatus, jqXHR) { 
+                
+            },
+            error: function(jqXHR , textStatus, errorThrown) { 
+              console.warn('error text status-->'+textStatus);
+            }
+        });  
     
     
     
