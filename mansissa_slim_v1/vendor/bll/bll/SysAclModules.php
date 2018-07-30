@@ -27,7 +27,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {           
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAclModules extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclModules extends \BLL\BLLSlim{
      */
     public function fillComboBoxFullModules ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillComboBoxFullModules($params);  
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function fillModulesTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillModulesTree($params);  
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysAclModules extends \BLL\BLLSlim{
      */
     public function fillModulesList ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillModulesList($params);  
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function fillModulesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillModulesListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -135,7 +135,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -144,7 +144,7 @@ class SysAclModules extends \BLL\BLLSlim{
      * @return array
      */
     public function fillModulesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclModulesOraPDO');
         $resultSet = $DAL->fillModulesDdList($params);
         return $resultSet['resultSet'];
     }

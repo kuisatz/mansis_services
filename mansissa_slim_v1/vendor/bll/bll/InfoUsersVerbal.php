@@ -27,7 +27,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->haveRecords($params);
     }    
     
@@ -47,7 +47,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {     
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->update($params);
     }
     
@@ -57,7 +57,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->delete($params);
     }
 
@@ -67,7 +67,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -99,7 +99,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->deletedAct($params);
     } 
     
@@ -109,7 +109,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */     
     public function fillUsersVerbalNpk ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         $resultSet = $DAL->fillUsersVerbalNpk($params);  
         return $resultSet['resultSet'];
     }
@@ -120,7 +120,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */     
     public function fillUsersVerbalNpkGuest ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         $resultSet = $DAL->fillUsersVerbalNpkGuest($params);  
         return $resultSet['resultSet'];
     }
@@ -132,7 +132,7 @@ class InfoUsersVerbal extends \BLL\BLLSlim{
      * @return array
      */
     public function getUserVerbalConsultant($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersVerbalOraPDO');
         return $DAL->getUserVerbalConsultant($params);
     }
   

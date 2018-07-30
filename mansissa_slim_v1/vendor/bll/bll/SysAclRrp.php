@@ -27,7 +27,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->insert($params);
     }
 
@@ -37,7 +37,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->update($params);
     }
 
@@ -47,7 +47,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRrpList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         $resultSet = $DAL->fillRrpList($params);  
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRrpListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         $resultSet = $DAL->fillRrpListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -112,7 +112,7 @@ class SysAclRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
     /**
@@ -121,7 +121,7 @@ class SysAclRrp extends \BLL\BLLSlim {
     * @return array
     */
     public function transferRolesPrivilege($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpOraPDO');
         return $DAL->transferRolesPrivilege($params);
     }  
     

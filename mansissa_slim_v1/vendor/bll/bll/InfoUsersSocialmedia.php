@@ -27,7 +27,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->insert($params);
     }
     
@@ -39,7 +39,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->haveRecords($params);
     }
     
@@ -50,7 +50,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->update($params);
     }
     
@@ -60,7 +60,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->delete($params);
     }
 
@@ -70,7 +70,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -80,7 +80,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->deletedAct($params);
     }
      
@@ -113,7 +113,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
     
@@ -123,7 +123,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */ 
     public function fillSingularUsersSocialMedia ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillSingularUsersSocialMedia($params);  
         return $resultSet['resultSet'];
     }
@@ -134,7 +134,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function fillSingularUsersSocialMediaRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillSingularUsersSocialMediaRtc($params);  
         return $resultSet['resultSet'];
     }
@@ -145,7 +145,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */ 
     public function fillCompanyUsersSocialMediaNpk ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillCompanyUsersSocialMediaNpk($params);         
         return $resultSet['resultSet'];
     }
@@ -156,7 +156,7 @@ class InfoUsersSocialmedia extends \BLL\BLLSlim{
      * @return array
      */
     public function fillCompanyUsersSocialMediaNpkRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSocialmediaOraPDO');
         $resultSet = $DAL->fillCompanyUsersSocialMediaNpkRtc($params);  
         return $resultSet['resultSet'];
     }

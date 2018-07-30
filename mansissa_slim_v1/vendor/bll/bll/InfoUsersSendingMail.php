@@ -27,7 +27,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->insert($params);
     } 
     
@@ -37,7 +37,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->haveRecords($params);
     } 
     
@@ -47,7 +47,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->update($params);
     }
     
@@ -57,7 +57,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->delete($params);
     }
 
@@ -67,7 +67,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     } 
@@ -88,7 +88,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -99,7 +99,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->deletedAct($params);
     }
      
@@ -109,7 +109,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
        
@@ -119,7 +119,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function setClickOnTheLinks($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->setClickOnTheLinks($params);
     } 
     
@@ -129,7 +129,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function setDeletedOnTheLinks($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->setDeletedOnTheLinks($params);
     } 
     
@@ -139,7 +139,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function sendMailUrgeNewPerson ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         $resultSet = $DAL->sendMailUrgeNewPerson($params);  
         return $resultSet['resultSet'];
     }
@@ -150,7 +150,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function insertSendingMail($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         return $DAL->insertSendingMail($params);
     }
     
@@ -160,7 +160,7 @@ class InfoUsersSendingMail extends \BLL\BLLSlim{
      * @return array
      */
     public function sendMailTempUserRegistration ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersSendingMailOraPDO');
         $resultSet = $DAL->sendMailTempUserRegistration($params);  
         return $resultSet['resultSet'];
     }

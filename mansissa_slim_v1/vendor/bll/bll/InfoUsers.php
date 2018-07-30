@@ -27,7 +27,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function insertTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->insertTemp($params);
     }
         /**
@@ -46,7 +46,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function updateTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->updateTemp($params);
     }
     
@@ -56,7 +56,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->haveRecords($params);
     }
     
@@ -67,7 +67,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->update($params);
     }
     
@@ -77,7 +77,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->delete($params);
     }
 
@@ -87,7 +87,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -97,7 +97,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -108,7 +108,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -119,7 +119,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->deletedAct($params);
     }
     
@@ -129,7 +129,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function setPrivateKey($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->setPrivateKey($params);
     }
      
@@ -139,7 +139,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function getPublicKeyTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->getPublicKeyTemp($params);
     }
     
@@ -149,7 +149,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function getUserId($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->getUserId($params);
     }
 
@@ -159,7 +159,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function getUserIdTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->getUserIdTemp($params);
     }
     
@@ -169,7 +169,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function setNewUserRrpMap($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->setNewUserRrpMap($params);
     }
     
@@ -179,7 +179,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUsersListNpk ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillUsersListNpk($params);  
         return $resultSet['resultSet'];
     }  
@@ -190,7 +190,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUsersListNpkRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillUsersListNpkRtc($params);  
         return $resultSet['resultSet'];
     }
@@ -201,7 +201,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUsersInformationNpk ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillUsersInformationNpk($params);  
         return $resultSet['resultSet'];
     }  
@@ -212,7 +212,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function insertConsultant($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->insertConsultant($params);
     }
     
@@ -222,7 +222,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function insertUrgePerson($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->insertUrgePerson($params);
     }
     
@@ -232,7 +232,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function setPersonPassword($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->setPersonPassword($params);
     }
     
@@ -242,7 +242,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function updatePktempForSesionId($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->updatePktempForSesionId($params);
     }
     
@@ -252,7 +252,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function getUserShortInformation($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->getUserShortInformation($params);  
         return $resultSet['resultSet'];        
     }    
@@ -263,7 +263,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUsersProfileInformation ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillUsersProfileInformation($params);  
         return $resultSet['resultSet'];
     }  
@@ -274,7 +274,7 @@ class InfoUsers extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUsersProfileInformationGuest ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         $resultSet = $DAL->fillUsersProfileInformationGuest($params);  
         return $resultSet['resultSet'];
     }  
@@ -285,7 +285,7 @@ class InfoUsers extends \BLL\BLLSlim{
     * @return array
     */
     public function updateConsUserConfirmAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersOraPDO');
         return $DAL->updateConsUserConfirmAct($params);
     }
     

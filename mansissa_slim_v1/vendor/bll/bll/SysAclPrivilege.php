@@ -27,7 +27,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      */
     public function fillComboBoxFullPrivilege ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillComboBoxFullPrivilege($params);  
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPrivilegesList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesList($params);  
         return $resultSet['resultSet'];
     }
@@ -114,12 +114,12 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPrivilegesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesListRtc($params);  
         return $resultSet['resultSet'];
     }     
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
     
@@ -130,7 +130,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillResourceGroups($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');        
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');        
          if (isset($params['parent_id']) && ($params['parent_id'] == 0))  { 
             $resultSet = $DAL->fillResourceGroups($params);
         } else {            
@@ -151,7 +151,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPrivilegesOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesOfRoles($params);
         return $resultSet['resultSet'];
     }
@@ -161,7 +161,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillNotInPrivilegesOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillNotInPrivilegesOfRoles($params);
         return $resultSet['resultSet'];
     }
@@ -171,7 +171,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPrivilegesOfRolesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesOfRolesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -182,7 +182,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
     */
     public function fillPrivilegesOfRolesList($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesOfRolesList($params);  
         return $resultSet['resultSet'];
     }
@@ -193,7 +193,7 @@ class SysAclPrivilege extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPrivilegesOfRolesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclPrivilegeOraPDO');
         $resultSet = $DAL->fillPrivilegesOfRolesListRtc($params);  
         return $resultSet['resultSet'];
     }    

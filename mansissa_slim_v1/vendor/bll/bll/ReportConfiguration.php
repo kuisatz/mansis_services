@@ -26,7 +26,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function update($id = null, $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         return $DAL->update($id, $params);
     }
     
@@ -47,7 +47,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($id = null) {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         return $DAL->delete($id);
     }
 
@@ -56,7 +56,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll() {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         return $DAL->getAll();
     }
     
@@ -66,7 +66,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -77,7 +77,7 @@ class ReportConfiguration extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationPDO');
+        $DAL = $this->slimApp->getDALManager()->get('reportConfigurationOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }

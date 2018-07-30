@@ -27,7 +27,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->delete($params);
     }
     /**
@@ -56,7 +56,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function deleteAct( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->deleteAct($params);
     }
 
@@ -66,7 +66,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      */
     public function fillAssignDefinitionList ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         $resultSet = $DAL->fillAssignDefinitionList($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         $resultSet = $DAL->fillAssignDefinitionListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -122,7 +122,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -131,7 +131,7 @@ class SysAssignDefinition extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionOraPDO');
         $resultSet = $DAL->fillAssignDefinitionDdList($params);
         return $resultSet['resultSet'];
     }

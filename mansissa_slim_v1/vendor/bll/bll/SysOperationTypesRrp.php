@@ -28,7 +28,7 @@ class SysOperationTypesRrp extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('SysOperationTypesRrpPDO');
+        $DAL = $this->slimApp->getDALManager()->get('SysOperationTypesRrpOraPDO');
         return $DAL->insert($params);
     }
 

@@ -27,7 +27,7 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysLanguage extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,25 +79,25 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
 
      public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
     }
      
     public function fillComboBoxTsql($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         $resultSet = $DAL->fillComboBoxTsql($params);  
         return $resultSet['resultSet'];
     }
   
     public function getLanguageId($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         return $DAL->getLanguageId($params);
     }
         
@@ -109,7 +109,7 @@ class SysLanguage extends \BLL\BLLSlim{
      * @return array
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysLanguagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysLanguageOraPDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }

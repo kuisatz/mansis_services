@@ -28,7 +28,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -69,7 +69,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillNotificationRestservicesList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         $resultSet = $DAL->fillNotificationRestservicesList($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillNotificationRestservicesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         $resultSet = $DAL->fillNotificationRestservicesListRtc($params);  
         return $resultSet['resultSet'];
     }  
@@ -113,7 +113,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
     
@@ -123,7 +123,7 @@ class SysNotificationRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function getNotificationRestserviceId($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNotificationRestservicesOraPDO');
         return $DAL->getNotificationRestserviceId($params);
     }
   

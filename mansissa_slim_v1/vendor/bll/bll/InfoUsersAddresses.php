@@ -27,7 +27,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->insert($params);
     }
      
@@ -37,7 +37,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->haveRecords($params);
     }
         
@@ -47,7 +47,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->update($params);
     }
     
@@ -57,7 +57,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -67,7 +67,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingular ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGridSingular($params);  
         return $resultSet['resultSet'];
     }      
@@ -99,7 +99,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -110,7 +110,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGridSingularRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -121,7 +121,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUserAddressesTypes ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillUserAddressesTypes($params);  
         return $resultSet['resultSet'];
     }
@@ -132,7 +132,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->deletedAct($params);
     }
     
@@ -148,7 +148,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function insertTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');    
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');    
         return $DAL->insertTemp($params);
     } 
     
@@ -158,7 +158,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function updateTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->updateTemp($params);
     }
     
@@ -168,7 +168,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularTemp ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGridSingularTemp($params);  
         return $resultSet['resultSet'];
     }
@@ -179,7 +179,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularRowTotalCountTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillGridSingularRowTotalCountTemp($params);  
         return $resultSet['resultSet'];
     }
@@ -190,7 +190,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
     * @return array
     */
     public function fillUserAddressesTypesTemp ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         $resultSet = $DAL->fillUserAddressesTypesTemp($params);  
         return $resultSet['resultSet'];
     }
@@ -201,7 +201,7 @@ class InfoUsersAddresses extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedActTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersAddressesOraPDO');
         return $DAL->deletedActTemp($params);
     }
     

@@ -27,7 +27,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {           
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         return $DAL->delete($params);
     } 
     
@@ -57,7 +57,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class PgClass extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function fillInfoTablesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+        $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
         $resultSet = $DAL->fillInfoTablesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class PgClass extends \BLL\BLLSlim{
      * @return array
      */
     public function getOperationTableName($params = array()) {
-    $DAL = $this->slimApp->getDALManager()->get('pgClassPDO');
+    $DAL = $this->slimApp->getDALManager()->get('pgClassOraPDO');
     $resultSet = $DAL->getOperationTableName($params);  
     return $resultSet['resultSet'];
     }

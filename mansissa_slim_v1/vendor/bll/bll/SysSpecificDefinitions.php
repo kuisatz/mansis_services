@@ -28,7 +28,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         return $DAL->update(  $params);
     }
 
@@ -48,7 +48,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');     
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');     
         $resultSet =  $DAL->getAll($params);
         return $resultSet['resultSet'];
     }
@@ -69,7 +69,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMainDefinitions($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillMainDefinitions($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillFullDefinitions($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillFullDefinitions($params);
         return $resultSet['resultSet'];
     }
@@ -115,7 +115,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillCommunicationsTypes($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillCommunicationsTypes($params);
         return $resultSet['resultSet'];
     }
@@ -127,7 +127,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillBuildingType($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillBuildingType($params);
         return $resultSet['resultSet'];
     }
@@ -139,7 +139,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillOwnershipType($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillOwnershipType($params);
         return $resultSet['resultSet'];
     }
@@ -151,7 +151,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillPersonnelTypes($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillPersonnelTypes($params);
         return $resultSet['resultSet'];
     }
@@ -162,7 +162,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      */
     public function fillAddressTypes($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillAddressTypes($params);
         return $resultSet['resultSet'];
     }
@@ -172,7 +172,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function fillSexTypes($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillSexTypes($params);
         return $resultSet['resultSet'];
     }
@@ -183,7 +183,7 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
      * @return array
      */
     public function fillVarYokGecTypes($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsOraPDO');
         $resultSet = $DAL->fillVarYokGecTypes($params);
         return $resultSet['resultSet'];
     }

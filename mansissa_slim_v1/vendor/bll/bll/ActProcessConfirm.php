@@ -27,7 +27,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {           
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         return $DAL->delete($params);
     } 
     
@@ -57,7 +57,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function getConsultantJobs ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         $resultSet = $DAL->getConsultantJobs($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class ActProcessConfirm extends \BLL\BLLSlim{
      * @return array
      */
     public function getConsultantJobsRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actProcessConfirmOraPDO');
         $resultSet = $DAL->getConsultantJobsRtc($params);  
         return $resultSet['resultSet'];
     }

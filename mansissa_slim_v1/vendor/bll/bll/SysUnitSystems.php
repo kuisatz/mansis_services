@@ -28,7 +28,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -69,7 +69,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      */
     public function getUnitSystems($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');
         $resultSet = $DAL->getUnitSystems($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysUnitSystems extends \BLL\BLLSlim {
      * @return array
      */
       public function fillUnitSystemsTree($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsPDO');     
+        $DAL = $this->slimApp->getDALManager()->get('sysUnitSystemsOraPDO');     
         return $DAL->fillUnitSystemsTree($params);
     }
 

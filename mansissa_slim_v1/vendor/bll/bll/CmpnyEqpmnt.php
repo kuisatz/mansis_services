@@ -26,7 +26,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      * @return array
      */ 
   public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      * @return array
      */
     public function update($id = null, $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         return $DAL->update($id, $params);
     }
     
@@ -47,7 +47,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($id = null) {
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         return $DAL->delete($id);
     }
 
@@ -56,7 +56,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll() {
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         return $DAL->getAll();
     }
     
@@ -67,7 +67,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
       //  print_r('123123asdasdasd') ; 
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -78,7 +78,7 @@ class CmpnyEqpmnt extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntPDO');
+        $DAL = $this->slimApp->getDALManager()->get('cmpnyEqpmntOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }

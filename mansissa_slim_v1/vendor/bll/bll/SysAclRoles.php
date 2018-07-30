@@ -28,7 +28,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -69,7 +69,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillComboBoxMainRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillComboBoxMainRoles($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      */
     public function fillFullRolesDdList($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillFullRolesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function updateChild($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->updateChild($params);
     }
     
@@ -124,7 +124,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillComboBoxRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillComboBoxRoles($params);
         return $resultSet['resultSet'];
     }
@@ -135,7 +135,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRolesTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillRolesTree($params);  
         return $resultSet['resultSet'];
     }
@@ -146,7 +146,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRolesPropertiesList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillRolesPropertiesList($params);  
         return $resultSet['resultSet'];
     }
@@ -157,7 +157,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRolesPropertiesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillRolesPropertiesListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -167,7 +167,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     } 
      
@@ -177,7 +177,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillConsultantRolesDdlist($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->FillConsultantRolesDdlist($params);
         return $resultSet['resultSet'];
     }
@@ -188,7 +188,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRolesDdlist($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillRolesDdlist($params);
         return $resultSet['resultSet'];
     }
@@ -199,7 +199,7 @@ class SysAclRoles extends \BLL\BLLSlim {
      * @return array
      */
     public function fillClusterRolesDdlist($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRolesOraPDO');
         $resultSet = $DAL->fillClusterRolesDdlist($params);
         return $resultSet['resultSet'];
     }

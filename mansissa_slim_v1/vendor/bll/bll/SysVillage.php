@@ -28,7 +28,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */ 
   public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         return $DAL->insert($params);
     }
     
@@ -38,7 +38,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         return $DAL->update($params);
     }
     
@@ -48,7 +48,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysVillage extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
       //  print_r('123123asdasdasd') ; 
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
      public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
      }
@@ -101,7 +101,7 @@ class SysVillage extends \BLL\BLLSlim{
      * @return array
      */
      public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVillagePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVillageOraPDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
      }

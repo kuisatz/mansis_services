@@ -29,7 +29,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         return $DAL->insert($params);
     }
 
@@ -39,7 +39,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         return $DAL->update($params);
     }
 
@@ -49,7 +49,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         return $DAL->delete($params);
     }
 
@@ -59,7 +59,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -70,7 +70,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -81,7 +81,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysOperationTypesTools extends \BLL\BLLSlim {
      * @return array
      */
     public function fillConsultantOperationsTools($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysOperationTypesToolsOraPDO');
         $resultSet = $DAL->fillConsultantOperationsTools($params);  
         return $resultSet['resultSet'];
     }

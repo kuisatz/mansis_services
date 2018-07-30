@@ -27,7 +27,7 @@ class SysSectors extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         return $DAL->insert($params);
     }
     
@@ -38,7 +38,7 @@ class SysSectors extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         return $DAL->update( $params);
     }
     
@@ -48,7 +48,7 @@ class SysSectors extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         return $DAL->delete($params = array());
     }
 
@@ -57,7 +57,7 @@ class SysSectors extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysSectors extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSectors extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,14 +91,14 @@ class SysSectors extends \BLL\BLLSlim{
      
      
     public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
     }
      
     
     public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
@@ -111,13 +111,13 @@ class SysSectors extends \BLL\BLLSlim{
      */
     public function fillTextLanguageTemplate ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->fillTextLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
     
     public function getSectors($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsOraPDO');
         $resultSet = $DAL->getSectors($params);  
         return $resultSet['resultSet'];
     }

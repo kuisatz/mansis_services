@@ -28,7 +28,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->haveRecords($params);
     }
 
@@ -48,7 +48,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->update($params);
     }
 
@@ -58,7 +58,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -68,7 +68,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->getAll($params);
     }
 
@@ -78,7 +78,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -89,7 +89,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -100,7 +100,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->deletedAct($params);
     }
 
@@ -110,7 +110,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     }
 
@@ -120,7 +120,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillUserProductsServicesNpk($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillUserProductsServicesNpk($params);
         return $resultSet['resultSet'];
     }
@@ -131,7 +131,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillUserProductsServicesNpkRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillUserProductsServicesNpkRtc($params);
         return $resultSet['resultSet'];
     }
@@ -142,7 +142,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillUserProductsServicesNpkQuest($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillUserProductsServicesNpkQuest($params);    
         return $resultSet['resultSet'];         
     }
@@ -153,7 +153,7 @@ class InfoUsersProductsServices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillUserProductsServicesNpkQuestRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersProductsServicesOraPDO');
         $resultSet = $DAL->fillUserProductsServicesNpkQuestRtc($params);
         return $resultSet['resultSet'];
     }

@@ -27,7 +27,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function pkControl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkControl($params);  
         return $resultSet['resultSet'];
     }
@@ -81,7 +81,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @since 10/06/2016
      */
     public function isUserBelongToCompany($requestHeaderParams = array(), $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->isUserBelongToCompany($requestHeaderParams, $params);  
         return $resultSet['resultSet'];
     }
@@ -94,27 +94,27 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @since 0.3 27/01/2016
      */
     public function pkTempControl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkTempControl($params);  
         return $resultSet['resultSet'];
     }
 
     
     public function pkLoginControl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkLoginControl($params);  
         return $resultSet['resultSet'];
     }
 
     public function getPK($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->getPK($params);  
         return $resultSet['resultSet'];
     }
 
        
     public function pkSessionControl($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkSessionControl($params);  
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function pkIsThere($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkIsThere($params);  
         return $resultSet['resultSet'];
     }  
@@ -136,7 +136,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      * @return array
      */
     public function pkAllPkGeneratedFromPrivate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         $resultSet = $DAL->pkAllPkGeneratedFromPrivate($params);  
         return $resultSet['resultSet'];
     }   
@@ -151,7 +151,7 @@ class BlLoginLogout extends \BLL\BLLSlim{
      */
  
     public function servicesFormPk($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutOraPDO');
         return $DAL->servicesFormPk($params);
     }
     

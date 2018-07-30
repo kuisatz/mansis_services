@@ -26,7 +26,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         return $DAL->insert($params);
     }
     
@@ -36,7 +36,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         return $DAL->update($params);
     }
     
@@ -46,7 +46,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         return $DAL->delete($params);
     }
 
@@ -56,7 +56,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -67,7 +67,7 @@ class SysAclResources extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -78,7 +78,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillComboBoxMainResources($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillComboBoxMainResources($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysAclResources extends \BLL\BLLSlim{
      */
     public function fillComboBoxFullResources ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillComboBoxFullResources($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillResourcesTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillResourcesTree($params);  
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysAclResources extends \BLL\BLLSlim{
      */
     public function fillPropertieslist ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillPropertieslist($params);  
         return $resultSet['resultSet'];
     }
@@ -135,7 +135,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPropertieslistRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillPropertieslistRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -145,7 +145,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -154,7 +154,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillResourcesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');
         $resultSet = $DAL->fillResourcesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -166,7 +166,7 @@ class SysAclResources extends \BLL\BLLSlim{
      * @return array
      */
     public function fillResourceGroups($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesPDO');  
+        $DAL = $this->slimApp->getDALManager()->get('sysAclResourcesOraPDO');  
      // print_r($params);
          if (isset($params['parent_id']) && ($params['parent_id'] == 0))  { 
             $resultSet = $DAL->fillResourceGroups($params);

@@ -26,7 +26,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->insert($params);
     }
     
@@ -36,7 +36,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->update($params);
     }
     
@@ -46,7 +46,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->delete($params);
     }
     /**
@@ -55,7 +55,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function deleteAct( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->deleteAct($params);
     }
 
@@ -65,7 +65,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -76,7 +76,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -87,7 +87,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -99,7 +99,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionRolesList ($params = array()) {       
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillAssignDefinitionRolesList($params);  
         return $resultSet['resultSet'];
     }
@@ -110,7 +110,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionRolesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillAssignDefinitionRolesListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -120,7 +120,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -129,7 +129,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionRolesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillAssignDefinitionRolesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -139,7 +139,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillConsultantRolesTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillConsultantRolesTree($params);  
         return $resultSet['resultSet'];
     }
@@ -151,7 +151,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAssignDefinitionOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillAssignDefinitionOfRoles($params);
         return $resultSet['resultSet'];
     }
@@ -161,7 +161,7 @@ class SysAssignDefinitionRoles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillNotInAssignDefinitionOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAssignDefinitionRolesOraPDO');
         $resultSet = $DAL->fillNotInAssignDefinitionOfRoles($params);
         return $resultSet['resultSet'];
     }
