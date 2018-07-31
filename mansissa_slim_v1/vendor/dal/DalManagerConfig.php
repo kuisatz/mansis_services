@@ -43,6 +43,12 @@ class DalManagerConfig {
                 'infoDealerOwnerOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoDealerOwnerFactory',
                 
                 
+                
+                
+                
+                
+                
+                
                 'reportConfigurationOraPDO' => 'DAL\Factory\PDO\Oracle\ReportConfigurationFactory',
                 'cmpnyEqpmntOraPDO' => 'DAL\Factory\PDO\Oracle\CmpnyEqpmntFactory',
                 'sysNavigationLeftOraPDO' => 'DAL\Factory\PDO\Oracle\SysNavigationLeftFactory',                
