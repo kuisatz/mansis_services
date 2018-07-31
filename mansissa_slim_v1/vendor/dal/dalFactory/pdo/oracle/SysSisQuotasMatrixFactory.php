@@ -12,18 +12,15 @@ namespace DAL\Factory\PDO\Oracle;
 /**
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager
- * @author Okan CİRANĞ
- * created date : 08.12.2015
+ * @author Okan CIRAN
  */
-class SysCustomerCriterionFactory  implements \Zend\ServiceManager\FactoryInterface{
+class SysSisQuotasMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerCriterion  = new \DAL\PDO\Oracle\SysCustomerCriterion();   
+        $sysSisQuotasMatrix = new \DAL\PDO\Oracle\SysSisQuotasMatrix() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
-        $sysCustomerCriterion -> setSlimApp($slimapp); 
-        return $sysCustomerCriterion;
-      
-    }
-    
+        $sysSisQuotasMatrix -> setSlimApp($slimapp); 
+        return $sysSisQuotasMatrix; 
+    } 
     
 }

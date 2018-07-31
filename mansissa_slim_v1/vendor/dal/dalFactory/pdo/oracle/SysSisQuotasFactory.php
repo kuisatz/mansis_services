@@ -14,13 +14,13 @@ namespace DAL\Factory\PDO\Oracle;
  * created to be used by DAL MAnager
  * @author Okan CIRAN
  */
-class SysVillageFactory  implements \Zend\ServiceManager\FactoryInterface{
+class SysSisQuotasFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVillage = new \DAL\PDO\Oracle\SysVillage()   ;   
+        $sysSisQuotas = new \DAL\PDO\Oracle\SysSisQuotas() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
-        $sysVillage -> setSlimApp($slimapp); 
-        return $sysVillage; 
+        $sysSisQuotas -> setSlimApp($slimapp); 
+        return $sysSisQuotas; 
     } 
     
 }
