@@ -501,7 +501,7 @@ class SysCertifications extends \DAL\DalSlim {
             }  
             $statement = $pdo->prepare("
                 SELECT 
-                    a.id,
+                    a.act_parent_id as id,
                     COALESCE(NULLIF(su.certificate, ''), a.certificate_eng) AS certificate_name,  
                     a.certificate_eng AS certificate_name_eng,
 		    COALESCE(NULLIF(su.certificate_short, ''), a.certificate_short_eng) AS certificate_shorts,  
@@ -519,7 +519,7 @@ class SysCertifications extends \DAL\DalSlim {
 		LEFT JOIN sys_language lx ON lx.id = ". intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = l.id  AND sd16.deleted = 0 AND sd16.active = 0
 		LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted =0 AND sd16x.active =0 AND lx.id = sd16x.language_id
-                LEFT JOIN sys_certifications su ON (su.id =a.id OR su.language_parent_id = a.id) AND su.deleted =0 AND su.active =0 AND lx.id = su.language_id 
+                LEFT JOIN sys_certifications su ON (su.act_parent_id =a.act_parent_id OR su.language_parent_id = a.act_parent_id) AND su.deleted =0 AND su.active =0 AND lx.id = su.language_id 
                 WHERE a.language_parent_id = 0 AND a.active =0 AND a.deleted =0 
                 ORDER BY a.priority, certificate_name
 

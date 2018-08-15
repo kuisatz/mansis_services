@@ -91,9 +91,9 @@ class SysContractTypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function contractTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysContractTypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->contractTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

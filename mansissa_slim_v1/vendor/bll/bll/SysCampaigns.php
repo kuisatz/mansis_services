@@ -91,9 +91,9 @@ class SysCampaigns extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function campaignsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCampaignsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->campaignsDdList($params);
         return $resultSet['resultSet'];
     }
     

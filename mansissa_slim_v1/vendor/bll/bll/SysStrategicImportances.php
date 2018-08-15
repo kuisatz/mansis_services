@@ -88,12 +88,11 @@ class SysStrategicImportances extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function strategicImportancesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->strategicImportancesDdList($params);
         return $resultSet['resultSet'];
     }
     

@@ -91,9 +91,9 @@ class SysCsActStatutypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function csActStatutypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCsActStatutypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->csActStatutypesDdList($params);
         return $resultSet['resultSet'];
     }
     

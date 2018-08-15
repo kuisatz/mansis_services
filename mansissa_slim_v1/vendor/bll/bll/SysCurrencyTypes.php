@@ -91,9 +91,9 @@ class SysCurrencyTypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function currencyTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCurrencyTypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->currencyTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

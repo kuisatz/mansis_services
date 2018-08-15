@@ -423,7 +423,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
  
-      /*
+    /*
      * @author Okan CIRAN
      * @ sys_acc_body_supp tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!

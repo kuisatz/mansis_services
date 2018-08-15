@@ -96,6 +96,17 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
+        
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function accBodySuppDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $resultSet = $DAL->accBodySuppDdList($params);
+        return $resultSet['resultSet'];
+    }
     
 }
 

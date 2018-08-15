@@ -91,9 +91,9 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function terrainsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->terrainsDdList($params);
         return $resultSet['resultSet'];
     }
     

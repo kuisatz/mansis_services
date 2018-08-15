@@ -91,9 +91,9 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function countryRegionsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->countryRegionsDdList($params);
         return $resultSet['resultSet'];
     }
     

@@ -91,9 +91,9 @@ class SysRoadtypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function roadTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysRoadtypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->roadTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

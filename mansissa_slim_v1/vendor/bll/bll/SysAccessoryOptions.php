@@ -91,9 +91,9 @@ class SysAccessoryOptions extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function accessoryOptionsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->accessoryOptionsDdList($params);
         return $resultSet['resultSet'];
     }
     

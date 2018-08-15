@@ -88,12 +88,11 @@ class SysWarrantyTypes extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function warrantyTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysWarrantyTypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->warrantyTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

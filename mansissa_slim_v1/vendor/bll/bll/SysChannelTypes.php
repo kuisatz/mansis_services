@@ -91,9 +91,9 @@ class SysChannelTypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function channelTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysChannelTypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->channelTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

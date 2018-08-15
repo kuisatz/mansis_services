@@ -88,12 +88,11 @@ class SysCustomerReliability extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function customerReliabilityDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCustomerReliabilityOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->customerReliabilityDdList($params);
         return $resultSet['resultSet'];
     }
     

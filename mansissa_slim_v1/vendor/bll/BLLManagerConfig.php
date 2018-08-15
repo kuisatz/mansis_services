@@ -50,6 +50,7 @@ class BLLManagerConfig{
                    'sysBuybackMatrixBLL' => 'BLL\BLL\SysBuybackMatrix',
                    'sysBuybackQuotasBLL' => 'BLL\BLL\SysBuybackQuotas',
                    'sysBuybackTypesBLL' => 'BLL\BLL\SysBuybackTypes',
+                   'sysCalendarTypesBLL' => 'BLL\BLL\SysCalendarTypes', 
                    'sysCampaignVehiclesBLL' => 'BLL\BLL\SysCampaignVehicles',
                    'sysCampaignsBLL' => 'BLL\BLL\SysCampaigns',
                    'sysCauseOfLosingwinningBLL' => 'BLL\BLL\SysCauseOfLosingwinning',

@@ -91,9 +91,9 @@ class SysFixedSalesCosts extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function fixedSalesCostsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysFixedSalesCostsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->fixedSalesCostsDdList($params);
         return $resultSet['resultSet'];
     }
     

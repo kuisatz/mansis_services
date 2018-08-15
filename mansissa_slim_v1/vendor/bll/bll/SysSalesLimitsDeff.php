@@ -88,12 +88,11 @@ class SysSalesLimitsDeff extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function salesLimitsDeffDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsDeffOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->salesLimitsDeffDdList($params);
         return $resultSet['resultSet'];
     }
     

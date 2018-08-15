@@ -88,12 +88,11 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function demoAllocationTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->demoAllocationTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

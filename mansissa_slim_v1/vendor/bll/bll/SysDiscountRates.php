@@ -88,12 +88,11 @@ class SysDiscountRates extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function discountRatesDeffDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->discountRatesDeffDdList($params);
         return $resultSet['resultSet'];
     }
     

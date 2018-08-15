@@ -88,12 +88,11 @@ class SysPriorityType extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function priorityTypeDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->priorityTypeDdList($params);
         return $resultSet['resultSet'];
     }
     

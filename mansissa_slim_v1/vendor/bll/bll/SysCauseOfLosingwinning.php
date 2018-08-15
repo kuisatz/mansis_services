@@ -91,9 +91,9 @@ class SysCauseOfLosingwinning extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function causeOfLosingwinningDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCauseOfLosingwinningOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->causeOfLosingwinningDdList($params);
         return $resultSet['resultSet'];
     }
     

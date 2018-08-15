@@ -88,12 +88,22 @@ class SysNumericalRanges extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function numericalRangesMainGroupDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->numericalRangesMainGroupDdList($params);
+        return $resultSet['resultSet'];
+    }
+  
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function numericalRangesParentDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $resultSet = $DAL->numericalRangesParentDdList($params);
         return $resultSet['resultSet'];
     }
     

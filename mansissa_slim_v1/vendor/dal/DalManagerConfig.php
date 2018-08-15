@@ -57,6 +57,7 @@ class DalManagerConfig {
                    'sysBuybackMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysBuybackMatrixFactory',
                    'sysBuybackQuotasOraPDO' => 'DAL\Factory\PDO\Oracle\SysBuybackQuotasFactory',
                    'sysBuybackTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysBuybackTypesFactory',
+                   'sysCalendarTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCalendarTypesFactory', 
                    'sysCampaignVehiclesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCampaignVehiclesFactory',
                    'sysCampaignsOraPDO' => 'DAL\Factory\PDO\Oracle\SysCampaignsFactory',
                    'sysCauseOfLosingwinningOraPDO' => 'DAL\Factory\PDO\Oracle\SysCauseOfLosingwinningFactory',

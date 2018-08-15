@@ -88,14 +88,23 @@ class SysMileages extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function mileagesMainGroupDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->mileagesMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
     
+     /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function mileagesParentDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO');
+        $resultSet = $DAL->mileagesParentDdList($params);
+        return $resultSet['resultSet'];
+    }
 }
 

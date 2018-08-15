@@ -91,9 +91,9 @@ class SysTopusedProvisions extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function topusedProvisionsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->topusedProvisionsDdList($params);
         return $resultSet['resultSet'];
     }
     

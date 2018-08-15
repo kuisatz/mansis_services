@@ -91,9 +91,9 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function titlesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->titlesDdList($params);
         return $resultSet['resultSet'];
     }
     

@@ -88,12 +88,22 @@ class SysSupplier extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function supplierLongDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->supplierLongDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function supplierShortDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $resultSet = $DAL->supplierShortDdList($params);
         return $resultSet['resultSet'];
     }
     

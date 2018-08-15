@@ -88,12 +88,11 @@ class SysKpnumbers extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function kpnumbersDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysKpnumbersOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->kpnumbersDdList($params);
         return $resultSet['resultSet'];
     }
     

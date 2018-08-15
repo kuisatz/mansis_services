@@ -91,9 +91,22 @@ class SysAccDeff extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function accDeffSalesmanDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysAccDeffOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->accDeffSalesmanDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    
+      /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function accDeffBackOfficeDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccDeffOraPDO');
+        $resultSet = $DAL->accDeffBackOfficeDdList($params);
         return $resultSet['resultSet'];
     }
     

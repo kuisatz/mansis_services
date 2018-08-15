@@ -91,9 +91,9 @@ class SysCommissionDefinitions extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function fillLanguageDdList($params = array()) {
+    public function commissionDefinitionsDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCommissionDefinitionsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->commissionDefinitionsDdList($params);
         return $resultSet['resultSet'];
     }
     

@@ -88,12 +88,22 @@ class SysMonths extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
+    public function monthsMainGroupDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+        $resultSet = $DAL->monthsMainGroupDdList($params);
+        return $resultSet['resultSet'];
+    }
+     
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function monthsParentDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO');
+        $resultSet = $DAL->monthsParentDdList($params);
         return $resultSet['resultSet'];
     }
     

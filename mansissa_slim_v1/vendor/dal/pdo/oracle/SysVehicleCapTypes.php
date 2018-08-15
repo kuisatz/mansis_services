@@ -20,7 +20,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN    
-     * @ sys_vehicle_brand tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ sys_vehicle_cap_types tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  30.07.2018
      * @param array $params   
      * @return array  
@@ -34,7 +34,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_vehicle_brand
+                UPDATE sys_vehicle_cap_types
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_vehicle_brand tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_vehicle_cap_types tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_vehicle_brand a
+                FROM sys_vehicle_cap_types a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_vehicle_brand ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicle_cap_types ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_vehicle_brand tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_vehicle_cap_types tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_vehicle_brand(
+                INSERT INTO sys_vehicle_cap_types(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_vehicle_brand_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_vehicle_cap_types_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_vehicle_brand tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_vehicle_cap_types tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_vehicle_brand  a                          
+            FROM sys_vehicle_cap_types  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,7 +227,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_vehicle_brand tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_vehicle_cap_types tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -251,7 +251,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_vehicle_brand
+                    UPDATE sys_vehicle_cap_types
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +290,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_vehicle_brand tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_vehicle_cap_types tablosundan kayıtları döndürür !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -351,7 +351,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_vehicle_brand a
+                FROM sys_vehicle_cap_types a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_vehicle_brand ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicle_cap_types ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +388,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_vehicle_brand tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_vehicle_cap_types tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +401,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_vehicle_brand a
+                FROM sys_vehicle_cap_types a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,7 +425,7 @@ class SysVehicleBrand extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_vehicle_brand tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_vehicle_cap_types tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  30.07.2018
      * @param type $params
@@ -442,13 +442,13 @@ class SysVehicleBrand extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_vehicle_brand
+                UPDATE sys_vehicle_cap_types
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_vehicle_brand
+                                FROM sys_vehicle_cap_types
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -475,6 +475,84 @@ class SysVehicleBrand extends \DAL\DalSlim {
         }
     }
     
+    /** 
+     * @author Okan CIRAN
+     * @ var yok gec dropdown ya da tree ye doldurmak için sys_acc_body_types tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  vehicleCapTypesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM ( 
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicle_cap_types a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_vehicle_cap_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
     
     
     
