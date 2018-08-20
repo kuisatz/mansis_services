@@ -475,6 +475,362 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
         }
     }
     
+    /** 
+     * @author Okan CIRAN
+     * @ supllier matrix ini grid formatında döndürür !! ana tablo  sys_acc_supplier_matrix 
+     * @version v 1.0  15.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException  
+     */  
+    public function fillAccBodyTypesGridx($params = array()) {
+        try {
+            if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
+                $offset = ((intval($params['page']) - 1) * intval($params['rows']));
+                $limit = intval($params['rows']);
+            } else {
+                $limit = 10;
+                $offset = 0;
+            }
+
+            $sortArr = array();
+            $orderArr = array();
+            $addSql = NULL;
+            if (isset($params['sort']) && $params['sort'] != "") {
+                $sort = trim($params['sort']);
+                $sortArr = explode(",", $sort);
+                if (count($sortArr) === 1)
+                    $sort = trim($params['sort']);
+            } else {
+                $sort = "  a.id ";
+            }
+
+            if (isset($params['order']) && $params['order'] != "") {
+                $order = trim($params['order']);
+                $orderArr = explode(",", $order);
+                //print_r($orderArr);
+                if (count($orderArr) === 1)
+                    $order = trim($params['order']);
+            } else {
+                $order = "DESC";
+            }
+            $sorguStr = null;                            
+            if (isset($params['filterRules'])) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+              
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                            case 'name_acc_opt':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(apx.name, ''), ap.name_eng" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'name_acc_deff_sm':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'name_acc_deff_bo':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'supplier_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sx.name, ''), s.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'op_user_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND u.username" . $sorguExpression . ' ';
+
+                                break;
+                            case 'state_active':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $sorguStr = null;
+                $filterRules = "";
+            }
+            $sorguStr = rtrim($sorguStr, "AND "); 
+
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');       
+                            
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $accessoryOptionID =0 ;
+            if (isset($params['AccessoryOptionID']) && $params['AccessoryOptionID'] != "") {
+                $accessoryOptionID = $params['AccessoryOptionID'];
+                $addSql .="  a.accessory_option_id  = " . intval($accessoryOptionID). "  AND  " ; 
+            }  
+            $accDeffID =0 ;
+            if (isset($params['AccDeffID']) && $params['AccDeffID'] != "") {
+                $accDeffID = $params['AccDeffID'];
+                $addSql .="  a.acc_deff_id  = " . intval($accDeffID). "  AND  " ; 
+            }  
+             $supplierID =0 ;
+            if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
+                $supplierID = $params['SupplierID'];
+                $addSql .="  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
+            }  
+
+                $sql = "
+                    SELECT 
+                        a.id, 
+                        a.accessory_option_id, 
+                        COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
+                      /*  a.name_eng, */
+                        a.act_parent_id,  
+                        
+			a.acc_deff_id , 
+			COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,
+			COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng) AS name_acc_deff_bo,
+			 
+			a.supplier_id ,
+			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
+			a.cost_local, 
+		       a.cost_national,
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified,
+                        /* a.priority, */ 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM sys_acc_supplier_matrix a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0   
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+
+		    INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
+		    LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.deleted = 0 AND adx.active = 0 AND adx.language_id =lx.id  
+
+		    INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
+		    LEFT JOIN sys_accessory_options apx ON apx.language_id = lx.id AND (apx.act_parent_id = ap.act_parent_id OR apx.language_parent_id = ap.act_parent_id) AND apx.deleted = 0 AND apx.active = 0
+                  
+		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
+		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+     
+		    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =385
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.active =0       
+                     
+                " . $addSql . "
+                " . $sorguStr . " 
+                ORDER BY    " . $sort . " "
+                    . "" . $order . " "
+                    . "LIMIT " . $pdo->quote($limit) . " "
+                    . "OFFSET " . $pdo->quote($offset) . " ";
+            $statement = $pdo->prepare($sql);
+            $parameters = array(
+                'sort' => $sort,
+                'order' => $order,
+                'limit' => $pdo->quote($limit),
+                'offset' => $pdo->quote($offset),
+            ); 
+                $statement = $pdo->prepare($sql);
+                //  echo debugPDO($sql, $parameters);                
+                $statement->execute();
+                $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                $errorInfo = $statement->errorInfo(); 
+              //  $ColumnCount = $statement->columnCount();
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                    throw new \PDOException($errorInfo[0]);
+                return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+                            
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
+        }
+    }
+    
+    /** 
+     * @author Okan CIRAN
+     * @ supplier matrix ini grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_acc_supplier_matrix 
+     * @version v 1.0  15.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException  
+     */  
+    public function fillAccBodyTypesGridxRtl($params = array()) {
+        try {             
+            $sorguStr = null;    
+            $addSql = null;
+            if (isset($params['filterRules'])) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+              
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                           case 'name_acc_opt':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(apx.name, ''), ap.name_eng" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'name_acc_deff_sm':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'name_acc_deff_bo':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'supplier_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sx.name, ''), s.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'op_user_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND u.username" . $sorguExpression . ' ';
+
+                                break;
+                            case 'state_active':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $sorguStr = null;
+                $filterRules = "";
+            }
+            $sorguStr = rtrim($sorguStr, "AND "); 
+
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');       
+                            
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+             $accessoryOptionID =0 ;
+            if (isset($params['AccessoryOptionID']) && $params['AccessoryOptionID'] != "") {
+                $accessoryOptionID = $params['AccessoryOptionID'];
+                $addSql .="  a.accessory_option_id  = " . intval($accessoryOptionID). "  AND  " ; 
+            }  
+            $accDeffID =0 ;
+            if (isset($params['AccDeffID']) && $params['AccDeffID'] != "") {
+                $accDeffID = $params['AccDeffID'];
+                $addSql .="  a.acc_deff_id  = " . intval($accDeffID). "  AND  " ; 
+            }  
+             $supplierID =0 ;
+            if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
+                $supplierID = $params['SupplierID'];
+                $addSql .="  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
+            }  
+
+                $sql = "
+                   SELECT COUNT(asdx.id) count FROM ( 
+                       SELECT 
+                            a.id, 
+                            a.accessory_option_id, 
+                            COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
+                          
+                            a.acc_deff_id , 
+                            COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,
+                            COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng) AS name_acc_deff_bo,
+
+                            a.supplier_id ,
+                            COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
+                            
+                            
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                            
+                            u.username AS op_user_name 
+                        FROM sys_acc_supplier_matrix a                    
+                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0   
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/   
+
+                        INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
+                        LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.deleted = 0 AND adx.active = 0 AND adx.language_id =lx.id  
+
+                        INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
+                        LEFT JOIN sys_accessory_options apx ON apx.language_id = lx.id AND (apx.act_parent_id = ap.act_parent_id OR apx.language_parent_id = ap.id) AND apx.deleted = 0 AND apx.active = 0
+
+                        INNER JOIN sys_supplier s ON s.id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
+                        LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+
+                        /*----*/   
+                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =385
+                        /**/
+                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+
+                        WHERE  
+                            a.active =0       
+                            " . $addSql . "
+                            " . $sorguStr . " 
+                    ) asdx
+                        
+                         "; 
+                $statement = $pdo->prepare($sql);
+                //  echo debugPDO($sql, $parameters);                
+                $statement->execute();
+                $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                $errorInfo = $statement->errorInfo(); 
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                    throw new \PDOException($errorInfo[0]);
+                return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+                            
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
+        }
+    }
+    
     
     
     

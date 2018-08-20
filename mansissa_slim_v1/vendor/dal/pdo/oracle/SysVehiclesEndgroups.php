@@ -14,13 +14,13 @@ namespace DAL\PDO\Oracle;
  * created to be used by DAL MAnager
  * @
  * @author Okan CIRAN
- * @since 29.07.2018
+ * @since 29.07.2018 
  */ 
-class SysAccBodySupp extends \DAL\DalSlim {
+class SysVehiclesEndgroups extends \DAL\DalSlim {
 
     /**
-     * @author Okan CIRAN
-     * @ sys_acc_body_supp tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @author Okan CIRAN   
+     * @ sys_vehicles_endgroups tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  29.07.2018
      * @param array $params
      * @return array
@@ -34,7 +34,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_acc_body_supp
+                UPDATE sys_vehicles_endgroups
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_acc_body_supp tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_vehicles_endgroups tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  29.07.2018  
      * @param array $params
      * @return array
@@ -68,7 +68,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
             $languageId = NULL;
-            $languageIdValue = 647;
+            $languageIdValue = 385;
             if ((isset($params['language_code']) && $params['language_code'] != "")) {                
                 $languageId = SysLanguage::getLanguageId(array('language_code' => $params['language_code']));
                 if (\Utill\Dal\Helper::haveRecord($languageId)) {
@@ -90,7 +90,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_acc_body_supp a
+                FROM sys_vehicles_endgroups a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_acc_body_supp ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicles_endgroups ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_acc_body_supp tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_vehicles_endgroups tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
@@ -131,7 +131,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                 $languageId = NULL;
-                $languageIdValue = 647;
+                $languageIdValue = 385;
                 if ((isset($params['language_code']) && $params['language_code'] != "")) {
                     $languageId = SysLanguage::getLanguageId(array('language_code' => $params['language_code']));
                     if (\Utill\Dal\Helper::haveRecord($languageId)) {
@@ -142,7 +142,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_acc_body_supp(
+                INSERT INTO sys_vehicles_endgroups(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_acc_body_supp_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_vehicles_endgroups_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_acc_body_supp tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_vehicles_endgroups tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_acc_body_supp  a                          
+            FROM sys_vehicles_endgroups  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,7 +227,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_acc_body_supp tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_vehicles_endgroups tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
@@ -241,7 +241,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                 $languageId = NULL;
-                $languageIdValue = 647;
+                $languageIdValue = 385;
                 if ((isset($params['language_code']) && $params['language_code'] != "")) {
                     $languageId = SysLanguage::getLanguageId(array('language_code' => $params['language_code']));
                     if (\Utill\Dal\Helper::haveRecord($languageId)) {
@@ -251,7 +251,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_acc_body_supp
+                    UPDATE sys_vehicles_endgroups
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +290,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_acc_body_supp tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_vehicles_endgroups tablosundan kayıtları döndürür !!
      * @version v 1.0  29.07.2018
      * @param array | null $args
      * @return array
@@ -327,7 +327,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
 
         $languageId = NULL;
-        $languageIdValue = 647;
+        $languageIdValue = 385;
         if ((isset($args['language_code']) && $args['language_code'] != "")) {                
             $languageId = SysLanguage::getLanguageId(array('language_code' => $args['language_code']));
             if (\Utill\Dal\Helper::haveRecord($languageId)) {
@@ -351,7 +351,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_acc_body_supp a
+                FROM sys_vehicles_endgroups a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_acc_body_supp ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicles_endgroups ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +388,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_acc_body_supp tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_vehicles_endgroups tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  29.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +401,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_acc_body_supp a
+                FROM sys_vehicles_endgroups a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -422,12 +422,12 @@ class SysAccBodySupp extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
- 
+    
     /*
      * @author Okan CIRAN
-     * @ sys_acc_body_supp tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_vehicles_endgroups tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
-     * @version v 1.0  29.07.2018
+      * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -442,13 +442,13 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_acc_body_supp
+                UPDATE sys_vehicles_endgroups
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_acc_body_supp
+                                FROM sys_vehicles_endgroups
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -475,15 +475,217 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
     
-        /** 
+    /** 
      * @author Okan CIRAN
-     * @ body aksesuar tanımlarını supplier bilgilerini grid formatında döndürür !! ana tablo  sys_acc_body_supp 
+     * @ araç gruplarının en alt seviyesininde cost tanımlarını dropdown ya da tree ye doldurmak için sys_vehicles_endgroups tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args     
+     * @return array
+     * @throws \PDOException 
+     */
+    public function vehiclesEndgroupsCostDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $addSQL = null ; 
+            $ckdCbuTypeId =0 ;
+            if (isset($params['CkdCbuTypeId']) && $params['CkdCbuTypeId'] != "") {
+                $ckdCbuTypeId = $params['CkdCbuTypeId'];
+                $addSQL .= " a.ckdcbu_type_id ="  . intval($ckdCbuTypeId). " AND " ; 
+            }        
+            $vehicleGtModelId =0 ;
+            if (isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "") {
+                $vehicleGtModelId = $params['VehicleGtModelId'];
+                $addSQL .= " a.vehicle_gt_model_id ="  . intval($vehicleGtModelId). " AND " ; 
+            }  
+            $modelVariantId =0 ;
+            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
+                $modelVariantId = $params['ModelVariantId'];
+                $addSQL .= " a.model_variant_id ="  . intval($modelVariantId). " AND " ; 
+            }  
+            $configTypeId =0 ;
+            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
+                $configTypeId = $params['ConfigTypeId'];
+                $addSQL .= " a.config_type_id ="  . intval($configTypeId). " AND " ; 
+            } 
+            $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 
+            } 
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM (      
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.cost_description AS name,  
+                    a.cost_description AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicles_endgroups a    
+                WHERE     
+                    ".$addSQL."
+                    a.deleted = 0 AND
+                    a.active =0  
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /** 
+     * @author Okan CIRAN
+     * @ araç gruplarının en alt seviyesininde buyback/tradeback tanımlarını dropdown ya da tree ye doldurmak için sys_vehicles_endgroups tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args     
+     * @return array
+     * @throws \PDOException 
+     */
+    public function vehiclesEndgroupsBbDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $addSQL = null ; 
+            $ckdCbuTypeId =0 ;
+            if (isset($params['CkdCbuTypeId']) && $params['CkdCbuTypeId'] != "") {
+                $ckdCbuTypeId = $params['CkdCbuTypeId'];
+                $addSQL .= " a.ckdcbu_type_id ="  . intval($ckdCbuTypeId). " AND " ; 
+            }        
+            $vehicleGtModelId =0 ;
+            if (isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "") {
+                $vehicleGtModelId = $params['VehicleGtModelId'];
+                $addSQL .= " a.vehicle_gt_model_id ="  . intval($vehicleGtModelId). " AND " ; 
+            }  
+            $modelVariantId =0 ;
+            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
+                $modelVariantId = $params['ModelVariantId'];
+                $addSQL .= " a.model_variant_id ="  . intval($modelVariantId). " AND " ; 
+            }  
+            $configTypeId =0 ;
+            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
+                $configTypeId = $params['ConfigTypeId'];
+                $addSQL .= " a.config_type_id ="  . intval($configTypeId). " AND " ; 
+            } 
+            $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 
+            } 
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM (      
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.bbtb_description AS name,  
+                    a.bbtb_description AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicles_endgroups a    
+                WHERE     
+                    ".$addSQL."
+                    a.deleted = 0 AND
+                    a.active =0  
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /** 
+     * @author Okan CIRAN
+     * @  araç gruplarının en alt seviyesininde tanımlarını grid formatında döndürür !! ana tablo  sys_vehicles_endgroups 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-     public function fillAccBodySuppGridx($params = array()) {
+    public function fillVehiclesEndgroupsGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -502,7 +704,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 if (count($sortArr) === 1)
                     $sort = trim($params['sort']);
             } else {
-                $sort = "  a.id  ";
+                $sort = "  a.id ";
             }
 
             if (isset($params['order']) && $params['order'] != "") {
@@ -523,14 +725,39 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'body_name':
+                            case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(bdx.name, ''), bd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end " . $sorguExpression . ' ';
                               
                                 break;
-                            case 'supplier_name':
+                            case 'gt_model_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(sx.name, ''), s.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND vgtm.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'variant_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vmv.name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'config_type_name': 
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vct.name" . $sorguExpression . ' ';
+
+                                break; 
+                               case 'cap_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vcat.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'cost_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.cost_description" . $sorguExpression . ' ';
+
+                                break; 
+                              case 'bbtb_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.bbtb_description" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -541,6 +768,11 @@ class SysAccBodySupp extends \DAL\DalSlim {
                             case 'state_active':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+                            case 'body_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(bx.name, ''), b.name_eng)" . $sorguExpression . ' ';
 
                                 break;
                             
@@ -569,52 +801,62 @@ class SysAccBodySupp extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $accBodyDeffId =0 ;
-            if (isset($params['AccBodyDeffID']) && $params['AccBodyDeffID'] != "") {
-                $accBodyDeffId = $params['AccBodyDeffID'];
-                $addSql .= "  a.acc_body_deff_id  = " . intval($accBodyDeffId). "  AND  " ; 
+            $vehicleGtModelId =0 ;
+            if (isset($params['VehicleGtModelID']) && $params['VehicleGtModelID'] != "") {
+                $vehicleGtModelId = $params['VehicleGtModelID'];
+                $addSql ="  a.vehicle_gt_model_id  = " . intval($vehicleGtModelId). "  AND  " ; 
             }  
-            $supplierID =0 ;
-            if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
-                $supplierID = $params['SupplierID'];
-                $addSql .= "  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
+            $modelVariantId =0 ;
+            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
+                $modelVariantId = $params['ModelVariantId'];
+                $addSql ="  a.model_variant_id  = " . intval($modelVariantId). "  AND  " ; 
             }  
+            $configTypeId =0 ;
+            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
+                $configTypeId = $params['ConfigTypeId'];
+                $addSql ="  a.config_type_id  = " . intval($configTypeId). "  AND  " ; 
+            }  
+            $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSql ="  a.cap_type_id  = " . intval($capTypeId). "  AND  " ; 
+            } 
 
                 $sql = "
-                    SELECT
-                        a.id,   
+                   SELECT    
+                        a.id, 
+			case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end cbuckd_name, 
+                        a.vehicle_gt_model_id,
+			vgtm.name  gt_model_name,
+                        a.model_variant_id,
+			vmv.name variant_name ,
+                        a.config_type_id,
+			vct.name config_type_name ,
+                        a.cap_type_id,
+			vcat.name cap_name , 
+			a.cost_description,
+			a.bbtb_description,  
                         a.act_parent_id,   
-                        a.acc_body_deff_id ,
-			COALESCE(NULLIF(bdx.name, ''), bd.name_eng) AS body_name,  
-			a.supplier_id ,
-			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
-                        a.cost, 
                         a.active,
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                       /* a.deleted,
-                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,
                         u.username AS op_user_name,  
                         a.s_date date_saved,
-                        a.c_date date_modified,
-                       /* bd.priority,*/
+                        a.c_date date_modified, 
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_acc_body_supp a                    
+                    FROM sys_vehicles_endgroups a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0   
-                  
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0    
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		 --   INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.deleted = 0 AND bs.active = 0   
-                    INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = a.accessory_body_id AND bd.deleted = 0 AND bd.active = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
-		    LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.deleted = 0 AND bdx.active = 0 AND bdx.language_id =lx.id  
-                    
-		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
-		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
-   
-                    /*----*/                 
+		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
+		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
+		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.deleted = 0 AND vct.active = 0  
+		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
+ 
+		     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -623,6 +865,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                     
                     WHERE  
                         a.active =0  
+ 
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -655,15 +898,15 @@ class SysAccBodySupp extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ body aksesuar tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_acc_body_deff 
+     * @  araç gruplarının en alt seviyesininde tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_vehicles_endgroups 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-     public function fillAccBodyDeffGridxRtl($params = array()) {
+    public function fillVehiclesEndgroupsGridxRtl($params = array()) {
         try {             
-            $sorguStr = null;        
+            $sorguStr = null;    
              $addSql = null;
             if (isset($params['filterRules'])) {
                 $filterRules = trim($params['filterRules']);
@@ -673,14 +916,39 @@ class SysAccBodySupp extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end " . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'gt_model_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND vgtm.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'variant_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vmv.name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'config_type_name': 
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vct.name" . $sorguExpression . ' ';
+
+                                break; 
+                               case 'cap_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND vcat.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'cost_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.cost_description" . $sorguExpression . ' ';
+
+                                break; 
+                              case 'bbtb_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.bbtb_description" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -697,7 +965,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(bx.name, ''), b.name_eng)" . $sorguExpression . ' ';
 
-                                break; 
+                                break;
                             default:
                                 break;
                         }
@@ -723,64 +991,54 @@ class SysAccBodySupp extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-           $accBodyDeffId =0 ;
-            if (isset($params['AccBodyDeffID']) && $params['AccBodyDeffID'] != "") {
-                $accBodyDeffId = $params['AccBodyDeffID'];
-                $addSql .= "  a.acc_body_deff_id  = " . intval($accBodyDeffId). "  AND  " ; 
-            }  
-            $supplierID =0 ;
-            if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
-                $supplierID = $params['SupplierID'];
-                $addSql .= "  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
+            $accBodyTypeId =0 ;
+            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
+                $accBodyTypeId = $params['AccBodyTypeID'];
+                $addSql ="  a.acc_body_type_id  = " . intval($accBodyTypeId). "  AND  " ; 
             }  
 
                 $sql = "
-                   SELECT COUNT(asdx.id) count FROM ( 
-                        SELECT
-                            a.id,   
-                            a.act_parent_id,   
-                            a.acc_body_deff_id ,
-                            COALESCE(NULLIF(bdx.name, ''), bd.name_eng) AS body_name,  
-                            a.supplier_id ,
-                            COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
-                            a.cost, 
-                            a.active,
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                           /* a.deleted,
-                            COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
-                            a.op_user_id,
-                            u.username AS op_user_name,  
-                            a.s_date date_saved,
-                            a.c_date date_modified,
-                           /* bd.priority,*/
-                            COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                            lx.language_main_code language_code, 
-                            COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                        FROM sys_acc_body_supp a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                        LEFT JOIN sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0   
+                    SELECT COUNT(asdx.id) count FROM ( 
 
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/
-                     --   INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.deleted = 0 AND bs.active = 0   
-                        INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = a.accessory_body_id AND bd.deleted = 0 AND bd.active = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
-                        LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.deleted = 0 AND bdx.active = 0 AND bdx.language_id =lx.id  
+                        SELECT    
+                             a.id, 
+                             case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end cbuckd_name, 
+                             a.vehicle_gt_model_id,
+                             vgtm.name  gt_model_name,
+                             a.model_variant_id,
+                             vmv.name variant_name ,
+                             a.config_type_id,
+                             vct.name config_type_name ,
+                             a.cap_type_id,
+                             vcat.name cap_name , 
+                             a.cost_description,
+                             a.bbtb_description,  
+                             a.act_parent_id,   
+                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                             u.username AS op_user_name  
+                             COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                         FROM sys_vehicles_endgroups a                    
+                         INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0    
+                         INNER JOIN info_users u ON u.id = a.op_user_id 
+                         /*----*/
+                         INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
+                         INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
+                         INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.deleted = 0 AND vct.active = 0  
+                         INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
 
-                        INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
-                        LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+                          /*----*/                 
+                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                         /**/
+                       /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
-                        /*----*/                 
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE   
-                             a.active =0   
-                             " . $addSql . "
-                             " . $sorguStr . " 
-
+                         WHERE  
+                             a.active =0  
+ 
+                         " . $addSql . "
+                         " . $sorguStr . " 
                     ) asdx
                         
                          "; 
@@ -798,7 +1056,4 @@ class SysAccBodySupp extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
-    
-    
-    
 }

@@ -96,5 +96,29 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccBodyDeffGridx ($params = array()) {
+        
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillAccBodyDeffGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccBodyDeffGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillAccBodyDeffGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+   
+    
 }
 

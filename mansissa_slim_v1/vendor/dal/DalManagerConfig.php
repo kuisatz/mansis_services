@@ -129,7 +129,8 @@ class DalManagerConfig {
                    'sysVehiclesOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehiclesFactory',
                    'sysWarrantiesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantiesFactory', 
                    'sysWarrantyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyMatrixFactory',
-                   'sysWarrantyTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyTypesFactory',
+                   'sysWarrantyTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyTypesFactory',                 
+                   'sysVehiclesEndgroupsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehiclesEndgroupsFactory',
                 
                    
                 

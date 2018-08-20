@@ -12,7 +12,7 @@ namespace BLL\BLL;
 /**
  * Business Layer class for report Configuration entity
  */
-class SysAccBodyMatrix extends \BLL\BLLSlim{
+class SysVehiclesEndgroups extends \BLL\BLLSlim{
     
     /**
      * constructor
@@ -27,7 +27,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -88,24 +88,32 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+    public function vehiclesEndgroupsCostDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $resultSet = $DAL->vehiclesEndgroupsCostDdList($params);
         return $resultSet['resultSet'];
     }
     
+     /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function vehiclesEndgroupsBbDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $resultSet = $DAL->vehiclesEndgroupsBbDdList($params);
+        return $resultSet['resultSet'];
+    }
     /**
      * Function to fill datagrid on user interface layer
      * @param array | null $params
      * @return array
      */
-    public function fillBodyMatrixGridx ($params = array()) {
-        
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
-        $resultSet = $DAL->fillBodyMatrixGridx($params);  
+    public function fillVehiclesEndgroupsGridx ($params = array()) {        
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $resultSet = $DAL->fillVehiclesEndgroupsGridx($params);  
         return $resultSet['resultSet'];
     }
     
@@ -114,11 +122,12 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillBodyMatrixGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
-        $resultSet = $DAL->fillBodyMatrixGridxRtl($params);  
+    public function fillVehiclesEndgroupsGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $resultSet = $DAL->fillVehiclesEndgroupsGridxRtl($params);  
         return $resultSet['resultSet'];
     }
+   
     
 }
 
