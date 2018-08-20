@@ -123,6 +123,7 @@ class BLLManagerConfig{
                    'sysWarrantiesBLL' => 'BLL\BLL\SysWarranties', 
                    'sysWarrantyMatrixBLL' => 'BLL\BLL\SysWarrantyMatrix',
                    'sysWarrantyTypesBLL' => 'BLL\BLL\SysWarrantyTypes',
+                   'sysVehiclesEndgroupsBLL' => 'BLL\BLL\SysVehiclesEndgroups',
                  
                 ////////////////////////////
                   

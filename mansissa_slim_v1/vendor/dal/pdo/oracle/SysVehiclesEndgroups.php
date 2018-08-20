@@ -825,7 +825,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 $sql = "
                    SELECT    
                         a.id, 
-			case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end cbuckd_name, 
+			case ckdcbu_type_id when 0 then 'CBU' else 'CKD' end cbuckd_name, 
                         a.vehicle_gt_model_id,
 			vgtm.name  gt_model_name,
                         a.model_variant_id,
@@ -991,18 +991,34 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $accBodyTypeId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodyTypeId = $params['AccBodyTypeID'];
-                $addSql ="  a.acc_body_type_id  = " . intval($accBodyTypeId). "  AND  " ; 
+             $vehicleGtModelId =0 ;
+            if (isset($params['VehicleGtModelID']) && $params['VehicleGtModelID'] != "") {
+                $vehicleGtModelId = $params['VehicleGtModelID'];
+                $addSql ="  a.vehicle_gt_model_id  = " . intval($vehicleGtModelId). "  AND  " ; 
             }  
+            $modelVariantId =0 ;
+            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
+                $modelVariantId = $params['ModelVariantId'];
+                $addSql ="  a.model_variant_id  = " . intval($modelVariantId). "  AND  " ; 
+            }  
+            $configTypeId =0 ;
+            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
+                $configTypeId = $params['ConfigTypeId'];
+                $addSql ="  a.config_type_id  = " . intval($configTypeId). "  AND  " ; 
+            }  
+            $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSql ="  a.cap_type_id  = " . intval($capTypeId). "  AND  " ; 
+            } 
+                            
 
                 $sql = "
                     SELECT COUNT(asdx.id) count FROM ( 
 
                         SELECT    
                              a.id, 
-                             case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end cbuckd_name, 
+                             case ckdcbu_type_id when 0 then 'CBU' else 'CKD' end cbuckd_name, 
                              a.vehicle_gt_model_id,
                              vgtm.name  gt_model_name,
                              a.model_variant_id,
