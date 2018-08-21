@@ -625,19 +625,19 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_acc_body_matrix a                    
-                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0  
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.deleted = 0 AND bs.active = 0   
-                    INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.deleted = 0 AND bd.active = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-		    LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.deleted = 0 AND bdx.active = 0 AND bdx.language_id =lx.id  
+		    INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
+                    INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
+		    LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
                     
-		    INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
-		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+		    INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
+		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
   
-		    LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.deleted = 0 AND vgm.active = 0  
+		    LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.show_it = 0  
                     
                     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -785,19 +785,19 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                                 a.op_user_id,
                                 u.username AS op_user_name 
                             FROM sys_acc_body_matrix a                    
-                            INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                            LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0  
+                            INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                            LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
 
                             INNER JOIN info_users u ON u.id = a.op_user_id 
                             /*----*/
-                            INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.deleted = 0 AND bs.active = 0   
-                            INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.deleted = 0 AND bd.active = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-                            LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.deleted = 0 AND bdx.active = 0 AND bdx.language_id =lx.id  
+                            INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
+                            INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
+                            LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
 
-                            INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
-                            LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+                            INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
+                            LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
 
-                            LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.deleted = 0 AND vgm.active = 0  
+                            LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.show_it = 0  
 
                             /*----*/                 
                            /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */

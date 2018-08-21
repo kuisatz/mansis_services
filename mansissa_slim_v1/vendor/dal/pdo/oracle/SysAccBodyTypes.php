@@ -673,9 +673,9 @@ class SysAccBodyTypes extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_acc_body_types a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
-                    LEFT JOIN sys_acc_body_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
+                    LEFT JOIN sys_acc_body_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.active =0 AND ax.deleted = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -797,8 +797,8 @@ class SysAccBodyTypes extends \DAL\DalSlim {
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         u.username AS op_user_name   
                     FROM sys_acc_body_types a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
                     LEFT JOIN sys_acc_body_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   

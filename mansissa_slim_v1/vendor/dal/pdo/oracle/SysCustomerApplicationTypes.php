@@ -477,13 +477,13 @@ class SysCustomerApplicationTypes extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ araçların ne için kullanacağı dropdown ya da tree ye doldurmak için sys_customer_application_types tablosundan kayıtları döndürür !!
+     * @ araçların ne için kullanacağı ana grubu dropdown ya da tree ye doldurmak için sys_customer_application_types tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function customerApplicationTypesDdList($params = array()) {
+    public function customerApplicationMainTypesDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -527,7 +527,7 @@ class SysCustomerApplicationTypes extends \DAL\DalSlim {
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
-                     0 as parent_id,
+                     a.parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_customer_application_types a    
@@ -535,6 +535,7 @@ class SysCustomerApplicationTypes extends \DAL\DalSlim {
 		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
                 LEFT JOIN sys_customer_application_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
                 WHERE   
+                    a.parent_id = 0 AND
                     a.deleted = 0 AND
                     a.active =0 AND
                     a.language_parent_id =0 
@@ -553,7 +554,401 @@ class SysCustomerApplicationTypes extends \DAL\DalSlim {
         }
     }
  
+    /** 
+     * @author Okan CIRAN
+     * @ araçların ne için kullanacağı alt grubu dropdown ya da tree ye doldurmak için sys_customer_application_types tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function customerApplicationParentTypesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+             $parentId =-1 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentId = $params['ParentID'];
+            }  
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM (  
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_customer_application_types a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_customer_application_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.parent_id =  " . intval($parentId). " AND
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    /** 
+     * @author Okan CIRAN
+     * @ Müşterinin araçların hangi uygulama da kullanacagı alan bilgileri tanımlarını grid formatında döndürür !! ana tablo  sys_customer_application_types 
+     * @version v 1.0  20.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException   
+     */  
+    public function fillCalendarTypesGridx($params = array()) {
+        try {
+            if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
+                $offset = ((intval($params['page']) - 1) * intval($params['rows']));
+                $limit = intval($params['rows']);
+            } else {
+                $limit = 10;
+                $offset = 0;
+            }
+
+            $sortArr = array();
+            $orderArr = array();
+            $addSql = NULL;
+            if (isset($params['sort']) && $params['sort'] != "") {
+                $sort = trim($params['sort']);
+                $sortArr = explode(",", $sort);
+                if (count($sortArr) === 1)
+                    $sort = trim($params['sort']);
+            } else {
+                $sort = "  a.id ";
+            }
+
+            if (isset($params['order']) && $params['order'] != "") {
+                $order = trim($params['order']);
+                $orderArr = explode(",", $order);
+                //print_r($orderArr);
+                if (count($orderArr) === 1)
+                    $order = trim($params['order']);
+            } else {
+                $order = "DESC";
+            }
+            $sorguStr = null;                            
+            if (isset($params['filterRules'])) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+              
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                            case 'name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'name_eng':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'parent_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ay.name, ''), ay.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.description, ''), a.description_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'op_user_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND u.username" . $sorguExpression . ' ';
+
+                                break;
+                            case 'state_active':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $sorguStr = null;
+                $filterRules = "";
+            }
+            $sorguStr = rtrim($sorguStr, "AND "); 
+
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');       
+                            
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql .="  a.parent_id  = " . intval($parentID). "  AND  " ; 
+            }  
+            $customerApplicationTypeID =0 ;
+            if (isset($params['CustomerApplicationTypeID']) && $params['CustomerApplicationTypeID'] != "") {
+                $customerApplicationTypeID = $params['CustomerApplicationTypeID'];
+                $addSql .="  a.act_parent_id  = " . intval($customerApplicationTypeID). "  AND  " ; 
+            }  
+
+                $sql = "
+                    SELECT  
+                        a.id, 
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
+			a.parent_id,  
+			COALESCE(NULLIF(ay.name, ''), ay.name_eng) AS parent_name,
+			COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description,
+                      /*  a.name_eng, */
+                        a.act_parent_id,   
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified,
+                        /* a.priority, */ 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM sys_customer_application_types a                    
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                    LEFT JOIN sys_customer_application_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+		    LEFT JOIN sys_customer_application_types ay ON (ay.act_parent_id = a.parent_id ) AND ay.deleted = 0 AND ay.active = 0 AND ay.language_id = lx.id 
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.active =0 AND                         
+                        a.language_parent_id =0   
+                     
+                " . $addSql . "
+                " . $sorguStr . " 
+                ORDER BY    " . $sort . " "
+                    . "" . $order . " "
+                    . "LIMIT " . $pdo->quote($limit) . " "
+                    . "OFFSET " . $pdo->quote($offset) . " ";
+            $statement = $pdo->prepare($sql);
+            $parameters = array(
+                'sort' => $sort,
+                'order' => $order,
+                'limit' => $pdo->quote($limit),
+                'offset' => $pdo->quote($offset),
+            ); 
+                $statement = $pdo->prepare($sql);
+                //  echo debugPDO($sql, $parameters);                
+                $statement->execute();
+                $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                $errorInfo = $statement->errorInfo(); 
+              //  $ColumnCount = $statement->columnCount();
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                    throw new \PDOException($errorInfo[0]);
+                return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+                            
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
+        }
+    }
     
-    
+    /** 
+     * @author Okan CIRAN
+     * @ Müşterinin araçların hangi uygulama da kullanacagı alan bilgileri  tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_customer_application_types 
+     * @version v 1.0  20.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException  
+     */  
+    public function fillCalendarTypesGridxRtl($params = array()) {
+        try {             
+            $sorguStr = null;    
+            $addSql = null;
+            if (isset($params['filterRules'])) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+              
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                            case 'name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'name_eng':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'parent_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ay.name, ''), ay.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.description, ''), a.description_eng)" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'op_user_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND u.username" . $sorguExpression . ' ';
+
+                                break;
+                            case 'state_active':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $sorguStr = null;
+                $filterRules = "";
+            }
+            $sorguStr = rtrim($sorguStr, "AND "); 
+
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');       
+                            
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql .="  a.parent_id  = " . intval($parentID). "  AND  " ; 
+            }  
+            $customerApplicationTypeID =0 ;
+            if (isset($params['CustomerApplicationTypeID']) && $params['CustomerApplicationTypeID'] != "") {
+                $customerApplicationTypeID = $params['CustomerApplicationTypeID'];
+                $addSql .="  a.act_parent_id  = " . intval($customerApplicationTypeID). "  AND  " ; 
+            }  
+                $sql = "
+                   SELECT COUNT(asdx.id) count FROM ( 
+                        SELECT  
+                            a.id, 
+                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                            COALESCE(NULLIF(ay.name, ''), ay.name_eng) AS parent_name,
+                            COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description, 
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                            u.username AS op_user_name 
+                        FROM sys_customer_application_types a                    
+                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                        LEFT JOIN sys_customer_application_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+                        LEFT JOIN sys_customer_application_types ay ON (ay.act_parent_id = a.parent_id ) AND ay.deleted = 0 AND ay.active = 0 AND ay.language_id = lx.id 
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/   
+                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                        /**/
+                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+
+                        WHERE  
+                            a.active =0 AND                         
+                            a.language_parent_id =0   
+                         " . $addSql . "
+                         " . $sorguStr . " 
+                    ) asdx
+                        
+                         "; 
+                $statement = $pdo->prepare($sql);
+                //  echo debugPDO($sql, $parameters);                
+                $statement->execute();
+                $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                $errorInfo = $statement->errorInfo(); 
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                    throw new \PDOException($errorInfo[0]);
+                return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+                            
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
+        }
+    }
+   
     
 }

@@ -91,9 +91,21 @@ class SysCustomerApplicationTypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function customerApplicationTypesDdList($params = array()) {
+    public function customerApplicationMainTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCustomerApplicationTypesOraPDO');
-        $resultSet = $DAL->customerApplicationTypesDdList($params);
+        $resultSet = $DAL->customerApplicationMainTypesDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function customerApplicationParentTypesDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerApplicationTypesOraPDO');
+        $resultSet = $DAL->customerApplicationParentTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

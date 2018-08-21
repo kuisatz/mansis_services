@@ -45,7 +45,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkCustomerApplicationTypesDdList_syscustomerapplicationtypes/", function () use ($app ) {
+$app->get("/pkCustomerApplicationMainTypesDdList_syscustomerapplicationtypes/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysCustomerApplicationTypesBLL');
@@ -55,7 +55,7 @@ $app->get("/pkCustomerApplicationTypesDdList_syscustomerapplicationtypes/", func
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerApplicationTypesDdList_syscustomerapplicationtypes" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerApplicationMainTypesDdList_syscustomerapplicationtypes" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
@@ -74,9 +74,72 @@ $app->get("/pkCustomerApplicationTypesDdList_syscustomerapplicationtypes/", func
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->customerApplicationTypesDdList(array(                                   
+    $resCombobox = $BLL->customerApplicationMainTypesDdList(array(                                   
                                      'language_code' => $vLanguageCode,
                                      'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+            "attributes" => array( 
+                                    "active" => $flow["active"], 
+                   
+                ),
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkCustomerApplicationParentTypesDdList_syscustomerapplicationtypes/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysCustomerApplicationTypesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerApplicationMainTypesDdList_syscustomerapplicationtypes" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+    $parentID = null;
+    if (isset($_GET['parent_id'])) {
+         $stripper->offsetSet('parent_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['parent_id']));
+    }
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('parent_id')) $parentID = $stripper->offsetGet('parent_id')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+        
+    $resCombobox = $BLL->customerApplicationParentTypesDdList(array(                                   
+                                     'language_code' => $vLanguageCode,
+                                     'LanguageID' => $lid,
+                                     'ParentID' => $parentID,
                         ));    
 
     $flows = array(); 

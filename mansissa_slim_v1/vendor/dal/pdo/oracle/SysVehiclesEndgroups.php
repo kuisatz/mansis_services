@@ -750,16 +750,11 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                                 $sorguStr.=" AND vcat.name" . $sorguExpression . ' ';
 
                                 break; 
-                             case 'cost_description':
+                             case 'endgroup_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.cost_description" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.endgroup_description" . $sorguExpression . ' ';
 
-                                break; 
-                              case 'bbtb_description':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.bbtb_description" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -834,8 +829,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
 			vct.name config_type_name ,
                         a.cap_type_id,
 			vcat.name cap_name , 
-			a.cost_description,
-			a.bbtb_description,  
+			a.endgroup_description, 
                         a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
@@ -847,14 +841,14 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_vehicles_endgroups a                    
-                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0    
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
-		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
-		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.deleted = 0 AND vct.active = 0  
-		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
+		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.show_it = 0  
+		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
+		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
+		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
  
 		     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -941,16 +935,11 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                                 $sorguStr.=" AND vcat.name" . $sorguExpression . ' ';
 
                                 break; 
-                             case 'cost_description':
+                             case 'endgroup_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.cost_description" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.endgroup_description" . $sorguExpression . ' ';
 
-                                break; 
-                              case 'bbtb_description':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.bbtb_description" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -1027,21 +1016,20 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                              vct.name config_type_name ,
                              a.cap_type_id,
                              vcat.name cap_name , 
-                             a.cost_description,
-                             a.bbtb_description,  
+                             a.endgroup_description, 
                              a.act_parent_id,   
                              COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                              u.username AS op_user_name  
                              COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                          FROM sys_vehicles_endgroups a                    
-                         INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0    
+                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0    
                          INNER JOIN info_users u ON u.id = a.op_user_id 
                          /*----*/
-                         INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
-                         INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
-                         INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.deleted = 0 AND vct.active = 0  
-                         INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
+                         INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.show_it = 0  
+                         INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
+                         INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
+                         INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
 
                           /*----*/                 
                         /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */

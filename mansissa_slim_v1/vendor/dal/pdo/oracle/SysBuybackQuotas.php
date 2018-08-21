@@ -657,17 +657,17 @@ class SysBuybackQuotas extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_buyback_quotas a                    
-                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0 
-		    INNER JOIN sys_vehicles_endgroups ve ON  ve.act_parent_id = a.model_id  AND ve.deleted = 0 AND ve.active = 0  
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
+		    INNER JOIN sys_vehicles_endgroups ve ON  ve.act_parent_id = a.model_id  AND ve.show_it = 0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
-		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
-		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.deleted = 0 AND vct.active = 0  
-		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
-		    INNER JOIN sys_months m ON m.parent_id = 9 AND m.act_parent_id = a.month_id AND m.deleted = 0 AND m.active = 0  
-		    LEFT JOIN sys_months mx ON (mx.act_parent_id = m.act_parent_id OR mx.language_parent_id = m.act_parent_id) AND mx.deleted = 0 AND mx.active = 0 AND mx.language_id = lx.id
+		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.show_it = 0  
+		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.show_it = 0  
+		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.show_it= 0  
+		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.show_it = 0  
+		    INNER JOIN sys_months m ON m.parent_id = 9 AND m.act_parent_id = a.month_id AND m.show_it= 0  
+		    LEFT JOIN sys_months mx ON (mx.act_parent_id = m.act_parent_id OR mx.language_parent_id = m.act_parent_id) AND mx.show_it = 0 AND mx.language_id = lx.id
                     /*----*/   
                    /***/
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -853,17 +853,17 @@ class SysBuybackQuotas extends \DAL\DalSlim {
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                             u.username AS op_user_name  
                         FROM sys_buyback_quotas a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0 
+                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
                         INNER JOIN sys_vehicles_endgroups ve ON  ve.act_parent_id = a.model_id  AND ve.deleted = 0 AND ve.active = 0  
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/
-                        INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.deleted = 0 AND vgtm.active = 0  
-                        INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.deleted = 0 AND vmv.active = 0  
-                        INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.deleted = 0 AND vct.active = 0  
-                        INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.deleted = 0 AND vcat.active = 0  
-                        INNER JOIN sys_months m ON m.parent_id = 9 AND m.act_parent_id = a.month_id AND m.deleted = 0 AND m.active = 0  
-                        LEFT JOIN sys_months mx ON (mx.act_parent_id = m.act_parent_id OR mx.language_parent_id = m.act_parent_id) AND mx.deleted = 0 AND mx.active = 0 AND mx.language_id = lx.id
+                        INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.show_it = 0  
+                        INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.show_it = 0  
+                        INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.show_it = 0  
+                        INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.show_it = 0  
+                        INNER JOIN sys_months m ON m.parent_id = 9 AND m.act_parent_id = a.month_id AND m.show_it = 0  
+                        LEFT JOIN sys_months mx ON (mx.act_parent_id = m.act_parent_id OR mx.language_parent_id = m.act_parent_id) AND mx.show_it = 0 AND mx.language_id = lx.id
                         /*----*/   
                        /***/
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */

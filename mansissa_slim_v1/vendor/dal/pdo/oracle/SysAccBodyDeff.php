@@ -684,13 +684,13 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_acc_body_deff a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0   
-                    LEFT JOIN sys_acc_body_deff ax ON (ax.act_parent_id = a.id OR ax.language_parent_id = a.id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0   
+                    LEFT JOIN sys_acc_body_deff ax ON (ax.act_parent_id = a.id OR ax.language_parent_id = a.id) AND ax.show_it = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_acc_body_types b ON b.act_parent_id = a.acc_body_type_id AND b.deleted = 0 AND b.active = 0 AND b.language_id= l.id
-                    LEFT JOIN sys_acc_body_types bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.deleted = 0 AND bx.active = 0 AND bx.language_id =lx.id  
+		    INNER JOIN sys_acc_body_types b ON b.act_parent_id = a.acc_body_type_id AND b.show_it = 0 AND b.language_id= l.id
+                    LEFT JOIN sys_acc_body_types bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.show_it = 0 AND bx.language_id =lx.id  
                     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -818,20 +818,20 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                              COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                              u.username AS op_user_name 
                          FROM sys_acc_body_deff a                    
-                         INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
-                         LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0   
-                         LEFT JOIN sys_acc_body_deff ax ON (ax.act_parent_id = a.id OR ax.language_parent_id = a.id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
-                         INNER JOIN info_users u ON u.id = a.op_user_id 
-                         /*----*/
-                         INNER JOIN sys_acc_body_types b ON b.act_parent_id = a.acc_body_type_id AND b.deleted = 0 AND b.active = 0 AND b.language_id =l.id  
-                         LEFT JOIN sys_acc_body_types bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.deleted = 0 AND bx.active = 0 AND bx.language_id =lx.id  
-                         /*----*/                 
-                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                         /**/
-                       /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
+                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0   
+                        LEFT JOIN sys_acc_body_deff ax ON (ax.act_parent_id = a.id OR ax.language_parent_id = a.id) AND ax.show_it = 0 AND ax.language_id = lx.id
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/
+                        INNER JOIN sys_acc_body_types b ON b.act_parent_id = a.acc_body_type_id AND b.show_it = 0 AND b.language_id= l.id
+                        LEFT JOIN sys_acc_body_types bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.show_it = 0 AND bx.language_id =lx.id  
+                        /*----*/                 
+                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                        /**/
+                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
                          WHERE  
                              a.active =0 AND                         
                              a.language_parent_id =0   

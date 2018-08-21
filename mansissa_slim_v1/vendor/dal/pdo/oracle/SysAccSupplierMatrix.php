@@ -788,19 +788,19 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
                             
                             u.username AS op_user_name 
                         FROM sys_acc_supplier_matrix a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.deleted =0 AND lx.active =0   
+                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
 
-                        INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
-                        LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.deleted = 0 AND adx.active = 0 AND adx.language_id =lx.id  
+                        INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.show_it = 0 AND ad.language_id= l.id
+                        LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.show_it = 0 AND adx.language_id =lx.id  
 
-                        INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
-                        LEFT JOIN sys_accessory_options apx ON apx.language_id = lx.id AND (apx.act_parent_id = ap.act_parent_id OR apx.language_parent_id = ap.id) AND apx.deleted = 0 AND apx.active = 0
+                        INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.show_it = 0 AND ap.language_id = l.id
+                        LEFT JOIN sys_accessory_options apx ON apx.language_id = lx.id AND (apx.act_parent_id = ap.act_parent_id OR apx.language_parent_id = ap.id) AND apx.show_it = 0
 
-                        INNER JOIN sys_supplier s ON s.id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
-                        LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+                        INNER JOIN sys_supplier s ON s.id = a.supplier_id AND s.show_it= 0 AND s.language_parent_id =0 AND s.language_id= l.id
+                        LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
 
                         /*----*/   
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
