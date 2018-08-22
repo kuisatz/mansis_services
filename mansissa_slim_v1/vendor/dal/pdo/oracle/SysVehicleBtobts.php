@@ -13,18 +13,18 @@ namespace DAL\PDO\Oracle;
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager
  * @
- * @author Okan CIRAN
- * @since 30.07.2018   
+ * @author Okan CIRAN      
+ * @since 22.08.2018                     
  */ 
-class SysRmSubsidyMatrix extends \DAL\DalSlim {
+class SysVehicleBtobts extends \DAL\DalSlim {
 
     /**
-     * @author Okan CIRAN  
-     * @ sys_rm_subsidy_matrix tablosundan parametre olarak  gelen id kaydını siler. !!
-     * @version v 1.0  30.07.2018
-     * @param array $params
-     * @return array
-     * @throws \PDOException   
+     * @author Okan CIRAN    
+     * @ sys_vehicle_btobts tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @version v 1.0  22.08.2018
+     * @param array $params   
+     * @return array  
+     * @throws \PDOException  
      */
     public function delete($params = array()) {
      try {
@@ -34,7 +34,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_rm_subsidy_matrix
+                UPDATE sys_vehicle_btobts
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,8 +58,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_rm_subsidy_matrix tablosundaki tüm kayıtları getirir.  !!
-     * @version v 1.0  30.07.2018  
+     * @ sys_vehicle_btobts tablosundaki tüm kayıtları getirir.  !!
+     * @version v 1.0  22.08.2018
      * @param array $params
      * @return array
      * @throws \PDOException 
@@ -90,7 +90,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_rm_subsidy_matrix a
+                FROM sys_vehicle_btobts a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_rm_subsidy_matrix ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicle_btobts ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,8 +117,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_rm_subsidy_matrix tablosuna yeni bir kayıt oluşturur.  !!
-     * @version v 1.0  30.07.2018
+     * @ sys_vehicle_btobts tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  22.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -142,7 +142,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_rm_subsidy_matrix(
+                INSERT INTO sys_vehicle_btobts(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_rm_subsidy_matrix_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_vehicle_btobts_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,8 +187,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_rm_subsidy_matrix tablosunda property_name daha önce kaydedilmiş mi ?  
-     * @version v 1.0 13.03.2016
+     * @ sys_vehicle_btobts tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @version v 1.0  22.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -206,7 +206,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_rm_subsidy_matrix  a                          
+            FROM sys_vehicle_btobts  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,8 +227,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_rm_subsidy_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
-     * @version v 1.0  30.07.2018
+     * sys_vehicle_btobts tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  22.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -251,7 +251,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_rm_subsidy_matrix
+                    UPDATE sys_vehicle_btobts
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,8 +290,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_rm_subsidy_matrix tablosundan kayıtları döndürür !!
-     * @version v 1.0  30.07.2018
+     * @ Gridi doldurmak için sys_vehicle_btobts tablosundan kayıtları döndürür !!
+     * @version v 1.0  22.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException
@@ -351,7 +351,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_rm_subsidy_matrix a
+                FROM sys_vehicle_btobts a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_rm_subsidy_matrix ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_vehicle_btobts ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,8 +388,8 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_rm_subsidy_matrix tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
-     * @version v 1.0  30.07.2018
+     * @ Gridi doldurmak için sys_vehicle_btobts tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @version v 1.0  22.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException
@@ -401,7 +401,7 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_rm_subsidy_matrix a
+                FROM sys_vehicle_btobts a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,9 +425,9 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_rm_subsidy_matrix tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_vehicle_btobts tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
-      * @version v 1.0  30.07.2018
+     * @version v 1.0  22.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -442,13 +442,13 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_rm_subsidy_matrix
+                UPDATE sys_vehicle_btobts
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_rm_subsidy_matrix
+                                FROM sys_vehicle_btobts
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -475,6 +475,80 @@ class SysRmSubsidyMatrix extends \DAL\DalSlim {
         }
     }
     
+    /** 
+     * @author Okan CIRAN
+     * @ bto / bts  dropdown ya da tree ye doldurmak için sys_acc_body_types tablosundan kayıtları döndürür !!
+     * @version v 1.0  22.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  vehicleBtoBtsTypesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM ( 
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.name AS name,  
+                    a.name AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicle_btobts a    
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0   
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
     
     
     

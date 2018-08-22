@@ -127,6 +127,7 @@ class DalManagerConfig {
                    'sysVehicleGtModelsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleGtModelsFactory',
                    'sysVehicleModelVariantsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleModelVariantsFactory',
                    'sysVehiclesOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehiclesFactory',
+                   'sysVehicleBtobtsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleBtobtsFactory',                 
                    'sysWarrantiesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantiesFactory', 
                    'sysWarrantyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyMatrixFactory',
                    'sysWarrantyTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyTypesFactory',                 
@@ -199,7 +200,7 @@ class DalManagerConfig {
                 
                 'actUsersActionStatisticsOraPDO' => 'DAL\Factory\PDO\Oracle\ActUsersActionStatisticsFactory',
                 'sysNotificationRestservicesOraPDO' => 'DAL\Factory\PDO\Oracle\SysNotificationRestservicesFactory',
-                'sysSectorsOraPDO' => 'DAL\Factory\PDO\Oracle\SysSectorsFactory',
+              
                
                 
                 

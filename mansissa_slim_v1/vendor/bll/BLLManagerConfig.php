@@ -120,6 +120,7 @@ class BLLManagerConfig{
                    'sysVehicleGtModelsBLL' => 'BLL\BLL\SysVehicleGtModels',
                    'sysVehicleModelVariantsBLL' => 'BLL\BLL\SysVehicleModelVariants',
                    'sysVehiclesBLL' => 'BLL\BLL\SysVehicles',
+                   'sysVehicleBtobtsBLL' => 'BLL\BLL\SysVehicleBtobts', 
                    'sysWarrantiesBLL' => 'BLL\BLL\SysWarranties', 
                    'sysWarrantyMatrixBLL' => 'BLL\BLL\SysWarrantyMatrix',
                    'sysWarrantyTypesBLL' => 'BLL\BLL\SysWarrantyTypes',
@@ -192,7 +193,7 @@ class BLLManagerConfig{
                  
                 'actUsersActionStatisticsBLL' => 'BLL\BLL\ActUsersActionStatistics',
                 'sysNotificationRestservicesBLL' => 'BLL\BLL\SysNotificationRestservices',
-                'sysSectorsBLL' => 'BLL\BLL\SysSectors',
+                 
              
                   
                  
