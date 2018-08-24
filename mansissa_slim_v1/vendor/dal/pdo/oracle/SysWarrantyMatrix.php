@@ -693,7 +693,7 @@ class SysWarranties extends \DAL\DalSlim {
 		    LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                       
                     WHERE  
-                        a.active =0 
+                        a.deleted =0 
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -901,7 +901,7 @@ class SysWarranties extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
 
                         WHERE  
-                            a.active =0 
+                            a.deleted =0 
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx

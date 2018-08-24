@@ -699,7 +699,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.active =0 AND                         
+                        a.deleted =0 AND                         
                         a.language_parent_id =0  
  
                      
@@ -833,7 +833,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                          WHERE  
-                             a.active =0 AND                         
+                             a.deleted =0 AND                         
                              a.language_parent_id =0   
                          " . $addSql . "
                          " . $sorguStr . " 
@@ -854,4 +854,160 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
+    
+    /**
+     * @author Okan CIRAN     
+     * @ sys_acc_body_deff tablosundan parametre olarak  gelen id kaydın active alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1 olarak  yeni kayıt yapar. ! ana tablo  sys_acc_body_deff 
+     * @version v 1.0  01.02.2016
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' =>  $params['pk'],);
+            $opUserIdArray = $this->slimApp-> getBLLManager()->get('opUserIdBLL');  
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+                   
+                $kontrol = $this->haveRecords(array(
+                                        'user_id' => $opUserIdValue, 
+                                        'communications_no' => $params['communications_no'], 
+                                        'communications_type_id' => $params['communications_type_id'], 
+                                            ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                
+                
+                
+                $url = null;
+                if (isset($params['url']) && $params['url'] != "") {
+                    $url = $params['url'];
+                }    
+                $m = null;
+                if (isset($params['m']) && $params['m'] != "") {
+                    $m = $params['m'];
+                }  
+                $a = null;
+                if (isset($params['a']) && $params['a'] != "") {
+                    $a = $params['a'];
+                }  
+                $operationIdValue =  0;
+                $assignDefinitionIdValue = 0;
+                $operationTypeParams = array('url' => $url, 'role_id' => $opUserRoleIdValue, 'm' => $m,'a' => $a,);
+                $operationTypes = $this->slimApp-> getBLLManager()->get('operationsTypesBLL');  
+                $operationTypesValue = $operationTypes->getDeleteOperationId($operationTypeParams);
+                if (\Utill\Dal\Helper::haveRecord($operationTypesValue)) { 
+                    $operationIdValue = $operationTypesValue ['resultSet'][0]['id']; 
+                    $assignDefinitionIdValue = $operationTypesValue ['resultSet'][0]['assign_definition_id'];
+                    if ($operationIdValue > 0) {
+                        $url = null;
+                    }
+                }  
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO info_users_communications (
+                        user_id,
+                        active, 
+                        deleted,
+                        op_user_id,
+                        operation_type_id,
+                        communications_type_id, 
+                        communications_no, 
+                        description, 
+                        description_eng,
+                        profile_public,
+                        consultant_id,
+                        consultant_confirm_type_id, 
+                        confirm_id,
+                        language_parent_id,                        
+                        consultant_id,
+                        consultant_confirm_type_id,
+                        confirm_id,
+                        act_parent_id,
+                        default_communication_id 
+                        )
+                    SELECT
+                        user_id,
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id,
+                        " . intval($operationIdValue) . ",
+                        communications_type_id,
+                        communications_no,
+                        description,
+                        description_eng,
+                        profile_public,
+                        consultant_id, 
+                        consultant_confirm_type_id, 
+                        confirm_id,
+                        language_parent_id ,                        
+                        consultant_id,
+                        consultant_confirm_type_id,
+                        confirm_id,
+                        act_parent_id,
+                        default_communication_id 
+                    FROM info_users_communications 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount();
+                $insertID = $pdo->lastInsertId('info_users_communications_id_seq');
+                $errorInfo = $statementInsert->errorInfo();
+                /*
+                 * ufak bir trik var. 
+                 * işlem update oldugunda update işlemini yapan kişinin dil bilgisini kullanıcaz. 
+                 * ancak delete işlemi oldugunda delete işlemini yapan user in dil bilgisini değil 
+                 * silinen kaydı yapan kişinin dil bilgisini alıcaz.
+                 */
+                $consIdAndLanguageId = SysOperationTypes::getConsIdAndLanguageId(
+                                   array('operation_type_id' =>$operationIdValue, 'id' => $params['id'],));
+                if (\Utill\Dal\Helper::haveRecord($consIdAndLanguageId)) {
+                    $ConsultantId = $consIdAndLanguageId ['resultSet'][0]['consultant_id'];
+                    $languageIdValue = $consIdAndLanguageId ['resultSet'][0]['language_id'];
+                    $assignDefinitionIdValue = $consIdAndLanguageId ['resultSet'][0]['assign_definition_id'];
+                }
+ 
+                $consultantProcessSendParams = array(
+                            'op_user_id' => intval($opUserIdValue), // işlemi yapan user
+                            'operation_type_id' => intval($operationIdValue), // operasyon 
+                            'table_column_id' => intval($insertID), // işlem yapılan tablo id si
+                            'cons_id' => intval($ConsultantId), // atanmış olan danısman 
+                            'preferred_language_id' => intval($languageIdValue), // dil bilgisi
+                            'url' => $url,
+                            'assign_definition_id' => $assignDefinitionIdValue, // operasyon atama tipi
+                         );
+                $setConsultantProcessSend = $this->slimApp-> getBLLManager()->get('consultantProcessSendBLL');  
+                $setConsultantProcessSendArray= $setConsultantProcessSend->insert($consultantProcessSendParams);
+                if ($setConsultantProcessSendArray['errorInfo'][0] != "00000" &&
+                        $setConsultantProcessSendArray['errorInfo'][1] != NULL &&
+                        $setConsultantProcessSendArray['errorInfo'][2] != NULL)
+                    throw new \PDOException($setConsultantProcessSendArray['errorInfo']);
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'communications_no';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }                
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                 $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
 }

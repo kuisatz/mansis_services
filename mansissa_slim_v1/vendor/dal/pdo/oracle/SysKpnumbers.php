@@ -669,7 +669,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.active =0  
+                       a.deleted =0 
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -780,7 +780,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                            a.active =0  
+                           a.deleted =0 
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
