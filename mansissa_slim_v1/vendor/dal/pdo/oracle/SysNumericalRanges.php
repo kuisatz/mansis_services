@@ -772,8 +772,8 @@ class SysNumericalRanges extends \DAL\DalSlim {
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
+		    INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		    LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -782,7 +782,9 @@ class SysNumericalRanges extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.deleted =0            
+                        a.deleted =0 AND
+                        a.show_it =0 AND 
+                        a.language_parent_id =0 
                 " . $addSql . "
                 " . $sorguStr . " 
                 ORDER BY    " . $sort . " "
@@ -906,8 +908,8 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
-                        INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
-                        LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
+                        INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+                        LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
                         /*----*/   
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -916,7 +918,9 @@ class SysNumericalRanges extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                            a.deleted =0 
+                            a.deleted =0 AND
+                            a.show_it =0 AND 
+                            a.language_parent_id =0 
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -936,5 +940,110 @@ class SysNumericalRanges extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
+    
+        /**
+     * @author Okan CIRAN
+     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @version v 1.0  24.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function makePassive($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $statement = $pdo->prepare(" 
+                UPDATE sys_numerical_ranges
+                SET                         
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    active = 1 ,
+                    show_it =1 
+                WHERE id = :id");
+            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+            $update = $statement->execute();
+            $afterRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]); 
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+        } catch (\PDOException $e /* Exception $e */) { 
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    /**
+     * @author Okan CIRAN     
+     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_numerical_ranges (
+                        name,
+                        name_eng,
+                        value1,
+                        parent_id,
+                        
+                        language_id,
+                        language_parent_id,
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        name,
+                        name_eng,
+                        value1,
+                        parent_id,
+                        
+                        language_id,
+                        language_parent_id, 
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_numerical_ranges 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    
+    
     
 }

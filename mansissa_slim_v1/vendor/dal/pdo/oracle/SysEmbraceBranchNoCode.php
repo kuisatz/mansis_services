@@ -525,8 +525,7 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
 
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.embrace_branch_no_code, ''), a.embrace_branch_no_code) AS name,   /* abbrevation  eklenecek okii*/
-                    a.department_dealership AS name_eng,
+                    COALESCE(NULLIF(sd.embrace_branch_no_code, ''), a.embrace_branch_no_code) AS name,   /* abbrevation  eklenecek okii*/ 
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
@@ -606,21 +605,16 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.embrace_branch_no_code" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'department_dealership':
+                            case 'department_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sqx.description, ''), sq.description_eng)" . $sorguExpression . ' ';
 
                                 break; 
                              case 'abbrevation':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.abbrevation" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'department_dealership':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                               case 'description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.description" . $sorguExpression . ' ';
@@ -662,13 +656,19 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+            $departmentID =0 ;
+            if (isset($params['DepartmentID']) && $params['DepartmentID'] != "") {
+                $departmentID = $params['DepartmentID'];
+                $addSql .="  a.sis_department_id  = " . intval($departmentID). "  AND  " ; 
+            }  
                             
 
                 $sql = "
                     SELECT  
                         a.id,  
 			a.embrace_branch_no_code,
-			a.department_dealership,
+			a.sis_department_id,
+                        COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
 			a.abbrevation,
 			a.description,
                       /*  a.name_eng, */
@@ -690,6 +690,11 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                     LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+                    INNER JOIN sys_sis_departments sq ON sq.act_parent_id = a.sis_department_id AND sq.show_it= 0 AND sq.language_id= l.id
+		    LEFT JOIN sys_sis_departments sqx ON (sqx.act_parent_id = sq.act_parent_id OR sqx.language_parent_id= sq.act_parent_id) AND sqx.show_it = 0 AND sqx.language_id =lx.id  
+                    /*----*/  
+
+
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -697,7 +702,8 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.deleted =0 
+                        a.deleted =0 AND
+                        a.show_it =0    
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -753,21 +759,16 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.embrace_branch_no_code" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'department_dealership':
+                             case 'department_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(sqx.description, ''), sq.description_eng)" . $sorguExpression . ' ';
 
                                 break; 
                              case 'abbrevation':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.abbrevation" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'department_dealership':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                               case 'description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.description" . $sorguExpression . ' ';
@@ -809,6 +810,11 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+            $departmentID =0 ;
+            if (isset($params['DepartmentID']) && $params['DepartmentID'] != "") {
+                $departmentID = $params['DepartmentID'];
+                $addSql .="  a.sis_department_id  = " . intval($departmentID). "  AND  " ; 
+            }  
                             
 
                 $sql = "
@@ -816,7 +822,8 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                          SELECT  
                             a.id,  
                             a.embrace_branch_no_code,
-                            a.department_dealership,
+                            a.sis_department_id,
+                            COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
                             a.abbrevation,
                             a.description, 
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
@@ -826,6 +833,9 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                         LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
+                        INNER JOIN sys_sis_departments sq ON sq.act_parent_id = a.sis_department_id AND sq.show_it= 0 AND sq.language_id= l.id
+                        LEFT JOIN sys_sis_departments sqx ON (sqx.act_parent_id = sq.act_parent_id OR sqx.language_parent_id= sq.act_parent_id) AND sqx.show_it = 0 AND sqx.language_id =lx.id  
+                        /*----*/ 
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                         /**/
@@ -833,7 +843,8 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                            a.deleted =0 
+                            a.deleted =0 AND
+                            a.show_it =0   
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -854,6 +865,104 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
         }
     }
     
+     /**
+     * @author Okan CIRAN
+     * @ sys_embrace_branch_no_code tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @version v 1.0  24.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function makePassive($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $statement = $pdo->prepare(" 
+                UPDATE sys_embrace_branch_no_code
+                SET                         
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    active = 1 ,
+                    show_it =1 
+                WHERE id = :id");
+            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+            $update = $statement->execute();
+            $afterRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]); 
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+        } catch (\PDOException $e /* Exception $e */) { 
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    /**
+     * @author Okan CIRAN     
+     * @ sys_embrace_branch_no_code tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_embrace_branch_no_code (
+                        sis_department_id,
+                        embrace_branch_no_code,
+                        abbrevation,
+                        description,
+                       
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        sis_department_id,
+                        embrace_branch_no_code,
+                        abbrevation,
+                        description,
+                         
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_embrace_branch_no_code 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
     

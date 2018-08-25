@@ -477,13 +477,13 @@ class SysContractTypes extends \DAL\DalSlim {
     
      /** 
      * @author Okan CIRAN
-     * @ kontrakt tipleri dropdown ya da tree ye doldurmak için sys_contract_types tablosundan kayıtları döndürür !!
+     * @ ana kontrakt tipleri dropdown ya da tree ye doldurmak için sys_contract_types tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function  contractTypesDdList($params = array()) {
+    public function  contractMainTypesDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -527,7 +527,7 @@ class SysContractTypes extends \DAL\DalSlim {
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
-                     0 as parent_id,
+                    a.parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_contract_types a    
@@ -537,9 +537,97 @@ class SysContractTypes extends \DAL\DalSlim {
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
+                    a.parent_id =0 AND
                     a.language_parent_id =0 
                     ) asd 
                 ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    /** 
+     * @author Okan CIRAN
+     * @ kontrakt tipleri alt grupları dropdown ya da tree ye doldurmak için sys_contract_types tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  contractTypesPDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+            
+            $parentIdValue =-1 ;
+            if (isset($params['Parent']) && $params['Parent'] != "") {
+                $parentIdValue = $params['Parent'];
+            }   
+              
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM (  
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type  ,
+                    -1 priority
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type ,
+                    a.priority
+                FROM sys_contract_types a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_contract_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.parent_id = " . intval($parentIdValue). "  AND
+                    a.language_parent_id =0 
+                    ) asd 
+                ORDER BY  priority
 
                                  ");
             $statement->execute();
@@ -611,6 +699,11 @@ class SysContractTypes extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
 
                                 break; 
+                            case 'parent_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
                             case 'abbrevation':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.abbrevation" . $sorguExpression . ' ';
@@ -665,17 +758,26 @@ class SysContractTypes extends \DAL\DalSlim {
             $ContractTypeID =0 ;
             if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
                 $ContractTypeID = $params['ContractTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($ContractTypeID). "  AND  " ; 
+                $addSql.="  a.act_parent_id  = " . intval($ContractTypeID). "  AND  " ; 
+            }  
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql .="  a.parent_id = " . intval($parentID). "  AND  " ; 
             }  
 
                 $sql = "
                      SELECT  
                         a.id, 
+                        a.contract_type_id,
+                        COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS parent_name,
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         a.abbrevation, 
                         a.symbol, 
                         COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description,
                       /*  a.name_eng, */
+                        a.parent_id,
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
                         a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -695,6 +797,9 @@ class SysContractTypes extends \DAL\DalSlim {
                     LEFT JOIN sys_contract_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+		    INNER JOIN sys_contract_types drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		    LEFT JOIN sys_contract_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
+                    /*----*/  
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -702,7 +807,8 @@ class SysContractTypes extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.deleted =0  AND                         
+                        a.deleted =0 AND
+                        a.show_it =0 AND                          
                         a.language_parent_id =0  
                      
                 " . $addSql . "
@@ -764,6 +870,11 @@ class SysContractTypes extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
 
                                 break; 
+                             case 'parent_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
+                              
+                                break;
                             case 'abbrevation':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.abbrevation" . $sorguExpression . ' ';
@@ -818,15 +929,24 @@ class SysContractTypes extends \DAL\DalSlim {
              $contractTypeID =0 ;
             if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
                 $contractTypeID = $params['ContractTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($contractTypeID). "  AND  " ; 
+                $addSql.="  a.act_parent_id  = " . intval($contractTypeID). "  AND  " ; 
             }   
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql .="  a.parent_id = " . intval($parentID). "  AND  " ; 
+            }  
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
                             a.id, 
+                            a.contract_type_id,
+                            COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS parent_name,
                             COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                           /*  a.name_eng, */ 
+                            a.parent_id,
+                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_contract_types a                    
@@ -835,6 +955,9 @@ class SysContractTypes extends \DAL\DalSlim {
                         LEFT JOIN sys_contract_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
+                        INNER JOIN sys_contract_types drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
+                        LEFT JOIN sys_contract_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
+                        /*----*/   
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                         /**/
@@ -842,7 +965,8 @@ class SysContractTypes extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                            a.deleted =0 AND                         
+                            a.deleted =0 AND
+                            a.show_it =0 AND                       
                             a.language_parent_id =0  
                          " . $addSql . "
                          " . $sorguStr . " 
@@ -864,6 +988,112 @@ class SysContractTypes extends \DAL\DalSlim {
         }
     }
     
+    /**
+     * @author Okan CIRAN
+     * @ sys_contract_types tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @version v 1.0  24.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function makePassive($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $statement = $pdo->prepare(" 
+                UPDATE sys_contract_types
+                SET                         
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    active = 1 ,
+                    show_it =1 
+                WHERE id = :id");
+            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+            $update = $statement->execute();
+            $afterRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]); 
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+        } catch (\PDOException $e /* Exception $e */) { 
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
+    /**
+     * @author Okan CIRAN     
+     * @ sys_contract_types tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_contract_types (
+                        name,
+                        name_eng,
+                        abbrevation,
+                        symbol,
+                        description,
+                        description_eng,
+                        
+                        language_id,
+                        language_parent_id,
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        name,
+                        name_eng,
+                        abbrevation,
+                        symbol,
+                        description,
+                        description_eng,
+                        
+                        language_id,
+                        language_parent_id, 
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_contract_types 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+     
     
 }

@@ -91,9 +91,21 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function terrainsDdList($params = array()) {
+    public function terrainsMainDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
-        $resultSet = $DAL->terrainsDdList($params);
+        $resultSet = $DAL->terrainsMainDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+     /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function terrainsPDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $resultSet = $DAL->terrainsPDdList($params);
         return $resultSet['resultSet'];
     }
     

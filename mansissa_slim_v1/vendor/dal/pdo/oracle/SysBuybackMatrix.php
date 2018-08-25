@@ -477,13 +477,13 @@ class SysBuybackMatrix extends \DAL\DalSlim {
     
       /** 
      * @author Okan CIRAN
-     * @ body tip tanımlarını grid formatında döndürür !! ana tablo  sys_buyback_matrix 
+     * @ buyback matrix  tanımlarını grid formatında döndürür !! ana tablo  sys_buyback_matrix 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillAccBodyTypesGridx($params = array()) {
+    public function fillBuybackMatrixGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -523,16 +523,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'contract_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(grdx.name, ''), grd.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'vahicle_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND crd.description" . $sorguExpression . ' ';
 
                                 break; 
+                             case 'buyback_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'terrain_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'month_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'mileage_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -569,17 +589,49 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $accBodyTypeId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodyTypeId = $params['AccBodyTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($accBodyTypeId). "  AND  " ; 
+            $contractTypeID =0 ;
+            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
+                $contractTypeID = $params['ContractTypeID'];
+                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
             }  
-
+            $monthID =0 ;
+            if (isset($params['MonthID']) && $params['MonthID'] != "") {
+                $monthID = $params['MonthID'];
+                $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
+            }  
+            $mileageID =0 ;
+            if (isset($params['MileageID']) && $params['MileageID'] != "") {
+                $mileageID = $params['MileageID'];
+                $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
+            } 
+            $terrainID =0 ;
+            if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
+                $terrainID = $params['TerrainID'];
+                $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
+            }  
+            $buybackTypeID =0 ;
+            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
+                $buybackTypeID = $params['BuybackTypeID'];
+                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
+            } 
                 $sql = "
                     SELECT 
-                        a.id, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                      /*  a.name_eng, */
+                        a.id,  
+                        a.contract_type_id,
+                        COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
+                        a.model_id ,
+                        crd.description AS vahicle_description,
+                        a.buyback_type_id,
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                        
+                        a.terrain_id,
+                        COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
+                        a.month_id,
+                        COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS month_name,
+                        a.mileage_id,
+                        COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS mileage_type_name,
+                        a.price,
+                        crd.vehicles_endgroup_id,
                         a.act_parent_id,  
                         
                         a.active,
@@ -595,21 +647,37 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_buyback_matrix a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
+                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
-                    LEFT JOIN sys_acc_body_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
+                      
+                    INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
+                    LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+                       
+                    INNER JOIN sys_mileages erd ON erd.act_parent_id = a.mileage_id AND erd.show_it = 0 AND erd.language_id= l.id  
+                    LEFT JOIN sys_mileages erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it = 0 AND erdx.language_id =lx.id  
+                    
+                    INNER JOIN sys_months frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0 AND frd.language_id= l.id  
+                    LEFT JOIN sys_months frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.show_it = 0 AND frdx.language_id =lx.id  
+                    
+                    INNER JOIN sys_contract_types grd ON grd.act_parent_id = a.contract_type_id AND grd.show_it = 0 AND grd.language_id= l.id  
+                    LEFT JOIN sys_contract_types grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.show_it = 0 AND grdx.language_id =lx.id  
+                   
+                    INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
+                    LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+                   
+                    /*----*/   
+                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
-                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.deleted =0 AND                         
-                        a.language_parent_id =0   
-                     
+                        a.deleted =0 AND
+                        a.show_it =0 
                 " . $addSql . "
                 " . $sorguStr . " 
                 ORDER BY    " . $sort . " "
@@ -641,13 +709,13 @@ class SysBuybackMatrix extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ body tip tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_buyback_matrix 
+     * @ buyback matrix  tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_buyback_matrix 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillAccBodyTypesGridxRtl($params = array()) {
+    public function fillBuybackMatrixGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -659,16 +727,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                           case 'contract_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(grdx.name, ''), grd.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'vahicle_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND crd.description" . $sorguExpression . ' ';
 
                                 break; 
+                             case 'buyback_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'terrain_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'month_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'mileage_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -679,7 +767,6 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                                 $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
 
                                 break;
-                            
                             default:
                                 break;
                         }
@@ -705,34 +792,82 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-              $accBodyTypeId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodyTypeId = $params['AccBodyTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($accBodyTypeId). "  AND  " ; 
+             $contractTypeID =0 ;
+            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
+                $contractTypeID = $params['ContractTypeID'];
+                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
             }  
+            $monthID =0 ;
+            if (isset($params['MonthID']) && $params['MonthID'] != "") {
+                $monthID = $params['MonthID'];
+                $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
+            }  
+            $mileageID =0 ;
+            if (isset($params['MileageID']) && $params['MileageID'] != "") {
+                $mileageID = $params['MileageID'];
+                $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
+            } 
+            $terrainID =0 ;
+            if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
+                $terrainID = $params['TerrainID'];
+                $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
+            }  
+            $buybackTypeID =0 ;
+            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
+                $buybackTypeID = $params['BuybackTypeID'];
+                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
+            } 
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
-                        a.id, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                        u.username AS op_user_name   
-                    FROM sys_acc_body_types a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
-                    LEFT JOIN sys_acc_body_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it= 0 AND ax.language_id = lx.id
-                    INNER JOIN info_users u ON u.id = a.op_user_id 
-                    /*----*/   
-                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                    /**/
-                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-                    
-                    WHERE  
-                        a.deleted =0 AND                         
-                        a.language_parent_id =0  
+                            a.id,  
+                            a.contract_type_id,
+                            COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
+                            a.model_id ,
+                            crd.description AS vahicle_description,
+                            a.buyback_type_id,
+                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name, 
+                            a.terrain_id,
+                            COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
+                            a.month_id,
+                            COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS month_name,
+                            a.mileage_id,
+                            COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS mileage_type_name, 
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                            u.username AS op_user_name 
+                        FROM sys_buyback_matrix a                    
+                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/   
+                        INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
+
+                        INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
+                        LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+
+                        INNER JOIN sys_mileages erd ON erd.act_parent_id = a.mileage_id AND erd.show_it = 0 AND erd.language_id= l.id  
+                        LEFT JOIN sys_mileages erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it = 0 AND erdx.language_id =lx.id  
+
+                        INNER JOIN sys_months frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0 AND frd.language_id= l.id  
+                        LEFT JOIN sys_months frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.show_it = 0 AND frdx.language_id =lx.id  
+
+                        INNER JOIN sys_contract_types grd ON grd.act_parent_id = a.contract_type_id AND grd.show_it = 0 AND grd.language_id= l.id  
+                        LEFT JOIN sys_contract_types grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.show_it = 0 AND grdx.language_id =lx.id  
+
+                        INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
+                        LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+
+                        /*----*/   
+                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                        /**/
+                        /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+
+                        WHERE  
+                            a.deleted =0 AND
+                            a.show_it =0   
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -753,6 +888,110 @@ class SysBuybackMatrix extends \DAL\DalSlim {
         }
     }
     
+     /**
+     * @author Okan CIRAN
+     * @ sys_buyback_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @version v 1.0  24.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function makePassive($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $statement = $pdo->prepare(" 
+                UPDATE sys_buyback_matrix
+                SET                         
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    active = 1 ,
+                    show_it =1 
+                WHERE id = :id");
+            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+            $update = $statement->execute();
+            $afterRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]); 
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+        } catch (\PDOException $e /* Exception $e */) { 
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    /**
+     * @author Okan CIRAN     
+     * @ sys_buyback_matrix tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_buyback_matrix (
+                        contract_type_id,
+                        model_id,
+                        buyback_type_id,
+                        terrain_id,
+                        month_id,
+                        mileage_id,
+                        price,
+                         
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        contract_type_id,
+                        model_id,
+                        buyback_type_id,
+                        terrain_id,
+                        month_id,
+                        mileage_id,
+                        price,
+                       
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_buyback_matrix 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
     

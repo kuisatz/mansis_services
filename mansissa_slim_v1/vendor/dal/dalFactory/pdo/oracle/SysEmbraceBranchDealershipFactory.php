@@ -14,13 +14,13 @@ namespace DAL\Factory\PDO\Oracle;
  * created to be used by DAL MAnager
  * @author Okan CIRAN
  */
-class SysTopusedProvisionValuesFactory  implements \Zend\ServiceManager\FactoryInterface{
+class SysEmbraceBranchDealershipFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTopusedProvisionValues = new \DAL\PDO\Oracle\SysTopusedProvisionValues() ;   
+        $sysEmbraceBranchDealership = new \DAL\PDO\Oracle\SysEmbraceBranchDealership() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
-        $sysTopusedProvisionValues -> setSlimApp($slimapp); 
-        return $sysTopusedProvisionValues; 
+        $sysEmbraceBranchDealership -> setSlimApp($slimapp); 
+        return $sysEmbraceBranchDealership; 
     } 
     
 }

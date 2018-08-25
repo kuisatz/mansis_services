@@ -45,10 +45,10 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkDiscountRatesDeffDdList_sysdiscountrates/", function () use ($app ) {
+$app->get("/pkDiscountRatesDeffDdList_sysdiscountratesdeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysDiscountRatesBLL');
+    $BLL = $app->getBLLManager()->get('sysDiscountRatesDeffBLL');
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {

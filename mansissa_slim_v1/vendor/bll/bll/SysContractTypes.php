@@ -88,12 +88,22 @@ class SysContractTypes extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function contractTypesDdList($params = array()) {
+    public function contractMainTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysContractTypesOraPDO');
-        $resultSet = $DAL->contractTypesDdList($params);
+        $resultSet = $DAL->contractMainTypesDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function contractTypesPDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysContractTypesOraPDO');
+        $resultSet = $DAL->contractTypesPDdList($params);
         return $resultSet['resultSet'];
     }
     

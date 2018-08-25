@@ -14,14 +14,14 @@ namespace DAL\PDO\Oracle;
  * created to be used by DAL MAnager
  * @
  * @author Okan CIRAN  
- * @since 30.07.2018  
+ * @since 25.08.2018  
  */ 
-class SysDiscountRates extends \DAL\DalSlim {
+class SysEmbraceBranchDealership extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_discount_rates tablosundan parametre olarak  gelen id kaydını siler. !!
-     * @version v 1.0  30.07.2018
+     * @ sys_embrace_branch_dealership tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @version v 1.0  25.08.2018
      * @param array $params
      * @return array
      * @throws \PDOException
@@ -34,7 +34,7 @@ class SysDiscountRates extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_discount_rates
+                UPDATE sys_embrace_branch_dealership
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,8 +58,8 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_discount_rates tablosundaki tüm kayıtları getirir.  !!
-     * @version v 1.0  30.07.2018  
+     * @ sys_embrace_branch_dealership tablosundaki tüm kayıtları getirir.  !!
+     * @version v 1.0  25.08.2018  
      * @param array $params
      * @return array
      * @throws \PDOException 
@@ -90,7 +90,7 @@ class SysDiscountRates extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_discount_rates a
+                FROM sys_embrace_branch_dealership a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_discount_rates ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_embrace_branch_dealership ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,8 +117,8 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_discount_rates tablosuna yeni bir kayıt oluşturur.  !!
-     * @version v 1.0  30.07.2018
+     * @ sys_embrace_branch_dealership tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  25.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -142,7 +142,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_discount_rates(
+                INSERT INTO sys_embrace_branch_dealership(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_discount_rates_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_embrace_branch_dealership_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_discount_rates tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_embrace_branch_dealership tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_discount_rates  a                          
+            FROM sys_embrace_branch_dealership  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,8 +227,8 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_discount_rates tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
-     * @version v 1.0  30.07.2018
+     * sys_embrace_branch_dealership tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  25.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -251,7 +251,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_discount_rates
+                    UPDATE sys_embrace_branch_dealership
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,8 +290,8 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_discount_rates tablosundan kayıtları döndürür !!
-     * @version v 1.0  30.07.2018
+     * @ Gridi doldurmak için sys_embrace_branch_dealership tablosundan kayıtları döndürür !!
+     * @version v 1.0  25.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException
@@ -351,7 +351,7 @@ class SysDiscountRates extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_discount_rates a
+                FROM sys_embrace_branch_dealership a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysDiscountRates extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_discount_rates ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_embrace_branch_dealership ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,8 +388,8 @@ class SysDiscountRates extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_discount_rates tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
-     * @version v 1.0  30.07.2018
+     * @ Gridi doldurmak için sys_embrace_branch_dealership tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @version v 1.0  25.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException
@@ -401,7 +401,7 @@ class SysDiscountRates extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_discount_rates a
+                FROM sys_embrace_branch_dealership a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,9 +425,9 @@ class SysDiscountRates extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_discount_rates tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_embrace_branch_dealership tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
-      * @version v 1.0  30.07.2018
+      * @version v 1.0  25.08.2018
      * @param type $params
      * @return array
      * @throws \PDOException
@@ -442,13 +442,13 @@ class SysDiscountRates extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_discount_rates
+                UPDATE sys_embrace_branch_dealership
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_discount_rates
+                                FROM sys_embrace_branch_dealership
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -475,15 +475,96 @@ class SysDiscountRates extends \DAL\DalSlim {
         }
     }
     
+     /** 
+     * @author Okan CIRAN
+     * @ embrace servis satıcıları dropdown ya da tree ye doldurmak için sys_embrace_branch_dealership tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  embraceBranchDealerShipDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');        
+            $addSql=null ; 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+            $embraceBranchID = - 11;
+            if (isset($params['EmbraceBranchID']) && $params['EmbraceBranchID'] != "") {
+                $embraceBranchID = $params['EmbraceBranchID'];
+                $addSql ="  a.embrace_branch_id  = " . intval($embraceBranchID). "  AND  " ; 
+            }  
+              
+            $statement = $pdo->prepare("       
+
+            SELECT * FROM (  
+
+                SELECT                    
+                   0 AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 31 AND   
+                    a.first_group = 1 AND                   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                 
+                UNION 
+
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.department_dealership,
+                    a.department_dealership AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_embrace_branch_dealership a  
+                 WHERE   
+                    a.deleted = 0 AND
+                    ".$addSql."
+                    a.active =0  
+                    ) asd 
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
     /** 
      * @author Okan CIRAN
-     * @ discount rate tanımlarını grid formatında döndürür !! ana tablo  sys_discount_rates 
+     * @ embrace servis satıcıları  tanımlarını grid formatında döndürür !! ana tablo  sys_embrace_branch_dealership 
      * @version v 1.0  20.08.2018
-     * @param array | null $args 
+     * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillDiscountRatesGridx($params = array()) {
+    public function embraceBranchDealerShipGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -523,16 +604,21 @@ class SysDiscountRates extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'embrace_branch_no_code':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND eq.embrace_branch_no_code" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'department_dealership':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
 
-                                break; 
+                                break;  
+                             case 'department_dealership':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -569,15 +655,20 @@ class SysDiscountRates extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $discountRatesDeffID =0 ;
-            if (isset($params['DiscountRatesDeffID']) && $params['DiscountRatesDeffID'] != "") {
-                $discountRatesDeffID = $params['DiscountRatesDeffID'];
-                $addSql ="  a.discount_rates_deff_id = " . intval($discountRatesDeffID). "  AND  " ; 
+            $departmentID =0 ;
+            if (isset($params['DepartmentID']) && $params['DepartmentID'] != "") {
+                $departmentID = $params['DepartmentID'];
+                $addSql .="  eq.sis_department_id  = " . intval($departmentID). "  AND  " ; 
             }  
+                            
+
                 $sql = "
-                    SELECT  
-                        a.id, 
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
+                    SELECT 
+                        a.id,  
+			eq.embrace_branch_no_code,
+			eq.sis_department_id,
+                        COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
+			a.department_dealership,
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,
@@ -592,14 +683,18 @@ class SysDiscountRates extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_discount_rates a                    
+                    FROM sys_embrace_branch_dealership a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_discount_rates_deff drd ON drd.act_parent_id = a.discount_rates_deff_id AND drd.show_it = 0 AND drd.language_id= l.id
-		    LEFT JOIN sys_discount_rates_deff drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
-                    /*----*/   
+                    INNER JOIN sys_embrace_branch_no_code eq ON eq.act_parent_id = a.embrace_branch_id AND eq.show_it= 0  
+		    
+                    INNER JOIN sys_sis_departments sq ON sq.act_parent_id = eq.sis_department_id AND sq.show_it= 0 AND sq.language_id= l.id
+		    LEFT JOIN sys_sis_departments sqx ON (sqx.act_parent_id = sq.act_parent_id OR sqx.language_parent_id= sq.act_parent_id) AND sqx.show_it = 0 AND sqx.language_id =lx.id  
+
+                    /*----*/  
+ 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -607,7 +702,8 @@ class SysDiscountRates extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                       a.deleted =0 
+                        a.deleted =0 AND
+                        a.show_it =0    
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -640,13 +736,13 @@ class SysDiscountRates extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ discount rate  tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_discount_rates 
+     * @ embrace servis satıcıları  tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_embrace_branch_dealership 
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillDiscountRatesGridxRtl($params = array()) {
+    public function embraceBranchDealerShipGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -658,16 +754,21 @@ class SysDiscountRates extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'embrace_branch_no_code':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND eq.embrace_branch_no_code" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'department_dealership':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
 
-                                break; 
+                                break;  
+                             case 'department_dealership':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.department_dealership" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -704,27 +805,35 @@ class SysDiscountRates extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $discountRatesDeffID =0 ;
-            if (isset($params['DiscountRatesDeffID']) && $params['DiscountRatesDeffID'] != "") {
-                $discountRatesDeffID = $params['DiscountRatesDeffID'];
-                $addSql ="  a.discount_rates_deff_id = " . intval($discountRatesDeffID). "  AND  " ; 
+            $departmentID =0 ;
+            if (isset($params['DepartmentID']) && $params['DepartmentID'] != "") {
+                $departmentID = $params['DepartmentID'];
+                $addSql .="  eq.sis_department_id  = " . intval($departmentID). "  AND  " ; 
             }  
+                            
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                        SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                        SELECT 
+                            a.id,  
+                            eq.embrace_branch_no_code,
+                            eq.sis_department_id,
+                            COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
+                            a.department_dealership, 
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
-                        FROM sys_discount_rates a                    
+                        FROM sys_embrace_branch_dealership a                    
                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0  
+                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
-                        INNER JOIN sys_discount_rates_deff drd ON drd.act_parent_id = a.discount_rates_deff_id AND drd.show_it = 0 AND drd.language_id= l.id
-                        LEFT JOIN sys_discount_rates_deff drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
-                        /*----*/   
+                        INNER JOIN sys_embrace_branch_no_code eq ON eq.act_parent_id = a.embrace_branch_id AND eq.show_it= 0  
+
+                        INNER JOIN sys_sis_departments sq ON sq.act_parent_id = eq.sis_department_id AND sq.show_it= 0 AND sq.language_id= l.id
+                        LEFT JOIN sys_sis_departments sqx ON (sqx.act_parent_id = sq.act_parent_id OR sqx.language_parent_id= sq.act_parent_id) AND sqx.show_it = 0 AND sqx.language_id =lx.id  
+
+                        /*----*/  
+
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                         /**/
@@ -732,7 +841,8 @@ class SysDiscountRates extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                           a.deleted =0 
+                            a.deleted =0 AND
+                            a.show_it =0    
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -753,7 +863,100 @@ class SysDiscountRates extends \DAL\DalSlim {
         }
     }
     
+     /**
+     * @author Okan CIRAN
+     * @ sys_embrace_branch_dealership tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @version v 1.0  24.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function makePassive($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $statement = $pdo->prepare(" 
+                UPDATE sys_embrace_branch_dealership
+                SET                         
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    active = 1 ,
+                    show_it =1 
+                WHERE id = :id");
+            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+            $update = $statement->execute();
+            $afterRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]); 
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+        } catch (\PDOException $e /* Exception $e */) { 
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
+    /**
+     * @author Okan CIRAN     
+     * @ sys_embrace_branch_dealership tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id']));
+
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_embrace_branch_dealership (
+                        embrace_branch_id integer,
+                        department_dealership,
+                         
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        embrace_branch_id integer,
+                        department_dealership,
+                         
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_embrace_branch_dealership 
+                    WHERE id  =" . intval($params['id']) . "    
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
     

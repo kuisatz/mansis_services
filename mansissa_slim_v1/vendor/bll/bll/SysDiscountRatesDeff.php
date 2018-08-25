@@ -12,7 +12,7 @@ namespace BLL\BLL;
 /**
  * Business Layer class for report Configuration entity
  */
-class SysTopusedProvisionValues extends \BLL\BLLSlim{
+class SysDiscountRatesDeff extends \BLL\BLLSlim{
     
     /**
      * constructor
@@ -27,7 +27,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -88,12 +88,11 @@ class SysTopusedProvisionValues extends \BLL\BLLSlim{
     /**
      * Function to fill text on user interface layer
      * @param array $params
-     * @return array
-     *  örnek olarak  bırakıldı
+     * @return array 
     */
-    public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTopusedProvisionValuesOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+    public function discountRatesDeffDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $resultSet = $DAL->discountRatesDeffDdList($params);
         return $resultSet['resultSet'];
     }
     

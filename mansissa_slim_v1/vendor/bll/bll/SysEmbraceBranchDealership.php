@@ -12,9 +12,9 @@ namespace BLL\BLL;
 /**
  * Business Layer class for report Configuration entity
  */
-class SysDiscountRates extends \BLL\BLLSlim{
+class SysEmbraceBranchDealership extends \BLL\BLLSlim{
     
-    /**
+    /**SysEmbraceBranchDealershipFactory
      * constructor
      */
     public function __construct() {
@@ -27,7 +27,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,9 +90,9 @@ class SysDiscountRates extends \BLL\BLLSlim{
      * @param array $params
      * @return array 
     */
-    public function discountRatesDeffDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesOraPDO');
-        $resultSet = $DAL->discountRatesDeffDdList($params);
+    public function embraceBranchDealerShipDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchDealershipOraPDO');
+        $resultSet = $DAL->embraceBranchDealerShipDdList($params);
         return $resultSet['resultSet'];
     }
     

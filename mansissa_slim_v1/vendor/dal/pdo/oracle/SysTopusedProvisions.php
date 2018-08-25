@@ -658,6 +658,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         a.id, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         a.abbrevation,
+                        a.value,
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,
@@ -685,8 +686,9 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        a.deleted =0 AND                         
-                        a.language_parent_id =0  
+                        a.deleted =0 AND
+                        a.show_it =0 AND 
+                        a.language_parent_id =0 
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -795,6 +797,8 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         SELECT  
                             a.id, 
                             COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                            a.abbrevation,
+                            a.value,
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_topused_provisions a                    
@@ -810,8 +814,9 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
-                            a.deleted =0  AND                         
-                            a.language_parent_id =0  
+                            a.deleted =0 AND
+                            a.show_it =0 AND 
+                            a.language_parent_id =0 
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
