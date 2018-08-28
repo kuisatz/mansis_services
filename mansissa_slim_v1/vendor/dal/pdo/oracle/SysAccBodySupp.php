@@ -608,8 +608,8 @@ class SysAccBodySupp extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
 		 --   INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                    INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = a.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
-		    LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                    INNER JOIN sys_acc_body_supp bd ON bd.act_parent_id = a.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
+		    LEFT JOIN sys_acc_body_supp bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
                     
 		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
 		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
@@ -656,7 +656,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ body aksesuar tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_acc_body_deff 
+     * @ body aksesuar tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_acc_body_supp 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
@@ -764,8 +764,8 @@ class SysAccBodySupp extends \DAL\DalSlim {
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/
                      --   INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                        INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = a.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
-                        LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                        INNER JOIN sys_acc_body_supp bd ON bd.act_parent_id = a.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id= l.id
+                        LEFT JOIN sys_acc_body_supp bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
 
                         INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id= l.id
                         LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
@@ -897,5 +897,202 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
 
+        /**
+     * @author Okan CIRAN
+     * @ sys_acc_body_supp tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accBodyDeffId = -1111;
+            if ((isset($params['AccBodyDeffId']) && $params['AccBodyDeffId'] != "")) {
+                $accBodyDeffId = intval($params['AccBodyDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cost = -1111;
+            if ((isset($params['Cost']) && $params['Cost'] != "")) {
+                $cost = intval($params['Cost']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'supplier_id' => $supplierId,
+                            'acc_body_deff_id' => $accBodyDeffId,
+                            'cost' => $cost  
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_body_supp(
+                            supplier_id,
+                            acc_body_deff_id,
+                            cost,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($supplierId) . ",
+                            " . intval($accBodyDeffId) . ",
+                            " . floatval($cost) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_body_supp_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_body_supp_id_seq');
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    /**
+     * @author Okan CIRAN
+     * sys_acc_body_supp tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999";
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accBodyDeffId = -1111;
+            if ((isset($params['AccBodyDeffId']) && $params['AccBodyDeffId'] != "")) {
+                $accBodyDeffId = intval($params['AccBodyDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cost = -1111;
+            if ((isset($params['Cost']) && $params['Cost'] != "")) {
+                $cost = intval($params['Cost']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            }else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'supplier_id' => $supplierId,
+                            'acc_body_deff_id' => $accBodyDeffId,
+                            'cost' => $cost  ,
+                            'id' => $Id  ,
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+                            
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_acc_body_supp (  
+                        supplier_id,
+                        acc_body_deff_id,
+                        cost,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($supplierId) . ",
+                    " . intval($accBodyDeffId) . ",
+                    " . floatval($cost) . ",
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_acc_body_supp 
+                WHERE id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_acc_body_supp_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+           // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }

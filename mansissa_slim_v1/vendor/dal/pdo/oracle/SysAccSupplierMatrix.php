@@ -835,7 +835,7 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
     
       /**
      * @author Okan CIRAN
-     * @ sys_acc_body_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ sys_acc_supplier_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -845,7 +845,7 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE sys_acc_body_deff
+                UPDATE sys_acc_supplier_matrix
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
@@ -865,7 +865,7 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_acc_body_deff tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ sys_acc_supplier_matrix tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -886,10 +886,12 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_acc_body_deff (
-                        name,
-                        name_eng,
-                        acc_body_type_id,
+                    INSERT INTO sys_acc_supplier_matrix (
+                        supplier_id,
+                        acc_deff_id,
+                        accessory_option_id,
+                        cost_local,
+                        cost_national,
                          
                         active,
                         deleted,
@@ -898,16 +900,18 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name,
-                        name_eng,
-                        acc_body_type_id,
+                        supplier_id,
+                        acc_deff_id,
+                        accessory_option_id,
+                        cost_local,
+                        cost_national,
                          
                         1 AS active,  
                         1 AS deleted, 
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM sys_acc_body_deff 
+                    FROM sys_acc_supplier_matrix 
                     WHERE id  =" . intval($params['id']) . "    
                     )");
 
@@ -929,7 +933,246 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
         }
     }
 
-    
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_supplier_matrix tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+                           
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accBodyTypeId = -1111;
+            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
+                $accBodyTypeId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accessoryOptionId = -1111;
+            if ((isset($params['AccessoryOptionId']) && $params['AccessoryOptionId'] != "")) {
+                $accessoryOptionId = intval($params['AccessoryOptionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costLocal = -1111;
+            if ((isset($params['CostLocal']) && $params['CostLocal'] != "")) {
+                $costLocal = floatval($params['CostLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costNational = -1111;
+            if ((isset($params['CostNational']) && $params['CostNational'] != "")) {
+                $costNational = floatval($params['CostNational']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'supplier_id' => $supplierId,
+                            'acc_deff_id' => $accBodyTypeId,
+                            'accessory_option_id' => $accessoryOptionId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_supplier_matrix(
+                            supplier_id,
+                            acc_deff_id,
+                            accessory_option_id,
+                            cost_local,
+                            cost_national,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            " . intval($supplierId) . ",
+                            " . intval($accBodyTypeId) . ",
+                            " . intval($accessoryOptionId) . ",
+                            " . floatval($costLocal) . ",
+                            " . floatval($costNational) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_supplier_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_supplier_matrix_id_seq');
+
+                    /*   */
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                    );
+                    $setInsertLanguageTemplate = $this->insert($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    /*   */
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                           
+    /**
+     * @author Okan CIRAN
+     * sys_acc_supplier_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $accBodyTypeId = -1111;
+            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
+                $accBodyTypeId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accessoryOptionId = -1111;
+            if ((isset($params['AccessoryOptionId']) && $params['AccessoryOptionId'] != "")) {
+                $accessoryOptionId = intval($params['AccessoryOptionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costLocal = -1111;
+            if ((isset($params['CostLocal']) && $params['CostLocal'] != "")) {
+                $costLocal = intval($params['CostLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costNational = -1111;
+            if ((isset($params['CostNational']) && $params['CostNational'] != "")) {
+                $costNational = intval($params['CostNational']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'supplier_id' => $supplierId,
+                            'acc_deff_id' => $accBodyTypeId,
+                            'accessory_option_id' => $accessoryOptionId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_acc_supplier_matrix (  
+                        supplier_id,
+                        acc_deff_id,
+                        accessory_option_id,
+                        cost_local,
+                        cost_national,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($supplierId) . ",
+                    " . intval($accBodyTypeId) . ",
+                    " . intval($accessoryOptionId) . ",
+                    " . doubleval($costLocal) . ",
+                    " . doubleval($costNational) . ",
+ 
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_acc_supplier_matrix 
+                WHERE id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_acc_supplier_matrix_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
 }

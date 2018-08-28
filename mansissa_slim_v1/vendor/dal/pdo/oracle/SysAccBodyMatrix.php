@@ -631,8 +631,8 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
 		    INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                    INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-		    LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                    INNER JOIN sys_acc_body_matrix bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
+		    LEFT JOIN sys_acc_body_matrix bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
                     
 		    INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
 		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
@@ -791,8 +791,8 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                             INNER JOIN info_users u ON u.id = a.op_user_id 
                             /*----*/
                             INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                            INNER JOIN sys_acc_body_deff bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-                            LEFT JOIN sys_acc_body_deff bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                            INNER JOIN sys_acc_body_matrix bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
+                            LEFT JOIN sys_acc_body_matrix bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
 
                             INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
                             LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
@@ -902,7 +902,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_acc_body_matrix 
-                    WHERE id  =" . intval($params['id']) . "    
+                    WHERE id  =" . intval($params['id']) . "  
                     )");
 
                 $insertAct = $statementInsert->execute();
@@ -923,6 +923,177 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
         }
     }
 
-    
-    
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_body_matrix tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+
+            $errorInfo[0] = "99999";
+            $accBodySuppId = -1111;
+            if ((isset($params['AccBodySuppId']) && $params['AccBodySuppId'] != "")) {
+                $accBodySuppId = intval($params['AccBodySuppId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGtModelId = -1111;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $vehicleGtModelId = intval($params['VehicleGtModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }               
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'vehicle_gt_models_id' => $vehicleGtModelId,
+                            'acc_body_type_id' => $accBodySuppId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_body_matrix(
+                            vehicle_gt_models_id, 
+                            acc_body_supp_id, 
+                           
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($vehicleGtModelId) . ",
+                            " . intval($accBodySuppId) . ", 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_body_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_body_matrix_id_seq');
+                             
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                             
+    /**
+     * @author Okan CIRAN
+     * sys_acc_body_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $accBodySuppId = -1111;
+            if ((isset($params['AccBodySuppId']) && $params['AccBodySuppId'] != "")) {
+                $accBodySuppId = intval($params['AccBodySuppId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGtModelId = -1111;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $vehicleGtModelId = intval($params['VehicleGtModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }             
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'vehicle_gt_models_id' => $vehicleGtModelId,
+                            'acc_body_type_id' => $accBodySuppId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_acc_body_matrix (  
+                        vehicle_gt_models_id, 
+                        acc_body_supp_id, 
+                         
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($vehicleGtModelId) . ",
+                    " . intval($accBodySuppId) . ", 
+                      
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_acc_body_matrix 
+                WHERE id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_acc_body_matrix_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
 }

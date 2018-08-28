@@ -992,8 +992,130 @@ class SysBuybackMatrix extends \DAL\DalSlim {
         }
     }
 
-    
-    
-    
+       /**
+     * @author Okan CIRAN
+     * @ sys_buyback_matrix tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                           
+            $errorInfo[0] = "99999";
+            $contractTypeId = -1111;
+            if ((isset($params['ContractTypeId']) && $params['ContractTypeId'] != "")) {
+                $contractTypeId = intval($params['ContractTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }     
+            $modelId= -1111;
+            if ((isset($params['ModelId']) && $params['ModelId'] != "")) {
+                $modelId = intval($params['ModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $buybackTypeId = -1111;
+            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
+                $buybackTypeId = intval($params['BuybackTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $terrainId = -1111;
+            if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
+                $terrainId = intval($params['TerrainId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }                           
+            $monthId = -1111;
+            if ((isset($params['MonthId']) && $params['MonthId'] != "")) {
+                $monthId = intval($params['MonthId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $mileageId = -1111;
+            if ((isset($params['MileageId']) && $params['MileageId'] != "")) {
+                $mileageId = intval($params['MileageId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $price = -1111;
+            if ((isset($params['Price']) && $params['Price'] != "")) {
+                $price = floatval($params['Price']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                           
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'contract_type_id' => $contractTypeId,
+                            'model_id' => $modelId,
+                            'buyback_type_id' => $buybackTypeId,
+                            'terrain_id' => $terrainId,
+                            'month_id' => $monthId,
+                            'mileage_id' => $mileageId, 
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_buyback_matrix(
+                            contract_type_id,
+                            model_id,
+                            buyback_type_id,
+                            terrain_id,
+                            month_id,
+                            mileage_id,
+                            price,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (                         
+                            " . intval($contractTypeId) . ",
+                            " . intval($modelId) . ",
+                            " . intval($buybackTypeId) . ",
+                            " . intval($terrainId) . ",
+                            " . intval($monthId) . ", 
+                            " . intval($mileageId) . ",
+                            " . floatval($price) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_buyback_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_buyback_matrix_id_seq');
+                           
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+                           
     
 }

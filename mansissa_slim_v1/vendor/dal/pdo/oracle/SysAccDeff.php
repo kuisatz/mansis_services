@@ -914,7 +914,7 @@ class SysAccDeff extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN
-     * @ sys_acc_body_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ sys_acc_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -924,12 +924,12 @@ class SysAccDeff extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE sys_acc_body_deff
+                UPDATE sys_acc_deff
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id");
+               WHERE id = :id or language_parent_id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -944,7 +944,7 @@ class SysAccDeff extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_acc_body_deff tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ sys_acc_deff tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -965,7 +965,7 @@ class SysAccDeff extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_acc_body_deff (
+                    INSERT INTO sys_acc_deff (
                         name_sm,
                         name_sm_eng,
                         name_bo,
@@ -994,8 +994,8 @@ class SysAccDeff extends \DAL\DalSlim {
                         act_parent_id,
                         priority,
                         0 AS show_it 
-                    FROM sys_acc_body_deff 
-                    WHERE id  =" . intval($params['id']) . "    
+                    FROM sys_acc_deff 
+                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
                     )");
 
                 $insertAct = $statementInsert->execute();
@@ -1015,8 +1015,337 @@ class SysAccDeff extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+                            
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            ////*********/////  1 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1                  
+            $errorInfo[0] = "99999";
+            $nameSmTemp = null;
+            $nameBoTemp = null;
+            $nameSm = null;
+            if ((isset($params['NameSm']) && $params['NameSm'] != "")) {
+                $nameSm = $params['NameSm'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameSmEng = null;
+            if ((isset($params['NameSmEng']) && $params['NameSmEng'] != "")) {
+                $nameSmEng = $params['NameSmEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameBo = null;
+            if ((isset($params['NameBo']) && $params['NameBo'] != "")) {
+                $nameBo = $params['NameBo'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameBoEng = null;
+            if ((isset($params['NameBoEng']) && $params['NameBoEng'] != "")) {
+                $nameBoEng = $params['NameBoEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+                ////*********///// 2    
+            if ($languageIdValue != 385 )  
+                {$nameSmTemp = $nameSm; 
+                $nameBoTemp = $nameBo;}     
+                ////*********///// 2          
 
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name_sm' => $nameSm,
+                            'name_sm_eng' => $nameSmEng,
+                            'name_bo' => $nameBo,
+                            'name_bo_eng' => $nameBoEng, 
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_deff(
+                            name_sm, 
+                            name_sm_eng, 
+                            name_bo, 
+                            name_bo_eng,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $nameSm . "',
+                            '" . $nameSmEng . "',
+                            '" . $nameBo . "',
+                            '" . $nameBoEng . "',
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_deff_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_deff_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameSmTemp' =>  ($nameSmTemp),
+                        'nameBoTemp' =>  ($nameBoTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_deff tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @version v 1.0  26.08.2018
+     * @todo Su an için aktif değil SQl in değişmesi lazım. 
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertLanguageTemplate($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            //  $pdo->beginTransaction();
+            /**
+             * table names and column names will be changed for specific use
+             */
+            $statement = $pdo->prepare(" 
+                
+                INSERT INTO sys_acc_deff(
+                    name_sm, 
+                    name_sm_eng, 
+                    name_bo, 
+                    name_bo_eng,
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id)
+                    
+                  SELECT    
+                    name_sm, 
+                    name_sm_eng, 
+                    name_bo, 
+                    name_bo_eng,
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id
+                FROM ( 
+                    SELECT   
+                        case when l.id = 385 then c.name_sm_eng   
+			     when " . intval($params['id']) . " = l.id then '" .($params['nameSmTemp']). "'
+                            else '' end as name_sm,  
+                        COALESCE(NULLIF(c.name_sm_eng,''), c.name_sm) AS name_sm_eng, 
+
+			case when l.id = 385 then c.name_bo_eng   
+			     when " . intval($params['id']) . "  = l.id then '" .($params['nameBoTemp']). "'
+                            else '' end as name_bo,  
+                        COALESCE(NULLIF(c.name_bo_eng,''), c.name_bo) AS name_bo_eng, 
+			 
+                        l.id as language_id,  
+			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
+			case l.id when 385 then c.id else (SELECT last_value FROM sys_acc_deff_id_seq) end as act_parent_id,  
+                        c.op_user_id
+                    FROM sys_acc_deff c
+                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
+                    WHERE c.id = " . intval($params['id']) . "  
+                    ) AS xy   
+                    WHERE xy.language_id NOT IN 
+                        (SELECT DISTINCT language_id 
+                        FROM sys_acc_deff cx 
+                        WHERE 
+                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
+                            cx.id = " . intval($params['id']) . "  ) /* AND  
+                            cx.deleted =0 AND 
+                            cx.active =0 */ )
+                    ");
+
+            $result = $statement->execute();
+            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            //   $pdo->commit();
+
+            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+        } catch (\PDOException $e /* Exception $e */) {
+            //  $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
+    /**
+     * @author Okan CIRAN
+     * sys_acc_deff tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $nameSm = null;
+            if ((isset($params['NameSm']) && $params['NameSm'] != "")) {
+                $nameSm = $params['NameSm'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameSmEng = null;
+            if ((isset($params['NameSmEng']) && $params['NameSmEng'] != "")) {
+                $nameSmEng = $params['NameSmEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameBo = null;
+            if ((isset($params['NameBo']) && $params['NameBo'] != "")) {
+                $nameBo = $params['NameBo'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameBoEng = null;
+            if ((isset($params['NameBoEng']) && $params['NameBoEng'] != "")) {
+                $nameBoEng = $params['NameBoEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name_sm' => $nameSm, 
+                            'name_bo' => $nameBo, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_acc_deff (  
+                        name_sm,
+                        name_sm_eng,
+                        name_bo,
+                        name_bo_eng,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    '" . $nameSm . "',
+                    '" . $nameSmEng . "',
+                    '" . $nameBo . "',
+                    '" . $nameBoEng . "',
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_acc_deff 
+                WHERE id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_acc_deff_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
     

@@ -1007,6 +1007,230 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
         }
     }
 
-    
+        /**
+     * @author Okan CIRAN
+     * @ sys_accessories_matrix tablosuna yeni bir kayıt oluşturur.  !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+                          
+            $vehicleGroupId = -1111;
+            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
+                $vehicleGroupId = intval($params['VehicleGroupId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $kpnumberId = -1111;
+            if ((isset($params['KpnumberId']) && $params['AccBodyTypeId'] != "")) {
+                $kpnumberId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $accSupplierMatrixId = -1111;
+            if ((isset($params['AccSupplierMatrixId']) && $params['AccSupplierMatrixId'] != "")) {
+                $accSupplierMatrixId = intval($params['AccSupplierMatrixId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $partNumLocal= null;
+            if ((isset($params['PartNumLocal']) && $params['PartNumLocal'] != "")) {
+                $partNumLocal =  ($params['PartNumLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $partNumNat = null;
+            if ((isset($params['PartNumNat']) && $params['PartNumNat'] != "")) {
+                $partNumNat =  ($params['PartNumNat']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array( 
+                            'vehicle_group_id' => $vehicleGroupId,
+                            'kpnumber_id' => $kpnumberId,
+                            'acc_supplier_matrix_id' => $accSupplierMatrixId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_accessories_matrix(
+                            vehicle_group_id,
+                            kpnumber_id,
+                            acc_supplier_matrix_id,
+                            part_num_local,
+                            part_num_nat,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            " . intval($vehicleGroupId) . ",
+                            " . intval($kpnumberId) . ",
+                            " . intval($accSupplierMatrixId) . ",
+                            '" . $partNumLocal . "',
+                            '" . $partNumNat . "',
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_accessories_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_accessories_matrix_id_seq');
+                          
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                          
+    /**
+     * @author Okan CIRAN
+     * sys_accessories_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+             $vehicleGroupId = -1111;
+            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
+                $vehicleGroupId = intval($params['VehicleGroupId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $kpnumberId = -1111;
+            if ((isset($params['KpnumberId']) && $params['AccBodyTypeId'] != "")) {
+                $kpnumberId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $accSupplierMatrixId = -1111;
+            if ((isset($params['AccSupplierMatrixId']) && $params['AccSupplierMatrixId'] != "")) {
+                $accSupplierMatrixId = intval($params['AccSupplierMatrixId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $partNumLocal= null;
+            if ((isset($params['PartNumLocal']) && $params['PartNumLocal'] != "")) {
+                $partNumLocal =  ($params['PartNumLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $partNumNat = null;
+            if ((isset($params['PartNumNat']) && $params['PartNumNat'] != "")) {
+                $partNumNat =  ($params['PartNumNat']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'vehicle_group_id' => $vehicleGroupId,
+                            'kpnumber_id' => $kpnumberId,
+                            'acc_supplier_matrix_id' => $accSupplierMatrixId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_accessories_matrix (  
+                       vehicle_group_id,
+                            kpnumber_id,
+                            acc_supplier_matrix_id,
+                            part_num_local,
+                            part_num_nat,
+ 
+                            priority, 
+                            op_user_id,
+                            act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($vehicleGroupId) . ",
+                    " . intval($kpnumberId) . ",
+                    " . intval($accSupplierMatrixId) . ",
+                    '" . $partNumLocal . "',
+                    '" . $partNumNat . "',
+                     
+                    priority, 
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_accessories_matrix 
+                WHERE id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_accessories_matrix_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }

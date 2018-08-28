@@ -845,7 +845,7 @@ class SysFinanceTypes extends \DAL\DalSlim {
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id");
+                WHERE id = :id or language_parent_id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -909,7 +909,7 @@ class SysFinanceTypes extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_finance_types 
-                    WHERE id  =" . intval($params['id']) . "    
+                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
                     )");
 
                 $insertAct = $statementInsert->execute();
