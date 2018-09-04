@@ -16,11 +16,11 @@ namespace DAL\PDO\Oracle;
  * @author Okan CIRAN
  * @since 29.07.2018 
  */ 
-class SysBranchesDealersDeff extends \DAL\DalSlim {
+class SysBranchAndDealersDeff extends \DAL\DalSlim {
 
-    /**
+    /** 
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ sys_branch_and_dealers_deff tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  29.07.2018
      * @param array $params
      * @return array   
@@ -34,7 +34,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_branches_dealers_deff
+                UPDATE sys_branch_and_dealers_deff
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_branch_and_dealers_deff tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  29.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_branches_dealers_deff a
+                FROM sys_branch_and_dealers_deff a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_branches_dealers_deff ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_branch_and_dealers_deff ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_branch_and_dealers_deff tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_branches_dealers_deff(
+                INSERT INTO sys_branch_and_dealers_deff(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_branches_dealers_deff_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_branch_and_dealers_deff_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_branch_and_dealers_deff tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_branches_dealers_deff  a                          
+            FROM sys_branch_and_dealers_deff  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,7 +227,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_branches_dealers_deff tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_branch_and_dealers_deff tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
@@ -251,7 +251,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_branches_dealers_deff
+                    UPDATE sys_branch_and_dealers_deff
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +290,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_branches_dealers_deff tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_branch_and_dealers_deff tablosundan kayıtları döndürür !!
      * @version v 1.0  29.07.2018
      * @param array | null $args
      * @return array
@@ -351,7 +351,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_branches_dealers_deff a
+                FROM sys_branch_and_dealers_deff a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_branches_dealers_deff ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_branch_and_dealers_deff ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +388,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_branches_dealers_deff tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_branch_and_dealers_deff tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  29.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +401,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_branches_dealers_deff a
+                FROM sys_branch_and_dealers_deff a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,7 +425,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_branch_and_dealers_deff tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  29.07.2018
      * @param type $params
@@ -442,13 +442,13 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_branches_dealers_deff
+                UPDATE sys_branch_and_dealers_deff
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_branches_dealers_deff
+                                FROM sys_branch_and_dealers_deff
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -474,11 +474,10 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
+                            
     /** 
      * @author Okan CIRAN
-     * @ bayi isimleri dropdown ya da tree ye doldurmak için sys_branches_dealers_deff tablosundan kayıtları döndürür !!
+     * @ bayi isimleri dropdown ya da tree ye doldurmak için sys_branch_and_dealers_deff tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
@@ -487,61 +486,20 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
     public function  branchesDealersDeffDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-              
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM ( 
-
+                            
+            $statement = $pdo->prepare("    
                 SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
+                    a.act_parent_id AS id, 	
+                    a.name AS name,  
+                    a.name_eng AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                     0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_branches_dealers_deff a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_branches_dealers_deff sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                FROM sys_branch_and_dealers_deff a    
                 WHERE   
                     a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
-
+                    a.active =0   
+                ORDER BY  a.priority , a.name  
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
@@ -553,11 +511,10 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
-    
-        /** 
+                            
+    /** 
      * @author Okan CIRAN
-     * @ bayi isimlerini grid formatında döndürür !! ana tablo  sys_branches_dealers_deff 
+     * @ bayi isimlerini grid formatında döndürür !! ana tablo  sys_branch_and_dealers_deff 
      * @version v 1.0  15.08.2018
      * @param array | null $args 
      * @return array
@@ -608,14 +565,44 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'country_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND c.name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'region_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND d.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND e.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'departman_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND f.name" . $sorguExpression . ' ';
 
                                 break; 
                              case 'branch_no':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.branch_no" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'address1':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address1" . $sorguExpression . ' ';
+                              
+                                break;
+                             case 'address2':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address2" . $sorguExpression . ' ';
+                              
+                                break;
+                             case 'address3':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address3" . $sorguExpression . ' ';
                               
                                 break;
                             case 'op_user_name':
@@ -654,48 +641,74 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $accBodyTypeId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodyTypeId = $params['AccBodyTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($accBodyTypeId). "  AND  " ; 
+            $countryID =0 ;
+            if (isset($params['CountryID']) && $params['CountryID'] != "") {
+                $countryID = $params['CountryID'];
+                $addSql .="  a.country_id  = " . intval($countryID). "  AND  " ; 
+            }               
+            $countryRegionID =0 ;
+            if (isset($params['CountryRegionID']) && $params['CountryRegionID'] != "") {
+                $countryRegionID = $params['CountryRegionID'];
+                $addSql .="  a.country_region_id  = " . intval($countryRegionID). "  AND  " ; 
             }  
-
-                $sql = "
-                    SELECT 
-                        a.id, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-			a.branch_no,
-			COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description, 
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
-                        a.active,
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                       /* a.deleted,
-                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
-                        a.op_user_id,
-                        u.username AS op_user_name,  
-                        a.s_date date_saved,
-                        a.c_date date_modified,
-                        /* a.priority, */ 
-                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                        lx.language_main_code language_code, 
-                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_branches_dealers_deff a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.show_it =0  
-                    LEFT JOIN sys_branches_dealers_deff ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
-                    INNER JOIN info_users u ON u.id = a.op_user_id 
-                    /*----*/   
-                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                    /**/
-                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+            $cityID =0 ;
+            if (isset($params['CityID']) && $params['CityID'] != "") {
+                $cityID = $params['CityID'];
+                $addSql .="  a.city_id  = " . intval($cityID). "  AND  " ; 
+            }  
+            $sisDepartmentID =0 ;
+            if (isset($params['SisDepartmentID']) && $params['SisDepartmentID'] != "") {
+                $sisDepartmentID = $params['SisDepartmentID'];
+                $addSql .="  a.sis_department_id  = " . intval($sisDepartmentID). "  AND  " ; 
+            }  
+                $sql = "  
+                SELECT 
+                    a.id, 
+                    a.name  AS name,
+                    a.branch_no,
+                    a.address1,
+                    a.address2,
+                    a.address3,
+                    a.country_id, 
+                    c.name as country_name,
+                    a.country_region_id, 
+                    d.name as region_name,
+                    a.city_id, 
+                    e.name as city_name,
+                    a.sis_department_id,
+                    f.name as departman_name, 
+                    a.act_parent_id,   
+                    a.active,
+                    COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                   /* a.deleted,
+                    COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                    a.op_user_id,
+                    u.username AS op_user_name,  
+                    a.s_date date_saved,
+                    a.c_date date_modified,
+                    /* a.priority, */ 
+                    COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                    lx.language_main_code language_code, 
+                    COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                FROM sys_branch_and_dealers_deff a                    
+                INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                INNER JOIN info_users u ON u.id = a.op_user_id 
+                /*----*/   
+                left JOIN sys_countrys c ON c.act_parent_id = a.country_id AND c.show_it = 0 and c.language_id = l.id 
+                left JOIN sys_country_regions d ON d.act_parent_id = a.country_region_id AND d.show_it = 0  and d.language_id = l.id
+                left JOIN sys_city e ON e.act_parent_id = a.city_id AND e.show_it = 0 and e.language_id = l.id 
+                left JOIN sys_sis_departments f ON f.act_parent_id = a.sis_department_id AND f.show_it = 0 and f.language_id = l.id
+                /*----*/   
+                /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                /**/
+                /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
-                    WHERE  
-                        a.deleted =0 AND
-                        a.show_it =0 AND                      
-                        a.language_parent_id =0   
+                WHERE  
+                    a.deleted =0 AND
+                    a.show_it =0   
                      
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -728,7 +741,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ bayi isimlerini grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_branches_dealers_deff 
+     * @ bayi isimlerini grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_branch_and_dealers_deff 
      * @version v 1.0  15.08.2018
      * @param array | null $args
      * @return array
@@ -746,19 +759,49 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                           case 'name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'country_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND c.name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'region_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND d.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND e.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'departman_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND f.name" . $sorguExpression . ' ';
 
                                 break; 
                              case 'branch_no':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.branch_no" . $sorguExpression . ' ';
+                              
+                                break;
+                             case 'address1':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address1" . $sorguExpression . ' ';
+                              
+                                break;
+                             case 'address2':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address2" . $sorguExpression . ' ';
+                              
+                                break;
+                             case 'address3':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.address3" . $sorguExpression . ' ';
                               
                                 break;
                             case 'op_user_name':
@@ -797,38 +840,61 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-              $accBodyTypeId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodyTypeId = $params['AccBodyTypeID'];
-                $addSql ="  a.act_parent_id  = " . intval($accBodyTypeId). "  AND  " ; 
+            $countryID =0 ;
+            if (isset($params['CountryID']) && $params['CountryID'] != "") {
+                $countryID = $params['CountryID'];
+                $addSql .="  a.country_id  = " . intval($countryID). "  AND  " ; 
+            }               
+            $countryRegionID =0 ;
+            if (isset($params['CountryRegionID']) && $params['CountryRegionID'] != "") {
+                $countryRegionID = $params['CountryRegionID'];
+                $addSql .="  a.country_region_id  = " . intval($countryRegionID). "  AND  " ; 
+            }  
+            $cityID =0 ;
+            if (isset($params['CityID']) && $params['CityID'] != "") {
+                $cityID = $params['CityID'];
+                $addSql .="  a.city_id  = " . intval($cityID). "  AND  " ; 
+            }  
+            $sisDepartmentID =0 ;
+            if (isset($params['SisDepartmentID']) && $params['SisDepartmentID'] != "") {
+                $sisDepartmentID = $params['SisDepartmentID'];
+                $addSql .="  a.sis_department_id  = " . intval($sisDepartmentID). "  AND  " ; 
             }  
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
                             a.id, 
-                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
+                            a.name  AS name,
                             a.branch_no,
-                            COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description, 
-                          /*  a.name_eng, */ 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                            a.address1,
+                            a.address2,
+                            a.address3, 
+                            c.name as country_name, 
+                            d.name as region_name, 
+                            e.name as city_name, 
+                            f.name as departman_name,  
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
-                        FROM sys_branches_dealers_deff a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.show_it =0  
-                        LEFT JOIN sys_branches_dealers_deff ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
+                        FROM sys_branch_and_dealers_deff a                    
+                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        left JOIN sys_countrys c ON c.act_parent_id = a.country_id AND c.show_it = 0 and c.language_id = l.id 
+                        left JOIN sys_country_regions d ON d.act_parent_id = a.country_region_id AND d.show_it = 0  and d.language_id = l.id
+                        left JOIN sys_city e ON e.act_parent_id = a.city_id AND e.show_it = 0 and e.language_id = l.id 
+                        left JOIN sys_sis_departments f ON f.act_parent_id = a.sis_department_id AND f.show_it = 0 and f.language_id = l.id
+                        /*----*/   
+                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                         /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
                             a.deleted =0 AND
-                            a.show_it =0 AND                   
-                            a.language_parent_id =0   
+                            a.show_it =0  
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -851,7 +917,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
     
    /**
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ sys_branch_and_dealers_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -861,7 +927,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE sys_branches_dealers_deff
+                UPDATE sys_branch_and_dealers_deff
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
@@ -881,7 +947,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_branches_dealers_deff tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ sys_branch_and_dealers_deff tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -902,15 +968,18 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_branches_dealers_deff (
+                    INSERT INTO sys_branch_and_dealers_deff (
                         name,
-                        name_eng,
                         branch_no,
-                        description,
-                        description_eng,
-                        
-                        language_id,
-                        language_parent_id,
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        country_id,
+                        country_region_id,
+                        city_id,
+                        sis_department_id, 
+                         
                         active,
                         deleted,
                         op_user_id,
@@ -919,19 +988,22 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                         )
                     SELECT
                         name,
-                        name_eng,
                         branch_no,
-                        description,
-                        description_eng,
-                        
-                        language_id,
-                        language_parent_id, 
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        country_id,
+                        country_region_id,
+                        city_id,
+                        sis_department_id, 
+                         
                         1 AS active,  
                         1 AS deleted, 
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM sys_branches_dealers_deff 
+                    FROM sys_branch_and_dealers_deff 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
                     )");
 
@@ -955,7 +1027,7 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ sys_branch_and_dealers_deff tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -965,31 +1037,11 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
             $pdo->beginTransaction();
-            ////*********/////  1 
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }  
-            ////*********///// 1                  
-            $errorInfo[0] = "99999";
-            $nameTemp = null;
+                           
+            $errorInfo[0] = "99999"; 
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
@@ -999,39 +1051,95 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
-                ////*********///// 2    
-            if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
-                ////*********///// 2          
-
+            $address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $postalCode = null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $countryId = -1111;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $countryId = intval($params['CountryId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $countryRegionId = -1111;
+            if ((isset($params['CountryRegionId']) && $params['CountryRegionId'] != "")) {
+                $countryRegionId = intval($params['CountryRegionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $sisDepartmentId = -1111;
+            if ((isset($params['SisDepartmentId']) && $params['SisDepartmentId'] != "")) {
+                $sisDepartmentId = intval($params['SisDepartmentId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                           
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
-                        array(
-                            'name' => $name,
-                            'name_eng' => $name,
-                            'branch_no' => $branchNo
+                        array( 
+                            'name' => $name, 
+                            'branch_no' => $branchNo, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_branches_dealers_deff(
-                            name, 
-                            name_eng, 
-                            branch_no, 
+                    INSERT INTO sys_branch_and_dealers_deff(
+                            name,
+                            branch_no,
+                            address1,
+                            address2,
+                            address3,
+                            postalcode,
+                            country_id,
+                            country_region_id,
+                            city_id,
+                            sis_department_id, 
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
                             '" . $name . "',
-                            '" . $nameEng . "',
+                            '" . $address1 . "',
+                            '" . $address2 . "',
+                            '" . $address3 . "',
+                            '" . $postalCode . "', 
                             '" . $branchNo . "',
+                            " . intval($countryId) . ",
+                            " . intval($countryRegionId) . ",
+                            " . intval($cityId) . ",
+                            " . intval($sisDepartmentId) . ",
 
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM sys_branches_dealers_deff_id_seq)
+                           (SELECT last_value FROM sys_branch_and_dealers_deff_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
                     //   echo debugPDO($sql, $params);
@@ -1039,22 +1147,8 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('sys_branches_dealers_deff_id_seq');
-
-                    ////*********/////  3 
-                    $insertLanguageTemplateParams = array(
-                        'id' => intval($insertID),
-                        'language_id' => intval($languageIdValue),
-                        'nameTemp' =>  ($nameTemp),
-                    );
-                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
-                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
-                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
-                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
-                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
-                    }
-                    ////*********///// 3  
-
+                    $insertID = $pdo->lastInsertId('sys_branch_and_dealers_deff_id_seq');
+                           
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
@@ -1075,82 +1169,6 @@ class SysBranchesDealersDeff extends \DAL\DalSlim {
         }
     }
 
-    /**
-     * @author Okan CIRAN
-     * @ sys_branches_dealers_deff tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
-     * @version v 1.0  26.08.2018
-     * @todo Su an için aktif değil SQl in değişmesi lazım. 
-     * @return array
-     * @throws \PDOException
-     */
-    public function insertLanguageTemplate($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
-            //  $pdo->beginTransaction();
-            /**
-             * table names and column names will be changed for specific use
-             */
-            $statement = $pdo->prepare(" 
-                
-                INSERT INTO sys_branches_dealers_deff(
-                    name, 
-                    name_eng, 
-                    branch_no, 
-                     
-                    language_id,
-                    language_parent_id, 
-                    act_parent_id,
-                    op_user_id)
-                    
-                  SELECT    
-                    name, 
-                    name_eng, 
-                    branch_no, 
-                     
-                    language_id,
-                    language_parent_id, 
-                    act_parent_id,
-                    op_user_id
-                FROM ( 
-                    SELECT  
-                        c.branch_no, 
-                        
-			case when l.id = 385 then c.name_eng   
-			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
-                            else '' end as name,  
-                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
-                        l.id as language_id,  
-			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
-			case l.id when 385 then c.id else (SELECT last_value FROM sys_branches_dealers_deff_id_seq) end as act_parent_id,  
-                        c.op_user_id
-                    FROM sys_branches_dealers_deff c
-                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
-                    WHERE c.id = " . intval($params['id']) . "  
-                    ) AS xy   
-                    WHERE xy.language_id NOT IN 
-                        (SELECT DISTINCT language_id 
-                        FROM sys_branches_dealers_deff cx 
-                        WHERE 
-                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
-                            cx.id = " . intval($params['id']) . "  ) /* AND  
-                            cx.deleted =0 AND 
-                            cx.active =0 */ )
-                    ");
-
-            $result = $statement->execute();
-            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            //   $pdo->commit();
-
-            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
-        } catch (\PDOException $e /* Exception $e */) {
-            //  $pdo->rollback();
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    } 
-    
-    
+ 
     
 }

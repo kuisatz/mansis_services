@@ -499,32 +499,10 @@ class SysTerrains extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
               
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM (  
+            $statement = $pdo->prepare("     
 
                 SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
-                SELECT                    
-                    a.act_parent_id AS id, 	
+                    a.id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
                     a.parent_id,
@@ -539,8 +517,8 @@ class SysTerrains extends \DAL\DalSlim {
                     a.active =0 AND
                     a.parent_id =0 AND
                     a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
+                     
+                ORDER BY  a.priority 
 
                                  ");
             $statement->execute();
@@ -554,7 +532,7 @@ class SysTerrains extends \DAL\DalSlim {
         }
     }
  
-        /** 
+    /** 
      * @author Okan CIRAN
      * @  terrains tanımları alt grupları dropdown ya da tree ye doldurmak için sys_terrains tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -584,33 +562,9 @@ class SysTerrains extends \DAL\DalSlim {
             }   
               
               
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM (  
-
+            $statement = $pdo->prepare("    
                 SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type  ,
-                    -1 priority
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
-                SELECT                    
-                    a.act_parent_id AS id, 	
+                    a.id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
                     a.parent_id,
@@ -626,8 +580,120 @@ class SysTerrains extends \DAL\DalSlim {
                     a.active =0 AND
                     a.parent_id = " . intval($parentIdValue). "  AND
                     a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  priority
+                  
+                ORDER BY  a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    /** 
+     * @author Okan CIRAN
+     * @ buyback de kullanılacak terrains tanımları alt grupları dropdown ya da tree ye doldurmak için sys_terrains tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  terrainsBuybackDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+                            
+            $statement = $pdo->prepare("   
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type ,
+                    a.priority
+                FROM sys_terrains a  
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_terrains sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.parent_id = 1  AND
+                    a.language_parent_id =0  
+                ORDER BY  a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+        /** 
+     * @author Okan CIRAN
+     * @ buyback de kullanılacak terrains tanımları alt grupları dropdown ya da tree ye doldurmak için sys_terrains tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  terrainsTradebackDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+                             
+            $statement = $pdo->prepare("   
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type ,
+                    a.priority
+                FROM sys_terrains a 
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_terrains sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.parent_id = 4 AND
+                    a.language_parent_id =0  
+                ORDER BY  a.priority
 
                                  ");
             $statement->execute();
@@ -752,7 +818,8 @@ class SysTerrains extends \DAL\DalSlim {
                         a.id, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
 			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
-                      /*  a.name_eng, */
+                        a.left_right,
+                        a.t_value as value,
                         a.act_parent_id,   
 			a.parent_id,   
                         a.active,
@@ -942,7 +1009,7 @@ class SysTerrains extends \DAL\DalSlim {
         }
     }
     
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_terrains tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -1048,7 +1115,105 @@ class SysTerrains extends \DAL\DalSlim {
         }
     }
 
-    
+    /**
+     * @author Okan CIRAN
+     * @ sys_terrains tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                             
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                 $nameEng = $name;  
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $leftRight = -1111;
+            if ((isset($params['LeftRight']) && $params['LeftRight'] != "")) {
+                $leftRight = intval($params['LeftRight']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                             
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'name_eng' => $name, 
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_terrains(
+                            name, 
+                            name_eng, 
+                            t_value, 
+                            left_right,
+                          /*  big_small,*/
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($value) . ",
+                            " . intval($leftRight) . ", 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_terrains_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_terrains_id_seq');
+
+                             
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                             
     
     
 }

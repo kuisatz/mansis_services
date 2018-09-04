@@ -427,7 +427,7 @@ class SysCampaignVehicles extends \DAL\DalSlim {
      * @author Okan CIRAN
      * @ sys_campaign_vehicles tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
-      * @version v 1.0  29.07.2018
+     * @version v 1.0  29.07.2018
      * @param type $params
      * @return array
      * @throws \PDOException

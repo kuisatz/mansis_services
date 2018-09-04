@@ -634,7 +634,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			a.city_id,
 		        COALESCE(NULLIF(cx.name, ''), c.name_eng) AS city_name,
 			a.education_value,
-			a.edu_strart_date,
+			a.edu_start_date_date,
 			a.edu_end_date,
                         a.act_parent_id,   
                         a.active,
@@ -937,7 +937,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         postalcode,
                         city_id,
                         education_value,
-                        edu_strart,
+                        edu_start_date,
                         edu_end_date,
                        
                         active,
@@ -956,7 +956,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         postalcode,
                         city_id,
                         education_value,
-                        edu_strart,
+                        edu_start_date,
                         edu_end_date,
                         
                         1 AS active,  
@@ -986,7 +986,160 @@ class SysEducationsSalesman extends \DAL\DalSlim {
         }
     }
 
-    
+        /**
+     * @author Okan CIRAN
+     * @ sys_educations_salesman tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+            $address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            }  
+            $address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            }  
+            $address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            }  
+            $description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $description = $params['Description'];
+            }  
+            $postalCode = null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            }
+            
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            
+            
+            $educationDfinitionId = -1111;
+            if ((isset($params['EducationDfinitionId']) && $params['EducationDfinitionId'] != "")) {
+                $educationDfinitionId = intval($params['EducationDfinitionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $userId = -1111;
+            if ((isset($params['UserId']) && $params['UserId'] != "")) {
+                $userId = intval($params['UserId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $educationValue = -1111;
+            if ((isset($params['EducationValue']) && $params['EducationValue'] != "")) {
+                $educationValue = floatval($params['EducationValue']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $addSQLinsert = null ;
+            $addSQLvalue = null ;
+            $eduStartDate = null;
+            if ((isset($params['EduStartDate']) && $params['EduStartDate'] != "")) {
+                $eduStartDate =  $params['EduStartDate'] ;
+                $addSQLinsert .= ' edu_start_date, ' ;
+                $addSQLvalue .= " '".$eduStartDate."' ,"; 
+            }  
+            $eduEndDate = null;
+            if ((isset($params['EduEndDate']) && $params['EduEndDate'] != "")) {
+                $eduEndDate =  $params['EduEndDate'] ;
+                $addSQLinsert .= ' edu_end_date, ' ;
+                $addSQLvalue .= " '".$eduEndDate."' ,"; 
+            }  
+                            
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'user_id' => $userId,
+                            'education_definition_id' => $educationDfinitionId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_educations_salesman( 
+                            address1,
+                            address2,
+                            address3, 
+                            postalcode,
+                            description,
+                            
+                            education_definition_id,
+                            user_id, 
+                            city_id,
+                            education_value,
+                            ".$addSQLinsert." 
+                                
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            '" . $address1 . "',
+                            '" . $address2 . "',
+                            '" . $address3 . "', 
+                            '" . $postalCode . "',
+                            '" . $description . "',
+                          
+                            " . intval($educationDfinitionId) . ",
+                            " . intval($userId) . ", 
+                            " . intval($cityId) . ",
+                            " . floatval($educationValue) . ",    
+                            " . $addSQLvalue . ", 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_educations_salesman_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_educations_salesman_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

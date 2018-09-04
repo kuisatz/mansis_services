@@ -573,17 +573,22 @@ class SysWarranties extends \DAL\DalSlim {
                 if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
                      $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
                 }    
-            }    
+            }                
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }   
-           
+            $addSql =null;
             $ParentId = -1 ; 
-            if (isset($params['Parent']) && $params['Parent'] != "") {
+            if (isset($params['ParentId']) && $params['Parent'] != "") {
                 $ParentId = $params['Parent']; 
+                 $addSql =  " a.parent_id = " . intval($ParentId)." AND ";
+            }   
+            $vehicleGroupID = -1 ; 
+            if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
+                $vehicleGroupID = $params['VehicleGroupID']; 
+                 $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
             }    
-              
-              
+                            
             $statement = $pdo->prepare("       
 
             SELECT * FROM (  
@@ -620,10 +625,10 @@ class SysWarranties extends \DAL\DalSlim {
 		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
                 LEFT JOIN sys_warranties sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
                 WHERE   
+                    ".$addSql."
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0 AND
-                    a.parent_id = " . intval($ParentId). "
+                    a.language_parent_id =0   
                     ) asd 
                 ORDER BY  id 
 
@@ -697,6 +702,11 @@ class SysWarranties extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
 
                                 break; 
+                            case 'vehicle_group_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
+
+                                break; 
                              case 'parent_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
@@ -743,11 +753,18 @@ class SysWarranties extends \DAL\DalSlim {
                 $parentID = $params['ParentID'];
                 $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
             }  
+            $vehicleGroupID = -1 ; 
+            if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
+                $vehicleGroupID = $params['VehicleGroupID']; 
+                 $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
+            }    
                 $sql = "
                     SELECT  
                         a.id, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
 			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
+                        a.vehicle_group_id , 
+                        erd.name as vehicle_group_name, 
                       /*  a.name_eng, */
                         a.act_parent_id,   
 			a.parent_id,   
@@ -770,8 +787,11 @@ class SysWarranties extends \DAL\DalSlim {
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
+		    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+                    
+                    INNER JOIN sys_vehicle_groups erd ON drd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		     
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -842,6 +862,11 @@ class SysWarranties extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
 
                                 break; 
+                             case 'vehicle_group_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
+
+                                break; 
                             case 'parent_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
@@ -887,12 +912,18 @@ class SysWarranties extends \DAL\DalSlim {
             if (isset($params['ParentID']) && $params['ParentID'] != "") {
                 $parentID = $params['ParentID'];
                 $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
-            }  
+            } 
+            $vehicleGroupID = -1 ; 
+            if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
+                $vehicleGroupID = $params['VehicleGroupID']; 
+                 $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
+            }    
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
                         a.id, 
+                        erd.name as vehicle_group_name, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
 			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
 			a.parent_id,    
@@ -905,9 +936,11 @@ class SysWarranties extends \DAL\DalSlim {
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.active =0 AND drd.deleted = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.active =0 AND drdx.deleted = 0 AND drdx.language_id =lx.id  
-                    /*----*/   
+                    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+                    
+                    INNER JOIN sys_vehicle_groups erd ON drd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+		    /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -995,6 +1028,7 @@ class SysWarranties extends \DAL\DalSlim {
                         name,
                         name_eng,
                         parent_id,
+                        vehicle_group_id,
                         
                         language_id,
                         language_parent_id,
@@ -1008,6 +1042,7 @@ class SysWarranties extends \DAL\DalSlim {
                         name,
                         name_eng,
                         parent_id,
+                        vehicle_group_id,
                         
                         language_id,
                         language_parent_id, 
@@ -1038,5 +1073,217 @@ class SysWarranties extends \DAL\DalSlim {
         }
     }
 
+    /**
+     * @author Okan CIRAN
+     * @ sys_warranties tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            ////*********/////  1 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1                  
+            $errorInfo[0] = "99999";
+            $nameTemp = null;
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGroupId = -1111;
+            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
+                $vehicleGroupId = intval($params['VehicleGroupId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $parentId = -1111;
+            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
+                $parentId = intval($params['ParentId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+                ////*********///// 2    
+            if ($languageIdValue != 385 )  
+                {$nameTemp = $name;  }     
+                ////*********///// 2          
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'name_eng' => $name,
+                            'vehicle_group_id' => $vehicleGroupId,
+                            'parent_id' => $parentId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_warranties(
+                            name, 
+                            name_eng, 
+                            vehicle_group_id, 
+                            parent_id, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($vehicleGroupId) . ",
+                            " . intval($parentId) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_warranties_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_warranties_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameTemp' =>  ($nameTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    /**
+     * @author Okan CIRAN
+     * @ sys_warranties tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @version v 1.0  26.08.2018
+     * @todo Su an için aktif değil SQl in değişmesi lazım. 
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertLanguageTemplate($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            //  $pdo->beginTransaction();
+            /**
+             * table names and column names will be changed for specific use
+             */
+            $statement = $pdo->prepare(" 
+                
+                INSERT INTO sys_warranties(
+                    name, 
+                    name_eng, 
+                    vehicle_group_id, 
+                    parent_id, 
+                 
+ 
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id)
+                    
+                  SELECT    
+                    name, 
+                    name_eng, 
+                    vehicle_group_id, 
+                    parent_id, 
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id
+                FROM ( 
+                    SELECT  
+                        c.vehicle_group_id, 
+                        c.parent_id,  
+                        
+			case when l.id = 385 then c.name_eng   
+			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
+                            else '' end as name,  
+                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
+                        l.id as language_id,  
+			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
+			case l.id when 385 then c.id else (SELECT last_value FROM sys_warranties_id_seq) end as act_parent_id,  
+                        c.op_user_id
+                    FROM sys_warranties c
+                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
+                    WHERE c.id = " . intval($params['id']) . "  
+                    ) AS xy   
+                    WHERE xy.language_id NOT IN 
+                        (SELECT DISTINCT language_id 
+                        FROM sys_warranties cx 
+                        WHERE 
+                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
+                            cx.id = " . intval($params['id']) . "  ) /* AND  
+                            cx.deleted =0 AND 
+                            cx.active =0 */ )
+                    ");
+
+            $result = $statement->execute();
+            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            //   $pdo->commit();
+
+            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+        } catch (\PDOException $e /* Exception $e */) {
+            //  $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+         
+    
     
 }

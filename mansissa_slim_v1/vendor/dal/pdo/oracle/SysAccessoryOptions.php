@@ -969,12 +969,12 @@ class SysAccessoryOptions extends \DAL\DalSlim {
             if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
-                throw new \PDOException($errorInfo[0]);
+                 if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
             }              
                             
                 ////*********///// 2    
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));

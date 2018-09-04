@@ -530,9 +530,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
                                 break;
                             case 'vehicle_maingroup':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND case a.cbu_ckd_type_id 
-                                                            when 0 then 'CBU' 
-                                                            else 'CKD' END" . $sorguExpression . ' ';
+                                $sorguStr.=" AND  vcc.name " . $sorguExpression . ' ';
 
                                 break; 
                              case 'sales_provision_name':
@@ -595,10 +593,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
                     SELECT  
                         a.id, 
 			a.cbu_ckd_type_id,
-			case a.cbu_ckd_type_id 
-				when 0 then 'CBU' 
-				else 'CKD' END vehicle_maingroup,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
+                        vcc.name AS vehicle_maingroup,  
 			a.kp_id, 
 			crd.name kp,
 			a.sales_provision_type_id,
@@ -631,6 +626,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
 		   INNER JOIN sys_kpnumbers crd ON crd.act_parent_id = a.kp_id AND crd.show_it = 0  
 		   INNER JOIN sys_currency_fix erd ON erd.act_parent_id = a.fx_id AND erd.show_it = 0  
 		   INNER JOIN sys_currency_types frd ON frd.act_parent_id = erd.currency_id AND frd.show_it = 0  
+                   INNER JOIN sys_vehicle_ckdcbu vcc ON vcc.id = a.cbu_ckd_type_id  AND vcc.show_it= 0  
 		 
 		    INNER JOIN sys_sales_provision_types drd ON drd.act_parent_id = a.sales_provision_type_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_sales_provision_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
@@ -701,9 +697,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
                                 break;
                             case 'vehicle_maingroup':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND case a.cbu_ckd_type_id 
-                                                            when 0 then 'CBU' 
-                                                            else 'CKD' END" . $sorguExpression . ' ';
+                                $sorguStr.=" AND vcc.name" . $sorguExpression . ' ';
 
                                 break; 
                              case 'sales_provision_name':
@@ -768,16 +762,11 @@ class SysSalesProvisions extends \DAL\DalSlim {
                         SELECT  
                             a.id, 
                             a.cbu_ckd_type_id,
-                            case a.cbu_ckd_type_id 
-                                    when 0 then 'CBU' 
-                                    else 'CKD' END vehicle_maingroup,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
-                          
+                            vcc.name AS vehicle_maingroup,  
                             crd.name kp,
                             a.sales_provision_type_id,
                             COALESCE(NULLIF(drdx.abbrevation, ''), drd.abbrevation_eng) AS sales_provision_name,
-                            a.sp_value,
-                          
+                            
                             frd.symbol currency_symbol,
                             frd.abbrevation currency_abbrevation,
                             erd.fix,
@@ -792,6 +781,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
                        INNER JOIN sys_kpnumbers crd ON crd.act_parent_id = a.kp_id AND crd.show_it = 0  
                        INNER JOIN sys_currency_fix erd ON erd.act_parent_id = a.fx_id AND erd.show_it = 0  
                        INNER JOIN sys_currency_types frd ON frd.act_parent_id = erd.currency_id AND frd.show_it = 0  
+                       INNER JOIN sys_vehicle_ckdcbu vcc ON vcc.id = a.cbu_ckd_type_id  AND vcc.show_it= 0  
 
                         INNER JOIN sys_sales_provision_types drd ON drd.act_parent_id = a.sales_provision_type_id AND drd.show_it = 0 AND drd.language_id= l.id
                         LEFT JOIN sys_sales_provision_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
@@ -927,5 +917,119 @@ class SysSalesProvisions extends \DAL\DalSlim {
         }
     }
 
-    
+    /**
+     * @author Okan CIRAN
+     * @ sys_sales_provisions tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                             
+            $errorInfo[0] = "99999";   
+            $vehicleBtoBtsId = -1111;
+            if ((isset($params['VehicleBtoBtsId']) && $params['VehicleBtoBtsId'] != "")) {
+                $vehicleBtoBtsId = intval($params['VehicleBtoBtsId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cbuCkdTypeId = -1111;
+            if ((isset($params['CbuCkdTypeId']) && $params['CbuCkdTypeId'] != "")) {
+                $cbuCkdTypeId = intval($params['CbuCkdTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $kpId = -1111;
+            if ((isset($params['KpId']) && $params['KpId'] != "")) {
+                $kpId = intval($params['KpId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $salesProvisionTypeId = -1111;
+            if ((isset($params['SalesProvisionTypeId']) && $params['SalesProvisionTypeId'] != "")) {
+                $salesProvisionTypeId = intval($params['SalesProvisionTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $fxId = -1111;
+            if ((isset($params['FxId']) && $params['FxId'] != "")) {
+                $fxId = intval($params['FxId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                             
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'vehicle_btobt_id' => $vehicleBtoBtsId,
+                            'cbu_ckd_type_id' => $cbuCkdTypeId,
+                            'kp_id' => $kpId,
+                            'sales_provision_type_id' => $salesProvisionTypeId,
+                             
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_sales_provisions(
+                            vehicle_btobt_id,
+                            cbu_ckd_type_id,
+                            kp_id,
+                            sales_provision_type_id,
+                            sp_value,
+                            fx_id,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($vehicleBtoBtsId) . ",
+                            " . intval($cbuCkdTypeId) . ",
+                            " . intval($kpId) . ",
+                            " . intval($salesProvisionTypeId) . ",
+                            " . intval($value) . ",
+                            " . intval($fxId) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_sales_provisions_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_sales_provisions_id_seq');
+                             
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
 }

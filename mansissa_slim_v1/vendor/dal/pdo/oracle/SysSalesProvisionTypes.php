@@ -605,17 +605,10 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                            case 'abbrevation':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.abbrevation, ''), a.abbrevation_eng)" . $sorguExpression . ' ';
-
                                 break; 
-                            case 'vehicle_maingroup':
+                            case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND case a.cbu_ckd_type_id 
-				when 0 then 'CBU' 
-				else 'CKD' END" . $sorguExpression . ' ';
+                                $sorguStr.=" c.name" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -662,13 +655,10 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT  
-                        a.id, 
-			COALESCE(NULLIF(ax.abbrevation, ''), a.abbrevation_eng) AS abbrevation,
+                        a.id,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         a.cbu_ckd_type_id,
-			case a.cbu_ckd_type_id 
-				when 0 then 'CBU' 
-				else 'CKD' END vehicle_maingroup,
+			c.name cbuckd_name,
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,
@@ -688,7 +678,10 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
                     LEFT JOIN sys_sales_provision_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
-                    /*----*/   
+                    /*----*/ 
+                    INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
+
+                    /*----*/ 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -753,17 +746,10 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                            case 'abbrevation':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.abbrevation, ''), a.abbrevation_eng)" . $sorguExpression . ' ';
-
                                 break; 
-                            case 'vehicle_maingroup':
+                              case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND case a.cbu_ckd_type_id 
-				when 0 then 'CBU' 
-				else 'CKD' END" . $sorguExpression . ' ';
+                                $sorguStr.=" c.name" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -811,12 +797,9 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(ax.abbrevation, ''), a.abbrevation_eng) AS abbrevation,
+                            a.id,  
                             COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                            case a.cbu_ckd_type_id 
-                                    when 0 then 'CBU' 
-                                    else 'CKD' END vehicle_maingroup, 
+                            c.name cbuckd_name,
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_sales_provision_types a                    
@@ -824,7 +807,9 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
                         LEFT JOIN sys_sales_provision_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
                         INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
+                        /*----*/  
+                        INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
+                        /*----*/  
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                         /**/
@@ -855,7 +840,7 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
         }
     }
     
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_sales_provision_types tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -963,6 +948,204 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
         }
     }
 
+    /**
+     * @author Okan CIRAN
+     * @ sys_sales_provision_types tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            ////*********/////  1 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1                  
+            $errorInfo[0] = "99999";
+            $nameTemp = null;
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cbuCkdTypeId = -1111;
+            if ((isset($params['CbuCkdTypeId']) && $params['CbuCkdTypeId'] != "")) {
+                $cbuCkdTypeId = intval($params['CbuCkdTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }             
+                            
+                ////*********///// 2    
+            if ($languageIdValue != 385 )  
+                {$nameTemp = $name;  }     
+                ////*********///// 2          
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'name_eng' => $name,
+                            'cbu_ckd_type_id' => $cbuCkdTypeId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_sales_provision_types( 
+                            name,
+                            name_eng,
+                            cbu_ckd_type_id, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($cbuCkdTypeId) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_sales_provision_types_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_sales_provision_types_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameTemp' =>  ($nameTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    /**
+     * @author Okan CIRAN
+     * @ sys_sales_provision_types tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @version v 1.0  26.08.2018
+     * @todo Su an için aktif değil SQl in değişmesi lazım. 
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertLanguageTemplate($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            //  $pdo->beginTransaction();
+            /**
+             * table names and column names will be changed for specific use
+             */
+            $statement = $pdo->prepare(" 
+                
+                INSERT INTO sys_sales_provision_types(
+                    name,
+                    name_eng,                  
+                    cbu_ckd_type_id, 
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id)
+                    
+                  SELECT    
+                    name,
+                    name_eng,                    
+                    cbu_ckd_type_id, 
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id
+                FROM ( 
+                    SELECT  
+                        c.cbu_ckd_type_id, 
+                        
+			case when l.id = 385 then c.name_eng   
+			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
+                            else '' end as name,  
+                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
+                        l.id as language_id,  
+			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
+			case l.id when 385 then c.id else (SELECT last_value FROM sys_sales_provision_types_id_seq) end as act_parent_id,  
+                        c.op_user_id
+                    FROM sys_sales_provision_types c
+                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
+                    WHERE c.id = " . intval($params['id']) . "  
+                    ) AS xy   
+                    WHERE xy.language_id NOT IN 
+                        (SELECT DISTINCT language_id 
+                        FROM sys_sales_provision_types cx 
+                        WHERE 
+                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
+                            cx.id = " . intval($params['id']) . "  ) /* AND  
+                            cx.deleted =0 AND 
+                            cx.active =0 */ )
+                    ");
+
+            $result = $statement->execute();
+            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            //   $pdo->commit();
+
+            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+        } catch (\PDOException $e /* Exception $e */) {
+            //  $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+         
     
     
     

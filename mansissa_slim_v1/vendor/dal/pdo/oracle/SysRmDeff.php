@@ -626,12 +626,7 @@ class SysRmDeff extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                             case 'small_mileage':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
-                              
-                                break;
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -681,9 +676,7 @@ class SysRmDeff extends \DAL\DalSlim {
 			a.month_id,
 			COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS name_year,
 			a.big_mileage_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS big_mileage,
-			a.small_mileage_id,
-			COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS small_mileage, 
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS big_mileage, 
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,
@@ -797,12 +790,7 @@ class SysRmDeff extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                             case 'small_mileage':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
-                              
-                                break;
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -854,9 +842,7 @@ class SysRmDeff extends \DAL\DalSlim {
                             a.month_id,
                             COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS name_year,
                             a.big_mileage_id,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS big_mileage,
-                            a.small_mileage_id,
-                            COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS small_mileage,
+                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS big_mileage, 
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_rm_deff a                    
@@ -1008,8 +994,103 @@ class SysRmDeff extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+                            
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_body_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }             
+            $rmTypeID = -1111;
+            if (isset($params['RmTypeID']) && $params['RmTypeID'] != "") {
+                $rmTypeID = intval($params['MonthId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $monthId = -1111;
+            if ((isset($params['MonthId']) && $params['MonthId'] != "")) {
+                $monthId = intval($params['MonthId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $bigMileageId= -1111;
+            if ((isset($params['BigMileageId']) && $params['BigMileageId'] != "")) {
+                $bigMileageId = intval($params['BigMileageId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
-    
-    
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'rm_type_id' => $rmTypeID,
+                            'month_id' => $monthId,
+                            'big_mileage_id' => $bigMileageId,
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_body_deff(
+                            name,
+                            rm_type_id, 
+                            month_id,
+                            big_mileage_id, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            " . intval($rmTypeID) . ",
+                            " . intval($monthId) . ",
+                            " . intval($bigMileageId) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_body_deff_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }

@@ -602,7 +602,7 @@ class SysWarranties extends \DAL\DalSlim {
             $vehicleGroupID=0 ;
             if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
                 $vehicleGroupID = $params['VehicleGroupID'];
-                $addSql ="  a.vehicle_group_id = " . intval($vehicleGroupID). "  AND  " ; 
+                $addSql =" ird.vehicle_group_id = " . intval($vehicleGroupID). "  AND  " ; 
             }  
             $vehicleGroupTypeID=0 ;
             if (isset($params['VehicleGroupTypeID']) && $params['VehicleGroupTypeID'] != "") {
@@ -627,7 +627,7 @@ class SysWarranties extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id,  
-			a.vehicle_group_id,
+			ird.vehicle_group_id,
 			ird.name  AS vehicle_group_name, 
 			a.vehicle_config_type_id, 
 			krd.name  AS vehicle_config_name, 
@@ -823,7 +823,7 @@ class SysWarranties extends \DAL\DalSlim {
             $vehicleGroupID=0 ;
             if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
                 $vehicleGroupID = $params['VehicleGroupID'];
-                $addSql ="  a.vehicle_group_id = " . intval($vehicleGroupID). "  AND  " ; 
+                $addSql =" ird.vehicle_group_id = " . intval($vehicleGroupID). "  AND  " ; 
             }  
             $vehicleGroupTypeID=0 ;
             if (isset($params['VehicleGroupTypeID']) && $params['VehicleGroupTypeID'] != "") {
@@ -1036,7 +1036,159 @@ class SysWarranties extends \DAL\DalSlim {
         }
     }
 
-    
+       /**
+     * @author Okan CIRAN
+     * @ sys_warranty_matrix tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                           
+            $errorInfo[0] = "99999";
+            $warrantyId = -1111;
+            if ((isset($params['WarrantyId']) && $params['WarrantyId'] != "")) {
+                $warrantyId = intval($params['WarrantyId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $vehicleConfigTypeId= -1111;
+            if ((isset($params['VehicleConfigTypeId']) && $params['VehicleConfigTypeId'] != "")) {
+                $vehicleConfigTypeId = intval($params['VehicleConfigTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $months1Id = -1111;
+            if ((isset($params['Months1Id']) && $params['Months1Id'] != "")) {
+                $months1Id = intval($params['Months1Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $months2Id = -1111;
+            if ((isset($params['Months2Id']) && $params['Months2Id'] != "")) {
+                $months2Id = intval($params['Months2Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $mileages1Id = -1111;
+            if ((isset($params['Mileages1Id']) && $params['Mileages1Id'] != "")) {
+                $mileages1Id = intval($params['Mileages1Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $mileages2Id = -1111;
+            if ((isset($params['Mileages2Id']) && $params['Mileages2Id'] != "")) {
+                $mileages2Id = intval($params['Mileages2Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $warrantyTypesId = -1111;
+            if ((isset($params['WarrantyTypesId']) && $params['WarrantyTypesId'] != "")) {
+                $warrantyTypesId = intval($params['WarrantyTypesId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ismaintenance = -1111;
+            if ((isset($params['Ismaintenance']) && $params['Ismaintenance'] != "")) {
+                $ismaintenance = intval($params['Ismaintenance']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $uniqueCode = -1111;
+            if ((isset($params['UniqueCode']) && $params['UniqueCode'] != "")) {
+                $uniqueCode = intval($params['UniqueCode']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $priceInEuros = -1111;
+            if ((isset($params['PriceInEuros']) && $params['PriceInEuros'] != "")) {
+                $priceInEuros = intval($params['PriceInEuros']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                           
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'warranty_id' => $warrantyId,
+                            'vehicle_config_type_id' => $vehicleConfigTypeId,
+                            'months1_id' =>  $months1Id,
+                            'mileages1_id' => $mileages1Id,
+                            'months2_id' => $months2Id,
+                            'mileages2_id' => $mileages2Id,
+                            'warranty_types_id' => $warrantyTypesId,
+                            'ismaintenance' => $ismaintenance,
+                            'unique_code' => $uniqueCode,
+                           
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_warranty_matrix(
+                            warranty_id, 
+                            vehicle_config_type_id,
+                            months1_id,
+                            mileages1_id,
+                            months2_id,
+                            mileages2_id,
+                            warranty_types_id,
+                            ismaintenance,
+                            unique_code,
+                            price_in_euros, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            " . intval($warrantyId) . ",
+                            " . intval($vehicleConfigTypeId) . ",
+                            " . intval($months1Id) . ",
+                            " . intval($mileages1Id) . ",
+                            " . intval($months2Id) . ",
+                            " . intval($mileages2Id) . ",
+                            " . intval($warrantyTypesId) . ", 
+                            " . intval($ismaintenance) . ", 
+                            " . intval($priceInEuros) . ", 
+                            " . intval($uniqueCode) . ",
+                                                                          
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_warranty_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_warranty_matrix_id_seq');
+                           
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

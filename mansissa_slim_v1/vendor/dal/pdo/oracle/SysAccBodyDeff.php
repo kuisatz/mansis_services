@@ -995,7 +995,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
-                throw new \PDOException($errorInfo[0]);
+                 if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
             }
             $AccBodyTypeId = -1111;
             if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
@@ -1006,7 +1006,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                             
                 ////*********///// 2    
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
@@ -1017,6 +1017,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                         array(
                             'name' => $name,
                             'name_eng' => $name,
+                            'language_id' => $languageIdValue,
                             'acc_body_type_id' => $AccBodyTypeId
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {

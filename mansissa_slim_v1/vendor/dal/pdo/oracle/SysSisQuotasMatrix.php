@@ -525,12 +525,12 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         switch (trim($std['field'])) {
                             case 'name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
                             case 'name_eng':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND drd.name_eng" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -579,6 +579,8 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         a.id, 
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
                       /*  a.name_eng, */
+                        a.year,
+                        a.value,                        
                         a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -660,12 +662,12 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         switch (trim($std['field'])) {
                             case 'name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND  COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
                             case 'name_eng':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND drd.name_eng" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -715,6 +717,8 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         SELECT  
                             a.id, 
                             COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,  
+                            a.year,
+                            a.value, 
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_sis_quotas_matrix a                    
@@ -847,6 +851,97 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_body_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999";
+                            
+            $sisQuotaId = -1111;
+            if ((isset($params['SisQuotaId']) && $params['SisQuotaId'] != "")) {
+                $sisQuotaId = intval($params['SisQuotaId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $year = -1111;
+            if ((isset($params['Year']) && $params['Year'] != "")) {
+                $year = intval($params['Year']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
+                $kontrol = $this->haveRecords(
+                        array(
+                            'sis_quota_id' => $sisQuotaId,
+                            'year' => $year,
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_body_deff(
+                            sis_quota_id, 
+                            year, 
+                            value, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($sisQuotaId) . ",
+                            " . intval($year) . ",
+                            " . intval($value) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_body_deff_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    
     
 }

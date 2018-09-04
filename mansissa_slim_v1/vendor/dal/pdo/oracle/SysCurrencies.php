@@ -773,7 +773,7 @@ class SysCurrencies extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_currencies tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -879,7 +879,138 @@ class SysCurrencies extends \DAL\DalSlim {
         }
     }
 
-    
+    /**
+     * @author Okan CIRAN
+     * @ sys_currencies tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+                            
+            $currencyId = -1111;
+            if ((isset($params['currencyId']) && $params['AccBodyTypeId'] != "")) {
+                $currencyId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $addSQLinsert = null ;
+            $addSQLvalue = null ;
+            $currencyDate = null;
+            if ((isset($params['CurrencyDate']) && $params['CurrencyDate'] != "")) {
+                $currencyDate =  $params['CurrencyDate'] ;
+                $addSQLinsert .= ' currency_date, ' ;
+                $addSQLvalue .= " '".$currencyDate."' ,"; 
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $forexbuying = -1111;
+            if ((isset($params['ForexBuying']) && $params['ForexBuying'] != "")) {
+                $forexbuying = floatval($params['ForexBuying']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $forexselling = -1111;
+            if ((isset($params['ForexSelling']) && $params['ForexSelling'] != "")) {
+                $forexselling = floatval($params['ForexSelling']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $banknotebuying = -1111;
+            if ((isset($params['BanknoteBuying']) && $params['BanknoteBuying'] != "")) {
+                $banknotebuying = floatval($params['BanknoteBuying']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $banknoteselling = -1111;
+            if ((isset($params['BanknoteSelling']) && $params['BanknoteSelling'] != "")) {
+                $banknoteselling = floatval($params['BanknoteSelling']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $crossrateusd = -1111;
+            if ((isset($params['CrossrateUsd']) && $params['CrossrateUsd'] != "")) {
+                $crossrateusd = floatval($params['CrossrateUsd']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $fcrossrateeur = -1111;
+            if ((isset($params['CrossrateEur']) && $params['CrossrateEur'] != "")) {
+                $fcrossrateeur = floatval($params['CrossrateEur']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array( 
+                            'currency_date' => $currencyDate,
+                            'currency_id' => $currencyId
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_currencies(
+                            currency_id,
+                            forexbuying,
+                            forexselling,
+                            banknotebuying,
+                            banknoteselling,
+                            crossrateusd,
+                            crossrateeur,
+                            ".$addSQLinsert."
+                            
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($currencyId) . ",
+                            " . floatval($forexbuying) . ",
+                            " . floatval($forexselling) . ",
+                            " . floatval($banknotebuying) . ",
+                            " . floatval($banknoteselling) . ",
+                            " . floatval($crossrateusd) . ",
+                            " . floatval($fcrossrateeur) . ", 
+                            " .$addSQLvalue . ", 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_currencies_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_currencies_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
 }

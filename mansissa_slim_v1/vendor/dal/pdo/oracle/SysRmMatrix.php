@@ -959,7 +959,104 @@ class SysRmMatrix extends \DAL\DalSlim {
         }
     }
 
-    
+        /**
+     * @author Okan CIRAN
+     * @ sys_rm_matrix tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+                            
+            $modelId = -1111;
+            if ((isset($params['ModelId']) && $params['ModelId'] != "")) {
+                $modelId = intval($params['ModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $rmDeffId = -1111;
+            if ((isset($params['RmDeffId']) && $params['RmDeffId'] != "")) {
+                $rmDeffId = intval($params['RmDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $coefficient = -1111;
+            if ((isset($params['cccc']) && $params['Coefficient'] != "")) {
+                $coefficient = intval($params['Coefficient']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $price = -1111;
+            if ((isset($params['Price']) && $params['Price'] != "")) {
+                $price = floatval($params['Price']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'model_id' => $modelId,
+                            'rm_deff_id' => $rmDeffId,
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_rm_matrix(
+                            model_id,
+                            rm_deff_id,
+                            coefficient,
+                            price,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($modelId) . ",
+                            " . intval($rmDeffId) . ",
+                            " . intval($coefficient) . ",
+                            " . intval($price) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_rm_matrix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_rm_matrix_id_seq');
+
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
 }

@@ -474,7 +474,47 @@ class SysCurrencyFix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+            
+    /** 
+     * @author Okan CIRAN
+     * @ fixler dropdown ya da tree ye doldurmak için sys_currency_fix tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fixesfDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
                             
+            $statement = $pdo->prepare("     
+                  SELECT                    
+                    a.id AS id, 	
+                    concat(ct.abbrevation   ,' // ' ,  concat(cast(start_date as character varying(20))  , ' - ', cast(end_date as character varying(20))) ) AS name,  
+                    cast(fix as character varying(20))  AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_currency_fix a   
+                INNER JOIN sys_currency_types ct ON ct.act_parent_id = a.currency_id and ct.show_it =0 
+                WHERE     
+                    a.deleted = 0 AND
+                    a.active =0   
+                ORDER BY  a.start_date desc  
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    
     /** 
      * @author Okan CIRAN
      * @ Tarih Bazlı Döviz kur bilgileri  tanımlarını grid formatında döndürür !! ana tablo  sys_currency_fix 
@@ -765,7 +805,7 @@ class SysCurrencyFix extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_currency_fix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -862,8 +902,120 @@ class SysCurrencyFix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+                            
+    /**
+     * @author Okan CIRAN
+     * @ sys_currency_fix tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $currencyId = -1111;
+            if ((isset($params['currencyId']) && $params['AccBodyTypeId'] != "")) {
+                $currencyId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $addSQLinsert = null ;
+            $addSQLvalue = null ;
+            $startDate = null;
+            if ((isset($params['StartDate']) && $params['StartDate'] != "")) {
+                $startDate =  $params['StartDate'] ;
+                $addSQLinsert .= ' start_date, ' ;
+                $addSQLvalue .= " '".$startDate."' ,"; 
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $endDate = null;
+            if ((isset($params['EndDate']) && $params['EndDate'] != "")) {
+                $endDate =  $params['EndDate'] ;
+                $addSQLinsert .= ' end_date, ' ;
+                $addSQLvalue .= " '".$endDate."' ,"; 
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $fix = -1111;
+            if ((isset($params['Fix']) && $params['Fix'] != "")) {
+                $fix = floatval($params['Fix']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
 
-    
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'currency_id' => $currencyId,
+                            'start_date' => $startDate,
+                            'end_date' => $endDate
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_currency_fix(
+                            currency_id,
+                            " . $addSQLinsert . ",
+                            fix,
+                            
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($currencyId) . ",
+                            " . $addSQLvalue . ", 
+                            " . floatval($fix) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_currency_fix_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_currency_fix_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
 }

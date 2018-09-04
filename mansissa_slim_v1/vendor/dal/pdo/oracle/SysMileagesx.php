@@ -855,17 +855,16 @@ class SysMileagesx extends \DAL\DalSlim {
             $typeID =0 ;
             if (isset($params['TypeID']) && $params['TypeID'] != "") {
                 $typeID = $params['ParentID'];
-                $addSql .="  a.typeID = " . intval($typeID). "  AND  " ; 
+                $addSql .="  a.type_id = " . intval($typeID). "  AND  " ; 
             }  
                 $sql = "
                     SELECT  
                         a.id, 
                         cast(a.mileages1 as character varying(20))  AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
-                      /*  a.name_eng, */
+			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
                         a.act_parent_id,   
 			a.parent_id,  
-                        a.typeID,
+                        a.type_id,
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -879,7 +878,7 @@ class SysMileagesx extends \DAL\DalSlim {
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_mileagesx a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
                     LEFT JOIN sys_mileagesx ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
                
@@ -896,8 +895,8 @@ class SysMileagesx extends \DAL\DalSlim {
                     
                     WHERE  
                         a.deleted =0 AND
-                        a.show_it =0 AND 
-                        a.language_parent_id =0
+                        a.type_id > -1 AND
+                        a.show_it =0  
                 " . $addSql . "
                 " . $sorguStr . " 
                 ORDER BY    " . $sort . " "
@@ -1001,7 +1000,7 @@ class SysMileagesx extends \DAL\DalSlim {
              $typeID =0 ;
             if (isset($params['TypeID']) && $params['TypeID'] != "") {
                 $typeID = $params['ParentID'];
-                $addSql .="  a.typeID = " . intval($typeID). "  AND  " ; 
+                $addSql .="  a.type_id = " . intval($typeID). "  AND  " ; 
             }  
 
                 $sql = "
@@ -1012,11 +1011,11 @@ class SysMileagesx extends \DAL\DalSlim {
                             COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
                             a.act_parent_id,   
                             a.parent_id, 
-                            a.typeID,
+                            a.type_id,
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_mileagesx a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
                         LEFT JOIN sys_mileagesx ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
 
@@ -1033,8 +1032,8 @@ class SysMileagesx extends \DAL\DalSlim {
 
                         WHERE  
                             a.deleted =0 AND
-                            a.show_it =0 AND 
-                            a.language_parent_id =0 
+                            a.type_id > -1 AND
+                            a.show_it =0  
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -1114,7 +1113,7 @@ class SysMileagesx extends \DAL\DalSlim {
                         gap,
                         mileages1,
                         mileages2,
-                        a.typeID,
+                        type_id,
                         
                         
                         language_id,
@@ -1131,7 +1130,7 @@ class SysMileagesx extends \DAL\DalSlim {
                         gap,
                         mileages1,
                         mileages2,
-                        a.typeID,
+                        type_id,
                         
                         language_id,
                         language_parent_id, 
@@ -1162,7 +1161,114 @@ class SysMileagesx extends \DAL\DalSlim {
         }
     }
 
-    
+       /**
+     * @author Okan CIRAN
+     * @ sys_mileagesx tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                             
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }               
+            $parenteId = -1111;
+            if ((isset($params['ParenteId']) && $params['ParenteId'] != "")) {
+                $parenteId = intval($params['ParenteId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $mileages1 = -1111;
+            if ((isset($params['Mileages1']) && $params['Mileages1'] != "")) {
+                $mileages1 = intval($params['Mileages1']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $mileages2 = -1111;
+            if ((isset($params['Mileages2']) && $params['Mileages2'] != "")) {
+                $mileages2 = intval($params['Mileages2']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $typeId = -1111;
+            if ((isset($params['TypeId']) && $params['TypeId'] != "")) {
+                $typeId = intval($params['TypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'parent_id' => $parenteId,
+                            'mileages1' => $mileages1,
+                            'mileages2' => $mileages2,
+                            'type_id' => $typeId,
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_mileagesx(
+                            name, 
+                            parent_id,
+                            gap,
+                            mileages1,
+                            mileages2,
+                            type_id,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            " . intval($parenteId) . ",
+                            " . intval($mileages1) . ",
+                            " . intval($mileages2) . ",
+                            " . intval($typeId) . ", 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_mileagesx_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_mileagesx_id_seq');
+                             
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

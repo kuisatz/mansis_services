@@ -499,47 +499,20 @@ class SysVatPolicyTypes extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
               
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM (  vatPolicyTypes 
-
+            $statement = $pdo->prepare("   
                 SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
+                    a.id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                     0 as parent_id,
-                    a.active,
-                    0 AS state_type   
                 FROM sys_vat_policy_types a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_vat_policy_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
+                    a.language_parent_id =0  
+                ORDER BY  a.privilege 
 
                                  ");
             $statement->execute();
@@ -941,7 +914,98 @@ class SysVatPolicyTypes extends \DAL\DalSlim {
         }
     }
 
-    
+      /**
+     * @author Okan CIRAN
+     * @ sys_vat_policy_types tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }            
+            $abbrevation = null;
+            if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
+                $abbrevation = $params['Abbrevation'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            } 
+            $vvalue = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $vvalue = floatval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name, 
+                            'abbrevation' => $abbrevation
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_vat_policy_types(
+                            name,
+                            name_eng,
+                            abbrevation,
+                            symbol,
+                            vvalue,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            '" . $name . "',
+                            '" . $abbrevation . "',
+                            '" . $abbrevation . "',
+                            " . floatval($vvalue) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_vat_policy_types_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_vat_policy_types_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

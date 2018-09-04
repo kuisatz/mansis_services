@@ -486,43 +486,9 @@ class SysCurrencyTypes extends \DAL\DalSlim {
     public function  currencyTypesDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-              
+                            
             $statement = $pdo->prepare("       
-
-            SELECT * FROM ( 
-
-                SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
+  
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
@@ -531,15 +497,49 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                     a.active,
                     0 AS state_type   
                 FROM sys_currency_types a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_currency_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
+                    a.language_parent_id =0  
+                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng)
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    /** 
+     * @author Okan CIRAN
+     * @ doviz kod tanımları dropdown ya da tree ye doldurmak için sys_currency_types tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array 
+     * @throws \PDOException 
+     */
+    public function  currencyCodeTypesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');  
+            $statement = $pdo->prepare("     
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.currency_code AS name,  
+                    a.name_eng AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_currency_types a    
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0  
+                ORDER BY  a.currency_code
 
                                  ");
             $statement->execute();
@@ -553,7 +553,7 @@ class SysCurrencyTypes extends \DAL\DalSlim {
         }
     }
  
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ takvim  tipleri  tanımlarını grid formatında döndürür !! ana tablo  sys_currency_types 
      * @version v 1.0  20.08.2018
@@ -664,8 +664,11 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                         a.id, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         a.abbrevation,
-                        a.symbol,
-                      /*  a.name_eng, */
+                        a.symbol, 
+                        a.code,
+                        a.currency_code,
+                        a.embrace_cur_code,
+                        
                         a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -807,14 +810,17 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                             a.id, 
                             COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                             a.abbrevation,
-                            a.symbol,
+                            a.symbol, 
+                            a.code,
+                            a.currency_code,
+                            a.embrace_cur_code,
                           /*  a.name_eng, */ 
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_calendar_types a                    
                         INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
-                        LEFT JOIN sys_calendar_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+                        LEFT JOIN sys_calendar_types ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -955,6 +961,248 @@ class SysCurrencyTypes extends \DAL\DalSlim {
         }
     }
 
+    /**
+     * @author Okan CIRAN
+     * @ sys_currency_types tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            ////*********/////  1 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1                  
+            $errorInfo[0] = "99999";
+            $nameTemp = null;
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
+            }
+            $abbrevation = null;
+            if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
+                $abbrevation = $params['Abbrevation'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $symbol = null;
+            if ((isset($params['Symbol']) && $params['Symbol'] != "")) {
+                $symbol = $params['Symbol'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $code = null;
+            if ((isset($params['code']) && $params['Name'] != "")) {
+                $code = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $currencyCode = null;
+            if ((isset($params['CurrencyCode']) && $params['CurrencyCode'] != "")) {
+                $currencyCode = $params['CurrencyCode'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $embraceCurCode = null;
+            if ((isset($params['EmbraceCurCode']) && $params['EmbraceCurCode'] != "")) {
+                $embraceCurCode = $params['EmbraceCurCode'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+                            
+                ////*********///// 2    
+            if ($languageIdValue != 385 )  
+                {$nameTemp = $name;  }   else {$nameEng = $name;  }   
+                ////*********///// 2          
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,   
+                            'language_id' => $languageIdValue
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_currency_types(
+                            name,
+                            name_eng,
+                            abbrevation,
+                            symbol,
+                            code,
+                            currency_code,
+                            embrace_cur_code,
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            '" . $abbrevation . "',
+                            '" . $symbol . "',
+                            '" . $code . "',
+                            '" . $currencyCode . "',
+                            '" . $embraceCurCode . "', 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_currency_types_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_currency_types_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameTemp' =>  ($nameTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+    /**
+     * @author Okan CIRAN
+     * @ sys_currency_types tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @version v 1.0  26.08.2018
+     * @todo Su an için aktif değil SQl in değişmesi lazım. 
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertLanguageTemplate($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            //  $pdo->beginTransaction();
+            /**
+             * table names and column names will be changed for specific use
+             */
+            $statement = $pdo->prepare(" 
+                
+                INSERT INTO sys_currency_types(
+                    name,
+                    name_eng,
+                    abbrevation,
+                    symbol,
+                    code,
+                    currency_code,
+                    embrace_cur_code,
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id)
+                    
+                  SELECT    
+                    name,
+                    name_eng,
+                    abbrevation,
+                    symbol,
+                    code,
+                    currency_code,
+                    embrace_cur_code,
+                     
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id
+                FROM ( 
+                    SELECT  
+                        c.abbrevation,
+                        c.symbol,
+                        c.code,
+                        c.currency_code,
+                        c.embrace_cur_code,
+                        
+			case when l.id = 385 then c.name_eng   
+			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
+                            else '' end as name,  
+                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
+                        l.id as language_id,  
+			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
+			case l.id when 385 then c.id else (SELECT last_value FROM sys_currency_types_id_seq) end as act_parent_id,  
+                        c.op_user_id
+                    FROM sys_currency_types c
+                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
+                    WHERE c.id = " . intval($params['id']) . "  
+                    ) AS xy   
+                    WHERE xy.language_id NOT IN 
+                        (SELECT DISTINCT language_id 
+                        FROM sys_currency_types cx 
+                        WHERE 
+                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
+                            cx.id = " . intval($params['id']) . "  ) /* AND  
+                            cx.deleted =0 AND 
+                            cx.active =0 */ )
+                    ");
+
+            $result = $statement->execute();
+            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            //   $pdo->commit();
+
+            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+        } catch (\PDOException $e /* Exception $e */) {
+            //  $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+         
     
     
 }

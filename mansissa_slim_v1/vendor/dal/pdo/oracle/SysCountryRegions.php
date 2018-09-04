@@ -504,28 +504,7 @@ class SysCountryRegions extends \DAL\DalSlim {
             }  
               
             $statement = $pdo->prepare("       
-
-            SELECT * FROM ( 
-
-                SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
+ 
 
                 SELECT                    
                     a.act_parent_id AS id, 	
@@ -543,8 +522,8 @@ class SysCountryRegions extends \DAL\DalSlim {
                     a.active =0 AND
                     a.language_parent_id =0 
                     and a.country_id = " . intval($countryIdValue). "
-                    ) asd 
-                ORDER BY  id 
+                    
+                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng)
 
                                  ");
             $statement->execute();
@@ -972,7 +951,129 @@ class SysCountryRegions extends \DAL\DalSlim {
         }
     }
 
-    
+        /**
+     * @author Okan CIRAN
+     * @ sys_country_regions tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            ////*********/////  1 
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1                  
+            $errorInfo[0] = "99999";
+            $nameTemp = null;
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                 if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
+            }
+            $countryId = -1111;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $countryId = intval($params['CountryId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+                ////*********///// 2    
+            if ($languageIdValue != 385 )  
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
+                ////*********///// 2          
+
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name,
+                            'country_id' => $countryId,
+                            'language_id' => $languageIdValue,
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_country_regions(
+                            name, 
+                            name_eng, 
+                            country_id, 
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($countryId) . ",
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_country_regions_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_country_regions_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameTemp' =>  ($nameTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

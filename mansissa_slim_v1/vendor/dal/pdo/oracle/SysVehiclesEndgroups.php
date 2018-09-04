@@ -727,7 +727,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         switch (trim($std['field'])) {
                             case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end " . $sorguExpression . ' ';
+                                $sorguStr.=" AND c.name" . $sorguExpression . ' ';
                               
                                 break;
                             case 'gt_model_name':
@@ -753,6 +753,11 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                              case 'endgroup_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.endgroup_description" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'model_grouping':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.model_grouping" . $sorguExpression . ' ';
 
                                 break;  
                             case 'op_user_name':
@@ -820,7 +825,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 $sql = "
                    SELECT    
                         a.id, 
-			case ckdcbu_type_id when 0 then 'CBU' else 'CKD' end cbuckd_name, 
+                        c.name cbuckd_name,
                         a.vehicle_gt_model_id,
 			vgtm.name  gt_model_name,
                         a.model_variant_id,
@@ -830,6 +835,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         a.cap_type_id,
 			vcat.name cap_name , 
 			a.endgroup_description, 
+                        a.model_grouping,
                         a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
@@ -849,6 +855,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
 		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
 		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
 		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
+                    INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
  
 		     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -912,7 +919,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         switch (trim($std['field'])) {
                             case 'cbuckd_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND case ckdcbu_type_id when 0 then 'CKD' else 'CBU' end " . $sorguExpression . ' ';
+                                $sorguStr.=" AND c.name" . $sorguExpression . ' ';
                               
                                 break;
                             case 'gt_model_name':
@@ -938,6 +945,11 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                              case 'endgroup_description':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.endgroup_description" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'model_grouping':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.model_grouping" . $sorguExpression . ' ';
 
                                 break;  
                             case 'op_user_name':
@@ -1007,7 +1019,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
 
                         SELECT    
                              a.id, 
-                             case ckdcbu_type_id when 0 then 'CBU' else 'CKD' end cbuckd_name, 
+                             c.name cbuckd_name,
                              a.vehicle_gt_model_id,
                              vgtm.name  gt_model_name,
                              a.model_variant_id,
@@ -1030,6 +1042,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                          INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
                          INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
                          INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
+                         INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0  
 
                           /*----*/                 
                         /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1130,7 +1143,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                       ckdcbu_type_id,
+                        ckdcbu_type_id,
                         vehicle_gt_model_id,
                         model_variant_id,
                         config_type_id,
@@ -1166,5 +1179,131 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
     }
 
     
+    /**
+     * @author Okan CIRAN
+     * @ sys_acc_body_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+                            
+            $errorInfo[0] = "99999";
+                            
+            $endgroupDescription = null;
+            if ((isset($params['EndgroupDescription']) && $params['EndgroupDescription'] != "")) {
+                $endgroupDescription = $params['EndgroupDescription'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $modelGrouping = null;
+            if ((isset($params['ModelGrouping']) && $params['ModelGrouping'] != "")) {
+                $modelGrouping = $params['ModelGrouping'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ckdcbuTypeId = -1111;
+            if ((isset($params['CkdcbuTypeId']) && $params['CkdcbuTypeId'] != "")) {
+                $ckdcbuTypeId = intval($params['CkdcbuTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGtModelId = -1111;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $vehicleGtModelId = intval($params['VehicleGtModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $modelVariantId= -1111;
+            if ((isset($params['ModelVariantId']) && $params['ModelVariantId'] != "")) {
+                $modelVariantId = intval($params['ModelVariantId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $configTypeId = -1111;
+            if ((isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "")) {
+                $configTypeId = intval($params['ConfigTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $capTypeId = -1111;
+            if ((isset($params['CapTypeId']) && $params['CapTypeId'] != "")) {
+                $capTypeId = intval($params['CapTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'ckdcbu_type_id' => $ckdcbuTypeId,
+                            'vehicle_gt_model_id' => $vehicleGtModelId,
+                            'model_variant_id' => $modelVariantId, 
+                            'config_type_id' => $configTypeId,
+                            'cap_type_id' => $capTypeId,
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO sys_acc_body_deff(
+                            ckdcbu_type_id,
+                            vehicle_gt_model_id,
+                            model_variant_id,
+                            config_type_id,
+                            cap_type_id,
+                            endgroup_description,
+                            model_grouping,         
+
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES (
+                            " . intval($ckdcbuTypeId) . ",
+                            " . intval($vehicleGtModelId) . ",
+                            " . intval($modelVariantId) . ",
+                            " . intval($configTypeId) . ",
+                            " . intval($capTypeId) . ",
+                          
+                            '" . $endgroupDescription . "',
+                            '" . $modelGrouping . "', 
+
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM sys_acc_body_deff_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+                    //   echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }
