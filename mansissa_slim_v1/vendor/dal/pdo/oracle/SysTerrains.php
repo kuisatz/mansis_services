@@ -651,7 +651,7 @@ class SysTerrains extends \DAL\DalSlim {
         }
     }
  
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ buyback de kullanılacak terrains tanımları alt grupları dropdown ya da tree ye doldurmak için sys_terrains tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -706,8 +706,7 @@ class SysTerrains extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
-    
+                            
     /** 
      * @author Okan CIRAN
      * @  terrains tanımlarını grid formatında döndürür !! ana tablo  sys_terrains 
@@ -1160,8 +1159,7 @@ class SysTerrains extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name, 
+                            'name' => $name, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
@@ -1169,8 +1167,7 @@ class SysTerrains extends \DAL\DalSlim {
                             name, 
                             name_eng, 
                             t_value, 
-                            left_right,
-                          /*  big_small,*/
+                            left_right, 
 
                             op_user_id,
                             act_parent_id  
@@ -1214,6 +1211,119 @@ class SysTerrains extends \DAL\DalSlim {
         }
     }
                              
-    
+    /**
+     * @author Okan CIRAN
+     * sys_terrains tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+                             
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+              $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                 $nameEng = $name;  
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $leftRight = -1111;
+            if ((isset($params['LeftRight']) && $params['LeftRight'] != "")) {
+                $leftRight = intval($params['LeftRight']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                             
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_terrains (  
+                        name, 
+                        name_eng, 
+                        t_value, 
+                        left_right,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    '" . $name . "',
+                    '" . $nameEng . "',
+                    " . intval($value) . ",
+                    " . intval($leftRight) . ",   
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_terrains 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_terrains_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
 }

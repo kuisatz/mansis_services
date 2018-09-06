@@ -815,6 +815,78 @@ class SysTopusedProvisions extends \DAL\DalSlim {
     }
     
     /**
+     * @author Okan CIRAN     
+     * @ sys_topused_provisions tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
+     * @version v 1.0  24.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function deletedAct($params = array()) {
+        $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+        try { 
+            $pdo->beginTransaction();
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $this->makePassive(array('id' => $params['id'])); 
+                            
+                $statementInsert = $pdo->prepare(" 
+                    INSERT INTO sys_topused_provisions (
+                        name, 
+                        name_eng, 
+                        abbrevation, 
+                        value,
+                        
+                        language_id,
+                        language_parent_id,
+                        active,
+                        deleted,
+                        op_user_id,
+                        act_parent_id,
+                        show_it
+                        )
+                    SELECT
+                        name, 
+                        name_eng, 
+                        abbrevation, 
+                        value,
+                        
+                        language_id,
+                        language_parent_id, 
+                        1 AS active,  
+                        1 AS deleted, 
+                        " . intval($opUserIdValue) . " AS op_user_id, 
+                        act_parent_id,
+                        0 AS show_it 
+                    FROM sys_topused_provisions 
+                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
+                    )");
+
+                $insertAct = $statementInsert->execute();
+                $affectedRows = $statementInsert->rowCount(); 
+                $errorInfo = $statementInsert->errorInfo();
+
+                $pdo->commit();
+                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            } else {
+                $errorInfo = '23502';  /// 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /**
      * @author Okan CIRAN
      * @ sys_topused_provisions tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
@@ -828,7 +900,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+          /*  if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -839,6 +911,8 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+           * 
+           */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -849,11 +923,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+           /* if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            * 
+            */
             $abbrevation = null;
             if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
                 $abbrevation = $params['Abbrevation'];
@@ -867,10 +943,11 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
                             
-                ////*********///// 2    
+                ////*********///// 2  
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
+        
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -879,7 +956,6 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'name' => $name,
-                            'name_eng' => $name, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
@@ -1021,8 +1097,126 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-         
-    
+                            
+    /**
+     * @author Okan CIRAN
+     * sys_topused_provisions tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = $name;
+           /* if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            * 
+            */
+            $abbrevation = null;
+            if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
+                $abbrevation = $params['Abbrevation'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = floatval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' =>$name, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_topused_provisions (  
+                        name, 
+                        name_eng, 
+                        abbrevation, 
+                        value,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    '" . $name . "',
+                    '" . $nameEng . "',
+                    '" . $abbrevation . "',
+                    " . floatval($value) . ", 
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_topused_provisions 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_topused_provisions_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
     

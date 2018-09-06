@@ -1164,24 +1164,29 @@ class SysMonthsx extends \DAL\DalSlim {
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
+            }   
+            
+            $value= -1111;
+            if ((isset($params['value']) && $params['value'] != "")) {
+                $value = intval($params['value']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }           
-            $typeeId = -1111;
-            if ((isset($params['TypeId']) && $params['TypeId'] != "")) {
-                $typeeId = intval($params['TypeId']);
+            }   
+            $parentId= -1111;
+            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
+                $parentId = intval($params['ParentId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-                            
+            }   
+            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name, 
-                            'type_id' => $typeeId
+                            'mvalue' => $value, 
+                            'parent_id' =>$parentId,
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
@@ -1189,13 +1194,16 @@ class SysMonthsx extends \DAL\DalSlim {
                             name, 
                             type_id, 
                             mvalue, 
+                            parent_id,
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
                             '" . $name . "', 
-                            " . intval($typeeId) . ",
+                            ( SELECT distinct cz.type_id FROM sys_monthsx cz WHERE cz.id =  " . intval($parentId) . " ) type_id, 
+                            " . intval($value) . ",
+                            " . intval($parentId) . ", 
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_monthsx_id_seq)
@@ -1228,7 +1236,113 @@ class SysMonthsx extends \DAL\DalSlim {
         }
     }
 
-    
+      /**
+     * @author Okan CIRAN
+     * sys_monthsx tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+           $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            }  
+            $value= -1111;
+            if ((isset($params['value']) && $params['value'] != "")) {
+                $value = intval($params['value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $parentId= -1111;
+            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
+                $parentId = intval($params['ParentId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'mvalue' => $value, 
+                            'parent_id' =>$parentId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_monthsx (  
+                        name,
+                        parent_id,
+                        mileages1, 
+                        mileages2,
+                        type_id
+                        
+                        priority, 
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    name,
+                    " . intval($parentId) . ",
+                    " . intval($mileages1) . ",
+                    " . intval($mileages2) . ",
+                    ( SELECT distinct cz.type_id FROM sys_monthsx cz WHERE cz.id =  " . intval($parentId) . " ) type_id, 
+                     
+                    priority, 
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_monthsx 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_monthsx_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
 }

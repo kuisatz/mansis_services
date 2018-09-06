@@ -445,7 +445,7 @@ class SysCity extends \DAL\DalSlim {
         }
     }
 
-     /**      
+    /**      
      * @author Okan CIRAN
      * @ sys_city tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  29.12.2015
@@ -495,7 +495,7 @@ class SysCity extends \DAL\DalSlim {
         }
     }
 
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ var yok gec dropdown ya da tree ye doldurmak için sys_city tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018

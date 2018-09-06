@@ -483,7 +483,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-     public function fillBodyMatrixGridx($params = array()) {
+    public function fillBodyMatrixGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -687,7 +687,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-     public function fillBodyMatrixGridxRtl($params = array()) {
+    public function fillBodyMatrixGridxRtl($params = array()) {
         try {             
             $sorguStr = null;     
              $addSql = null;
@@ -829,7 +829,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
         }
     }
     
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_acc_body_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018

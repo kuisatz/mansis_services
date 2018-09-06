@@ -475,7 +475,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
     
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ body aksesuar tanımlarını supplier bilgilerini grid formatında döndürür !! ana tablo  sys_acc_body_supp 
      * @version v 1.0  15.08.2018
@@ -801,7 +801,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
     
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_acc_body_supp tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -897,7 +897,7 @@ class SysAccBodySupp extends \DAL\DalSlim {
         }
     }
 
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_acc_body_supp tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  26.08.2018

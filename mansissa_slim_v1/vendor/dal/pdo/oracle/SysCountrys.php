@@ -115,7 +115,7 @@ class SysCountrys extends \DAL\DalSlim {
         }
     }
 
-        /**       
+    /**       
      * @author Okan CIRAN
      * @ sys_countrys tablosunda name sutununda daha önce oluşturulmuş mu? 
      * @version v 1.0 21.01.2016
@@ -162,8 +162,7 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    
+  
     /**  
      * @author Okan CIRAN
      * @ sys_countrys tablosuna yeni bir kayıt oluşturur.  !!
@@ -406,8 +405,7 @@ class SysCountrys extends \DAL\DalSlim {
         }
     }
 
-    /**
-     * user interface datagrid fill operation get row count for widget
+    /** 
      * @author Okan CIRAN
      * @ Gridi doldurmak için sys_countrys tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  08.12.2015
@@ -466,8 +464,8 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
-      /**
-     * user interface datagrid fill operation get row count for widget
+   
+    /** 
      * @author Okan CIRAN
      * @ combobox ı doldurmak için sys_countrys tablosundan çekilen kayıtları döndürür   !!
      * @version v 1.0  17.12.2015
@@ -564,9 +562,8 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-
-         /**     
+ 
+    /**     
      * @author Okan CIRAN
      * @ sys_countrys tablosundan id degerini getirir.  !!
      * @version v 1.0  17.03.2016    

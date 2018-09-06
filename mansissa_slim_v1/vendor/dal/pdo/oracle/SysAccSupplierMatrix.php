@@ -833,7 +833,7 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
         }
     }
     
-      /**
+    /**
      * @author Okan CIRAN
      * @ sys_acc_supplier_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018

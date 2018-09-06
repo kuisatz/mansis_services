@@ -711,7 +711,7 @@ class SysLanguage extends \DAL\DalSlim {
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
 		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). " AND lx.deleted =0 AND lx.active =0
                 LEFT JOIN sys_language sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND lx.id = sd.language_id
-                WHERE  a.lang_choose = 1  
+                WHERE  a.lang_choose = 1 and a.deleted =0 
                 ORDER BY a.priority ,name
                                  ");
             $statement->execute();

@@ -590,8 +590,7 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
-     
+                            
     /** 
      * @author Okan CIRAN
      * @ sektor  tanımlarını grid formatında döndürür !! ana tablo  sys_customer_sector_types 
@@ -1002,7 +1001,7 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+          /*  if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -1013,6 +1012,8 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+           * 
+           */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -1023,11 +1024,13 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+         /*   if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                  if ($languageIdValue != 385 ) {   throw new \PDOException($errorInfo[0]);}
             }
+          * 
+          */
             $parentId = -1111;
             if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
                 $parentId = intval($params['ParentId']);

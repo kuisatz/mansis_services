@@ -915,7 +915,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
         }
     }
     
-   /**
+    /**
      * @author Okan CIRAN
      * @ sys_branch_and_dealers_deff tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018

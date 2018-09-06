@@ -475,7 +475,7 @@ class SysCommissionExtras extends \DAL\DalSlim {
         }
     }
     
-     /** 
+    /** 
      * @author Okan CIRAN
      * @ komisyonlardaki extra tanımları dropdown ya da tree ye doldurmak için sys_commission_extras tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -483,7 +483,7 @@ class SysCommissionExtras extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
-    public function  accBodySuppDdList($params = array()) {
+    public function  commissionExtrasDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -833,7 +833,7 @@ class SysCommissionExtras extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_commission_extras tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018

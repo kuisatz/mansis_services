@@ -513,8 +513,7 @@ class SysCurrencyFix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
-    
+                            
     /** 
      * @author Okan CIRAN
      * @ Tarih Bazlı Döviz kur bilgileri  tanımlarını grid formatında döndürür !! ana tablo  sys_currency_fix 

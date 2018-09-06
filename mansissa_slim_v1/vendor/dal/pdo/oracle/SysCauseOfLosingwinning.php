@@ -475,7 +475,7 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
         }
     }
     
-     /** 
+    /** 
      * @author Okan CIRAN
      * @ kazanma/kaybetme sebepleri dropdown ya da tree ye doldurmak için sys_cause_of_losingwinning tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -553,7 +553,7 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
         }
     }
  
-           /** 
+    /** 
      * @author Okan CIRAN
      * @ kazanma/kaybetme sebepleri tanımlarını grid formatında döndürür !! ana tablo  sys_cause_of_losingwinning 
      * @version v 1.0  20.08.2018
@@ -832,7 +832,7 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_cause_of_losingwinning tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -948,7 +948,7 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+          /*  if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -959,6 +959,8 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+           * 
+           */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -969,11 +971,13 @@ class SysCauseOfLosingwinning extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+          /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                  if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
             }
+           * 
+           */
             $AccBodyTypeId = -1111;
             if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
                 $AccBodyTypeId = intval($params['AccBodyTypeId']);

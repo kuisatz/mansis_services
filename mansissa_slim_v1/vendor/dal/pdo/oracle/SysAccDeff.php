@@ -1030,7 +1030,7 @@ class SysAccDeff extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+           /* if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -1041,6 +1041,8 @@ class SysAccDeff extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+           * 
+           */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameSmTemp = null;
@@ -1051,12 +1053,14 @@ class SysAccDeff extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $nameSmEng = null;
-            if ((isset($params['NameSmEng']) && $params['NameSmEng'] != "")) {
+           $nameSmEng = null;
+          /*  if ((isset($params['NameSmEng']) && $params['NameSmEng'] != "")) {
                 $nameSmEng = $params['NameSmEng'];
             } else {
                 if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
             }
+          * 
+          */
             $nameBo = null;
             if ((isset($params['NameBo']) && $params['NameBo'] != "")) {
                 $nameBo = $params['NameBo'];
@@ -1064,11 +1068,13 @@ class SysAccDeff extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameBoEng = null;
-            if ((isset($params['NameBoEng']) && $params['NameBoEng'] != "")) {
+         /*   if ((isset($params['NameBoEng']) && $params['NameBoEng'] != "")) {
                 $nameBoEng = $params['NameBoEng'];
             } else {
                  if ($languageIdValue != 385 )  {  throw new \PDOException($errorInfo[0]);}
             }
+          * 
+          */
                             
                 ////*********///// 2    
             if ($languageIdValue != 385 )  

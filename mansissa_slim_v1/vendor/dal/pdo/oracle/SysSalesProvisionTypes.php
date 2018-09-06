@@ -553,7 +553,7 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
         }
     }
  
-        /** 
+    /** 
      * @author Okan CIRAN
      * @sales provision types tanımlarını grid formatında döndürür !! ana tablo  sys_sales_provision_types 
      * @version v 1.0  20.08.2018
@@ -962,7 +962,7 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+         /*   if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -973,6 +973,8 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+          * 
+          */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -983,11 +985,13 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+          /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+           * 
+           */
             $cbuCkdTypeId = -1111;
             if ((isset($params['CbuCkdTypeId']) && $params['CbuCkdTypeId'] != "")) {
                 $cbuCkdTypeId = intval($params['CbuCkdTypeId']);
@@ -995,10 +999,11 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }             
                             
-                ////*********///// 2    
+                ////*********///// 2     
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
+         
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1006,8 +1011,7 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name,
+                            'name' => $name, 
                             'cbu_ckd_type_id' => $cbuCkdTypeId
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1146,7 +1150,115 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
         }
     }
          
-    
+    /**
+     * @author Okan CIRAN
+     * sys_sales_provision_types tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $name = "";
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = $name;
+        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+         * 
+         */
+            $cbuCkdTypeId = -1111;
+            if ((isset($params['CbuCkdTypeId']) && $params['CbuCkdTypeId'] != "")) {
+                $cbuCkdTypeId = intval($params['CbuCkdTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name, 
+                            'cbu_ckd_type_id' => $cbuCkdTypeId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_sales_provision_types (  
+                        name,
+                        name_eng,                  
+                        cbu_ckd_type_id, 
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . ($name) . " AS name,    
+                    " . ($nameEng) . " AS name_eng, 
+                    " . intval($cbuCkdTypeId) . " AS AccBodyTypeId,   
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_sales_provision_types 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_sales_provision_types_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
     

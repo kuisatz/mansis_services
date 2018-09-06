@@ -475,7 +475,7 @@ class SysRmMatrix extends \DAL\DalSlim {
         }
     }
     
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ R&M matrix tanım bilgilerini grid formatında döndürür !! ana tablo  sys_rm_matrix 
      * @version v 1.0  20.08.2018
@@ -861,7 +861,7 @@ class SysRmMatrix extends \DAL\DalSlim {
         }
     }
     
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_rm_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -959,7 +959,7 @@ class SysRmMatrix extends \DAL\DalSlim {
         }
     }
 
-        /**
+    /**
      * @author Okan CIRAN
      * @ sys_rm_matrix tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
@@ -987,7 +987,7 @@ class SysRmMatrix extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
              $coefficient = -1111;
-            if ((isset($params['cccc']) && $params['Coefficient'] != "")) {
+            if ((isset($params['Coefficient']) && $params['Coefficient'] != "")) {
                 $coefficient = intval($params['Coefficient']);
             } else {
                 throw new \PDOException($errorInfo[0]);
@@ -1058,5 +1058,114 @@ class SysRmMatrix extends \DAL\DalSlim {
         }
     }
     
+    /**
+     * @author Okan CIRAN
+     * sys_rm_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $modelId = -1111;
+            if ((isset($params['ModelId']) && $params['ModelId'] != "")) {
+                $modelId = intval($params['ModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $rmDeffId = -1111;
+            if ((isset($params['RmDeffId']) && $params['RmDeffId'] != "")) {
+                $rmDeffId = intval($params['RmDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $coefficient = -1111;
+            if ((isset($params['Coefficient']) && $params['Coefficient'] != "")) {
+                $coefficient = intval($params['Coefficient']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $price = -1111;
+            if ((isset($params['Price']) && $params['Price'] != "")) {
+                $price = floatval($params['Price']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'model_id' => $modelId,
+                            'rm_deff_id' => $rmDeffId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_rm_matrix (  
+                        model_id,
+                        rm_deff_id,
+                        coefficient,
+                        price,
+                         
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($modelId) . ",
+                    " . intval($rmDeffId) . ",
+                    " . intval($coefficient) . ",
+                    " . intval($price) . ",
+                      
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_rm_matrix 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_rm_matrix_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }

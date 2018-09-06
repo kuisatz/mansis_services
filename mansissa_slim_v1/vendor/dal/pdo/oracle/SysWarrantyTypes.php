@@ -934,7 +934,7 @@ class SysWarrantyTypes extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+         /*   if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -945,6 +945,8 @@ class SysWarrantyTypes extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+          * 
+          */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -955,16 +957,19 @@ class SysWarrantyTypes extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+           /* if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            * 
+            */
                             
-                ////*********///// 2    
+                ////*********///// 2 
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
+       
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {

@@ -475,7 +475,7 @@ class SysCustomerTurnoverRates extends \DAL\DalSlim {
         }
     }
     
-     /** 
+    /** 
      * @author Okan CIRAN
      * @ ciro aralığı dropdown ya da tree ye doldurmak için sys_customer_turnover_rates tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -552,8 +552,7 @@ class SysCustomerTurnoverRates extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
-     
+                            
     /** 
      * @author Okan CIRAN
      * @  ciro aralığı  tanımlarını grid formatında döndürür !! ana tablo  sys_customer_turnover_rates 

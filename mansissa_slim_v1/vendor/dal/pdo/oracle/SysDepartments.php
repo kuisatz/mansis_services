@@ -475,7 +475,7 @@ class SysDepartments extends \DAL\DalSlim {
         }
     }
     
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ departmanlar dropdown ya da tree ye doldurmak için sys_departments tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -483,7 +483,7 @@ class SysDepartments extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
-    public function accBodyDeffDdList($params = array()) {
+    public function departmentsDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -498,15 +498,15 @@ class SysDepartments extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $accBodyTypeId =0 ;
-            if (isset($params['accBodyTypeID']) && $params['accBodyTypeID'] != "") {
-                $accBodyTypeId = $params['accBodyTypeID'];
+            $departmentID =0 ;
+            if (isset($params['DepartmentID']) && $params['DepartmentID'] != "") {
+                $departmentID = $params['DepartmentID'];
             }  
               
             $statement = $pdo->prepare("    
 
                 SELECT                    
-                    a.act_parent_id AS id, 	
+                    a.id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
                     a.parent_id,
@@ -534,7 +534,80 @@ class SysDepartments extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+     
+    /**
+     * @author Okan CIRAN
+     * @ tree doldurmak için sys_departments tablosundan kayıtları döndürür !!
+     * @version v 1.0  06.09.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function departmentsTree($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            ////*********/////  1 
+            $languageIdValue = 385;
+             if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            ////*********///// 1         
+            $parentId = 0;
+            if (isset($params['parent_id']) && $params['parent_id'] != "") {
+                $parentId = $params['parent_id'];
+            }
+            $sql = "                
+                 SELECT                    
+                    a.id,                     
+                    COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name ,
+                    a.parent_id,
+                    a.active,
+                    CASE 
+                        (SELECT DISTINCT 1 state_type FROM sys_sis_departments WHERE parent_id = a.id AND deleted = 0)    
+                         WHEN 1 THEN 'closed'
+                         ELSE 'open'   
+                    END AS state_type, 
+                    CASE
+                        (SELECT DISTINCT 1 parent_id FROM sys_sis_departments WHERE id = a.id AND deleted = 0 AND parent_id =0 )    
+                        WHEN 1 THEN 'true'
+                    ELSE 'false'   
+                    END AS root_type, 
+                    null as icon_class,
+                  CASE 
+                        (SELECT DISTINCT 1 state_type FROM sys_sis_departments WHERE parent_id = a.id AND deleted = 0)    
+                         WHEN 1 THEN 'false'
+                    ELSE 'true'   
+                    END AS last_node                    
+                FROM sys_sis_departments a  
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0 
+                LEFT JOIN sys_language lx ON lx.deleted =0 AND lx.active =0 AND lx.id = " . intval($languageIdValue) . "
+                LEFT JOIN sys_sis_departments ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.language_id = lx.id
+                WHERE                    
+                    a.parent_id = " .intval($parentId) . "  AND a.language_parent_id =0 AND  
+                    a.deleted = 0  
+                ORDER BY a.priority   
+                                 ";
+              $statement = $pdo->prepare($sql);
+           // echo debugPDO($sql, $params);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {      
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
-    
+  
     
 }

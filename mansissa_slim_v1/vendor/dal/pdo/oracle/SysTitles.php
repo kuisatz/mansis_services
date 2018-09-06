@@ -483,7 +483,7 @@ class SysTitles extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
-    public function  titlesDdList($params = array()) {
+    public function  titlesMainDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -502,10 +502,10 @@ class SysTitles extends \DAL\DalSlim {
             $statement = $pdo->prepare("       
  
                 SELECT                    
-                    a.act_parent_id AS id, 	
+                    a.id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
                     a.name_eng AS name_eng,
-                     0 as parent_id,
+                    a.parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_titles a    
@@ -515,7 +515,8 @@ class SysTitles extends \DAL\DalSlim {
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0 
+                    a.language_parent_id =0 AND
+                    a.parent_id=0
                     
                 ORDER BY a.priority
 
@@ -530,7 +531,180 @@ class SysTitles extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
+    /** 
+     * @author Okan CIRAN
+     * @ ana grup altındaki title tanımları dropdown ya da tree ye doldurmak için sys_titles tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  titlesParentDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $parentID = -1111;
+            if (isset($params['ParentId']) && $params['ParentId'] != "") {
+                $parentID = $params['ParentId'];
+            }  
+              
+            $statement = $pdo->prepare("       
  
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_titles a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_titles sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 AND
+                    a.parent_id=" . intval($parentID). "
+                ORDER BY a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /** 
+     * @author Okan CIRAN
+     * @ title tanımları dropdown ya da tree ye doldurmak için sys_titles tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  titlesSisDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+              
+            $statement = $pdo->prepare("       
+ 
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_titles a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_titles sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 AND
+                    a.parent_id=40 
+                ORDER BY a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    /** 
+     * @author Okan CIRAN
+     * @ title tanımları dropdown ya da tree ye doldurmak için sys_titles tablosundan kayıtları döndürür !!
+     * @version v 1.0  06.09.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  titlesCustomerDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }   
+              
+            $statement = $pdo->prepare("       
+ 
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_titles a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_titles sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 AND
+                    a.parent_id=40 
+                    
+                ORDER BY a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
     /** 
      * @author Okan CIRAN
      * @ title tanımlarını grid formatında döndürür !! ana tablo  sys_titles 
@@ -921,7 +1095,7 @@ class SysTitles extends \DAL\DalSlim {
             $pdo->beginTransaction();
             ////*********/////  1 
             $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
+         /*   if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
                 $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
                 $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
@@ -932,6 +1106,8 @@ class SysTitles extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+          * 
+          */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
             $nameTemp = null;
@@ -942,28 +1118,31 @@ class SysTitles extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+          /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+           * 
+           */
             $abbrevation = null;
             if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
                 $abbrevation = $params['Abbrevation'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $AccBodyTypeId = -1111;
-            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
-                $AccBodyTypeId = intval($params['AccBodyTypeId']);
-            } else {
+            $parentId = -1111;
+            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
+                $parentId = intval($params['ParentId']);
+            }else {
                 throw new \PDOException($errorInfo[0]);
-            }
+            }  
                             
-                ////*********///// 2    
+                ////*********///// 2  
             if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  }     
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
+         
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -971,8 +1150,8 @@ class SysTitles extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name, 
+                            'name' => $name, 
+                            'parent_id' =>$parentId, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
@@ -980,6 +1159,7 @@ class SysTitles extends \DAL\DalSlim {
                             name, 
                             name_eng, 
                             abbrevation, 
+                            " . intval($parentId) . "
 
                             op_user_id,
                             act_parent_id  
@@ -1110,7 +1290,125 @@ class SysTitles extends \DAL\DalSlim {
         }
     }
          
-    
+    /**
+     * @author Okan CIRAN
+     * sys_titles tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+             $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $name = "";
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = $name;
+        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+         * 
+         */
+            $abbrevation = null;
+            if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
+                $abbrevation = $params['Abbrevation'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $parentId = -1111;
+            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
+                $parentId = intval($params['ParentId']);
+            }else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+                            
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' =>$name, 
+                            'parent_id' =>$parentId, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_titles (  
+                        name,
+                        name_eng,
+                        acc_body_type_id,
+                        parent_id,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    '" . $name . "',
+                    '" . $nameEng . "',
+                    '" . $abbrevation . "', 
+                    " . intval($parentId) . "
+                        
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_titles 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_titles_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
     
     

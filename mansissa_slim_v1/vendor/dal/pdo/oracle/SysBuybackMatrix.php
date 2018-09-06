@@ -475,7 +475,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
         }
     }
     
-      /** 
+    /** 
      * @author Okan CIRAN
      * @ buyback matrix  tanımlarını grid formatında döndürür !! ana tablo  sys_buyback_matrix 
      * @version v 1.0  15.08.2018
@@ -888,7 +888,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_buyback_matrix tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -992,7 +992,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
         }
     }
 
-       /**
+    /**
      * @author Okan CIRAN
      * @ sys_buyback_matrix tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
