@@ -101,8 +101,6 @@ class SysLanguage extends \BLL\BLLSlim{
         return $DAL->getLanguageId($params);
     }
         
-        
-     
     /**
      * Function to fill text on user interface layer
      * @param array $params

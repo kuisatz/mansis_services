@@ -83,8 +83,7 @@ class SysCurrencies extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -95,6 +94,78 @@ class SysCurrencies extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCurrenciesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $resultSet = $DAL->fillCurrenciesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCurrenciesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $resultSet = $DAL->fillCurrenciesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+     /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        return $DAL->updateActLng($params);
     }
     
 }

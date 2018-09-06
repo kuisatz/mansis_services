@@ -120,5 +120,57 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+     /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        return $DAL->updateActLng($params);
+    }
+   
+    
+    
 }
 

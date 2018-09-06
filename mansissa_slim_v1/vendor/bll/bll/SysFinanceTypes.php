@@ -96,5 +96,77 @@ class SysFinanceTypes extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+        /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function financeTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        $resultSet = $DAL->financeTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function financeTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        $resultSet = $DAL->financeTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysFinanceTypesOraPDO');
+        return $DAL->updateActLng($params);
+    }
+    
 }
 

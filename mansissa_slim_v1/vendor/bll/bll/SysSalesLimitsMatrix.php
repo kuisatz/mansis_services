@@ -83,8 +83,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params

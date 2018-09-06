@@ -83,7 +83,6 @@ class SysStrategicImportances extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
      
     /**
      * Function to fill text on user interface layer
@@ -95,6 +94,70 @@ class SysStrategicImportances extends \BLL\BLLSlim{
         $resultSet = $DAL->strategicImportancesDdList($params);
         return $resultSet['resultSet'];
     }
+    
+        /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillStrategicImportancesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        $resultSet = $DAL->fillStrategicImportancesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillStrategicImportancesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        $resultSet = $DAL->fillStrategicImportancesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysStrategicImportancesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+ 
     
 }
 

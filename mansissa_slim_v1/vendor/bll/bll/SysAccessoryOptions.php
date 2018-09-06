@@ -83,8 +83,7 @@ class SysAccessoryOptions extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -96,6 +95,57 @@ class SysAccessoryOptions extends \BLL\BLLSlim{
         $resultSet = $DAL->accessoryOptionsDdList($params);
         return $resultSet['resultSet'];
     }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+     /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsOraPDO');
+        return $DAL->updateActLng($params);
+    }
+   
     
 }
 

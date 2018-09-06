@@ -83,18 +83,101 @@ class SysCustomerSectorTypes extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function customerSectorTypesDdList($params = array()) {
+    public function customerSectorMainTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
-        $resultSet = $DAL->customerSectorTypesDdList($params);
+        $resultSet = $DAL->customerSectorMainTypesDdList($params);
         return $resultSet['resultSet'];
+    }
+      
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function customerSectorParentTypesDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        $resultSet = $DAL->customerSectorParentTypesDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+      /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCustomerSectorTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        $resultSet = $DAL->fillCustomerSectorTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCustomerSectorTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        $resultSet = $DAL->fillCustomerSectorTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesOraPDO');
+        return $DAL->updateActLng($params);
     }
     
 }

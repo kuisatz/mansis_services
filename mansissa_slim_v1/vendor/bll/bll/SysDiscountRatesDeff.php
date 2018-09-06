@@ -83,8 +83,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -94,6 +93,79 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
         $resultSet = $DAL->discountRatesDeffDdList($params);
         return $resultSet['resultSet'];
+    }
+    
+      
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillDiscountRatesDeffGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillDiscountRatesDeffGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillDiscountRatesDeffGridxGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillDiscountRatesDeffGridxGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->updateActLng($params);
     }
     
 }

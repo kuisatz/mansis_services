@@ -90,11 +90,74 @@ class SysRmTypes extends \BLL\BLLSlim{
      * @param array $params
      * @return array 
     */
-    public function armTypesDdList($params = array()) {
+    public function rmTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
-        $resultSet = $DAL->armTypesDdList($params);
+        $resultSet = $DAL->rmTypesDdList($params);
         return $resultSet['resultSet'];
     }
+    
+        /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillRmTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        $resultSet = $DAL->fillRmTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillRmTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        $resultSet = $DAL->fillRmTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysRmTypesOraPDO');
+        return $DAL->updateAct($params);
+    }
+     
     
 }
 

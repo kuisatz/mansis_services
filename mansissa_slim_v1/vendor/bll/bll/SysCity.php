@@ -105,7 +105,16 @@ class SysCity extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
-    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function cityDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $resultSet = $DAL->cityDdList($params);
+        return $resultSet['resultSet'];
+    }
     
     
 }

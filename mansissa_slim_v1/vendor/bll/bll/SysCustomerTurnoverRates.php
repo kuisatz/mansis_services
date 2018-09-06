@@ -83,8 +83,7 @@ class SysCustomerTurnoverRates extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -94,6 +93,78 @@ class SysCustomerTurnoverRates extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
         $resultSet = $DAL->customerTurnoverRatesDdList($params);
         return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCustomerTurnoverRatesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        $resultSet = $DAL->fillCustomerTurnoverRatesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCustomerTurnoverRatesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        $resultSet = $DAL->fillCustomerTurnoverRatesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateActLng($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerTurnoverRatesOraPDO');
+        return $DAL->updateActLng($params);
     }
     
 }

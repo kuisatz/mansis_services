@@ -96,5 +96,69 @@ class SysSalesProvisions extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillSalesProvisionTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        $resultSet = $DAL->fillSalesProvisionTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillSalesProvisionTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        $resultSet = $DAL->fillSalesProvisionTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionsOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+ 
+    
 }
 

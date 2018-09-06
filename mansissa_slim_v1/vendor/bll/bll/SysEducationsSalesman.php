@@ -83,8 +83,7 @@ class SysEducationsSalesman extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -97,5 +96,68 @@ class SysEducationsSalesman extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+        /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillEducationsSalesmanGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        $resultSet = $DAL->fillEducationsSalesmanGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillEducationsSalesmanGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        $resultSet = $DAL->fillEducationsSalesmanGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysEducationsSalesmanOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+ 
 }
 

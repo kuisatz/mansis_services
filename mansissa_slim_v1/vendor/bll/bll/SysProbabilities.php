@@ -96,5 +96,68 @@ class SysProbabilities extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+        /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillProbabilitiesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        $resultSet = $DAL->fillProbabilitiesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillProbabilitiesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        $resultSet = $DAL->fillProbabilitiesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysProbabilitiesOraPDO');
+        return $DAL->updateAct($params);
+    }
+ 
+    
 }
 
