@@ -1281,7 +1281,188 @@ class SysVehicles extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+                            
+    /**
+     * @author Okan CIRAN
+     * sys_vehicles tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+                            
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $gfz = null;
+            if ((isset($params['Gfz']) && $params['Gfz'] != "")) {
+                $gfz = $params['Gfz'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $factorymodelName = null;
+            if ((isset($params['FactorymodelName']) && $params['FactorymodelName'] != "")) {
+                $factorymodelName = $params['FactorymodelName'];
+            }  
+            $description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $description = $params['Description'];
+            } 
+            $ckdcbuTypeId = -1111;
+            if ((isset($params['CkdcbuTypeId']) && $params['CkdcbuTypeId'] != "")) {
+                $ckdcbuTypeId = intval($params['CkdcbuTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGtModelId = -1111;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $vehicleGtModelId = intval($params['VehicleGtModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $modelVariantId = -1111;
+            if ((isset($params['ModelVariantId']) && $params['ModelVariantId'] != "")) {
+                $modelVariantId = intval($params['ModelVariantId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $configTypeId = -1111;
+            if ((isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "")) {
+                $configTypeId = intval($params['ConfigTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $capTypeId = -1111;
+            if ((isset($params['CapTypeId']) && $params['CapTypeId'] != "")) {
+                $capTypeId = intval($params['CapTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleAppTypeId = -1111;
+            if ((isset($params['VehicleAppTypeId']) && $params['VehicleAppTypeId'] != "")) {
+                $vehicleAppTypeId = intval($params['VehicleAppTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $kpnumberId = -1111;
+            if ((isset($params['KpnumberId']) && $params['KpnumberId'] != "")) {
+                $kpnumberId = intval($params['KpnumberId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $btsbtoTypeId = -1111;
+            if ((isset($params['BtsbtoTypeId']) && $params['BtsbtoTypeId'] != "")) {
+                $btsbtoTypeId = intval($params['BtsbtoTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $roadTypeId = -1111;
+            if ((isset($params['RoadTypeId']) && $params['RoadTypeId'] != "")) {
+                $roadTypeId = intval($params['RoadTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
 
-    
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'ckdcbu_type_id' => $ckdcbuTypeId,
+                            'vehicle_gt_model_id' => $vehicleGtModelId,
+                            'model_variant_id' => $modelVariantId, 
+                            'config_type_id' => $configTypeId,
+                            'cap_type_id' => $capTypeId,
+                            'vehicle_app_type_id' => $vehicleAppTypeId,
+                            'kpnumber_id' => $kpnumberId,
+                            'btsbto_type_id' => $btsbtoTypeId,                            
+                            'roadtype_id' => $roadTypeId,
+                            'gfz' => $gfz,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_vehicles (  
+                        ckdcbu_type_id,
+                        vehicle_gt_model_id,
+                        model_variant_id,
+
+                        config_type_id,
+                        cap_type_id,
+                        vehicle_app_type_id,
+
+                        kpnumber_id,
+                        btsbto_type_id, 
+                        roadtype_id,
+
+                        gfz,
+                        factorymodel_name,
+                        description,
+
+                        op_user_id,
+                        act_parent_id   
+                        )  
+                SELECT  
+                    " . intval($ckdcbuTypeId) . ",
+                    " . intval($vehicleGtModelId) . ",
+                    " . intval($modelVariantId) . ",
+                    " . intval($configTypeId) . ",
+                    " . intval($capTypeId) . ",
+                    " . intval($vehicleAppTypeId) . ",
+                    " . intval($kpnumberId) . ", 
+                    " . intval($btsbtoTypeId) . ",
+                    " . intval($roadTypeId) . ",
+
+
+                    '" . $gfz . "',
+                    '" . $factorymodelName . "',
+                    '" . $description . "', 
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_vehicles 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_vehicles_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
 }

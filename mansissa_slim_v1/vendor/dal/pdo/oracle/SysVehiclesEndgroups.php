@@ -1177,11 +1177,10 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    
+                            
     /**
      * @author Okan CIRAN
-     * @ sys_acc_body_deff tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ sys_vehicles_endgroups tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1253,7 +1252,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_acc_body_deff(
+                    INSERT INTO sys_vehicles_endgroups(
                             ckdcbu_type_id,
                             vehicle_gt_model_id,
                             model_variant_id,
@@ -1276,7 +1275,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                             '" . $modelGrouping . "', 
 
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM sys_acc_body_deff_id_seq)
+                           (SELECT last_value FROM sys_vehicles_endgroups_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
                     //   echo debugPDO($sql, $params);
@@ -1284,7 +1283,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_vehicles_endgroups_id_seq');
                             
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
@@ -1296,6 +1295,147 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 }
             } else {
                 $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /**
+     * @author Okan CIRAN
+     * sys_vehicles_endgroups tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+                            
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            
+            $endgroupDescription = null;
+            if ((isset($params['EndgroupDescription']) && $params['EndgroupDescription'] != "")) {
+                $endgroupDescription = $params['EndgroupDescription'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $modelGrouping = null;
+            if ((isset($params['ModelGrouping']) && $params['ModelGrouping'] != "")) {
+                $modelGrouping = $params['ModelGrouping'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ckdcbuTypeId = -1111;
+            if ((isset($params['CkdcbuTypeId']) && $params['CkdcbuTypeId'] != "")) {
+                $ckdcbuTypeId = intval($params['CkdcbuTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGtModelId = -1111;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $vehicleGtModelId = intval($params['VehicleGtModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $modelVariantId= -1111;
+            if ((isset($params['ModelVariantId']) && $params['ModelVariantId'] != "")) {
+                $modelVariantId = intval($params['ModelVariantId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $configTypeId = -1111;
+            if ((isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "")) {
+                $configTypeId = intval($params['ConfigTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+             $capTypeId = -1111;
+            if ((isset($params['CapTypeId']) && $params['CapTypeId'] != "")) {
+                $capTypeId = intval($params['CapTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'ckdcbu_type_id' => $ckdcbuTypeId,
+                            'vehicle_gt_model_id' => $vehicleGtModelId,
+                            'model_variant_id' => $modelVariantId, 
+                            'config_type_id' => $configTypeId,
+                            'cap_type_id' => $capTypeId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_vehicles_endgroups (  
+                        ckdcbu_type_id,
+                        vehicle_gt_model_id,
+                        model_variant_id,
+                        config_type_id,
+                        cap_type_id,
+                        endgroup_description,
+                        model_grouping,     
+                        
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($ckdcbuTypeId) . ",
+                    " . intval($vehicleGtModelId) . ",
+                    " . intval($modelVariantId) . ",
+                    " . intval($configTypeId) . ",
+                    " . intval($capTypeId) . ",
+
+                    '" . $endgroupDescription . "',
+                    '" . $modelGrouping . "', 
+
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_vehicles_endgroups 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_vehicles_endgroups_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
                 $errorInfoColumn = 'pk';
                 $pdo->rollback();
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
