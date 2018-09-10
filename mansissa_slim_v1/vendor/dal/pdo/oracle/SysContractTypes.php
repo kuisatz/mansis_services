@@ -709,14 +709,14 @@ class SysContractTypes extends \DAL\DalSlim {
                 $sql = "
                      SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         a.contract_type_id,
                         COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS parent_name,
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         
                       /*  a.name_eng, */
                         a.parent_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
-                        a.act_parent_id,   
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,  
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

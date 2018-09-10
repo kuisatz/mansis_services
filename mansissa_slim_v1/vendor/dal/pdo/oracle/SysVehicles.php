@@ -666,7 +666,8 @@ class SysVehicles extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT 
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,  
 			a.ckdcbu_type_id,
 			c.name cbuckd_name,
 			a.vehicle_gt_model_id,
@@ -688,7 +689,6 @@ class SysVehicles extends \DAL\DalSlim {
 			a.gfz,
 			a.factorymodel_name,
 			a.description, 
-                        a.act_parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,

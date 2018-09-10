@@ -507,29 +507,7 @@ class SysRmDeff extends \DAL\DalSlim {
               
             $statement = $pdo->prepare("       
 
-            SELECT * FROM ( 
-
-                SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type  ,
-                    -1 priority
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
+          
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
@@ -547,7 +525,7 @@ class SysRmDeff extends \DAL\DalSlim {
                     a.active =0 AND
                     a.rm_type_id = " . intval($rmTypeIdValue). "  AND
                     a.language_parent_id =0 
-                    ) asd 
+                   
                 ORDER BY  priority
 
                                  ");
@@ -669,14 +647,14 @@ class SysRmDeff extends \DAL\DalSlim {
                 $sql = "
                      SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.rm_type_id,
 			COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS rm_type_name,
 			a.month_id,
 			COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS name_year,
 			a.big_mileage_id,
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS big_mileage, 
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -762,7 +740,7 @@ class SysRmDeff extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-    public function fillRmDeffsGridxGridxRtl($params = array()) {
+    public function fillRmDeffsGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;

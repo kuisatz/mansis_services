@@ -112,7 +112,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
         throw new Exception('rest api "pkFillAccBodyDeffGridx_sysaccbodydeff" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
-    $vLanguageCode = 'tr';
+    $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
     }
@@ -225,7 +225,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
         throw new Exception('rest api "fillAccBodyDeffGridx_sysaccbodydeff" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 */
-    $vLanguageCode = 'tr';
+    $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
     }
@@ -296,20 +296,20 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
             $menus[] = array(
                 "id" => $menu["id"],
                 "name" => html_entity_decode($menu["name"]), 
+                "acc_body_type_id" => $menu["acc_body_type_id"], 
                 "body_type_name" => html_entity_decode($menu["body_type_name"]),   
-                "op_username" => html_entity_decode($menu["op_user_name"]),
-                "active" => $menu["active"],   
+                "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
                 "date_modified" => $menu["date_modified"],  
                 "language_code" => $menu["language_code"],
-                "language_name" =>html_entity_decode( $menu["language_name"]), 
+             
                  
                 "attributes" => array("notroot" => true,
-                    "active" => $menu["active"],                     
+                    "active" => $menu["active"],   
                     "act_parent_id" => intval($menu["act_parent_id"]),  
-                    "active" => $menu["active"],
                     "language_id" => $menu["language_id"],
+                    "language_name" =>html_entity_decode( $menu["language_name"]), 
                     "op_user_id" => $menu["op_user_id"], 
                     ),
             );

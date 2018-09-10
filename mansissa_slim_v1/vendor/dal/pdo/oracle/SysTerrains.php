@@ -815,11 +815,11 @@ class SysTerrains extends \DAL\DalSlim {
                 $sql = " 
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
 			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
                         a.left_right,
-                        a.t_value as value,
-                        a.act_parent_id,   
+                        a.t_value as value, 
 			a.parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,

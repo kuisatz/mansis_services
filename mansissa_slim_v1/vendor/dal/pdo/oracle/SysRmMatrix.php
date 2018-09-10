@@ -598,6 +598,7 @@ class SysRmMatrix extends \DAL\DalSlim {
                 $sql = "
                       SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.model_id,
 			vgtm.name  AS model_name,
 			a.rm_deff_id,
@@ -615,8 +616,7 @@ class SysRmMatrix extends \DAL\DalSlim {
 			cast( a.coefficient *  erd.mileages1 * frd.mvalue /100 as numeric(15,4)) price2 , 
                         cast( a.price *  erd.mileages1 * frd.mvalue /100 as numeric(15,4)) - cast( a.coefficient *  erd.mileages1 * frd.mvalue /100 as numeric(15,4)) subsidy_price, 
 			
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

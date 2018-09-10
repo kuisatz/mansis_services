@@ -642,6 +642,7 @@ class SysProbabilities extends \DAL\DalSlim {
                 $sql = "
                      SELECT  
                         a.id, 
+                        a.act_parent_id as apid, 
                         a.name AS name, 
                         a.value, 
                         a.act_parent_id,   

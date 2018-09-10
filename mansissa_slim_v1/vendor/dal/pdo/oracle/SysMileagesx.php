@@ -860,9 +860,9 @@ class SysMileagesx extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         cast(a.mileages1 as character varying(20))  AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
-                        a.act_parent_id,   
+			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,  
 			a.parent_id,  
                         a.type_id,
                         a.active,

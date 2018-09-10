@@ -622,6 +622,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                 $sql = " 
                 SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
                       /*  a.name_eng, */
 			a.user_id,

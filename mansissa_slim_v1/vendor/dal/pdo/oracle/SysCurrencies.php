@@ -578,6 +578,7 @@ class SysCurrencies extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.currency_id,
                         COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS name,
                         a.forexbuying,
@@ -586,8 +587,7 @@ class SysCurrencies extends \DAL\DalSlim {
 			a.banknoteselling,
 			a.crossrateusd,
 			a.crossrateeur,
-			a.currency_date,
-                        a.act_parent_id,   
+			a.currency_date, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

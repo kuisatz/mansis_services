@@ -665,14 +665,14 @@ class SysEmbraceBranchNoCode extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT  
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,   
 			a.embrace_branch_no_code,
 			a.sis_department_id,
                         COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
 			a.abbrevation,
 			a.description,
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

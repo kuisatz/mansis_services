@@ -656,11 +656,11 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         a.name  AS name,
                       /*  a.name_eng, */
                         a.total_wheel,
-                        a.wheel_drive,
-                        a.act_parent_id,   
+                        a.wheel_drive, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

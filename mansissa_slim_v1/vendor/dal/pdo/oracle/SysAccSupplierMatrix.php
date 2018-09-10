@@ -598,10 +598,10 @@ class SysAccSupplierMatrix extends \DAL\DalSlim {
                 $sql = "
                     SELECT 
                         a.id, 
+                        a.act_parent_id as apid,   
                         a.accessory_option_id, 
                         COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
-                      /*  a.name_eng, */
-                        a.act_parent_id,  
+                      /*  a.name_eng, */ 
                         
 			a.acc_deff_id , 
 			COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,

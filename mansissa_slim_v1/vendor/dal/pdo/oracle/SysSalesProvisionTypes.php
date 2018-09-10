@@ -655,12 +655,12 @@ class SysSalesProvisionTypes extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT  
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                         a.cbu_ckd_type_id,
 			c.name cbuckd_name,
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

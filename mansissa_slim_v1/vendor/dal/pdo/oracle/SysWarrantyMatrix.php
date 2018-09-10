@@ -626,7 +626,8 @@ class SysWarranties extends \DAL\DalSlim {
             }  
                 $sql = "
                     SELECT  
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid, 
 			ird.vehicle_group_id,
 			ird.name  AS vehicle_group_name, 
 			a.vehicle_config_type_id, 
@@ -645,8 +646,7 @@ class SysWarranties extends \DAL\DalSlim {
 			COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS month2_name,
 			hrd.mvalue, 
 			a.ismaintenance,
-			COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance,
-                        a.act_parent_id,   
+			COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

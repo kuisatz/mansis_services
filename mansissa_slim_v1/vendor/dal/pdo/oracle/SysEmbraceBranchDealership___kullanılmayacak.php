@@ -664,13 +664,13 @@ class SysEmbraceBranchDealership extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT 
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,   
 			eq.embrace_branch_no_code,
 			eq.sis_department_id,
                         COALESCE(NULLIF(sqx.description, ''), sq.description_eng) AS department_name, 
 			a.department_dealership,
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

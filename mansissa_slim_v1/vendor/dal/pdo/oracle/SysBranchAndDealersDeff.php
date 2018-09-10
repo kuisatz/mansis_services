@@ -664,6 +664,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                 $sql = "  
                 SELECT 
                     a.id, 
+                    a.act_parent_id as apid,  
                     a.name  AS name,
                     a.branch_no,
                     a.address1,
@@ -676,8 +677,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                     a.city_id, 
                     e.name as city_name,
                     a.sis_department_id,
-                    f.name as departman_name, 
-                    a.act_parent_id,   
+                    f.name as departman_name,  
                     a.active,
                     COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                    /* a.deleted,

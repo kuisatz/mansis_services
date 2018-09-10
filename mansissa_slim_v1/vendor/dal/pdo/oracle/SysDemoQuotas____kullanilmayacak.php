@@ -618,6 +618,7 @@ class SysDemoQuotas extends \DAL\DalSlim {
                 $sql = "
                     SELECT 
                         a.id, 
+                        a.act_parent_id as apid,   
 			a.vehicle_gt_model_id,
 			vg.name vehicle_group_name, 
 			vgtp.name vehicle_type_name, 
@@ -629,8 +630,7 @@ class SysDemoQuotas extends \DAL\DalSlim {
 			COALESCE(NULLIF(mx.name, ''), m.name_eng) AS name_month,
 			a.year, 
 			a.quantity,
-                       /*  a.name_eng, */
-                        a.act_parent_id,   
+                       /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

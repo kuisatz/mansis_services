@@ -582,8 +582,8 @@ class SysAccBodySupp extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT
-                        a.id,   
-                        a.act_parent_id,   
+                        a.id, 
+                        a.act_parent_id as apid,  
                         a.acc_body_deff_id ,
 			COALESCE(NULLIF(bdx.name, ''), bd.name_eng) AS body_name,  
 			a.supplier_id ,

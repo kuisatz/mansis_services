@@ -629,12 +629,12 @@ class SysVatPolicyTypes extends \DAL\DalSlim {
                 $sql = "
                      SELECT  
                         a.id, 
+                        a.act_parent_id as apid,   
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
                       /*  a.name_eng, */
                         a.abbrevation,
                         a.symbol,
-                        a.vvalue,
-                        a.act_parent_id,   
+                        a.vvalue, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

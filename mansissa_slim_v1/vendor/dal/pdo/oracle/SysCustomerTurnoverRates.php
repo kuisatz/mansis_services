@@ -646,10 +646,10 @@ class SysCustomerTurnoverRates extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         a.name AS name,
                         a.value1,
-                        a.value2, 
-                        a.act_parent_id,   
+                        a.value2,  
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

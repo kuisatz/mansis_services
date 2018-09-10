@@ -628,6 +628,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                 $sql = "
                     SELECT    
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.year, 
 			a.month_id,
 			m.mvalue month_value, 
@@ -643,8 +644,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 			vct.name config_type_name ,
                         ve.cap_type_id,
 			vcat.name cap_name , 
-			ve.endgroup_description, 
-                        a.act_parent_id,   
+			ve.endgroup_description,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,

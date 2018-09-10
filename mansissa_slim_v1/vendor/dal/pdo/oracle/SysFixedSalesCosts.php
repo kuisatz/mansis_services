@@ -661,12 +661,12 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
 			a.vvalue,
 			a.currency_type_id,
 			COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name,
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

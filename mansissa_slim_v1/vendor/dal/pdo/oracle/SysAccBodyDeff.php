@@ -666,9 +666,10 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 $sql = "
                    SELECT 
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                      /*  a.name_eng, */
-                        a.act_parent_id,  
+                      /*  a.name_eng, */ 
+                        a.acc_body_type_id,
                         COALESCE(NULLIF(bx.name, ''), b.name_eng) AS body_type_name,
                       /*  b.name_eng body_types_name_eng, */
                         a.active,

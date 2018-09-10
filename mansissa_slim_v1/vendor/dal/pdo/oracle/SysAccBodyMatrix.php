@@ -599,10 +599,10 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
 
                 $sql = "  
                      SELECT 
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,  
                         a.vehicle_gt_models_id , 
-			vgm.name  AS vehicle_gtname, 
-                        a.act_parent_id, 
+			vgm.name  AS vehicle_gtname,  
   
 			a.acc_body_supp_id,
 			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,

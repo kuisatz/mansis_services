@@ -864,9 +864,9 @@ class SysMonthsx extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         cast(mvalue as  character varying(10)) AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
-                        a.act_parent_id, 
+			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,  
                         a.type_id,
 			a.parent_id,   
                         a.active,

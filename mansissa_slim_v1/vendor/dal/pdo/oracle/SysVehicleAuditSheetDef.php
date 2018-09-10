@@ -675,12 +675,12 @@ class SysVehicleAuditSheetDef extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
 			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
                       /*  a.name_eng, */ 
                         a.abbrevation ,
-                        COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description,                     
-                        a.act_parent_id,   
+                        COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description,  
 			a.parent_id,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,

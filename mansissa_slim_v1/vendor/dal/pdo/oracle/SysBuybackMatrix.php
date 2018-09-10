@@ -616,7 +616,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } 
                 $sql = "
                     SELECT 
-                        a.id,  
+                        a.id, 
+                        a.act_parent_id as apid,  
                         a.contract_type_id,
                         COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
                         a.model_id ,
@@ -631,8 +632,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.mileage_id,
                         COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS mileage_type_name,
                         a.price,
-                        crd.vehicles_endgroup_id,
-                        a.act_parent_id,  
+                        crd.vehicles_endgroup_id,  
                         
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,

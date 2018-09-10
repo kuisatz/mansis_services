@@ -650,10 +650,10 @@ class SysCountryRegions extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
                         a.country_id, 
                         COALESCE(NULLIF(cx.name, ''), c.name_eng) AS country_name,
-			COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-			a.act_parent_id,    
+			COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,

@@ -592,6 +592,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
                 $sql = "
                     SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.cbu_ckd_type_id,
                         vcc.name AS vehicle_maingroup,  
 			a.kp_id, 
@@ -604,8 +605,7 @@ class SysSalesProvisions extends \DAL\DalSlim {
 			frd.abbrevation currency_abbrevation,
 			erd.fix,
 			
-                      /*  a.name_eng, */
-                        a.act_parent_id,   
+                      /*  a.name_eng, */ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

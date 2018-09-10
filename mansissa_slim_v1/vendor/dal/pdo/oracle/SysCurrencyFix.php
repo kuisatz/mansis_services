@@ -617,12 +617,12 @@ class SysCurrencyFix extends \DAL\DalSlim {
                 $sql = "
                       SELECT  
                         a.id, 
+                        a.act_parent_id as apid,  
 			a.currency_id,
                         COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS name,
                         a.start_date,
 			a.end_date,
-			a.fix,
-                        a.act_parent_id,   
+			a.fix, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,

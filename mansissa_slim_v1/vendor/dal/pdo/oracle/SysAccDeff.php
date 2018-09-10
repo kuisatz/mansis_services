@@ -733,10 +733,10 @@ class SysAccDeff extends \DAL\DalSlim {
                 $sql = "
                       SELECT 
                         a.id, 
+                        a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name_sm, ''), a.name_sm_eng) AS name_sa,
                         COALESCE(NULLIF(ax.name_bo, ''), a.name_bo_eng) AS name_bo,
-                      /*  a.name_eng, */
-                        a.act_parent_id,  
+                      /*  a.name_eng, */ 
                         
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
