@@ -8,7 +8,7 @@
  * @license   
  */
 
-namespace DAL\PDO\Oracle;
+namespace DAL\PDO\Postresql;
 
 /**
  * Class using Zend\ServiceManager\FactoryInterface
