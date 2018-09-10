@@ -116,6 +116,8 @@ class DalManagerConfig {
                    'sysTerrainsOraPDO' => 'DAL\Factory\PDO\Oracle\SysTerrainsFactory',
                    'sysTitlesOraPDO' => 'DAL\Factory\PDO\Oracle\SysTitlesFactory', 
                    'sysTopusedProvisionsOraPDO' => 'DAL\Factory\PDO\Oracle\SysTopusedProvisionsFactory',
+                   'sysTopusedIntakesOraPDO' => 'DAL\Factory\PDO\Oracle\SysTopusedIntakesFactory',  
+                   'sysTopusedBranchdealersOraPDO' => 'DAL\Factory\PDO\Oracle\SysTopusedBranchdealersFactory',  
                    'sysVatPolicyTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysVatPolicyTypesFactory',
                    'sysVehicleAppTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleAppTypesFactory',
                    'sysVehicleAuditSheetDefOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleAuditSheetDefFactory',

@@ -16,11 +16,11 @@ namespace DAL\PDO\Oracle;
  * @author Okan CIRAN    
  * @since 30.07.2018                 
  */ 
-class SysTopusedProvisions extends \DAL\DalSlim {
+class SysTopusedIntake extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN    
-     * @ sys_topused_provisions tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ sys_topused_intake tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  30.07.2018
      * @param array $params   
      * @return array  
@@ -34,7 +34,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_topused_provisions
+                UPDATE sys_topused_intake
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_topused_intake tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_topused_provisions a
+                FROM sys_topused_intake a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_topused_provisions ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_topused_intake ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_topused_intake tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_topused_provisions(
+                INSERT INTO sys_topused_intake(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_topused_provisions_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_topused_intake_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_topused_intake tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_topused_provisions  a                          
+            FROM sys_topused_intake  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,7 +227,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_topused_provisions tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_topused_intake tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -251,7 +251,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_topused_provisions
+                    UPDATE sys_topused_intake
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +290,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_topused_provisions tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_topused_intake tablosundan kayıtları döndürür !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -351,7 +351,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_topused_provisions a
+                FROM sys_topused_intake a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_topused_provisions ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_topused_intake ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +388,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_topused_provisions tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_topused_intake tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +401,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_topused_provisions a
+                FROM sys_topused_intake a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,7 +425,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_topused_intake tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  30.07.2018
      * @param type $params
@@ -442,13 +442,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_topused_provisions
+                UPDATE sys_topused_intake
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_topused_provisions
+                                FROM sys_topused_intake
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -477,13 +477,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @  topused provisions dropdown ya da tree ye doldurmak için sys_topused_provisions tablosundan kayıtları döndürür !!
+     * @  topused provisions dropdown ya da tree ye doldurmak için sys_topused_intake tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function  topusedProvisionsDdList($params = array()) {
+    public function  topusedIntakeDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
             $languageIdValue = 385;
@@ -507,10 +507,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
-                FROM sys_topused_provisions a    
+                FROM sys_topused_intake a    
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
 		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_topused_provisions sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
+                LEFT JOIN sys_topused_intake sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
@@ -532,13 +532,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
  
     /** 
      * @author Okan CIRAN
-     * @  topused provision tip tanımlarını grid formatında döndürür !! ana tablo  sys_topused_provisions 
+     * @  topused provision tip tanımlarını grid formatında döndürür !! ana tablo  sys_topused_intake 
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillTopusedProvisionsGridx($params = array()) {
+    public function fillTopusedIntakeGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -634,8 +634,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                      SELECT  
                         a.id, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                        a.abbrevation,
-                        a.value,
+                        a.abbrevation,  
                       /*  a.name_eng, */
                         a.act_parent_id,   
                         a.active,
@@ -650,10 +649,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_topused_provisions a                    
+                    FROM sys_topused_intake a                    
                     INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
-                    LEFT JOIN sys_topused_provisions ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
+                    LEFT JOIN sys_topused_intake ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -698,13 +697,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ topused provision tip tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_topused_provisions 
+     * @ topused provision tip tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_topused_intake 
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillTopusedProvisionsGridxRtl($params = array()) {
+    public function fillTopusedIntakeGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -774,14 +773,13 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         SELECT  
                             a.id, 
                             COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                            a.abbrevation,
-                            a.value,
+                            a.abbrevation, 
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
-                        FROM sys_topused_provisions a                    
+                        FROM sys_topused_intake a                    
                         INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it=0
                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
-                        LEFT JOIN sys_topused_provisions ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
+                        LEFT JOIN sys_topused_intake ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -816,7 +814,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_topused_provisions tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ sys_topused_intake tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -837,11 +835,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id'])); 
                             
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_topused_provisions (
+                    INSERT INTO sys_topused_intake (
                         name, 
                         name_eng, 
-                        abbrevation, 
-                        value,
+                        abbrevation,  
                         
                         language_id,
                         language_parent_id,
@@ -854,8 +851,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     SELECT
                         name, 
                         name_eng, 
-                        abbrevation, 
-                        value,
+                        abbrevation,  
                         
                         language_id,
                         language_parent_id, 
@@ -864,7 +860,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM sys_topused_provisions 
+                    FROM sys_topused_intake 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
                     )");
 
@@ -888,7 +884,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                             
     /**
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ sys_topused_intake tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -936,12 +932,6 @@ class SysTopusedProvisions extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $value = -1111;
-            if ((isset($params['Value']) && $params['Value'] != "")) {
-                $value = floatval($params['Value']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
                             
                 ////*********///// 2  
             if ($languageIdValue != 385 )  
@@ -959,11 +949,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_topused_provisions(
+                    INSERT INTO sys_topused_intake(
                             name, 
                             name_eng, 
-                            abbrevation, 
-                            value,
+                            abbrevation,  
 
                             op_user_id,
                             act_parent_id  
@@ -971,11 +960,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     VALUES (
                             '" . $name . "',
                             '" . $nameEng . "',
-                            '" . $abbrevation . "',
-                            " . floatval($value) . ",
+                            '" . $abbrevation . "', 
 
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM sys_topused_provisions_id_seq)
+                           (SELECT last_value FROM sys_topused_intake_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
                     //   echo debugPDO($sql, $params);
@@ -983,7 +971,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('sys_topused_provisions_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_topused_intake_id_seq');
 
                     ////*********/////  3 
                     $insertLanguageTemplateParams = array(
@@ -1021,7 +1009,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_topused_provisions tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @ sys_topused_intake tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
      * @version v 1.0  26.08.2018
      * @todo Su an için aktif değil SQl in değişmesi lazım. 
      * @return array
@@ -1036,11 +1024,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
              */
             $statement = $pdo->prepare(" 
                 
-                INSERT INTO sys_topused_provisions(
+                INSERT INTO sys_topused_intake(
                     name, 
                     name_eng, 
-                    abbrevation, 
-                    value,
+                    abbrevation,  
                      
                     language_id,
                     language_parent_id, 
@@ -1050,16 +1037,14 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                   SELECT    
                     name, 
                     name_eng, 
-                    abbrevation, 
-                    value, 
+                    abbrevation,  
                      
                     language_id,
                     language_parent_id, 
                     act_parent_id,
                     op_user_id
                 FROM ( 
-                    SELECT  
-                        c.value, 
+                    SELECT   
                         c.abbrevation, 
                         
 			case when l.id = 385 then c.name_eng   
@@ -1068,15 +1053,15 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                         COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
                         l.id as language_id,  
 			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
-			case l.id when 385 then c.id else (SELECT last_value FROM sys_topused_provisions_id_seq) end as act_parent_id,  
+			case l.id when 385 then c.id else (SELECT last_value FROM sys_topused_intake_id_seq) end as act_parent_id,  
                         c.op_user_id
-                    FROM sys_topused_provisions c
+                    FROM sys_topused_intake c
                     LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
                     WHERE c.id = " . intval($params['id']) . "  
                     ) AS xy   
                     WHERE xy.language_id NOT IN 
                         (SELECT DISTINCT language_id 
-                        FROM sys_topused_provisions cx 
+                        FROM sys_topused_intake cx 
                         WHERE 
                             (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
                             cx.id = " . intval($params['id']) . "  ) /* AND  
@@ -1100,7 +1085,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                             
     /**
      * @author Okan CIRAN
-     * sys_topused_provisions tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_topused_intake tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1138,13 +1123,7 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 $abbrevation = $params['Abbrevation'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $value = -1111;
-            if ((isset($params['Value']) && $params['Value'] != "")) {
-                $value = floatval($params['Value']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            }             
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1163,11 +1142,10 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                     $this->makePassive(array('id' => $params['id']));
 
                     $statementInsert = $pdo->prepare("
-                INSERT INTO sys_topused_provisions (  
+                INSERT INTO sys_topused_intake (  
                         name, 
                         name_eng, 
-                        abbrevation, 
-                        value,
+                        abbrevation,  
                         
                         priority,
                         language_id,
@@ -1178,20 +1156,19 @@ class SysTopusedProvisions extends \DAL\DalSlim {
                 SELECT  
                     '" . $name . "',
                     '" . $nameEng . "',
-                    '" . $abbrevation . "',
-                    " . floatval($value) . ", 
+                    '" . $abbrevation . "', 
                      
                     priority,
                     language_id,
                     language_parent_id ,
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
-                FROM sys_topused_provisions 
+                FROM sys_topused_intake 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_topused_provisions_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_topused_intake_id_seq');
                     $affectedRows = $statementInsert->rowCount();
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
