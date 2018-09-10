@@ -97,5 +97,79 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+        /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function vatPolicyTypesDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $resultSet = $DAL->vatPolicyTypesDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVatPolicyTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $resultSet = $DAL->fillVatPolicyTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVatPolicyTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $resultSet = $DAL->fillVatPolicyTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        return $DAL->updateAct($params);
+    }
+    
+ 
 }
 

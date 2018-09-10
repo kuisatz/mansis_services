@@ -83,8 +83,7 @@ class SysVehicleCapTypes extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+      
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -96,5 +95,67 @@ class SysVehicleCapTypes extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+        
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVehicleCapTypesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        $resultSet = $DAL->fillVehicleCapTypesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVehicleCapTypesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        $resultSet = $DAL->fillVehicleCapTypesGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleCapTypesOraPDO');
+        return $DAL->updateAct($params);
+    }
 }
 

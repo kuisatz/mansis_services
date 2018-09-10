@@ -83,8 +83,7 @@ class SysVehicleBrand extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -94,6 +93,68 @@ class SysVehicleBrand extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
         $resultSet = $DAL->vehicleBrandDdList($params);
         return $resultSet['resultSet'];
+    }
+        
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVehicleBrandGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        $resultSet = $DAL->fillVehicleBrandGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillVehicleBrandGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        $resultSet = $DAL->fillVehicleBrandGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleBrandOraPDO');
+        return $DAL->updateAct($params);
     }
     
 }

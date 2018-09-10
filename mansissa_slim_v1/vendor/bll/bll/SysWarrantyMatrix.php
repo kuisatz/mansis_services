@@ -83,18 +83,67 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
-     * Function to fill text on user interface layer
-     * @param array $params
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
      * @return array
-     *  örnek olarak  bırakıldı
-    */
-    public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixOraPDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
+     */
+    public function fillWarrantyMatrixGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillWarrantyMatrixGridx($params);  
         return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillWarrantyMatrixGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $resultSet = $DAL->fillWarrantyMatrixGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * public key / private key and value update function
+     * @param array | null $params
+     * @return array
+     */
+    public function makeActiveOrPassive($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->makeActiveOrPassive($params);
+    }
+    
+    /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->deletedAct($params);
+    }
+    
+    /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->insertAct($params);
+    }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        return $DAL->updateAct($params);
     }
     
 }
