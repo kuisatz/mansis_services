@@ -769,10 +769,12 @@ class SysAccDeff extends \DAL\DalSlim {
                      
                     " . $addSql . "
                     " . $sorguStr . " 
-                    ORDER BY    " . $sort . " "
-                        . "" . $order . " "
-                        . "LIMIT " . $pdo->quote($limit) . " "
-                        . "OFFSET " . $pdo->quote($offset) . " ";
+                /*  ORDER BY    " . $sort . " "
+                    . "" . $order . " "
+                    . "LIMIT " . $pdo->quote($limit) . " "
+                    . "OFFSET " . $pdo->quote($offset) . "  
+               */      
+                  ";
             $statement = $pdo->prepare($sql);
             $parameters = array(
                 'sort' => $sort,

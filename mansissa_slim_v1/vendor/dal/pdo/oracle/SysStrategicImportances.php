@@ -649,10 +649,12 @@ class SysStrategicImportances extends \DAL\DalSlim {
                      
                 " . $addSql . "
                 " . $sorguStr . " 
-                ORDER BY    " . $sort . " "
+                /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
                     . "LIMIT " . $pdo->quote($limit) . " "
-                    . "OFFSET " . $pdo->quote($offset) . " ";
+                    . "OFFSET " . $pdo->quote($offset) . "  
+               */      
+                  ";
             $statement = $pdo->prepare($sql);
             $parameters = array(
                 'sort' => $sort,

@@ -295,6 +295,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
+                "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
                 "acc_body_type_id" => $menu["acc_body_type_id"], 
                 "body_type_name" => html_entity_decode($menu["body_type_name"]),   
@@ -303,15 +304,10 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
                 "date_saved" => $menu["date_saved"],
                 "date_modified" => $menu["date_modified"],  
                 "language_code" => $menu["language_code"],
-             
-                 
-                "attributes" => array("notroot" => true,
-                    "active" => $menu["active"],   
-                    "act_parent_id" => intval($menu["act_parent_id"]),  
-                    "language_id" => $menu["language_id"],
-                    "language_name" =>html_entity_decode( $menu["language_name"]), 
-                    "op_user_id" => $menu["op_user_id"], 
-                    ),
+                "active" => $menu["active"], 
+                "op_user_id" => $menu["op_user_id"], 
+                "language_id" => $menu["language_id"],
+                "language_name" =>html_entity_decode( $menu["language_name"]), 
             );
         }
        $counts = $resTotalRowCount[0]['count'];
