@@ -307,6 +307,29 @@ and open the template in the editor. Ğİ
                         console.warn('error text status-->' + textStatus);
                     }
                 });
+                
+                  $.ajax({
+          //  url : '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',   
+         
+              url :'../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+            data : {  
+              //      lid :  385 ,
+                    acc_body_type_id :  1 ,
+                    page : null ,
+                    rows : null ,
+                    sort : null ,
+                    order : null ,
+                       
+                   language_code :  'en',
+                   url : 'pkFillAccBodyDeffGridx_sysaccbodydeff', 
+            },
+            method : 'GET', 
+            success: function(data, textStatus, jqXHR) { 
+            },
+            error: function(jqXHR , textStatus, errorThrown) {
+              console.warn('error text status-->'+textStatus);
+            }
+        });  
       
         
         

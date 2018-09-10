@@ -23,8 +23,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         //** sysAccBodyDeffBLL ----------------------
-                                   'pkFillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
-                                   'pkAccBodyDeffDdList_sysaccbodydeff' => 'restApiDefaultCall',
+                                    'fillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
+                                    'pkFillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
+                                    'pkAccBodyDeffDdList_sysaccbodydeff' => 'restApiDefaultCall',
             
         //**---- sysAccBodyDeffBLL ------------------- 
           
