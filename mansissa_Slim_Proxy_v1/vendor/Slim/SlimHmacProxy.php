@@ -21,6 +21,15 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+        
+        //** sysAccBodyDeffBLL ----------------------
+                                   'pkFillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
+                                   'pkAccBodyDeffDdList_sysaccbodydeff' => 'restApiDefaultCall',
+            
+        //**---- sysAccBodyDeffBLL ------------------- 
+          
+        
+        
  //** infoDealerOwner ----------------------
                                     'pkgetAfterSalesDetayIsEmriAcikWithoutServices_infoDealerOwner' => 'restApiDefaultCall',
                                     'pkgetAfterSalesDetayAracGirisSayilari_infoDealerOwner' => 'restApiDefaultCall',
@@ -1528,10 +1537,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 echo "_test!";
                 break;
             
+            case "_sysaccbodydeff": 
+                $this->setRestApiEndPoint('sysaccbodydeff.php/');
+                break;  
             case "_infoDealerOwner": 
                 $this->setRestApiEndPoint('infodealerowner.php/');
-                break;
-            
+                break; 
             case "_infoSales": 
                 $this->setRestApiEndPoint('infosales.php/');
                 break;
