@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2017
  * @license   
  */
-namespace DAL\PDO\Postresql;
+namespace DAL\PDO\Oracle;
 
 /**
  * Class using Zend\ServiceManager\FactoryInterface
@@ -445,7 +445,7 @@ class SysCity extends \DAL\DalSlim {
         }
     }
 
-     /**      
+    /**      
      * @author Okan CIRAN
      * @ sys_city tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  29.12.2015
@@ -495,5 +495,76 @@ class SysCity extends \DAL\DalSlim {
         }
     }
 
+    /** 
+     * @author Okan CIRAN
+     * @ var yok gec dropdown ya da tree ye doldurmak için sys_city tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function cityDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');  
+            $errorInfo[0] = "99999";
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $countryID =-1111 ;
+            if (isset($params['CountryID']) && $params['CountryID'] != "") {
+                $countryID = $params['CountryID'];
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $regionID=-1111 ;
+            if (isset($params['RegionID']) && $params['RegionID'] != "") {
+                $regionID = $params['RegionID'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+              
+            $statement = $pdo->prepare("       
+ 
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_city a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_city sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE    
+                    a.country_id = ".intval($countryID)." AND
+                    a.region_id = ".intval($regionID)." AND
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0 
+                   
+                ORDER BY COALESCE(NULLIF(sd.name, ''), a.name_eng)
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+  
     
 }

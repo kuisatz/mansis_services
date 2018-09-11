@@ -37,12 +37,11 @@ class DalManagerConfig {
             //'test' => 'Utill\BLL\Test\Test'
             ),
             'factories' => [
-                // oracle 
-                'infoAfterSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoAfterSalesFactory',
-                'infoSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoSalesFactory',
-                'infoDealerOwnerOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoDealerOwnerFactory',
-                
-                ////////////////////////////
+                // oracle   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+                  'infoAfterSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoAfterSalesFactory',
+                  'infoSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoSalesFactory',
+                  'infoDealerOwnerOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoDealerOwnerFactory',
+                 
                    'sysAccBodyDeffOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyDeffFactory',
                    'sysAccBodyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyMatrixFactory',
                    'sysAccBodySuppOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodySuppFactory',
@@ -138,12 +137,9 @@ class DalManagerConfig {
                    
                 
                 
-                ////////////////////////////
-                
+                //////////////////////////// <><><><><><><>
                 
                  
-                
-                
                 
                 'reportConfigurationOraPDO' => 'DAL\Factory\PDO\Oracle\ReportConfigurationFactory',
                 'cmpnyEqpmntOraPDO' => 'DAL\Factory\PDO\Oracle\CmpnyEqpmntFactory',
@@ -202,14 +198,110 @@ class DalManagerConfig {
                 
                 'actUsersActionStatisticsOraPDO' => 'DAL\Factory\PDO\Oracle\ActUsersActionStatisticsFactory',
                 'sysNotificationRestservicesOraPDO' => 'DAL\Factory\PDO\Oracle\SysNotificationRestservicesFactory',
-              
                
                 
+              // oracle  //******************************************************************************************
                 
-                // oracle 
                 
+              // postgresql //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
                 
-              // postgresql 
+                'infoAfterSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoAfterSalesFactory',
+                'infoSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoSalesFactory',
+                'infoDealerOwnerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoDealerOwnerFactory',
+                 
+                'sysAccBodyDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodyDeffFactory',
+                'sysAccBodyMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodyMatrixFactory',
+                'sysAccBodySuppPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodySuppFactory',
+                'sysAccBodyTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodyTypesFactory',
+                'sysAccDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccDeffFactory',
+                'sysAccSupplierMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccSupplierMatrixFactory',
+                'sysAccessoriesMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccessoriesMatrixFactory',
+                'sysAccessoryOptionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccessoryOptionsFactory',
+                'sysApprovalMechanismPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysApprovalMechanismFactory',
+                'sysBbContractTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysBbContractTypesFactory',
+                'sysBranchesDealersDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysBranchesDealersDeffFactory',
+                'sysBuybackMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysBuybackMatrixFactory',
+                'sysBuybackQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysBuybackQuotasFactory',
+                'sysBuybackTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysBuybackTypesFactory',
+                'sysCalendarTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCalendarTypesFactory', 
+                'sysCampaignVehiclesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCampaignVehiclesFactory',
+                'sysCampaignsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCampaignsFactory',
+                'sysCauseOfLosingwinningPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCauseOfLosingwinningFactory',
+                'sysChannelTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysChannelTypesFactory',
+                'sysCommissionDefinitionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCommissionDefinitionsFactory',
+                'sysCommissionExtrasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCommissionExtrasFactory',
+                'sysCommissionPricerangeDefsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCommissionPricerangeDefsFactory',
+                'sysContractTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysContractTypesFactory',
+                'sysCountryRegionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCountryRegionsFactory',
+                'sysCsActStatutypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCsActStatutypesFactory',
+                'sysCsActivationTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCsActivationTypesFactory',
+                'sysCsStatuTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCsStatuTypesFactory',
+                'sysCurrenciesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCurrenciesFactory',
+                'sysCurrencyFixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCurrencyFixFactory',
+                'sysCurrencyTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCurrencyTypesFactory',
+                'sysCustomerApplicationTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerApplicationTypesFactory',
+                'sysCustomerCategoriesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerCategoriesFactory',
+                'sysCustomerReliabilityPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerReliabilityFactory',
+                'sysCustomerSectorTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerSectorTypesFactory',
+                'sysCustomerSegmentTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerSegmentTypesFactory',
+                'sysCustomerTurnoverRatesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerTurnoverRatesFactory',
+                'sysDemoAllocationTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoAllocationTypesFactory',
+                'sysDemoQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoQuotasFactory',
+                'sysDepartmentsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDepartmentsFactory',
+                'sysDiscountRatesDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDiscountRatesDeffFactory',
+                'sysEducationDefinitionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEducationDefinitionsFactory',
+                'sysEducationsSalesmanPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEducationsSalesmanFactory',
+                'sysEmbraceBranchNoCodePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEmbraceBranchNoCodeFactory',
+                'sysEmbraceBranchDealershipPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEmbraceBranchDealershipFactory',               
+                'sysFinanceTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysFinanceTypesFactory',
+                'sysFixedSalesCostsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysFixedSalesCostsFactory',
+                'sysKpnumbersPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysKpnumbersFactory',
+                'sysMileagesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMileagesFactory',
+                'sysMonthsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMonthsFactory',
+                'sysNumericalRangesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysNumericalRangesFactory',
+                'sysOmtPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysOmtFactory',
+                'sysPriorityTypePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysPriorityTypeFactory',
+                'sysProbabilitiesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysProbabilitiesFactory',
+                'sysRmDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysRmDeffFactory',
+                'sysRmMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysRmMatrixFactory',
+                'sysRmSubsidyMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysRmSubsidyMatrixFactory',
+                'sysRmTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysRmTypesFactory',
+                'sysRoadtypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysRoadtypesFactory',
+                'sysSalesLimitsDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSalesLimitsDeffFactory',
+                'sysSalesLimitsMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSalesLimitsMatrixFactory',
+                'sysSalesLimitsRolesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSalesLimitsRolesFactory',
+                'sysSalesProvisionTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSalesProvisionTypesFactory',
+                'sysSalesProvisionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSalesProvisionsFactory',
+                'sysServicesGroupsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysServicesGroupsFactory',
+                'sysSisHierarchyPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisHierarchyFactory',
+                'sysSisQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisQuotasFactory',
+                'sysSisQuotasMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisQuotasMatrixFactory',
+                'sysSisStatusPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisStatusFactory',
+                'sysStrategicImportancesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysStrategicImportancesFactory',
+                'sysSupplierPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSupplierFactory',
+                'sysTerrainsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTerrainsFactory',
+                'sysTitlesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTitlesFactory', 
+                'sysTopusedProvisionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTopusedProvisionsFactory',
+                'sysTopusedIntakesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTopusedIntakesFactory',  
+                'sysTopusedBranchdealersPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTopusedBranchdealersFactory',  
+                'sysVatPolicyTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVatPolicyTypesFactory',
+                'sysVehicleAppTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleAppTypesFactory',
+                'sysVehicleAuditSheetDefPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleAuditSheetDefFactory',
+                'sysVehicleBrandPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleBrandFactory',
+                'sysVehicleCapTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleCapTypesFactory',
+                'sysVehicleConfigTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleConfigTypesFactory',
+                'sysVehicleGroupTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleGroupTypesFactory',
+                'sysVehicleGroupsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleGroupsFactory',
+                'sysVehicleGtModelsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleGtModelsFactory',
+                'sysVehicleModelVariantsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleModelVariantsFactory',
+                'sysVehiclesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesFactory',
+                'sysVehicleBtobtsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleBtobtsFactory',                 
+                'sysWarrantiesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantiesFactory', 
+                'sysWarrantyMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantyMatrixFactory',
+                'sysWarrantyTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantyTypesFactory',                 
+                'sysVehiclesEndgroupsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesEndgroupsFactory',
+                
+                 //////////////////////////// <><><><><><><>
                 'reportConfigurationPDO' => 'DAL\Factory\PDO\Postgresql\ReportConfigurationFactory',
                 'cmpnyEqpmntPDO' => 'DAL\Factory\PDO\Postgresql\CmpnyEqpmntFactory',
                 'sysNavigationLeftPDO' => 'DAL\Factory\PDO\Postgresql\SysNavigationLeftFactory',                
@@ -270,10 +362,10 @@ class DalManagerConfig {
                 'sysSectorsPDO' => 'DAL\Factory\PDO\Postgresql\SysSectorsFactory',
                
                
-                // postgresql
+                // postgresql  //******************************************************************************************
                 
                 // sqlserver
-                // sqlserver
+                // sqlserver //******************************************************************************************
                 
                 
                 

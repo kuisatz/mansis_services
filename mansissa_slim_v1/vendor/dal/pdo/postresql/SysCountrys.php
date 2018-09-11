@@ -7,7 +7,7 @@
  * @license   
  */
 
-namespace DAL\PDO\Postresql;
+namespace DAL\PDO\Oracle;
 
 
 /**
@@ -115,7 +115,7 @@ class SysCountrys extends \DAL\DalSlim {
         }
     }
 
-        /**       
+    /**       
      * @author Okan CIRAN
      * @ sys_countrys tablosunda name sutununda daha önce oluşturulmuş mu? 
      * @version v 1.0 21.01.2016
@@ -162,8 +162,7 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    
+  
     /**  
      * @author Okan CIRAN
      * @ sys_countrys tablosuna yeni bir kayıt oluşturur.  !!
@@ -406,8 +405,7 @@ class SysCountrys extends \DAL\DalSlim {
         }
     }
 
-    /**
-     * user interface datagrid fill operation get row count for widget
+    /** 
      * @author Okan CIRAN
      * @ Gridi doldurmak için sys_countrys tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  08.12.2015
@@ -466,8 +464,8 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
-      /**
-     * user interface datagrid fill operation get row count for widget
+   
+    /** 
      * @author Okan CIRAN
      * @ combobox ı doldurmak için sys_countrys tablosundan çekilen kayıtları döndürür   !!
      * @version v 1.0  17.12.2015
@@ -564,9 +562,8 @@ class SysCountrys extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-
-         /**     
+ 
+    /**     
      * @author Okan CIRAN
      * @ sys_countrys tablosundan id degerini getirir.  !!
      * @version v 1.0  17.03.2016    
@@ -599,6 +596,59 @@ class SysCountrys extends \DAL\DalSlim {
         }
     }
 
-    
+    /** 
+     * @author Okan CIRAN
+     * @ülkeler dropdown ya da tree ye doldurmak için sys_countrys tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function countryDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            
+            $statement = $pdo->prepare("       
+ 
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name_eng AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_countrys a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_countrys sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                WHERE         
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.language_parent_id =0  
+                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng)  
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+   
     
 }
