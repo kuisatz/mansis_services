@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysRmDeffFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysRmDeff = new \DAL\PDO\Oracle\SysRmDeff() ;   
+        $sysRmDeff = new \DAL\PDO\postresql\SysRmDeff() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysRmDeff -> setSlimApp($slimapp); 
         return $sysRmDeff; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCustomerReliabilityFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerReliability = new \DAL\PDO\Oracle\SysCustomerReliability() ;   
+        $sysCustomerReliability = new \DAL\PDO\postresql\SysCustomerReliability() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCustomerReliability -> setSlimApp($slimapp); 
         return $sysCustomerReliability; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysFixedSalesCostsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysFixedSalesCosts = new \DAL\PDO\Oracle\SysFixedSalesCosts() ;   
+        $sysFixedSalesCosts = new \DAL\PDO\postresql\SysFixedSalesCosts() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysFixedSalesCosts -> setSlimApp($slimapp); 
         return $sysFixedSalesCosts; 

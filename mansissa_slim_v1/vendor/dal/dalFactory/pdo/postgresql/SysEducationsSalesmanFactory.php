@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysEducationsSalesmanFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysEducationsSalesman = new \DAL\PDO\Oracle\SysEducationsSalesman() ;   
+        $sysEducationsSalesman = new \DAL\PDO\postresql\SysEducationsSalesman() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysEducationsSalesman -> setSlimApp($slimapp); 
         return $sysEducationsSalesman; 

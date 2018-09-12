@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysDepartmentsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysDepartments = new \DAL\PDO\Oracle\SysDepartments() ;   
+        $sysDepartments = new \DAL\PDO\postresql\SysDepartments() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysDepartments -> setSlimApp($slimapp); 
         return $sysDepartments; 

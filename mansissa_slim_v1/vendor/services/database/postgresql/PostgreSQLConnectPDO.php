@@ -23,9 +23,9 @@ class PostgreSQLConnectPDO implements \Zend\ServiceManager\FactoryInterface {
      */
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
         try {
-            $pdo = new \PDO('pgsql:dbname=sorubankasi;host=185.86.4.73;',
+            $pdo = new \PDO('pgsql:dbname=ga;host=localhost;port=5433;',
                             'postgres',
-                            '1Qaaal123',
+                            '123456',
                             PostgreSQLConnectPDOConfig::getConfig());
             return $pdo;
         } catch (PDOException $e) {

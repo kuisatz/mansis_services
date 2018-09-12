@@ -23,7 +23,7 @@ class PostgreSQLConnectPDOOstim implements \Zend\ServiceManager\FactoryInterface
      */
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
         try {
-            $pdo = new \PDO('pgsql:dbname=dd;host=localhost;',
+            $pdo = new \PDO('pgsql:dbname=ga;host=localhost;',
                             'postgres',
                             '1Qaaal123',
                             PostgreSQLConnectPDOConfig::getConfig());

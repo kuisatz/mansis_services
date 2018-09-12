@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysRmTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysRmTypes = new \DAL\PDO\Oracle\SysRmTypes() ;   
+        $sysRmTypes = new \DAL\PDO\postresql\SysRmTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysRmTypes -> setSlimApp($slimapp); 
         return $sysRmTypes; 

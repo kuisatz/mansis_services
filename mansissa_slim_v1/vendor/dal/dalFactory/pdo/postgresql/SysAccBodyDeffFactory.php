@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccBodyDeffFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccBodyDeff = new \DAL\PDO\Oracle\SysAccBodyDeff()   ;   
+        $sysAccBodyDeff = new \DAL\PDO\postresql\SysAccBodyDeff()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccBodyDeff -> setSlimApp($slimapp); 
         return $sysAccBodyDeff; 

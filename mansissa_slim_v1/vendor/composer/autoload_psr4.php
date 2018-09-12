@@ -57,6 +57,7 @@ return array(
     'DAL\\Factory\\PDO\\Oracle\\' => array($vendorDir . '/dal/dalFactory/pdo/oracle'),
     'BLL\\' => array($vendorDir . '/bll'),
     'BLL\\BLL\\' => array($vendorDir . '/bll/bll'),
+    'BLL\\BLL_POSTGRE\\' => array($vendorDir . '/bll/bll_postgre'),
     'PFBC\\Element\\' => array($vendorDir . '/PFBC/Element'),
     'PFBC\\ErrorView\\' => array($vendorDir . '/PFBC/ErrorView'),
     'PFBC\\Resources\\' => array($vendorDir . '/PFBC/Resources'),

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysProbabilitiesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysProbabilities = new \DAL\PDO\Oracle\SysProbabilities() ;   
+        $sysProbabilities = new \DAL\PDO\postresql\SysProbabilities() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysProbabilities -> setSlimApp($slimapp); 
         return $sysProbabilities; 

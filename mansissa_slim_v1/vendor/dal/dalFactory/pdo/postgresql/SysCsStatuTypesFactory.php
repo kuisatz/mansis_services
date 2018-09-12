@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCsStatuTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCsStatuTypes = new \DAL\PDO\Oracle\SysCsStatuTypes()   ;   
+        $sysCsStatuTypes = new \DAL\PDO\postresql\SysCsStatuTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCsStatuTypes -> setSlimApp($slimapp); 
         return $sysCsStatuTypes; 

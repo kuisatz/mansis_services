@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCurrenciesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCurrencies = new \DAL\PDO\Oracle\SysCurrencies()   ;   
+        $sysCurrencies = new \DAL\PDO\postresql\SysCurrencies()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCurrencies -> setSlimApp($slimapp); 
         return $sysCurrencies; 

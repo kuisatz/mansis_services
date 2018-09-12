@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSalesLimitsDeffFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSalesLimitsDeff = new \DAL\PDO\Oracle\SysSalesLimitsDeff() ;   
+        $sysSalesLimitsDeff = new \DAL\PDO\postresql\SysSalesLimitsDeff() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSalesLimitsDeff -> setSlimApp($slimapp); 
         return $sysSalesLimitsDeff; 

@@ -9,7 +9,7 @@
 
 namespace BLL\BLL_POSTGRE;
 
-/**
+/** BLL\BLL_POSTGRE\BlLoginLogout
  * Business Layer class for report Configuration entity
  */
 class BlLoginLogout extends \BLL\BLLSlim{
@@ -100,20 +100,20 @@ class BlLoginLogout extends \BLL\BLLSlim{
     }
 
     
-    public function pkLoginControl($params = array()) {
+    public function pkLoginControl($params = array()) {  
         $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPostgrePDO');
         $resultSet = $DAL->pkLoginControl($params);  
         return $resultSet['resultSet'];
     }
 
-    public function getPK($params = array()) {
+    public function getPK($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPostgrePDO');
         $resultSet = $DAL->getPK($params);  
         return $resultSet['resultSet'];
     }
 
        
-    public function pkSessionControl($params = array()) {        
+    public function pkSessionControl($params = array()) {   
         $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPostgrePDO');
         $resultSet = $DAL->pkSessionControl($params);  
         return $resultSet['resultSet'];
@@ -142,14 +142,13 @@ class BlLoginLogout extends \BLL\BLLSlim{
     }   
     
     
-       /**
+    /**
      * check if user belongs to specific company
      * @param array$params
      * @return array
      * @author Okan CIRAN
      * @since 05/07/2018
-     */
- 
+     */ 
     public function servicesFormPk($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPostgrePDO');
         return $DAL->servicesFormPk($params);

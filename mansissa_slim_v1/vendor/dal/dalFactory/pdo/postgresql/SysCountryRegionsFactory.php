@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCountryRegionsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCountryRegions = new \DAL\PDO\Oracle\SysCountryRegions()   ;   
+        $sysCountryRegions = new \DAL\PDO\postresql\SysCountryRegions()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCountryRegions -> setSlimApp($slimapp); 
         return $sysCountryRegions; 

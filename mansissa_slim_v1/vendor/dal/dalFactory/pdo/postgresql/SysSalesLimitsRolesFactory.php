@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSalesLimitsRolesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSalesLimitsRoles = new \DAL\PDO\Oracle\SysSalesLimitsRoles() ;   
+        $sysSalesLimitsRoles = new \DAL\PDO\postresql\SysSalesLimitsRoles() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSalesLimitsRoles -> setSlimApp($slimapp); 
         return $sysSalesLimitsRoles; 

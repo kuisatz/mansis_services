@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCommissionPricerangeDefsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCommissionPricerangeDefs = new \DAL\PDO\Oracle\SysCommissionPricerangeDefs()   ;   
+        $sysCommissionPricerangeDefs = new \DAL\PDO\postresql\SysCommissionPricerangeDefs()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCommissionPricerangeDefs -> setSlimApp($slimapp); 
         return $sysCommissionPricerangeDefs; 

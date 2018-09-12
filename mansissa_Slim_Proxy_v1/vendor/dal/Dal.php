@@ -22,9 +22,10 @@ class Dal {
      */
     private function getPdo() {
         try {
-            $pdo = new \PDO('pgsql:dbname=sorubankasi;host=185.86.4.73;',
+            
+            $pdo = new \PDO('pgsql:dbname=ga;host=localhost;port=5433;',
                             'postgres', 
-                            '1Qaaal123');
+                            '123456'); 
             return $pdo;
         } catch (PDOException $e) {
             return false; 
@@ -67,8 +68,7 @@ class Dal {
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+        } catch (\PDOException $e /* Exception $e */) { 
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
@@ -110,8 +110,7 @@ class Dal {
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+        } catch (\PDOException $e /* Exception $e */) {  
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
@@ -126,10 +125,10 @@ class Dal {
      * @return array
      * @throws \PDOException
      */
-    public function pkIsThere($params = array()) {
-        
-        try {
-            $pdo = $this->getPdo();          
+    public function pkIsThere($params = array()) { 
+        try { 
+            $pdo = $this->getPdo();    
+            
             $sql = "              
                     SELECT a.public_key =  '".$params['pk']."'   as kontrol
                     FROM act_session a                  
@@ -141,11 +140,14 @@ class Dal {
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
+            
+          
+             
+             
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+        } catch (\PDOException $e /* Exception $e */) { 
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
@@ -183,8 +185,7 @@ class Dal {
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+        } catch (\PDOException $e /* Exception $e */) { 
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }

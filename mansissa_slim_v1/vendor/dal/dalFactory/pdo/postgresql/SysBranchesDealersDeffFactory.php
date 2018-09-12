@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysBranchesDealersDeffFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysBranchesDealersDeff = new \DAL\PDO\Oracle\SysBranchesDealersDeff()   ;   
+        $sysBranchesDealersDeff = new \DAL\PDO\postresql\SysBranchesDealersDeff()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysBranchesDealersDeff -> setSlimApp($slimapp); 
         return $sysBranchesDealersDeff; 

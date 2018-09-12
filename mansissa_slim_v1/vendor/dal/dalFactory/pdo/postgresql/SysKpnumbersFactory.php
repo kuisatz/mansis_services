@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysKpnumbersFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysKpnumbers = new \DAL\PDO\Oracle\SysKpnumbers() ;   
+        $sysKpnumbers = new \DAL\PDO\postresql\SysKpnumbers() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysKpnumbers -> setSlimApp($slimapp); 
         return $sysKpnumbers; 

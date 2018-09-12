@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysRoadtypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysRoadtypes = new \DAL\PDO\Oracle\SysRoadtypes() ;   
+        $sysRoadtypes = new \DAL\PDO\postresql\SysRoadtypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysRoadtypes -> setSlimApp($slimapp); 
         return $sysRoadtypes; 

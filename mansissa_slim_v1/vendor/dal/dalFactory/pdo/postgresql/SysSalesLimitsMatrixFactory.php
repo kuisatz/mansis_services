@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSalesLimitsMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSalesLimitsMatrix = new \DAL\PDO\Oracle\SysSalesLimitsMatrix() ;   
+        $sysSalesLimitsMatrix = new \DAL\PDO\postresql\SysSalesLimitsMatrix() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSalesLimitsMatrix -> setSlimApp($slimapp); 
         return $sysSalesLimitsMatrix; 

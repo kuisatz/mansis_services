@@ -247,7 +247,7 @@ class BlLoginLogout extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function pkControl($params = array()) {
-        try {
+        try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $sql = "              
                     SELECT id,pkey,sf_private_key_value,role_id FROM (

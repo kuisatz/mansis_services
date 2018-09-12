@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysMileagesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysMileages = new \DAL\PDO\Oracle\SysMileages() ;   
+        $sysMileages = new \DAL\PDO\postresql\SysMileages() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysMileages -> setSlimApp($slimapp); 
         return $sysMileages; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCustomerApplicationTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerApplicationTypes = new \DAL\PDO\Oracle\SysCustomerApplicationTypes() ;   
+        $sysCustomerApplicationTypes = new \DAL\PDO\postresql\SysCustomerApplicationTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCustomerApplicationTypes -> setSlimApp($slimapp); 
         return $sysCustomerApplicationTypes; 

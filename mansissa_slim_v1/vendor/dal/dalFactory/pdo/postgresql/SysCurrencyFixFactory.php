@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCurrencyFixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCurrencyFix = new \DAL\PDO\Oracle\SysCurrencyFix()   ;   
+        $sysCurrencyFix = new \DAL\PDO\postresql\SysCurrencyFix()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCurrencyFix -> setSlimApp($slimapp); 
         return $sysCurrencyFix; 

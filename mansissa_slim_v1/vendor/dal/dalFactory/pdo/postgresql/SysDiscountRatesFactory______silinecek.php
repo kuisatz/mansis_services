@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysDiscountRatesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysDiscountRates = new \DAL\PDO\Oracle\SysDiscountRates() ;   
+        $sysDiscountRates = new \DAL\PDO\postresql\SysDiscountRates() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysDiscountRates -> setSlimApp($slimapp); 
         return $sysDiscountRates; 

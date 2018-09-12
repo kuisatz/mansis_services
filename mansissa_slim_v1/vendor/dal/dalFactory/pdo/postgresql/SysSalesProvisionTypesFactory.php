@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSalesProvisionTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSalesProvisionTypes = new \DAL\PDO\Oracle\SysSalesProvisionTypes() ;   
+        $sysSalesProvisionTypes = new \DAL\PDO\postresql\SysSalesProvisionTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSalesProvisionTypes -> setSlimApp($slimapp); 
         return $sysSalesProvisionTypes; 

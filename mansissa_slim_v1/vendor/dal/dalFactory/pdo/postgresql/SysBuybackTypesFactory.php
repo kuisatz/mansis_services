@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysBuybackTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysBuybackTypes = new \DAL\PDO\Oracle\SysBuybackTypes()   ;   
+        $sysBuybackTypes = new \DAL\PDO\postresql\SysBuybackTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysBuybackTypes -> setSlimApp($slimapp); 
         return $sysBuybackTypes; 

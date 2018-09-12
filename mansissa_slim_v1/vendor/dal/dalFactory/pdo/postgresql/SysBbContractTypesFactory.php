@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysBbContractTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysBbContractTypes = new \DAL\PDO\Oracle\SysBbContractTypes()   ;   
+        $sysBbContractTypes = new \DAL\PDO\postresql\SysBbContractTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysBbContractTypes -> setSlimApp($slimapp); 
         return $sysBbContractTypes; 

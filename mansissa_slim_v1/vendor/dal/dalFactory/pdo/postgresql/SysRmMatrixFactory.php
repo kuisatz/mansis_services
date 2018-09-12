@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysRmMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysRmMatrix = new \DAL\PDO\Oracle\SysRmMatrix() ;   
+        $sysRmMatrix = new \DAL\PDO\postresql\SysRmMatrix() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysRmMatrix -> setSlimApp($slimapp); 
         return $sysRmMatrix; 

@@ -101,6 +101,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAccBodyDeffGridx ($params = array()) { 
+         print_r("ttt");
         $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillAccBodyDeffGridx($params);  
         return $resultSet['resultSet'];

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoSalesFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoSales = new \DAL\PDO\Oracle\InfoSales();
+        $infoSales = new \DAL\PDO\postresql\InfoSales();
         $slimApp = $serviceLocator->get('slimApp');
         $infoSales->setSlimApp($slimApp);
         return $infoSales;
