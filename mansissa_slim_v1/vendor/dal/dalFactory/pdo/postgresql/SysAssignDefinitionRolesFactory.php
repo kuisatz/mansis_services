@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAssignDefinitionRolesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAssignDefinitionRoles  = new \DAL\PDO\postresql\SysAssignDefinitionRoles()   ;         
+        $sysAssignDefinitionRoles  = new \DAL\PDO\Postresql\SysAssignDefinitionRoles()   ;         
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAssignDefinitionRoles -> setSlimApp($slimapp); 
         return $sysAssignDefinitionRoles;

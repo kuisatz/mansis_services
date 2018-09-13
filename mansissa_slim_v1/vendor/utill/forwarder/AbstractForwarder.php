@@ -10,7 +10,7 @@ namespace Utill\Forwarder;
 
 /**
  * abstract forwarder class
- * @author Mustafa Zeynel Dağlı
+ * @author Okan CIRAN
  */
 abstract class AbstractForwarder {
     
@@ -24,7 +24,7 @@ abstract class AbstractForwarder {
     /**
      * to set log or specific prameters to redirect url
      * @param array | null $parameters
-     * @author Mustafa Zeynel Dağlı
+     * @author Okan CIRAN
      * @since version 0.3 06/01/2016
      */
     public function setParameters($parameters = array()) {

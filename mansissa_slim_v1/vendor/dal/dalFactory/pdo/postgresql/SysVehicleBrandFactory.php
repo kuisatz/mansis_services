@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleBrandFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVehicleBrand = new \DAL\PDO\Oracle\SysVehicleBrand() ;   
+        $sysVehicleBrand = new \DAL\PDO\Postresql\SysVehicleBrand() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVehicleBrand -> setSlimApp($slimapp); 
         return $sysVehicleBrand; 

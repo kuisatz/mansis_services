@@ -33,9 +33,7 @@ class config {
             'invokables' => array(
                 'test' => 'Utill\BLL\Test\Test'
             ),
-            'factories' => [  
-                
-                'oraConnectLogFactory' => 'Services\Database\Oracle\OracleSQLConnectLogPDO',
+            'factories' => [ 
                 'oracleConnectFactory' => 'Services\Database\Oracle\OracleSQLConnectPDO',
                 'pgConnectFactory' => 'Services\Database\Postgresql\PostgreSQLConnectPDO',
                 'pgConnectLogFactory' => 'Services\Database\Postgresql\PostgreSQLConnectLogPDO',

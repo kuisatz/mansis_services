@@ -28,7 +28,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMemberShipList($params = array()) {       
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');        
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');        
         $resultSet = $DAL->fillMemberShipList($params);       
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysMembershipTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMembershipTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccBodyMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccBodyMatrix = new \DAL\PDO\postresql\SysAccBodyMatrix()   ;   
+        $sysAccBodyMatrix = new \DAL\PDO\Postresql\SysAccBodyMatrix()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccBodyMatrix -> setSlimApp($slimapp); 
         return $sysAccBodyMatrix; 

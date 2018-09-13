@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleGtModelsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVehicleGtModels = new \DAL\PDO\Oracle\SysVehicleGtModels() ;   
+        $sysVehicleGtModels = new \DAL\PDO\Postresql\SysVehicleGtModels() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVehicleGtModels -> setSlimApp($slimapp); 
         return $sysVehicleGtModels; 

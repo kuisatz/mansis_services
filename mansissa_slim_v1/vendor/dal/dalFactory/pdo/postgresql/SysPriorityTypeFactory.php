@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysPriorityTypeFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysPriorityType = new \DAL\PDO\postresql\SysPriorityType() ;   
+        $sysPriorityType = new \DAL\PDO\Postresql\SysPriorityType() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysPriorityType -> setSlimApp($slimapp); 
         return $sysPriorityType; 

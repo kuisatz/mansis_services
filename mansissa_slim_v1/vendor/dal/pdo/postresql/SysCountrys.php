@@ -7,7 +7,7 @@
  * @license   
  */
 
-namespace DAL\PDO\Oracle;
+namespace DAL\PDO\Postresql;
 
 
 /**

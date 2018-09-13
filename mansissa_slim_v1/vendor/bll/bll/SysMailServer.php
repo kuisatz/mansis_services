@@ -27,7 +27,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -37,7 +37,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -47,7 +47,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -67,7 +67,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -78,7 +78,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -89,7 +89,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMailServerList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         $resultSet = $DAL->fillMailServerList($params);
         return $resultSet['resultSet'];
     }
@@ -100,7 +100,7 @@ class SysMailServer extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMailServerOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMailServerPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     

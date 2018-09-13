@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccessoriesMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccessoriesMatrix= new \DAL\PDO\postresql\SysAccessoriesMatrix()   ;   
+        $sysAccessoriesMatrix= new \DAL\PDO\Postresql\SysAccessoriesMatrix()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccessoriesMatrix -> setSlimApp($slimapp); 
         return $sysAccessoriesMatrix; 

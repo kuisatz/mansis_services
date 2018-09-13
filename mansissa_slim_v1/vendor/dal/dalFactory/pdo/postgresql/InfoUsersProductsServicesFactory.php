@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoUsersProductsServicesFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoUsersProductsServices = new \DAL\PDO\postresql\InfoUsersProductsServices();
+        $infoUsersProductsServices = new \DAL\PDO\Postresql\InfoUsersProductsServices();
         $slimApp = $serviceLocator->get('slimApp');
         $infoUsersProductsServices->setSlimApp($slimApp);
         return $infoUsersProductsServices;

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysBuybackQuotasFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysBuybackQuotas = new \DAL\PDO\postresql\SysBuybackQuotas()   ;   
+        $sysBuybackQuotas = new \DAL\PDO\Postresql\SysBuybackQuotas()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysBuybackQuotas -> setSlimApp($slimapp); 
         return $sysBuybackQuotas; 

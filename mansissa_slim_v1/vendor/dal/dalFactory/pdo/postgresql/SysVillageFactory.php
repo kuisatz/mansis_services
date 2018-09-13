@@ -18,8 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVillageFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVillage = new \DAL\PDO\postresql\SysVillage()   ;   
-             //print_r('asqweqweqwewqweeee ') ; 
+        $sysVillage = new \DAL\PDO\Postresql\SysVillage()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVillage -> setSlimApp($slimapp);
         

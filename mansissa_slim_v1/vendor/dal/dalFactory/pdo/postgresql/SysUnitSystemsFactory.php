@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysUnitSystemsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysUnitSystems  = new \DAL\PDO\postresql\SysUnitSystems();   
+        $sysUnitSystems  = new \DAL\PDO\Postresql\SysUnitSystems();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysUnitSystems -> setSlimApp($slimapp); 
         

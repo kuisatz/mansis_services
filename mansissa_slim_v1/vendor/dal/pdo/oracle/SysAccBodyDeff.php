@@ -870,7 +870,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
      */
     public function makePassive($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
             $statement = $pdo->prepare(" 
                 UPDATE sys_acc_body_deff
                 SET                         

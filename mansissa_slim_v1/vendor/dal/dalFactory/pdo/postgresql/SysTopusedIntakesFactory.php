@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysTopusedIntakesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTopusedIntakes = new \DAL\PDO\Oracle\SysTopusedIntakes() ;   
+        $sysTopusedIntakes = new \DAL\PDO\Postresql\SysTopusedIntakes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysTopusedIntakes -> setSlimApp($slimapp); 
         return $sysTopusedIntakes; 

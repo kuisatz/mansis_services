@@ -27,7 +27,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysSalesLimitsMatrix extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesLimitsMatrixPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }

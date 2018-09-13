@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysTopusedProvisionsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTopusedProvisions = new \DAL\PDO\Oracle\SysTopusedProvisions() ;   
+        $sysTopusedProvisions = new \DAL\PDO\Postresql\SysTopusedProvisions() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysTopusedProvisions -> setSlimApp($slimapp); 
         return $sysTopusedProvisions; 

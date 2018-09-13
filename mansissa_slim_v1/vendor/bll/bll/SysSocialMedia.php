@@ -28,7 +28,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      */
     public function fillSocicalMediaDdList($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         $resultSet = $DAL->fillSocicalMediaDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysSocialMedia extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSocialMediaPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     

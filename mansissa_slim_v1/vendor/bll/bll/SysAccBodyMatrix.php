@@ -27,7 +27,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -104,7 +104,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      */
     public function fillBodyMatrixGridx ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         $resultSet = $DAL->fillBodyMatrixGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -115,7 +115,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillBodyMatrixGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         $resultSet = $DAL->fillBodyMatrixGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -126,7 +126,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -136,7 +136,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -146,7 +146,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -156,7 +156,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -166,7 +166,7 @@ class SysAccBodyMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyMatrixPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

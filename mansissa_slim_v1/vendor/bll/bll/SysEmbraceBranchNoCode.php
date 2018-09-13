@@ -27,7 +27,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysEmbraceBranchNoCode extends \BLL\BLLSlim{
      * @return array 
     */
     public function embraceBranchNoCodeDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysEmbraceBranchNoCodePostgrePDO');
         $resultSet = $DAL->embraceBranchNoCodeDdList($params);
         return $resultSet['resultSet'];
     }

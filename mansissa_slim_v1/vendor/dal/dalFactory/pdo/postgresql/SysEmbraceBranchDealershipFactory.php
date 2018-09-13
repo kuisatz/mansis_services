@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysEmbraceBranchDealershipFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysEmbraceBranchDealership = new \DAL\PDO\postresql\SysEmbraceBranchDealership() ;   
+        $sysEmbraceBranchDealership = new \DAL\PDO\Postresql\SysEmbraceBranchDealership() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysEmbraceBranchDealership -> setSlimApp($slimapp); 
         return $sysEmbraceBranchDealership; 

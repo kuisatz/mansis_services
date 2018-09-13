@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAclPrivilegeFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAclPrivilege  = new \DAL\PDO\postresql\SysAclPrivilege()   ;         
+        $sysAclPrivilege  = new \DAL\PDO\Postresql\SysAclPrivilege()   ;         
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAclPrivilege -> setSlimApp($slimapp);
         

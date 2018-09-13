@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysServicesGroupsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysServicesGroups  = new \DAL\PDO\postresql\SysServicesGroups()   ;         
+        $sysServicesGroups  = new \DAL\PDO\Postresql\SysServicesGroups()   ;         
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysServicesGroups -> setSlimApp($slimapp);
         return $sysServicesGroups;      

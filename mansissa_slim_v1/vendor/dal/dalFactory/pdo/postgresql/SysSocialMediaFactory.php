@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSocialMediaFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSocialMedia  = new \DAL\PDO\postresql\SysSocialMedia();   
+        $sysSocialMedia  = new \DAL\PDO\Postresql\SysSocialMedia();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSocialMedia -> setSlimApp($slimapp); 
         return $sysSocialMedia;

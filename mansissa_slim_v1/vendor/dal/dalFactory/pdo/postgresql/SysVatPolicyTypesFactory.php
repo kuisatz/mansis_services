@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVatPolicyTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVatPolicyTypes = new \DAL\PDO\Oracle\SysVatPolicyTypes() ;   
+        $sysVatPolicyTypes = new \DAL\PDO\Postresql\SysVatPolicyTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVatPolicyTypes -> setSlimApp($slimapp); 
         return $sysVatPolicyTypes; 

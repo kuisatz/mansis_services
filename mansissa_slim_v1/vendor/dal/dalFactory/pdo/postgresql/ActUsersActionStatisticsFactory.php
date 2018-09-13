@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class ActUsersActionStatisticsFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $actUsersActionStatistics = new \DAL\PDO\postresql\ActUsersActionStatistics();
+        $actUsersActionStatistics = new \DAL\PDO\Postresql\ActUsersActionStatistics();
         $slimApp = $serviceLocator->get('slimApp');
         $actUsersActionStatistics->setSlimApp($slimApp);
         return $actUsersActionStatistics;

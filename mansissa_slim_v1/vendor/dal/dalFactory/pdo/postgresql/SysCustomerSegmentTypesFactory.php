@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCustomerSegmentTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerSegmentTypes = new \DAL\PDO\postresql\SysCustomerSegmentTypes() ;   
+        $sysCustomerSegmentTypes = new \DAL\PDO\Postresql\SysCustomerSegmentTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCustomerSegmentTypes -> setSlimApp($slimapp); 
         return $sysCustomerSegmentTypes; 

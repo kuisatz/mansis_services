@@ -28,7 +28,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMenuTypeList($params = array()) {       
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');        
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');        
         $resultSet = $DAL->fillMenuTypeList($params);       
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -111,7 +111,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMenuTypeListGrid ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         $resultSet = $DAL->fillMenuTypeListGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -122,7 +122,7 @@ class SysMenuTypes extends \BLL\BLLSlim {
      * @return array
      */
     public function fillMenuTypeListGridRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysMenuTypesPostgrePDO');
         $resultSet = $DAL->fillMenuTypeListGridRtc($params);  
         return $resultSet['resultSet'];
     }    

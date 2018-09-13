@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSpecificDefinitionsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSpecificDefinitions  = new \DAL\PDO\postresql\SysSpecificDefinitions()   ;   
+        $sysSpecificDefinitions  = new \DAL\PDO\Postresql\SysSpecificDefinitions()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSpecificDefinitions -> setSlimApp($slimapp);
         

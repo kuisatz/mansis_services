@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class ReportConfigurationFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $reportConfiguration = new \DAL\PDO\postresql\ReportConfiguration();
+        $reportConfiguration = new \DAL\PDO\Postresql\ReportConfiguration();
         $slimApp = $serviceLocator->get('slimApp');
         $reportConfiguration->setSlimApp($slimApp);
         return $reportConfiguration;

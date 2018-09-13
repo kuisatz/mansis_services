@@ -27,7 +27,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->insert($params);
     }
  
@@ -38,7 +38,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->haveRecords($params);
     }
     
@@ -49,7 +49,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -59,7 +59,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -69,7 +69,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -79,7 +79,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingular ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGridSingular($params);  
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGridSingularRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -126,7 +126,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUserCommunicationsTypes ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillUserCommunicationsTypes($params);  
         return $resultSet['resultSet'];
     }
@@ -137,7 +137,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -150,7 +150,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function insertTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->insertTemp($params);
     }
     
@@ -160,7 +160,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function updateTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->updateTemp($params);
     }
     
@@ -170,7 +170,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularTemp ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGridSingularTemp($params);  
         return $resultSet['resultSet'];
     }    
@@ -181,7 +181,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridSingularRowTotalCountTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillGridSingularRowTotalCountTemp($params);  
         return $resultSet['resultSet'];
     }    
@@ -192,7 +192,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
      * @return array
      */
     public function fillUserCommunicationsTypesTemp ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         $resultSet = $DAL->fillUserCommunicationsTypesTemp($params);  
         return $resultSet['resultSet'];
     }
@@ -203,7 +203,7 @@ class InfoUsersCommunications extends \BLL\BLLSlim{
     * @return array
     */
     public function deletedActTemp($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersCommunicationsPostgrePDO');
         return $DAL->deletedActTemp($params);
     }
 }

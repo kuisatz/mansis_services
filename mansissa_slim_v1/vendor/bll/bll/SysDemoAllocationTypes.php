@@ -27,7 +27,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysDemoAllocationTypes extends \BLL\BLLSlim{
      * @return array 
     */
     public function demoAllocationTypesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDemoAllocationTypesPostgrePDO');
         $resultSet = $DAL->demoAllocationTypesDdList($params);
         return $resultSet['resultSet'];
     }

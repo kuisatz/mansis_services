@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoDealerOwnerFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoDealerOwner = new \DAL\PDO\postresql\InfoDealerOwner();
+        $infoDealerOwner = new \DAL\PDO\Postresql\InfoDealerOwner();
         $slimApp = $serviceLocator->get('slimApp');
         $infoDealerOwner->setSlimApp($slimApp);
         return $infoDealerOwner;

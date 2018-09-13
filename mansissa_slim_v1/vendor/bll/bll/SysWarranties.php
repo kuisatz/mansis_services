@@ -27,7 +27,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array 
     */
     public function warrantiesMainGroupDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->warrantiesMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array 
     */
     public function warrantiesParentsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->warrantiesParentsDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function fillWarrantiesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->fillWarrantiesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function fillWarrantiesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         $resultSet = $DAL->fillWarrantiesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -136,7 +136,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -146,7 +146,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -156,7 +156,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -166,7 +166,7 @@ class SysWarranties  extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantiesPostgrePDO');
         return $DAL->updateAct($params);
     }
     

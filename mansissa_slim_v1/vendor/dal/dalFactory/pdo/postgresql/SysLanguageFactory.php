@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysLanguageFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysLanguage  = new \DAL\PDO\postresql\SysLanguage();   
+        $sysLanguage  = new \DAL\PDO\Postresql\SysLanguage();   
        // print_r('servis  yaratılıyor...  ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysLanguage -> setSlimApp($slimapp);

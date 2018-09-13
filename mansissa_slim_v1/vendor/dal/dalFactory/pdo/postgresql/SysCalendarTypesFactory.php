@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCalendarTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCalendarTypes= new \DAL\PDO\postresql\SysCalendarTypes()   ;   
+        $sysCalendarTypes= new \DAL\PDO\Postresql\SysCalendarTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCalendarTypes -> setSlimApp($slimapp); 
         return $sysCalendarTypes; 

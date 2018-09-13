@@ -27,7 +27,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -38,7 +38,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function haveRecords($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         return $DAL->haveRecords($params);
     }
     
@@ -49,7 +49,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -59,7 +59,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -69,7 +69,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -79,7 +79,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
      * @return array
      */
     public function getUsersCompanyNotifications1($params = array()) {       
-        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
         $resultSet = $DAL->getUsersCompanyNotifications($params);  
         return $resultSet['resultSet'];
         
@@ -109,22 +109,22 @@ class ActUsersActionStatistics extends \BLL\BLLSlim{
     }
     
     public function getUsersCompanyNotifications($params = array()) {
-    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
     return $DAL->getUsersCompanyNotifications($params);
     }
     
     public function getUsersLeftNotifications($params = array()) {
-    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
     return $DAL->getUsersLeftNotifications($params);
     }
 
     public function getUsersRightNotifications($params = array()) {
-    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
     return $DAL->getUsersRightNotifications($params);
     }
     
     public function getFirmHistoryV1($params = array()) {
-    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsOraPDO');
+    $DAL = $this->slimApp->getDALManager()->get('actUsersActionStatisticsPostgrePDO');
     return $DAL->getFirmHistoryV1($params);
     }
     

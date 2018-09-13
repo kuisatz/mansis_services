@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysRmSubsidyMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysRmSubsidyMatrix = new \DAL\PDO\postresql\SysRmSubsidyMatrix() ;   
+        $sysRmSubsidyMatrix = new \DAL\PDO\Postresql\SysRmSubsidyMatrix() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysRmSubsidyMatrix -> setSlimApp($slimapp); 
         return $sysRmSubsidyMatrix; 

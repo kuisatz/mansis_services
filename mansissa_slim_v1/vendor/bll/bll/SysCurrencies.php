@@ -27,7 +27,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function fillCurrenciesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         $resultSet = $DAL->fillCurrenciesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -113,7 +113,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function fillCurrenciesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         $resultSet = $DAL->fillCurrenciesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -134,7 +134,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -144,7 +144,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -164,7 +164,7 @@ class SysCurrencies extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCurrenciesPostgrePDO');
         return $DAL->updateActLng($params);
     }
     

@@ -27,7 +27,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }

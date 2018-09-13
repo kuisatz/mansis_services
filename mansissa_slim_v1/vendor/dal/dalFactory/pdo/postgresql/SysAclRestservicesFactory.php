@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAclRestservicesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAclRestservices  = new \DAL\PDO\postresql\SysAclRestservices();  
+        $sysAclRestservices  = new \DAL\PDO\Postresql\SysAclRestservices();  
         $slimapp = $serviceLocator->get('slimapp');            
         $sysAclRestservices -> setSlimApp($slimapp);
         return $sysAclRestservices;

@@ -27,7 +27,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array 
     */
     public function vehiclesEndgroupsCostDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->vehiclesEndgroupsCostDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array 
     */
     public function vehiclesEndgroupsBbDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->vehiclesEndgroupsBbDdList($params);
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillVehiclesEndgroupsGridx ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->fillVehiclesEndgroupsGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -123,7 +123,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillVehiclesEndgroupsGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         $resultSet = $DAL->fillVehiclesEndgroupsGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -134,7 +134,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -144,7 +144,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -164,7 +164,7 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
         return $DAL->updateAct($params);
     }
    

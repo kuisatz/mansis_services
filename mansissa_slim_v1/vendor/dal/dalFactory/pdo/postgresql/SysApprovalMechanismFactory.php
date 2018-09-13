@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysApprovalMechanismFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysApprovalMechanism = new \DAL\PDO\postresql\SysApprovalMechanism()   ;   
+        $sysApprovalMechanism = new \DAL\PDO\Postresql\SysApprovalMechanism()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysApprovalMechanism -> setSlimApp($slimapp); 
         return $sysApprovalMechanism; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCustomerTurnoverRatesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerTurnoverRates = new \DAL\PDO\Oracle\SysCustomerTurnoverRates() ;   
+        $sysCustomerTurnoverRates = new \DAL\PDO\Postresql\SysCustomerTurnoverRates() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCustomerTurnoverRates -> setSlimApp($slimapp); 
         return $sysCustomerTurnoverRates; 

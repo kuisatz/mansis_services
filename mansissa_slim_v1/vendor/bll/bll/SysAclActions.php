@@ -27,7 +27,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {           
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->update($params);
     }
     /**
@@ -46,7 +46,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -56,7 +56,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->delete($params);
     }
      
@@ -66,7 +66,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class SysAclActions extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -100,7 +100,7 @@ class SysAclActions extends \BLL\BLLSlim{
      */
     public function fillComboBoxFullAction ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillComboBoxFullAction($params);  
         return $resultSet['resultSet'];
     }
@@ -111,7 +111,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillActionTree($params);  
         return $resultSet['resultSet'];
     }
@@ -122,7 +122,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillActionList($params);  
         return $resultSet['resultSet'];
     }
@@ -133,7 +133,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillActionListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -143,7 +143,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -152,7 +152,7 @@ class SysAclActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionsPostgrePDO');
         $resultSet = $DAL->fillActionDdList($params);
         return $resultSet['resultSet'];
     }

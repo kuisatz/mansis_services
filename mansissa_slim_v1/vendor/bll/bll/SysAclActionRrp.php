@@ -27,7 +27,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     } 
@@ -90,7 +90,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionPrivilegesList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesList($params);  
         return $resultSet['resultSet'];
     }
@@ -101,13 +101,13 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionPrivilegesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesListRtc($params);  
         return $resultSet['resultSet'];
     }   
      
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     } 
      
@@ -117,7 +117,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionResourceGroups($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');        
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');        
          if (isset($params['parent_id']) && ($params['parent_id'] == 0))  { 
             $resultSet = $DAL->fillActionResourceGroups($params);
         } else {        
@@ -132,7 +132,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionPrivilegesOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesOfRoles($params);
         return $resultSet['resultSet'];
     }
@@ -143,7 +143,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillNotInActionPrivilegesOfRoles($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillNotInActionPrivilegesOfRoles($params);
         return $resultSet['resultSet'];
     }
@@ -154,7 +154,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionPrivilegesOfRolesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesOfRolesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -165,7 +165,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
     */
     public function fillActionPrivilegesOfRolesList($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesOfRolesList($params);  
         return $resultSet['resultSet'];
     }
@@ -176,7 +176,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillActionPrivilegesOfRolesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         $resultSet = $DAL->fillActionPrivilegesOfRolesListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -187,7 +187,7 @@ class SysAclActionRrp extends \BLL\BLLSlim{
      * @return array
      */
     public function transferRolesActionPrivilege($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpPostgrePDO');
         return $DAL->transferRolesActionPrivilege($params);
     }
     

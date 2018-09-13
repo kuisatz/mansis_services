@@ -2,17 +2,17 @@
 /**
  *  Framework 
  *
- * @link       
+ * @link      
  * @copyright Copyright (c) 2017
  * @license   
  */
 
-namespace BLL\BLL_POSTGRE;
+namespace BLL\BLL;
 
 /**
  * Business Layer class for report Configuration entity
  */
-class SysBorough extends \BLL\BLLSlim{
+class SysSectors extends \BLL\BLLSlim{
     
     /**
      * constructor
@@ -27,37 +27,37 @@ class SysBorough extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         return $DAL->insert($params);
     }
     
     /**
      * Data update function
-     * @param array | null $params
+     * @param integer $id
+     * @param array $params
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
-        return $DAL->update($params);
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        return $DAL->update( $params);
     }
     
     /**
      * Data delete function
-     * @param array | null $params
+     * @param integer $id
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
-        return $DAL->delete($params);
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        return $DAL->delete($params = array());
     }
 
     /**
      * get all data
-     * @param array | null $params
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         return $DAL->getAll($params);
     }
     
@@ -68,44 +68,60 @@ class SysBorough extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
     
     /**
      * Function to get datagrid row count on user interface layer
-     * @param array | null $params
+     * @param array $params
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
     /**
-     * Function to get datagrid row count on user interface layer
-     * @param array | null $params
+     *  
+     * @param array  $params
      * @return array
      */
-     public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+     
+     
+    public function fillComboBox($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
     }
+     
     
-    /**
-     * Function to get datagrid row count on user interface layer
-     * @param array | null $params
-     * @return array
-     */
-     public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBoroughPostgrePDO');
+    public function insertLanguageTemplate($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
+
+     
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillTextLanguageTemplate ($params = array()) {
+        
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $resultSet = $DAL->fillTextLanguageTemplate($params);  
+        return $resultSet['resultSet'];
+    }
     
-    
+    public function getSectors($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSectorsPDO');
+        $resultSet = $DAL->getSectors($params);  
+        return $resultSet['resultSet'];
+    }
+     
     
     
 }

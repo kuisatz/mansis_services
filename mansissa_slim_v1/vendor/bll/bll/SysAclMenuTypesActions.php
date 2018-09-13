@@ -27,7 +27,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {           
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMenuTypesActionList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillMenuTypesActionList($params);  
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMenuTypesActionListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillMenuTypesActionListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -112,7 +112,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
  
@@ -122,7 +122,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMenuTypesActionLeftList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillMenuTypesActionLeftList($params);  
         return $resultSet['resultSet'];
     }
@@ -133,7 +133,7 @@ class SysAclMenuTypesActions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMenuTypesActionLeftRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclMenuTypesActionsPostgrePDO');
         $resultSet = $DAL->fillMenuTypesActionLeftRtc($params);  
         return $resultSet['resultSet'];
     }    

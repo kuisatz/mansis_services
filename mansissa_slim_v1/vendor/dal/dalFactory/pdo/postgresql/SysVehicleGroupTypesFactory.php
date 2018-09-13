@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleGroupTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVehicleGroupTypes = new \DAL\PDO\Oracle\SysVehicleGroupTypes() ;   
+        $sysVehicleGroupTypes = new \DAL\PDO\Postresql\SysVehicleGroupTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVehicleGroupTypes -> setSlimApp($slimapp); 
         return $sysVehicleGroupTypes; 

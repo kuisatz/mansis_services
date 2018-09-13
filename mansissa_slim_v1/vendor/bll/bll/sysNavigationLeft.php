@@ -28,7 +28,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */ 
   public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -38,7 +38,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -48,7 +48,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         return $DAL->getAll($params );
     }
     
@@ -69,7 +69,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
       //  print_r('123123asdasdasd') ; 
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,13 +92,13 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function pkGetLeftMenu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         $resultSet = $DAL->pkGetLeftMenu($params);  
         return $resultSet['resultSet'];
     }
 
     public function getLeftMenuFull() {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         $resultSet = $DAL->getLeftMenuFull();  
         return $resultSet['resultSet'];
     }
@@ -108,7 +108,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridForAdmin($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');     
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');     
         return $DAL->fillGridForAdmin($params);
     }
     
@@ -118,7 +118,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridForAdminRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         $resultSet = $DAL->fillGridForAdminRtc($params);  
         return $resultSet['resultSet'];
     } 
@@ -130,7 +130,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function fillForAdminTree($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');     
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');     
         return $DAL->fillForAdminTree($params);
     }
     
@@ -140,7 +140,7 @@ class SysNavigationLeft extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNavigationLeftPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     

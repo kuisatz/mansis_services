@@ -27,7 +27,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillSalesProvisionsGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         $resultSet = $DAL->fillSalesProvisionsGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -113,7 +113,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillSalesProvisionsGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         $resultSet = $DAL->fillSalesProvisionsGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -134,7 +134,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -144,7 +144,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -164,7 +164,7 @@ class SysSalesProvisionTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSalesProvisionTypesPostgrePDO');
         return $DAL->updateActLng($params);
     }
     

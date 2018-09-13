@@ -27,7 +27,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array 
     */
     public function discountRatesDeffDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDiscountRatesDeffPostgrePDO');
         $resultSet = $DAL->discountRatesDeffDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillDiscountRatesDeffGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillDiscountRatesDeffGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -113,7 +113,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillDiscountRatesDeffGridxGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillDiscountRatesDeffGridxGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -134,7 +134,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -144,7 +144,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -164,7 +164,7 @@ class SysDiscountRatesDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->updateActLng($params);
     }
     

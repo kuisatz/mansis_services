@@ -27,7 +27,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array 
     */
     public function accBodyDeffDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->accBodyDeffDdList($params);
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAccBodyDeffGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillAccBodyDeffGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function fillAccBodyDeffGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         $resultSet = $DAL->fillAccBodyDeffGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -123,7 +123,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -133,7 +133,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -143,7 +143,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -153,7 +153,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -163,7 +163,7 @@ class SysAccBodyDeff extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

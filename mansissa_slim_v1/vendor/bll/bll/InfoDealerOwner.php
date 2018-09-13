@@ -27,7 +27,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function fillServicesDdlist($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO'); 
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO'); 
         $resultSet = $DAL->fillServicesDdlist($params);
         return $resultSet['resultSet'];
     }
@@ -40,7 +40,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalari($params);
     }
     
@@ -51,7 +51,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalariWeeklyWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalariWeeklyWithServices($params);
     }
     
@@ -63,7 +63,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalariAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalariAylik($params);
     }
     
@@ -74,7 +74,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalariAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalariAylikWithServices($params);
     }
     
@@ -85,7 +85,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalariYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalariYillik($params);
     }
     
@@ -96,7 +96,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAlisFaturalariYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAlisFaturalariYillikWithServices($params);
     }
     
@@ -107,7 +107,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalari($params);
     }
     
@@ -118,7 +118,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalariWeeklyWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalariWeeklyWithServices($params);
     }
     
@@ -129,7 +129,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalariAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalariAylik($params);
     }
     
@@ -140,7 +140,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalariAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalariAylikWithServices($params);
     }
     
@@ -151,7 +151,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalariYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalariYillik($params);
     }
     
@@ -162,7 +162,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsemriFaturalariYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsemriFaturalariYillikWithServices($params);
     }
     
@@ -173,7 +173,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalari($params);
     }
     
@@ -184,7 +184,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalariWeeklyWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalariWeeklyWithServices($params);
     }
     
@@ -195,7 +195,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalariAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalariAylik($params);
     }
     
@@ -206,7 +206,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalariAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalariAylikWithServices($params);
     }
     
@@ -217,7 +217,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalariYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalariYillik($params);
     }
     
@@ -228,7 +228,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetaySatisFaturalariYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetaySatisFaturalariYillikWithServices($params);
     }
     
@@ -239,7 +239,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalari($params);
     }
     
@@ -250,7 +250,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalariWeeklyWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalariWeeklyWithServices($params);
     }
     
@@ -261,7 +261,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalariAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalariAylik($params);
     }
     
@@ -272,7 +272,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalariAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalariAylikWithServices($params);
     }
     
@@ -283,7 +283,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalariYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalariYillik($params);
     }
     
@@ -294,7 +294,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIcmalFaturalariYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIcmalFaturalariYillikWithServices($params);
     }
     
@@ -305,7 +305,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikWithServices($params);
     }
     
@@ -316,7 +316,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikWithoutServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikWithoutServices($params);
     }
     
@@ -327,7 +327,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikAylik($params);
     }
     
@@ -339,7 +339,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikAylikWithServices($params);
     }
     
@@ -350,7 +350,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikYillik($params);
     }
     
@@ -361,7 +361,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcikYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcikYillikWithServices($params);
     }
     
@@ -372,7 +372,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapanan($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapanan($params);
     }
     
@@ -383,7 +383,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapananWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapananWithServices($params);
     }
     
@@ -394,7 +394,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapananAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapananAylik($params);
     }
     
@@ -405,7 +405,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapananAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapananAylikWithServices($params);
     }
     
@@ -416,7 +416,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapananYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapananYillik($params);
     }
     
@@ -427,7 +427,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayIsEmriAcilanKapananYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayIsEmriAcilanKapananYillikWithServices($params);
     }
     
@@ -438,7 +438,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardAracGirisSayilari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardAracGirisSayilari($params);
     }
     
@@ -449,7 +449,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardAracGirisSayilariWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardAracGirisSayilariWithServices($params);
     }
     
@@ -460,7 +460,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilari($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilari($params);
     }
     
@@ -471,7 +471,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilariWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilariWithServices($params);
     }
     
@@ -482,7 +482,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilariAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilariAylik($params);
     }
     
@@ -493,7 +493,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilariAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilariAylikWithServices($params);
     }
     
@@ -504,7 +504,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilariYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilariYillik($params);
     }
     
@@ -515,7 +515,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAracGirisSayilariYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAracGirisSayilariYillikWithServices($params);
     }
     
@@ -526,7 +526,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardDowntime($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardDowntime($params);
     }
     
@@ -537,7 +537,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardDowntimeWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardDowntimeWithServices($params);
     }
     
@@ -548,7 +548,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridDowntime($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridDowntime($params);
     }
     
@@ -559,7 +559,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridDowntimeWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridDowntimeWithServices($params);
     }
     
@@ -570,7 +570,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardVerimlilik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardVerimlilik($params);
     }
     
@@ -581,7 +581,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardVerimlilikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardVerimlilikWithServices($params);
     }
     
@@ -592,7 +592,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayVerimlilikYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayVerimlilikYillik($params);
     }
     
@@ -603,7 +603,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayVerimlilikYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayVerimlilikYillikWithServices($params);
     }
     
@@ -614,7 +614,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardKapasite($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardKapasite($params);
     }
     
@@ -625,7 +625,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardKapasiteWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardKapasiteWithServices($params);
     }
     
@@ -636,7 +636,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayKapasiteYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayKapasiteYillik($params);
     }
     
@@ -647,7 +647,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayKapasiteYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayKapasiteYillikWithServices($params);
     }
     
@@ -658,7 +658,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardEtkinlik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardEtkinlik($params);
     }
     
@@ -669,7 +669,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardEtkinlikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardEtkinlikWithServices($params);
     }
     
@@ -680,7 +680,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayEtkinlikYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayEtkinlikYillik($params);
     }
     
@@ -691,7 +691,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayEtkinlikYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayEtkinlikYillikWithServices($params);
     }
     
@@ -702,7 +702,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardYedekParcaTS($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardYedekParcaTS($params);
     }
     
@@ -713,7 +713,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardYedekParcaTSWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardYedekParcaTSWithServices($params);
     }
     
@@ -724,7 +724,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTS($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTS($params);
     }
     
@@ -735,7 +735,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTSWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTSWithServices($params);
     }
     
@@ -746,7 +746,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTSAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTSAylik($params);
     }
     
@@ -757,7 +757,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTSAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTSAylikWithServices($params);
     }
     
@@ -768,7 +768,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTSYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTSYillik($params);
     }
     
@@ -779,7 +779,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaTSYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaTSYillikWithServices($params);
     }
     
@@ -790,7 +790,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardYedekParcaYS($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardYedekParcaYS($params);
     }
     
@@ -801,7 +801,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardYedekParcaYSWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardYedekParcaYSWithServices($params);
     }
     
@@ -813,7 +813,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYS($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYS($params);
     }
     
@@ -824,7 +824,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYSWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYSWithServices($params);
     }
     
@@ -835,7 +835,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYSAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYSAylik($params);
     }
     
@@ -846,7 +846,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYSAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYSAylikWithServices($params);
     }
     
@@ -857,7 +857,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYSYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYSYillik($params);
     }
     
@@ -868,7 +868,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayYedekParcaYSYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayYedekParcaYSYillikWithServices($params);
     }
     
@@ -890,7 +890,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardAtolyeCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardAtolyeCirosu($params);
     }
     
@@ -901,7 +901,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardAtolyeCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardAtolyeCirosuWithServices($params);
     }
     
@@ -912,7 +912,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosu($params);
     }
     
@@ -923,7 +923,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosuWithServices($params);
     }
     
@@ -934,7 +934,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosuAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosuAylik($params);
     }
     
@@ -945,7 +945,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosuAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosuAylikWithServices($params);
     }
     
@@ -956,7 +956,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosuYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosuYillik($params);
     }
     
@@ -967,7 +967,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayAtolyeCirosuYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayAtolyeCirosuYillikWithServices($params);
     }
     
@@ -986,7 +986,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardGarantiCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardGarantiCirosu($params);
     }
     
@@ -997,7 +997,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardGarantiCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardGarantiCirosuWithServices($params);
     }
     
@@ -1008,7 +1008,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosu($params);
     }
     
@@ -1019,7 +1019,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosuWithServices($params);
     }
     
@@ -1030,7 +1030,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosuAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosuAylik($params);
     }
     
@@ -1041,7 +1041,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosuAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosuAylikWithServices($params);
     }
     
@@ -1052,7 +1052,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosuYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosuYillik($params);
     }
     
@@ -1063,7 +1063,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGarantiCirosuYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGarantiCirosuYillikWithServices($params);
     }
     
@@ -1085,7 +1085,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardDirekSatisCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardDirekSatisCirosu($params);
     }
     
@@ -1097,7 +1097,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardDirekSatisCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardDirekSatisCirosuWithServices($params);
     }
     
@@ -1108,7 +1108,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosu($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosu($params);
     }
     
@@ -1119,7 +1119,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosuWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosuWithServices($params);
     }
     
@@ -1130,7 +1130,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosuAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosuAylik($params);
     }
     
@@ -1141,7 +1141,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosuAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosuAylikWithServices($params);
     }
     
@@ -1152,7 +1152,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosuYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosuYillik($params);
     }
     
@@ -1163,7 +1163,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayDirekSatisCirosuYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayDirekSatisCirosuYillikWithServices($params);
     }
     
@@ -1190,7 +1190,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiro($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiro($params);
     }
     
@@ -1201,7 +1201,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiroWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiroWithServices($params);
     }
     
@@ -1212,7 +1212,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiroAylik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiroAylik($params);
     }
     
@@ -1223,7 +1223,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiroAylikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiroAylikWithServices($params);
     }
     
@@ -1234,7 +1234,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiroYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiroYillik($params);
     }
     
@@ -1245,7 +1245,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayCiroYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayCiroYillikWithServices($params);
     }
     
@@ -1256,7 +1256,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardMMCSI($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardMMCSI($params);
     }
     
@@ -1267,7 +1267,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardMMCSIWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardMMCSIWithServices($params);
     }
     
@@ -1278,7 +1278,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayMMCSIYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayMMCSIYillik($params);
     }
     
@@ -1289,7 +1289,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayMMCSIYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayMMCSIYillikWithServices($params);
     }
     
@@ -1300,7 +1300,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridMMCSI($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridMMCSI($params);
     }
     
@@ -1311,7 +1311,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridMMCSIWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridMMCSIWithServices($params);
     }
     
@@ -1322,7 +1322,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardMMCXI($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardMMCXI($params);
     }
     
@@ -1333,7 +1333,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardMMCXIWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardMMCXIWithServices($params);
     }
     
@@ -1344,7 +1344,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayMMCXIYillik($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayMMCXIYillik($params);
     }
     
@@ -1355,7 +1355,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayMMCXIYillikWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayMMCXIYillikWithServices($params);
     }
     
@@ -1366,7 +1366,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridMMCXI($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridMMCXI($params);
     }
     
@@ -1377,7 +1377,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayGridMMCXIWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayGridMMCXIWithServices($params);
     }
     
@@ -1388,7 +1388,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDetayBayiStok($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDetayBayiStok($params);
     }
     
@@ -1399,7 +1399,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardIsEmriLastDataMusteri($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardIsEmriLastDataMusteri($params);
     }
     
@@ -1411,7 +1411,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardIsEmriLastDataMusteriWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardIsEmriLastDataMusteriWithServices($params);
     }
     
@@ -1422,7 +1422,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardIsEmirData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardIsEmirData($params);
     }
     
@@ -1433,7 +1433,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardIsEmirDataWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardIsEmirDataWithServices($params);
     }
     
@@ -1444,7 +1444,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardFaturaData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardFaturaData($params);
     }
     
@@ -1455,7 +1455,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardFaturaDataWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardFaturaDataWithServices($params);
     }
     
@@ -1466,7 +1466,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardCiroYedekParcaData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardCiroYedekParcaData($params);
     }
     
@@ -1477,7 +1477,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardStoklar($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardStoklar($params);
     }
     
@@ -1488,7 +1488,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getAfterSalesDashboardStoklarWithServices($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         return $DAL->getAfterSalesDashboardStoklarWithServices($params);
     }
     
@@ -1498,7 +1498,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDetayStoklarGrid ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDetayStoklarGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -1509,7 +1509,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDetayStoklarGridWithServices ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDetayStoklarGridWithServices($params);  
         return $resultSet['resultSet'];
     }
@@ -1538,7 +1538,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalYedekParca ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalYedekParca($params);  
         return $resultSet['resultSet'];
     }
@@ -1549,7 +1549,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDetayFaalYedekParca ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDetayFaalYedekParca($params);  
         return $resultSet['resultSet'];
     }
@@ -1560,7 +1560,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalYedekParcaWithServices ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalYedekParcaWithServices($params);  
         return $resultSet['resultSet'];
     }
@@ -1572,7 +1572,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalYedekParcaServisDisiWithServices ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalYedekParcaServisDisiWithServices($params);  
         return $resultSet['resultSet'];
     }
@@ -1583,7 +1583,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalYagToplam ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalYagToplam($params);  
         return $resultSet['resultSet'];
     }
@@ -1595,7 +1595,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalYagToplamWithServices ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalYagToplamWithServices($params);  
         return $resultSet['resultSet'];
     }
@@ -1606,7 +1606,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalStokToplam ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalStokToplam($params);  
         return $resultSet['resultSet'];
     }
@@ -1618,7 +1618,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesDashboardFaalStokToplamWithServices ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesDashboardFaalStokToplamWithServices($params);  
         return $resultSet['resultSet'];
     }
@@ -1635,7 +1635,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesYedekParcaHedefServissiz ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesYedekParcaHedefServissiz($params);  
         return $resultSet['resultSet'];
     }
@@ -1646,7 +1646,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesYedekParcaHedefServisli ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesYedekParcaHedefServisli($params);  
         return $resultSet['resultSet'];
     }
@@ -1657,7 +1657,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesYedekParcaPDFServissiz ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesYedekParcaPDFServissiz($params);  
         return $resultSet['resultSet'];
     }
@@ -1668,7 +1668,7 @@ class InfoDealerOwner extends \BLL\BLLSlim{
      * @return array
      */
     public function getAfterSalesYedekParcaPDFServisli ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoDealerOwnerPostgrePDO');
         $resultSet = $DAL->getAfterSalesYedekParcaPDFServisli($params);  
         return $resultSet['resultSet'];
     }

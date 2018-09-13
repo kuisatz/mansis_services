@@ -27,7 +27,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->delete($params);
     }
         /**
@@ -56,7 +56,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function deleteAct( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->deleteAct($params);
     }
     
@@ -67,7 +67,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -77,7 +77,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGrid ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -88,7 +88,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }  
@@ -98,7 +98,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     /**
@@ -107,7 +107,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillServicesGroupsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillServicesGroupsDdList($params);
         return $resultSet['resultSet'];
     }
@@ -117,7 +117,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillServicesGroupsTree ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillServicesGroupsTree($params);  
         return $resultSet['resultSet'];
     }
@@ -128,7 +128,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillServicesGroupsList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillServicesGroupsList($params);  
         return $resultSet['resultSet'];
     }
@@ -139,7 +139,7 @@ class SysServicesGroups extends \BLL\BLLSlim{
      * @return array
      */
     public function fillServicesGroupsListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysServicesGroupsPostgrePDO');
         $resultSet = $DAL->fillServicesGroupsListRtc($params);  
         return $resultSet['resultSet'];
     }      

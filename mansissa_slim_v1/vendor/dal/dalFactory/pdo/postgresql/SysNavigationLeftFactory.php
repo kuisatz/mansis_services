@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysNavigationLeftFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysNavigationLeft = new \DAL\PDO\postresql\SysNavigationLeft()   ;   
+        $sysNavigationLeft = new \DAL\PDO\Postresql\SysNavigationLeft()   ;   
              //print_r('asqweqweqwewqweeee ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysNavigationLeft -> setSlimApp($slimapp);

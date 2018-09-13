@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysWarrantyTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysWarrantyTypes = new \DAL\PDO\Oracle\SysWarrantyTypes() ;   
+        $sysWarrantyTypes = new \DAL\PDO\Postresql\SysWarrantyTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysWarrantyTypes -> setSlimApp($slimapp); 
         return $sysWarrantyTypes; 

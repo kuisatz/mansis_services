@@ -27,7 +27,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function getConsultantOperation($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         $resultSet = $DAL->getConsultantOperation($params);  
         return $resultSet;
     }
@@ -79,7 +79,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function getAllConsultantFirmCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         $resultSet = $DAL->getAllConsultantFirmCount($params);  
         return $resultSet;
     }
@@ -90,7 +90,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function getUpDashBoardCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         $resultSet = $DAL->getUpDashBoardCount($params);  
         return $resultSet;
     }
@@ -102,7 +102,7 @@ class BlAdminActivationReport extends \BLL\BLLSlim{
      * @return array
      */
     public function getDashBoardHighCharts($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('blAdminActivationReportPostgrePDO');
         $resultSet = $DAL->getDashBoardHighCharts($params);  
         return $resultSet;
     }

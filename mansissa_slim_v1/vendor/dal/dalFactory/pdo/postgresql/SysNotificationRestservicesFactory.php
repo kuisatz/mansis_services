@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysNotificationRestservicesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysNotificationRestservices  = new \DAL\PDO\postresql\SysNotificationRestservices();   
+        $sysNotificationRestservices  = new \DAL\PDO\Postresql\SysNotificationRestservices();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysNotificationRestservices -> setSlimApp($slimapp);  
         return $sysNotificationRestservices; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysDemoAllocationTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysDemoAllocationTypes = new \DAL\PDO\postresql\SysDemoAllocationTypes() ;   
+        $sysDemoAllocationTypes = new \DAL\PDO\Postresql\SysDemoAllocationTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysDemoAllocationTypes -> setSlimApp($slimapp); 
         return $sysDemoAllocationTypes; 

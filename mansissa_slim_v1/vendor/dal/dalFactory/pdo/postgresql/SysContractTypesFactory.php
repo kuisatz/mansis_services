@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysContractTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysContractTypes = new \DAL\PDO\postresql\SysContractTypes()   ;   
+        $sysContractTypes = new \DAL\PDO\Postresql\SysContractTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysContractTypes -> setSlimApp($slimapp); 
         return $sysContractTypes; 

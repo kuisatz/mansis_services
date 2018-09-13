@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class LogServicesFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $logServices = new \DAL\PDO\postresql\LogServices();
+        $logServices = new \DAL\PDO\Postresql\LogServices();
         $slimApp = $serviceLocator->get('slimApp');
         $logServices->setSlimApp($slimApp);
         return $logServices;

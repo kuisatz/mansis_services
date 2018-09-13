@@ -27,7 +27,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCity extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
      public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
     }
@@ -100,7 +100,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array
      */
      public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
@@ -111,7 +111,7 @@ class SysCity extends \BLL\BLLSlim{
      * @return array 
     */
     public function cityDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCityOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCityPostgrePDO');
         $resultSet = $DAL->cityDdList($params);
         return $resultSet['resultSet'];
     }

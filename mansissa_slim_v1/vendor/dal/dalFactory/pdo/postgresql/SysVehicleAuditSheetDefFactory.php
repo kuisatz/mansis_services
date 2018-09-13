@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleAuditSheetDefFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $serviceLocatorysVehicleAuditSheetDef = new \DAL\PDO\Oracle\SysVehicleAuditSheetDef() ;   
+        $serviceLocatorysVehicleAuditSheetDef = new \DAL\PDO\Postresql\SysVehicleAuditSheetDef() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $serviceLocatorysVehicleAuditSheetDef -> setSlimApp($slimapp); 
         return $serviceLocatorysVehicleAuditSheetDef; 

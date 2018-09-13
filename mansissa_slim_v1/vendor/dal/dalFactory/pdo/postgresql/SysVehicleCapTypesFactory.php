@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleCapTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVehicleCapTypes = new \DAL\PDO\Oracle\SysVehicleCapTypes() ;   
+        $sysVehicleCapTypes = new \DAL\PDO\Postresql\SysVehicleCapTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVehicleCapTypes -> setSlimApp($slimapp); 
         return $sysVehicleCapTypes; 

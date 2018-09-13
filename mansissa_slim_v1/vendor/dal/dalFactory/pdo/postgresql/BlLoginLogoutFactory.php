@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class BlLoginLogoutFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $blLoginLogout  = new \DAL\PDO\postresql\BlLoginLogout()   ;   
+        $blLoginLogout  = new \DAL\PDO\Postresql\BlLoginLogout()   ;   
        // print_r('servis  yaratılıyor...  ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $blLoginLogout -> setSlimApp($slimapp);

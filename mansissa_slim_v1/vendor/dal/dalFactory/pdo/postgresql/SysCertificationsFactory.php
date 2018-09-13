@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCertificationsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCertifications  = new \DAL\PDO\postresql\SysCertifications();      
+        $sysCertifications  = new \DAL\PDO\Postresql\SysCertifications();      
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCertifications -> setSlimApp($slimapp);        
  

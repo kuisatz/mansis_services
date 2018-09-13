@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCommissionExtrasFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCommissionExtras = new \DAL\PDO\postresql\SysCommissionExtras()   ;   
+        $sysCommissionExtras = new \DAL\PDO\Postresql\SysCommissionExtras()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCommissionExtras -> setSlimApp($slimapp); 
         return $sysCommissionExtras; 

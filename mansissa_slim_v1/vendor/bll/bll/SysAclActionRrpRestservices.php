@@ -28,7 +28,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillActionRrpRestServicesList ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillActionRrpRestServicesList($params);  
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillActionRrpRestServicesListRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillActionRrpRestServicesListRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -113,7 +113,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillActionRestServicesOfPrivileges($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillActionRestServicesOfPrivileges($params);
         return $resultSet['resultSet'];
     }     
@@ -124,7 +124,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillNotInActionRestServicesOfPrivileges ($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillNotInActionRestServicesOfPrivileges($params);  
         return $resultSet['resultSet'];
     }
@@ -135,7 +135,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillNotInActionRestServicesOfPrivilegesRtc($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');
         $resultSet = $DAL->fillNotInActionRestServicesOfPrivilegesRtc($params);  
         return $resultSet['resultSet'];
     }    
@@ -146,7 +146,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillNotInActionRestServicesOfPrivilegesTree($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');  
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');  
      // print_r($params);
          if (isset($params['parent_id']) && ($params['parent_id'] == 0))  { 
             $resultSet = $DAL->fillNotInActionServicesGroupsTree($params);
@@ -163,7 +163,7 @@ class SysAclActionRrpRestservices extends \BLL\BLLSlim {
      * @return array
      */
     public function fillActionRestServicesOfPrivilegesTree($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesOraPDO');  
+        $DAL = $this->slimApp->getDALManager()->get('sysAclActionRrpRestservicesPostgrePDO');  
      // print_r($params);
          if (isset($params['parent_id']) && ($params['parent_id'] == 0))  { 
             $resultSet = $DAL->fillActionRestServicesGroupsOfPrivilegesTree($params);

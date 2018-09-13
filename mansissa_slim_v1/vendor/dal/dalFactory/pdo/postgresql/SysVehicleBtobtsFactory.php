@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysVehicleBtobtsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysVehicleBtobts = new \DAL\PDO\Oracle\SysVehicleBtobts() ;   
+        $sysVehicleBtobts = new \DAL\PDO\Postresql\SysVehicleBtobts() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysVehicleBtobts -> setSlimApp($slimapp); 
         return $sysVehicleBtobts; 

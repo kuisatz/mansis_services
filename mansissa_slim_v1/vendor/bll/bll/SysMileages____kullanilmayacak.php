@@ -27,7 +27,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesMainGroupDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesParentDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesParentDdList($params);
         return $resultSet['resultSet'];
     }
@@ -113,7 +113,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesRmDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesRmDdList($params);
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesBuybackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesBuybackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -135,7 +135,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesTradebackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesTradebackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -146,7 +146,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function mileagesWarrantyDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->mileagesWarrantyDdList($params);
         return $resultSet['resultSet'];
     }
@@ -157,7 +157,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMileagesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->fillMileagesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -168,7 +168,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function fillMileagesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         $resultSet = $DAL->fillMileagesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -179,7 +179,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -189,7 +189,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->deletedAct($params);
     }
     
@@ -199,7 +199,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->insertAct($params);
     }
     
@@ -209,7 +209,7 @@ class SysMileages____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMileagesOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMileagesPostgrePDO____');
         return $DAL->updateAct($params);
     }
      

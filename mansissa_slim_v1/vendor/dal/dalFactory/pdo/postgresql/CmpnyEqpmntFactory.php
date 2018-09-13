@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class CmpnyEqpmntFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $cmpnyEqpmnt  = new \DAL\PDO\postresql\CmpnyEqpmnt()   ;   
+        $cmpnyEqpmnt  = new \DAL\PDO\Postresql\CmpnyEqpmnt()   ;   
              //print_r('asqweqweqwewqweeee ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $cmpnyEqpmnt -> setSlimApp($slimapp);

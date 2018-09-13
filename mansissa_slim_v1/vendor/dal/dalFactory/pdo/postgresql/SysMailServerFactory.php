@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysMailServerFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {     
-        $sysMailServer  = new \DAL\PDO\postresql\SysMailServer();          
+        $sysMailServer  = new \DAL\PDO\Postresql\SysMailServer();          
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysMailServer -> setSlimApp($slimapp);
          

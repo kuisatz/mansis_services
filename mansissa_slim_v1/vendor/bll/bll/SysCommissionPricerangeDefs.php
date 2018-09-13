@@ -27,7 +27,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysCommissionPricerangeDefs extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function commissionPricerangeDefsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCommissionPricerangeDefsPostgrePDO');
         $resultSet = $DAL->commissionPricerangeDefsDdList($params);
         return $resultSet['resultSet'];
     }

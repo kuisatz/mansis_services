@@ -27,7 +27,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array 
     */
     public function accBodySuppDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         $resultSet = $DAL->accBodySuppDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -124,7 +124,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -134,7 +134,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -144,7 +144,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

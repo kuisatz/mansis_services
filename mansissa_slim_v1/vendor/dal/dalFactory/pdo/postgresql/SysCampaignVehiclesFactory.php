@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCampaignVehiclesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCampaignVehicles = new \DAL\PDO\postresql\SysCampaignVehicles()   ;   
+        $sysCampaignVehicles = new \DAL\PDO\Postresql\SysCampaignVehicles()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCampaignVehicles -> setSlimApp($slimapp); 
         return $sysCampaignVehicles; 

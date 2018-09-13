@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCityFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCity  = new \DAL\PDO\postresql\SysCity();   
+        $sysCity  = new \DAL\PDO\Postresql\SysCity();   
        // print_r('servis  yaratılıyor...  ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCity -> setSlimApp($slimapp);

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCommissionMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCommissionMatrix = new \DAL\PDO\postresql\SysCommissionMatrix()   ;   
+        $sysCommissionMatrix = new \DAL\PDO\Postresql\SysCommissionMatrix()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCommissionMatrix -> setSlimApp($slimapp); 
         return $sysCommissionMatrix; 

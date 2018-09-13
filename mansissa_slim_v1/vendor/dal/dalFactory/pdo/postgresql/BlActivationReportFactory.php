@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class BlActivationReportFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $blActivationReport  = new \DAL\PDO\postresql\BlActivationReport()   ;   
+        $blActivationReport  = new \DAL\PDO\Postresql\BlActivationReport()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $blActivationReport -> setSlimApp($slimapp);
         

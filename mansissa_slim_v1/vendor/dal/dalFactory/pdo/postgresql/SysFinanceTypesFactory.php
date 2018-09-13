@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysFinanceTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysFinanceTypes = new \DAL\PDO\postresql\SysFinanceTypes() ;   
+        $sysFinanceTypes = new \DAL\PDO\Postresql\SysFinanceTypes() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysFinanceTypes -> setSlimApp($slimapp); 
         return $sysFinanceTypes; 

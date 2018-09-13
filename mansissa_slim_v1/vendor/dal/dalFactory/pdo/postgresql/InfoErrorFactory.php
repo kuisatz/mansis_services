@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoErrorFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoError  = new \DAL\PDO\postresql\InfoError();   
+        $infoError  = new \DAL\PDO\Postresql\InfoError();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $infoError -> setSlimApp($slimapp);
         

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCauseOfLosingwinningFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCauseOfLosingwinning = new \DAL\PDO\postresql\SysCauseOfLosingwinning()   ;   
+        $sysCauseOfLosingwinning = new \DAL\PDO\Postresql\SysCauseOfLosingwinning()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCauseOfLosingwinning -> setSlimApp($slimapp); 
         return $sysCauseOfLosingwinning; 

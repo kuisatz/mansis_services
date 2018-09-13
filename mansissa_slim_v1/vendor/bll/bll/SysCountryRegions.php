@@ -27,7 +27,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function countryRegionsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         $resultSet = $DAL->countryRegionsDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -113,7 +113,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -123,7 +123,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -133,7 +133,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -143,7 +143,7 @@ class SysCountryRegions extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountryRegionsPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

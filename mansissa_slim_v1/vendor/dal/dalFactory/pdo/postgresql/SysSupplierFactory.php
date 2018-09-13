@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSupplierFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSupplier = new \DAL\PDO\Oracle\SysSupplier() ;   
+        $sysSupplier = new \DAL\PDO\Postresql\SysSupplier() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSupplier -> setSlimApp($slimapp); 
         return $sysSupplier; 

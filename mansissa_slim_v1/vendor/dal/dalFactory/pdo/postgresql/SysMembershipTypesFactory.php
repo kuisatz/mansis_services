@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysMembershipTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysMembershipTypes  = new \DAL\PDO\postresql\SysMembershipTypes();
+        $sysMembershipTypes  = new \DAL\PDO\Postresql\SysMembershipTypes();
         $slimapp = $serviceLocator->get('slimapp');
         $sysMembershipTypes -> setSlimApp($slimapp);
         return $sysMembershipTypes;      

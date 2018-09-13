@@ -27,7 +27,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysSupplier extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array 
     */
     public function supplierLongDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->supplierLongDdList($params);
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array 
     */
     public function supplierShortDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->supplierShortDdList($params);
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function fillSupplierGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->fillSupplierGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -123,7 +123,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function fillSupplierGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         $resultSet = $DAL->fillSupplierGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -134,7 +134,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -144,7 +144,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -154,7 +154,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -164,7 +164,7 @@ class SysSupplier extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSupplierOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSupplierPostgrePDO');
         return $DAL->updateAct($params);
     }
     

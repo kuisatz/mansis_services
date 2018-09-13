@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class PgClassFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {      
-        $pgClassFactory  = new \DAL\PDO\postresql\PgClass()   ;         
+        $pgClassFactory  = new \DAL\PDO\Postresql\PgClass()   ;         
         $slimapp = $serviceLocator->get('slimapp') ;            
         $pgClassFactory -> setSlimApp($slimapp);         
         return $pgClassFactory;

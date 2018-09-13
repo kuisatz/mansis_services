@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAclResourcesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAclResources  = new \DAL\PDO\postresql\SysAclResources()   ;         
+        $sysAclResources  = new \DAL\PDO\Postresql\SysAclResources()   ;         
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAclResources -> setSlimApp($slimapp);
         

@@ -27,7 +27,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysSisHierarchy extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysSisHierarchyPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }

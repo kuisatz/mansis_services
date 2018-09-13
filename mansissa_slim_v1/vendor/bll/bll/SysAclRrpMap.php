@@ -28,7 +28,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -69,7 +69,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      */
     public function fillGrid($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -80,7 +80,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAclRrpMap extends \BLL\BLLSlim {
      * @return array
      */
     public function fillRrpMap($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAclRrpMapPostgrePDO');
         return $DAL->fillRrpMap($params);
     }
 

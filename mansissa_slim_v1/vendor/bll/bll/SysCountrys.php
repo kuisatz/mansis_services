@@ -27,7 +27,7 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         return $DAL->update($params);
     }
     
@@ -47,7 +47,7 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysCountrys extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,18 +79,18 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
 
      public function fillComboBox($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         $resultSet = $DAL->fillComboBox($params);  
         return $resultSet['resultSet'];
     }
        public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysCountrys extends \BLL\BLLSlim{
      * @return array 
     */
     public function countryDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysCountrysOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCountrysPostgrePDO');
         $resultSet = $DAL->countryDdList($params);
         return $resultSet['resultSet'];
     }

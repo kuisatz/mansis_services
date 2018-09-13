@@ -333,7 +333,26 @@ and open the template in the editor. Ğİ
               console.warn('error text status-->'+textStatus);
             }
         });  
-      
+        
+        
+             $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+                    data: { 
+                        url: 'pkUpdateMakeActiveOrPassive_sysaccbodydeff', 
+                        id: 1,
+                        pk:  'GsZVzEYe50uGgNM',
+                        
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
         
         
             

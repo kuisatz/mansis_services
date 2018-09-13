@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoUsersVerbalFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoUsersVerbal = new \DAL\PDO\postresql\InfoUsersVerbal();
+        $infoUsersVerbal = new \DAL\PDO\Postresql\InfoUsersVerbal();
         $slimApp = $serviceLocator->get('slimApp');
         $infoUsersVerbal->setSlimApp($slimApp);
         return $infoUsersVerbal;

@@ -27,7 +27,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillRmMatrixGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         $resultSet = $DAL->fillRmMatrixGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function fillRmMatrixGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         $resultSet = $DAL->fillRmMatrixGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -135,7 +135,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -145,7 +145,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -155,7 +155,7 @@ class SysRmMatrix extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysRmMatrixPostgrePDO');
         return $DAL->updateAct($params);
     }
     

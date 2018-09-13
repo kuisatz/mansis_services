@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAclRolesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAclRoles  = new \DAL\PDO\postresql\SysAclRoles()   ;   
+        $sysAclRoles  = new \DAL\PDO\Postresql\SysAclRoles()   ;   
        // print_r('servis  yaratılıyor...  ') ; 
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAclRoles -> setSlimApp($slimapp);

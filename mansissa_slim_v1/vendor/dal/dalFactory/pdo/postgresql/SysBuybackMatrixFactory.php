@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysBuybackMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysBuybackMatrix = new \DAL\PDO\postresql\SysBuybackMatrix()   ;   
+        $sysBuybackMatrix = new \DAL\PDO\Postresql\SysBuybackMatrix()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysBuybackMatrix -> setSlimApp($slimapp); 
         return $sysBuybackMatrix; 

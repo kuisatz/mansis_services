@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCsActivationTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCsActivationTypes = new \DAL\PDO\postresql\SysCsActivationTypes()   ;   
+        $sysCsActivationTypes = new \DAL\PDO\Postresql\SysCsActivationTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCsActivationTypes -> setSlimApp($slimapp); 
         return $sysCsActivationTypes; 

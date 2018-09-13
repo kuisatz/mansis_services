@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysOmtFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysOmt = new \DAL\PDO\postresql\SysOmt() ;   
+        $sysOmt = new \DAL\PDO\Postresql\SysOmt() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysOmt -> setSlimApp($slimapp); 
         return $sysOmt; 

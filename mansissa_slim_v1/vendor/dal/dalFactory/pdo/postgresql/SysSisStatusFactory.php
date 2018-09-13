@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSisStatusFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSisStatus = new \DAL\PDO\Oracle\SysSisStatus() ;   
+        $sysSisStatus = new \DAL\PDO\Postresql\SysSisStatus() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSisStatus -> setSlimApp($slimapp); 
         return $sysSisStatus; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysTitlesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTitles = new \DAL\PDO\Oracle\SysTitles() ;   
+        $sysTitles = new \DAL\PDO\Postresql\SysTitles() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysTitles -> setSlimApp($slimapp); 
         return $sysTitles; 

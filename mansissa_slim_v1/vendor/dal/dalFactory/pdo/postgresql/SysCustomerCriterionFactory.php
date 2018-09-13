@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysCustomerCriterionFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysCustomerCriterion  = new \DAL\PDO\postresql\SysCustomerCriterion();   
+        $sysCustomerCriterion  = new \DAL\PDO\Postresql\SysCustomerCriterion();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysCustomerCriterion -> setSlimApp($slimapp); 
         return $sysCustomerCriterion;

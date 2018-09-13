@@ -27,7 +27,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -111,7 +111,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -121,7 +121,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -131,7 +131,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -141,7 +141,7 @@ class SysAccBodySupp extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysAccBodySuppPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

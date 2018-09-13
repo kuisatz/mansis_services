@@ -27,7 +27,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function monthsMainGroupDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         $resultSet = $DAL->monthsMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class ____kullanilmayacak extends \BLL\BLLSlim{
      * @return array 
     */
     public function monthsParentDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysMonthsOraPDO____');
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO____');
         $resultSet = $DAL->monthsParentDdList($params);
         return $resultSet['resultSet'];
     }

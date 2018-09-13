@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccBodySuppFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccBodySupp = new \DAL\PDO\postresql\SysAccBodySupp()   ;   
+        $sysAccBodySupp = new \DAL\PDO\Postresql\SysAccBodySupp()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccBodySupp -> setSlimApp($slimapp); 
         return $sysAccBodySupp; 

@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysStrategicImportancesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysStrategicImportances = new \DAL\PDO\Oracle\SysStrategicImportances() ;   
+        $sysStrategicImportances = new \DAL\PDO\Postresql\SysStrategicImportances() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysStrategicImportances -> setSlimApp($slimapp); 
         return $sysStrategicImportances; 

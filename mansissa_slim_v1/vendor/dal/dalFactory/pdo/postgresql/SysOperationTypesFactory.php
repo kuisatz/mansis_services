@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysOperationTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysOperationTypes  = new \DAL\PDO\postresql\SysOperationTypes();   
+        $sysOperationTypes  = new \DAL\PDO\Postresql\SysOperationTypes();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysOperationTypes -> setSlimApp($slimapp);
         

@@ -26,7 +26,7 @@ class SysClusters extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysClusters extends \BLL\BLLSlim{
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysClusters extends \BLL\BLLSlim{
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         return $DAL->delete($params = array());
     }
 
@@ -56,7 +56,7 @@ class SysClusters extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -67,7 +67,7 @@ class SysClusters extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -78,14 +78,14 @@ class SysClusters extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
  
     
     public function insertLanguageTemplate($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         $resultSet = $DAL->insertLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
@@ -98,13 +98,13 @@ class SysClusters extends \BLL\BLLSlim{
      */
     public function fillTextLanguageTemplate ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         $resultSet = $DAL->fillTextLanguageTemplate($params);  
         return $resultSet['resultSet'];
     }
     
     public function fillClustersTree($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysClustersOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysClustersPostgrePDO');
         $resultSet = $DAL->fillClustersTree($params);  
         return $resultSet['resultSet'];
     }

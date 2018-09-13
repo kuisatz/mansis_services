@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysTopusedBranchdealersFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTopusedBranchdealers = new \DAL\PDO\Oracle\SysTopusedBranchdealers() ;   
+        $sysTopusedBranchdealers = new \DAL\PDO\Postresql\SysTopusedBranchdealers() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysTopusedBranchdealers -> setSlimApp($slimapp); 
         return $sysTopusedBranchdealers; 

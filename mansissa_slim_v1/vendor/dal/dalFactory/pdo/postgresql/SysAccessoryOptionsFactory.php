@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccessoryOptionsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccessoryOptions = new \DAL\PDO\postresql\SysAccessoryOptions()   ;   
+        $sysAccessoryOptions = new \DAL\PDO\Postresql\SysAccessoryOptions()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccessoryOptions -> setSlimApp($slimapp); 
         return $sysAccessoryOptions; 

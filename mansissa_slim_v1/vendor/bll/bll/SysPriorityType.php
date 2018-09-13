@@ -27,7 +27,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array 
     */
     public function priorityTypeDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         $resultSet = $DAL->priorityTypeDdList($params);
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPriorityTypeGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         $resultSet = $DAL->fillPriorityTypeGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function fillPriorityTypeGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         $resultSet = $DAL->fillPriorityTypeGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -123,7 +123,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -133,7 +133,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -143,7 +143,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -153,7 +153,7 @@ class SysPriorityType extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypeOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysPriorityTypePostgrePDO');
         return $DAL->updateAct($params);
     }
     

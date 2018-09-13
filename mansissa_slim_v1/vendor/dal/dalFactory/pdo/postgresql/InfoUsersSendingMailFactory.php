@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoUsersSendingMailFactory implements \Zend\ServiceManager\FactoryInterface {
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoUsersSendingMail = new \DAL\PDO\postresql\InfoUsersSendingMail();
+        $infoUsersSendingMail = new \DAL\PDO\Postresql\InfoUsersSendingMail();
         $slimApp = $serviceLocator->get('slimApp');
         $infoUsersSendingMail->setSlimApp($slimApp);
         return $infoUsersSendingMail;

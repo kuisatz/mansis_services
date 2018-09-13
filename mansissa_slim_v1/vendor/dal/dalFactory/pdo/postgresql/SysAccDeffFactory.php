@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAccDeffFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAccDeff = new \DAL\PDO\postresql\SysAccDeff()   ;   
+        $sysAccDeff = new \DAL\PDO\Postresql\SysAccDeff()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysAccDeff -> setSlimApp($slimapp); 
         return $sysAccDeff; 

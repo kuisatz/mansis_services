@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysAclActionRrpFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysAclActionRrp  = new \DAL\PDO\postresql\SysAclActionRrp();  
+        $sysAclActionRrp  = new \DAL\PDO\Postresql\SysAclActionRrp();  
         $slimapp = $serviceLocator->get('slimapp');            
         $sysAclActionRrp -> setSlimApp($slimapp);
         return $sysAclActionRrp;

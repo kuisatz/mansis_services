@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSisHierarchyFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSisHierarchy = new \DAL\PDO\postresql\SysSisHierarchy() ;   
+        $sysSisHierarchy = new \DAL\PDO\Postresql\SysSisHierarchy() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSisHierarchy -> setSlimApp($slimapp); 
         return $sysSisHierarchy; 

@@ -27,7 +27,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function bbContractTypesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         $resultSet = $DAL->bbContractTypesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -112,7 +112,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -122,7 +122,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -132,7 +132,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -142,7 +142,7 @@ class SysBbContractTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysBbContractTypesPostgrePDO');
         return $DAL->updateActLng($params);
     }
    

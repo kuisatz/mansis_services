@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysNumericalRangesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysNumericalRanges = new \DAL\PDO\postresql\SysNumericalRanges() ;   
+        $sysNumericalRanges = new \DAL\PDO\Postresql\SysNumericalRanges() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysNumericalRanges -> setSlimApp($slimapp); 
         return $sysNumericalRanges; 

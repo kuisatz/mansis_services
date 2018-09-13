@@ -27,7 +27,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysTitles extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysTitles extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function titlesMainDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->titlesMainDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysTitles extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function titlesParentDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->titlesParentDdList($params);
         return $resultSet['resultSet'];
     }
@@ -115,7 +115,7 @@ class SysTitles extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function titlesSisDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->titlesSisDdList($params);
         return $resultSet['resultSet'];
     }
@@ -127,7 +127,7 @@ class SysTitles extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function titlesCustomerDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->titlesCustomerDdList($params);
         return $resultSet['resultSet'];
     }
@@ -138,7 +138,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillTitlesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->fillTitlesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -149,7 +149,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillTitlesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         $resultSet = $DAL->fillTitlesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -160,7 +160,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -170,7 +170,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -180,7 +180,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -190,7 +190,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -200,7 +200,7 @@ class SysTitles extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTitlesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTitlesPostgrePDO');
         return $DAL->updateActLng($params);
     }
     

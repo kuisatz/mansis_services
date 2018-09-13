@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysSisQuotasMatrixFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysSisQuotasMatrix = new \DAL\PDO\Oracle\SysSisQuotasMatrix() ;   
+        $sysSisQuotasMatrix = new \DAL\PDO\Postresql\SysSisQuotasMatrix() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysSisQuotasMatrix -> setSlimApp($slimapp); 
         return $sysSisQuotasMatrix; 

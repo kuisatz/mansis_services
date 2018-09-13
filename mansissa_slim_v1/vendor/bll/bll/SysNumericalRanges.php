@@ -27,7 +27,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesMainGroupDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesParentDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesParentDdList($params);
         return $resultSet['resultSet'];
     }
@@ -113,7 +113,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesBuybackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesBuybackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -124,7 +124,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesDemoDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesDemoDdList($params);
         return $resultSet['resultSet'];
     }
@@ -135,7 +135,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesRmDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesRmDdList($params);
         return $resultSet['resultSet'];
     }
@@ -146,7 +146,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array 
     */
     public function numericalRangesTradebackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesTradebackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -157,7 +157,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function fillNumericalRangesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->fillNumericalRangesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -168,7 +168,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function fillNumericalRangesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->fillNumericalRangesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -179,7 +179,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -189,7 +189,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -199,7 +199,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -209,7 +209,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         return $DAL->updateAct($params);
     }
     

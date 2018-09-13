@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysTerrainsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysTerrains = new \DAL\PDO\Oracle\SysTerrains() ;   
+        $sysTerrains = new \DAL\PDO\Postresql\SysTerrains() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysTerrains -> setSlimApp($slimapp); 
         return $sysTerrains; 

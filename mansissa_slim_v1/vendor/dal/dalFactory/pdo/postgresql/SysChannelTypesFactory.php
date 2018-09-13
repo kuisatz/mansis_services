@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysChannelTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysChannelTypes = new \DAL\PDO\postresql\SysChannelTypes()   ;   
+        $sysChannelTypes = new \DAL\PDO\Postresql\SysChannelTypes()   ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysChannelTypes -> setSlimApp($slimapp); 
         return $sysChannelTypes; 

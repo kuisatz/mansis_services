@@ -27,7 +27,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array 
     */
     public function vatPolicyTypesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->vatPolicyTypesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillVatPolicyTypesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->fillVatPolicyTypesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillVatPolicyTypesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         $resultSet = $DAL->fillVatPolicyTypesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -136,7 +136,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -146,7 +146,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -156,7 +156,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -166,7 +166,7 @@ class SysVatPolicyTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVatPolicyTypesPostgrePDO');
         return $DAL->updateAct($params);
     }
     

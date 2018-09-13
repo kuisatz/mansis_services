@@ -27,7 +27,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysTerrains extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysTerrains extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function terrainsMainDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->terrainsMainDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysTerrains extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function terrainsPDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->terrainsPDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysTerrains extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function terrainsBuybackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->terrainsBuybackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -125,7 +125,7 @@ class SysTerrains extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function terrainsTradebackDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->terrainsTradebackDdList($params);
         return $resultSet['resultSet'];
     }
@@ -136,7 +136,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function fillTerrainsGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->fillTerrainsGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -147,7 +147,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function fillTerrainsGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         $resultSet = $DAL->fillTerrainsGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -158,7 +158,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -168,7 +168,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -178,7 +178,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -188,7 +188,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->updateAct($params);
     }
     
@@ -198,7 +198,7 @@ class SysTerrains extends \BLL\BLLSlim{
      * @return array
      */
     public function updateActLng($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysTerrainsPostgrePDO');
         return $DAL->updateActLng($params);
     }
     

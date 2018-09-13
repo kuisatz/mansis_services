@@ -28,7 +28,7 @@ class InfoSales extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getKamyonSales($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoSalesOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoSalesPostgrePDO');
         return $DAL->getKamyonSales($params);
     }
     
@@ -39,7 +39,7 @@ class InfoSales extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getDealerInvoice($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoSalesOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoSalesPostgrePDO');
         return $DAL->getDealerInvoice($params);
     }
     
@@ -50,7 +50,7 @@ class InfoSales extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getSalesDashboardData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoSalesOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoSalesPostgrePDO');
         return $DAL->getSalesDashboardData($params);
     }
     
@@ -61,7 +61,7 @@ class InfoSales extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getFunnelOlcumData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoSalesOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoSalesPostgrePDO');
         return $DAL->getFunnelOlcumData($params);
     }
     
@@ -72,7 +72,7 @@ class InfoSales extends \BLL\BLLSlim{
      * @author Mustafa Zeynel Dağlı
      */
     public function getFunnelBasicData($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoSalesOraclePDO');
+        $DAL = $this->slimApp->getDALManager()->get('infoSalesPostgrePDO');
         return $DAL->getFunnelBasicData($params);
     }
 

@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysMenuTypesFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysMenuTypes  = new \DAL\PDO\postresql\SysMenuTypes();
+        $sysMenuTypes  = new \DAL\PDO\Postresql\SysMenuTypes();
         $slimapp = $serviceLocator->get('slimapp');
         $sysMenuTypes -> setSlimApp($slimapp);
         return $sysMenuTypes;      

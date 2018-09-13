@@ -28,7 +28,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         return $DAL->insert($params);
     }
 
@@ -38,7 +38,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function update($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         return $DAL->update($params);
     }
 
@@ -48,7 +48,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function delete($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -58,7 +58,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         return $DAL->getAll($params);
     }
 
@@ -68,7 +68,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGrid($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);
         return $resultSet['resultSet'];
     }
@@ -91,7 +91,7 @@ class SysUniversities extends \BLL\BLLSlim {
      */
     public function fillUniversityDdList($params = array()) {
 
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         $resultSet = $DAL->fillUniversityDdList($params);
         return $resultSet['resultSet'];
     }
@@ -102,7 +102,7 @@ class SysUniversities extends \BLL\BLLSlim {
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysUniversitiesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     

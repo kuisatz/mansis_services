@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class HstryLoginFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $hstryLogin  = new \DAL\PDO\postresql\HstryLogin();   
+        $hstryLogin  = new \DAL\PDO\Postresql\HstryLogin();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $hstryLogin -> setSlimApp($slimapp);
         

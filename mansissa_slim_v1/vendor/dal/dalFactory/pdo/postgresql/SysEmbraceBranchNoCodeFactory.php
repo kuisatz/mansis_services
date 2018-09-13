@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysEmbraceBranchNoCodeFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysEmbraceBranchNoCode = new \DAL\PDO\postresql\SysEmbraceBranchNoCode() ;   
+        $sysEmbraceBranchNoCode = new \DAL\PDO\Postresql\SysEmbraceBranchNoCode() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysEmbraceBranchNoCode -> setSlimApp($slimapp); 
         return $sysEmbraceBranchNoCode; 

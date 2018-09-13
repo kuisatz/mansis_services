@@ -27,7 +27,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysDepartments extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -92,7 +92,7 @@ class SysDepartments extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
@@ -103,7 +103,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array 
     */
     public function departmentsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');
         $resultSet = $DAL->departmentsDdList($params);
         return $resultSet['resultSet'];
     }
@@ -114,7 +114,7 @@ class SysDepartments extends \BLL\BLLSlim{
      * @return array
      */
       public function departmentsTree($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsOraPDO');     
+        $DAL = $this->slimApp->getDALManager()->get('sysDepartmentsPostgrePDO');     
         return $DAL->departmentsTree($params);
     }
     

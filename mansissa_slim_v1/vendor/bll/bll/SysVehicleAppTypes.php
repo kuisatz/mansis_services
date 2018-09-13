@@ -27,7 +27,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insert($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->insert($params);
     }
     
@@ -37,7 +37,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function update( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->update( $params);
     }
     
@@ -47,7 +47,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function delete( $params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->delete($params);
     }
 
@@ -57,7 +57,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function getAll($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->getAll($params);
     }
     
@@ -68,7 +68,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      */
     public function fillGrid ($params = array()) {
         
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
     }
@@ -79,7 +79,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillGridRowTotalCount($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
@@ -90,7 +90,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array 
     */
     public function vehicleAppTypesDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         $resultSet = $DAL->vehicleAppTypesDdList($params);
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillvehicleAppTypesGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         $resultSet = $DAL->fillvehicleAppTypesGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function fillvehicleAppTypesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         $resultSet = $DAL->fillvehicleAppTypesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -123,7 +123,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -133,7 +133,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -143,7 +143,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -153,7 +153,7 @@ class SysVehicleAppTypes extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesOraPDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysVehicleAppTypesPostgrePDO');
         return $DAL->updateAct($params);
     }
     

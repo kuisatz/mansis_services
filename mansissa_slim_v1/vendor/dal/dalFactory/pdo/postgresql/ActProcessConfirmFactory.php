@@ -18,7 +18,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class ActProcessConfirmFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $actProcessConfirm  = new \DAL\PDO\postresql\ActProcessConfirm();   
+        $actProcessConfirm  = new \DAL\PDO\Postresql\ActProcessConfirm();   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $actProcessConfirm -> setSlimApp($slimapp);        
         return $actProcessConfirm;      
