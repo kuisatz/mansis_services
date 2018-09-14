@@ -328,7 +328,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysUnitsBLL');
+    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
   
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  

@@ -147,5 +147,32 @@ $app->get("/pkAccDeffBackOfficeDdList_sysaccdeff/", function () use ($app ) {
     $app->response()->body(json_encode($flows));
 });
 
+/** 
+ *  * Okan CIRAN
+ * @since 13-08-2018
+ */ 
+$app->get("/pkUpdateMakeActiveOrPassive_sysaccdeff/", function () use ($app ) {
+    print_r("978987");
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
+    $BLL = $app->getBLLManager()->get('sysAccDeffBLL');
+    $headerParams = $app->request()->headers();
+    $Pk = $headerParams['X-Public'];      
+    $vId = NULL;
+    if (isset($_GET['id'])) {
+        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['id']));
+    } 
+    $stripper->strip(); 
+    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }
+    $resData = $BLL->makeActiveOrPassive(array(                  
+            'id' => $vId ,    
+            'pk' => $Pk,        
+            ));
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resData));
+}
+); 
 
 $app->run();
