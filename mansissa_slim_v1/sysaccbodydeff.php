@@ -316,7 +316,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
     $app->response()->header("Content-Type", "application/json");
     $resultArray = array();
     $resultArray['totalCount'] = $counts;
-    $resultArray['rows'] = $menus;
+    $resultArray['items'] = $menus;
     $app->response()->body(json_encode($resultArray));
 });
 
