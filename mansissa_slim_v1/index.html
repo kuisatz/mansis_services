@@ -334,8 +334,7 @@ and open the template in the editor. Ğİ
             }
         });  
         
-        
-             $.ajax({
+           $.ajax({
                     //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
                     url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
                     data: { 
@@ -354,7 +353,25 @@ and open the template in the editor. Ğİ
                     }
                 });
         
-        
+          $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+                    data: { 
+                        url: 'pkInsertAct_sysaccbodydeff', 
+                        acc_body_type_id: 1, 
+                        name:   'denemmee ' , 
+                        pk:  'GsZVzEYe50uGgNM',
+                        
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
             
         
         

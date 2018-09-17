@@ -39,7 +39,9 @@ $app->add(new \Slim\Middleware\MiddlewareDalManager());
 $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 
 
-
+$resErrorArrayEksikAlan =   array(
+            'found' => false,   
+            'errorInfo' => '99999',  ) ; 
 
    
 
@@ -328,7 +330,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
     
     
-     //Connecting to Redis server on localhost 
+  //Connecting to Redis server on localhost 
    $redis = new Redis(); 
    $redis->connect('127.0.0.1', 6379); 
    echo "Connection to server sucessfully"; 
@@ -368,50 +370,34 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  *  * Okan CIRAN
  * @since 13-01-2016
  */ 
-$app->get("/pkInsert_sysAclPrivilege/", function () use ($app ) {
+$app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysAclPrivilegeBLL');  
+    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysAclPrivilege" end point, X-Public variable not found');    
-    $pk = $headerParams['X-Public'];
-    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysaccbodydeff" end point, X-Public variable not found');    
+     $pk =  $headerParams['X-Public'];
+      
     $vName = NULL;
     if (isset($_GET['name'])) {
          $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['name']));
-    }
-    $vNameEng = '';
-    if (isset($_GET['name_eng'])) {
-         $stripper->offsetSet('name_eng',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    }  
+    $AccBodyTypeId = NULL;
+    if (isset($_GET['acc_body_type_id'])) {
+         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name_eng']));
-    }
-    $vDescription = '';
-    if (isset($_GET['description'])) {
-         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['description']));
-    }    
-    $vResourceId = NULL;
-    if (isset($_GET['resource_id'])) {
-         $stripper->offsetSet('resource_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['resource_id']));
-    }
+                                                $_GET['acc_body_type_id']));
+    } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue();
-    if($stripper->offsetExists('name_eng')) $vNameEng = $stripper->offsetGet('name_eng')->getFilterValue();
-    if($stripper->offsetExists('description')) $vDescription = $stripper->offsetGet('description')->getFilterValue();    
-    if($stripper->offsetExists('resource_id')) $vResourceId = $stripper->offsetGet('resource_id')->getFilterValue();
+    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
           
-    $resDataInsert = $BLL->insert(array(
-            'name' => $vName,      
-            'name_eng' => $vNameEng, 
-            'resource_id' => $vResourceId,           
-            'description' => $vDescription,
+    $resDataInsert = $BLL->insertAct(array(
+            'Name' => $vName,   
+            'AccBodyTypeId' => $AccBodyTypeId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -424,12 +410,12 @@ $app->get("/pkInsert_sysAclPrivilege/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 13-01-2016
  */ 
-$app->get("/pkUpdate_sysAclPrivilege/", function () use ($app ) {
+$app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysAclPrivilegeBLL');  
+    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_sysAclPrivilege" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysaccbodydeff" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     
     $vId = NULL;
@@ -437,45 +423,30 @@ $app->get("/pkUpdate_sysAclPrivilege/", function () use ($app ) {
          $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['id']));
-    }
+    } 
     $vName = NULL;
     if (isset($_GET['name'])) {
          $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['name']));
-    }
-    $vNameEng = '';
-    if (isset($_GET['name_eng'])) {
-         $stripper->offsetSet('name_eng',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    }  
+    $AccBodyTypeId = NULL;
+    if (isset($_GET['acc_body_type_id'])) {
+         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name_eng']));
-    }
-    $vDescription = '';
-    if (isset($_GET['description'])) {
-         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['description']));
-    }    
-    $vResourceId = NULL;
-    if (isset($_GET['resource_id'])) {
-         $stripper->offsetSet('resource_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['resource_id']));
-    }
+                                                $_GET['acc_body_type_id']));
+    } 
      
     $stripper->strip();
+    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue();
-    if($stripper->offsetExists('name_eng')) $vNameEng = $stripper->offsetGet('name_eng')->getFilterValue();
-    if($stripper->offsetExists('description')) $vDescription = $stripper->offsetGet('description')->getFilterValue();    
-    if($stripper->offsetExists('resource_id')) $vResourceId = $stripper->offsetGet('resource_id')->getFilterValue();
+     
           
-    $resDataInsert = $BLL->update(array(
+    $resDataInsert = $BLL->updateAct(array(
             'id' => $vId,   
-            'name' => $vName,      
-            'name_eng' => $vNameEng, 
-            'resource_id' => $vResourceId,           
-            'description' => $vDescription,
+            'Name' => $vName,   
+            'AccBodyTypeId' => $AccBodyTypeId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -488,10 +459,10 @@ $app->get("/pkUpdate_sysAclPrivilege/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 13-01-2016
  */
-$app->get("/pkDelete_sysAclPrivilege/", function () use ($app ) {
+$app->get("/pkDeletedAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysAclPrivilegeBLL');   
+    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');   
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;
@@ -502,7 +473,7 @@ $app->get("/pkDelete_sysAclPrivilege/", function () use ($app ) {
     } 
     $stripper->strip(); 
     if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }  
-    $resDataDeleted = $BLL->Delete(array(                  
+    $resDataDeleted = $BLL->deletedAct(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        
             ));

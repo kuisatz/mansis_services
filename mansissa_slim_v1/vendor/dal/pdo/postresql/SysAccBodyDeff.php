@@ -200,20 +200,22 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             if (isset($params['id'])) {
                 $addSql = " AND a.id != " . intval($params['id']) . " ";
             }
+                            
             $sql = "  
             SELECT  
                 a.name ,
                 '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acc_body_deff  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND
+                a.acc_body_type_id = " . intval($params['acc_body_type_id'] ). "
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+        //   echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -969,6 +971,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function insertAct($params = array()) {
+         $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
@@ -993,7 +996,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
-            } else {
+            } else { 
                 throw new \PDOException($errorInfo[0]);
             }
            $nameEng = null;
@@ -1022,11 +1025,11 @@ class SysAccBodyDeff extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name,
-                            'language_id' => $languageIdValue,
+                            'name' => $name,  
                             'acc_body_type_id' => $AccBodyTypeId
                 ));
+                
+                print_r($kontrol);
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_acc_body_deff(
@@ -1046,7 +1049,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_acc_body_deff_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                   //  echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -1082,7 +1085,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
         } catch (\PDOException $e /* Exception $e */) {
-            // $pdo->rollback();
+             $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
@@ -1102,8 +1105,8 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             /**
              * table names and column names will be changed for specific use
              */
-            $statement = $pdo->prepare(" 
-                
+           
+             $sql = "     
                 INSERT INTO sys_acc_body_deff(
                     name, 
                     name_eng, 
@@ -1121,14 +1124,14 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                      
                     language_id,
                     language_parent_id, 
-                    act_parent_id,
+                    ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
                     op_user_id
                 FROM ( 
                     SELECT  
                         c.acc_body_type_id, 
                         
 			case when l.id = 385 then c.name_eng   
-			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
+			     when " . intval($params['language_id']) . " = l.id then '" .($params['nameTemp']). "'  
                             else '' end as name,  
                         COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
                         l.id as language_id,  
@@ -1147,10 +1150,11 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                             cx.id = " . intval($params['id']) . "  ) /* AND  
                             cx.deleted =0 AND 
                             cx.active =0 */ )
-                    ");
-
+                    " ;
+            $statement = $pdo->prepare($sql);
+          //    echo debugPDO($sql, $params);
             $result = $statement->execute();
-            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);

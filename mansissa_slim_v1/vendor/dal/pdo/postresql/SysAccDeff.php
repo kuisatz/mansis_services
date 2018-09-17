@@ -1196,12 +1196,12 @@ class SysAccDeff extends \DAL\DalSlim {
                      
                     language_id,
                     language_parent_id, 
-                    act_parent_id,
+                     ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
                     op_user_id
                 FROM ( 
                     SELECT   
                         case when l.id = 385 then c.name_sm_eng   
-			     when " . intval($params['id']) . " = l.id then '" .($params['nameSmTemp']). "'
+			     when " . intval($params['language_id']) . " = l.id then '" .($params['nameSmTemp']). "'
                             else '' end as name_sm,  
                         COALESCE(NULLIF(c.name_sm_eng,''), c.name_sm) AS name_sm_eng, 
 

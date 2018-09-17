@@ -1149,7 +1149,7 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                      
                     language_id,
                     language_parent_id, 
-                    act_parent_id,
+                     ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
                     op_user_id)
                     
                   SELECT    
@@ -1174,7 +1174,7 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                         c.embrace_cur_code,
                         
 			case when l.id = 385 then c.name_eng   
-			     when " . intval($params['id']) . " = l.id then '" .($params['nameTemp']). "'  
+			  when " . intval($params['language_id']) . " = l.id then '" .($params['nameTemp']). "'  
                             else '' end as name,  
                         COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
                         l.id as language_id,  

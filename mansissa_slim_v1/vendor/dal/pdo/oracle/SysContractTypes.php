@@ -1174,7 +1174,7 @@ class SysContractTypes extends \DAL\DalSlim {
                      
                     language_id,
                     language_parent_id, 
-                    act_parent_id,
+                     ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
                     op_user_id
                 FROM ( 
                     SELECT  
