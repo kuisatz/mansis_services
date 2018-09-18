@@ -79,7 +79,8 @@ $app->get("/pkVehicleConfigTypesDdList_sysvehicleconfigtypes/", function () use 
                                     'language_code' => $vLanguageCode, 
                                     'LanguageID' => $lid,
                         ));    
-
+                        print_r($resCombobox) ; 
+    
     $flows = array(); 
     foreach ($resCombobox as $flow) {
         $flows[] = array(            
