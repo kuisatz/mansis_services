@@ -64,12 +64,7 @@ $app->get("/pkVehicleConfigTypesDdList_sysvehicleconfigtypes/", function () use 
                                                 $app,
                                                 $_GET['language_code']));
     }
-   $StatusTypeId = -1;
-    if (isset($_GET['status_type_id'])) {
-         $stripper->offsetSet('status_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['status_type_id']));
-    }
+   
     $lid = null;
     if (isset($_GET['lid'])) {
          $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -78,12 +73,10 @@ $app->get("/pkVehicleConfigTypesDdList_sysvehicleconfigtypes/", function () use 
     }
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
-    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('status_type_id')) $StatusTypeId = $stripper->offsetGet('status_type_id')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue(); 
         
     $resCombobox = $BLL->vehicleConfigTypesDdList(array(                                   
-                                    'language_code' => $vLanguageCode,
-                                    'StatusTypeId' => $StatusTypeId,
+                                    'language_code' => $vLanguageCode, 
                                     'LanguageID' => $lid,
                         ));    
 

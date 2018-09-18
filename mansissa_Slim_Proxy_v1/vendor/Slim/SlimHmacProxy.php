@@ -65,7 +65,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysVehicleCkdcbuBLL ----------------------// 
      
-            
+          //**---- sysVehicleConfigTypesBLL ------------------- 
+        
+                                    'pkVehicleConfigTypesDdList_sysvehicleconfigtypes' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehicleconfigtypes' => 'restApiDefaultCall',
+        
+         //** sysVehicleConfigTypesBLL ----------------------//    
         
         
         
@@ -1579,6 +1584,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysvehicleconfigtypes": 
+                $this->setRestApiEndPoint('sysvehicleconfigtypes.php/');
+                break;
             case "_sysvehicleckdcbu": 
                 $this->setRestApiEndPoint('sysvehicleckdcbu.php/');
                 break; 
