@@ -474,7 +474,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
+                            
     /** 
      * @author Okan CIRAN
      * @ arac grup tipleri dropdown ya da tree ye doldurmak için sys_vehicle_group_types tablosundan kayıtları döndürür !!
@@ -486,16 +486,15 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
     public function  vehicleGroupTypesDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-                            
-             $addSQL=null;
-             $VehicleGroupTypesId = -1 ;
-             if (isset($params['VehicleGroupTypesId']) && $params['VehicleGroupTypesId'] != "") {
-                $VehicleGroupTypesId = $params['VehicleGroupTypesId'];            
-                $addSQL =  " a.vehicle_group_types_id = " . intval($VehicleGroupTypesId). " AND  " ;    
-            }  
+            $addSQL=null;
+            $VehicleGroupTypesId = -1 ;
+            if (isset($params['VehicleGroupTypesId']) && $params['VehicleGroupTypesId'] != "") {
+               $VehicleGroupTypesId = $params['VehicleGroupTypesId'];            
+               $addSQL =  " a.vehicle_group_types_id = " . intval($VehicleGroupTypesId). " AND  " ;    
+           }                  
               
             $statement = $pdo->prepare("   
-                SELECT                    
+                 SELECT                    
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , a.name)  AS name,  
                     concat(sv.name,' - ' , a.name) AS name_eng,
