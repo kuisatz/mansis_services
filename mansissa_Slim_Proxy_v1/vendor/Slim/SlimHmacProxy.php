@@ -42,6 +42,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysVehicleAppTypesBLL ----------------------//
         
         
+          //**---- sysVehicleAppTypesBLL ------------------- 
+        
+                                    'pkVehicleBtoBtsTypesDdList_sysvehiclebtobts' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehiclebtobts' => 'restApiDefaultCall',
+        
+         //** sysVehicleAppTypesBLL ----------------------//
         
           
         
@@ -1559,6 +1565,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break;
             
             
+            
+            case "_sysvehiclebtobts": 
+                $this->setRestApiEndPoint('sysvehiclebtobts.php/');
+                break; 
             case "_sysvehicleapptypes": 
                 $this->setRestApiEndPoint('sysvehicleapptypes.php/');
                 break; 
