@@ -76,7 +76,7 @@ $app->get("/pkVehicleGroupTypesDdList_sysvehiclegrouptypes/", function () use ($
                                                 $app,
                                                 $_GET['lid']));
     }
-    $stripper->strip();
+    $stripper->strip(); 
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
     if($stripper->offsetExists('vehicle_group_types_id')) $VehicleGroupTypesId = $stripper->offsetGet('vehicle_group_types_id')->getFilterValue();
