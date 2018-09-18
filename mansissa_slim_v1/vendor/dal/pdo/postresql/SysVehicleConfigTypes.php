@@ -503,6 +503,7 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
             $statement = $pdo->prepare($sql);
             //echo debugPDO($sql, $params);
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            print_r($result);
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
