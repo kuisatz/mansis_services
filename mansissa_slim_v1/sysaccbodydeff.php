@@ -334,7 +334,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  //  echo "Connection to server sucessfully"; 
    //check whether server is running or not 
  //   echo "Server is running: ".$redis->ping(); 
-    $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
+    $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34_';
     $user = $redis->hGetAll($rid);
  
     $user=  trim($user['data']);
@@ -343,9 +343,9 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $jsonFilter = json_decode($user, true); 
                     if ($jsonFilter != null) {
                         print_r("<<<<<<<<<<<<<<<<<<<<" );  
-                        if (isset($_GET['Id'])) {   print_r($jsonFilter ["Id"]);   }
+                        if (isset($jsonFilter['Id'])) {   print_r($jsonFilter ["Id"]);   }
                         print_r(">>>>>>>>><<<<<<<<<<<" );  
-                        if (isset($_GET['RootId'])) {   print_r($jsonFilter ["RootId"]);   }
+                        if (isset($jsonFilter['RootId'])) {   print_r($jsonFilter ["RootId"]);   }
                         print_r(">>>>>>>>>>>>>>>>>" );  
     } 
     else   print_r("<<<<<<<OFFLINE>>>>>>>" );  
