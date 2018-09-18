@@ -337,19 +337,21 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34_';
     $user = $redis->hGetAll($rid);
  
- 
+   print_r($user) ; 
      if (isset($user['data'])) {
-    $user=  trim($user['data']);
- 
-    print_r($user) ; 
-    $jsonFilter = json_decode($user, true); 
-                    if ($jsonFilter != null) {
-                        print_r("<<<<<<<<<<<<<<<<<<<<" );  
-                        if (isset($jsonFilter['Id'])) {   print_r($jsonFilter ["Id"]);   }
-                        print_r(">>>>>>>>><<<<<<<<<<<" );  
-                        if (isset($jsonFilter['RootId'])) {   print_r($jsonFilter ["RootId"]);   }
-                        print_r(">>>>>>>>>>>>>>>>>" );  
-     } }
+            $user=  trim($user['data']);
+
+            print_r($user) ; 
+            $jsonFilter = json_decode($user, true); 
+                            if ($jsonFilter != null) {
+                                print_r("<<<<<<<<<<<<<<<<<<<<" );  
+                                if (isset($jsonFilter['Id'])) {   print_r($jsonFilter ["Id"]);   }
+                                print_r(">>>>>>>>><<<<<<<<<<<" );  
+                                if (isset($jsonFilter['RootId'])) {   print_r($jsonFilter ["RootId"]);   }
+                                print_r(">>>>>>>>>>>>>>>>>" );  
+             } 
+             
+                                }
     else   print_r("<<<<<<<OFFLINE>>>>>>>" );  
    
    
