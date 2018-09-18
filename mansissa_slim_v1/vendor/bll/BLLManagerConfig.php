@@ -116,6 +116,7 @@ class BLLManagerConfig{
                    'sysVehicleAuditSheetDefBLL' => 'BLL\BLL\SysVehicleAuditSheetDef',
                    'sysVehicleBrandBLL' => 'BLL\BLL\SysVehicleBrand',
                    'sysVehicleCapTypesBLL' => 'BLL\BLL\SysVehicleCapTypes',
+                   'sysVehicleCkdcbuBLL' => 'BLL\BLL\SysVehicleCkdcbu',
                    'sysVehicleConfigTypesBLL' => 'BLL\BLL\SysVehicleConfigTypes',
                    'sysVehicleGroupTypesBLL' => 'BLL\BLL\SysVehicleGroupTypes',
                    'sysVehicleGroupsBLL' => 'BLL\BLL\SysVehicleGroups',
