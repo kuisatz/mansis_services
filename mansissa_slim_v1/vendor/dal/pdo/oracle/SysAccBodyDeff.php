@@ -441,7 +441,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                 if (isset($params['id']) && $params['id'] != "") {
 
-                    $sql = "                 
+             $sql = "                 
                 UPDATE sys_acc_body_deff
                 SET active = (  SELECT   
                                 CASE active

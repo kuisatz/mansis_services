@@ -335,6 +335,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
    echo "Server is running: ".$redis->ping(); 
     $rid =  '815061b7-3592-4545-9cf7-bad05f4a8e98';
     $user = $redis->get('user:profile:'.$rid);
+      echo "Server is running: ".$redis->get('user:profile:'.$rid);
     
     print_r($user) ; 
    
