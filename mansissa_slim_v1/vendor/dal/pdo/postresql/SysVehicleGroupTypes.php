@@ -510,7 +510,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
                 ORDER BY a.vehicle_groups_id , a.name   
                                  "  ;
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+               echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
