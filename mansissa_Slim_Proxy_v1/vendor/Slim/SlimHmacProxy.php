@@ -80,7 +80,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysVehicleGroupTypesBLL ----------------------//    
         
+          //**---- sysVehicleGtModelsBLL ------------------- 
         
+                                    'pkVehicleGtModelsDdList_sysvehiclegtmodels' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehiclegrouptypes' => 'restApiDefaultCall',
+        
+         //** sysVehicleGtModelsBLL ----------------------//    
         
         
         
@@ -1591,6 +1596,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 echo "_test!";
                 break;
             
+            
+            
+            case "_sysvehiclegtmodels": 
+                $this->setRestApiEndPoint('sysvehiclegtmodels.php/');
+                break; 
             case "_sysvehiclegrouptypes": 
                 $this->setRestApiEndPoint('sysvehiclegrouptypes.php/');
                 break; 
