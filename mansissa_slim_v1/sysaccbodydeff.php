@@ -341,8 +341,8 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     foreach ($jsonFilter as $std) {
                     if ($std['Id'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':{print_r("" ) ;
-                        }
+                            case 'name': print_r($std['Id']); 
+    }}}
    
    
    
