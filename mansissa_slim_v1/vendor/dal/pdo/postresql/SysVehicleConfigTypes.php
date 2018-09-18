@@ -485,6 +485,7 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
      */
     public function  vehicleConfigTypesDdList($params = array()) {
         try {
+            print_r("2123123");
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');     
             $statement = $pdo->prepare("       
                 SELECT                    
