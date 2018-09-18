@@ -339,11 +339,11 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  
   $user=  trim($user['data']);
     
-    print_r($user) ; 
+ //   print_r($user) ; 
     $jsonFilter = json_decode($user, true);
     foreach ($jsonFilter as $std) {
                     if ($std != null) {
-                      print_r($std[0]["Id"]);  
+                      print_r($std[0]);  
     }}
    
    
