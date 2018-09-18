@@ -57,6 +57,7 @@ $app->get("/pkVehicleCapTypesDdList_sysvehiclecaptypes/", function () use ($app 
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkVehicleCapTypesDdList_sysvehiclecaptypes" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
+    $pk = 'GsZVzEYe50uGgNM';
     
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
