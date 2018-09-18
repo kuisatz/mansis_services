@@ -501,10 +501,11 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
                 ORDER BY a.priority 
                                  " ;
             $statement = $pdo->prepare($sql);
+            print_r($statement) ; 
             //echo debugPDO($sql, $params);
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            print_r($result);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);  
             $errorInfo = $statement->errorInfo();
+            print_r($errorInfo);
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
