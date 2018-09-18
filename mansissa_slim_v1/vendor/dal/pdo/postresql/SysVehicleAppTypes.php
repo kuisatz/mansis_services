@@ -500,7 +500,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
             }   
               
             $statement = $pdo->prepare("       
-
+/*
             SELECT * FROM ( 
 
                 SELECT                    
@@ -522,7 +522,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                     a.language_parent_id =0 
                  
                 UNION 
-
+*/
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
@@ -538,8 +538,8 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0 AND
                     a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
+                 /*   ) asd */
+                ORDER BY  a.priority 
 
                                  ");
             $statement->execute();

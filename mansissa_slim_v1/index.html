@@ -339,7 +339,7 @@ and open the template in the editor. Ğİ
                     url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
                     data: { 
                         url: 'pkUpdateMakeActiveOrPassive_sysaccbodydeff', 
-                        id: 1,
+                        id: null,
                         pk:  'GsZVzEYe50uGgNM',
                         
                     },
@@ -358,7 +358,7 @@ and open the template in the editor. Ğİ
                     url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
                     data: { 
                         url: 'pkInsertAct_sysaccbodydeff', 
-                        acc_body_type_id: 1, 
+                        acc_body_type_id: null, 
                         name:   'denemmee ' , 
                         pk:  'GsZVzEYe50uGgNM',
                         
@@ -373,12 +373,67 @@ and open the template in the editor. Ğİ
                     }
                 });
             
+          $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+                    data: { 
+                        url: 'pkUpdateAct_sysaccbodydeff', 
+                        acc_body_type_id: 1, 
+                        name:   'denemmessss' , 
+                        pk:  'GsZVzEYe50uGgNM',
+                        id:   null ,
+                        
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+        
+            $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+                    data: { 
+                        url: 'pkDeletedAct_sysaccbodydeff', 
+                     
+                        pk:  'GsZVzEYe50uGgNM',
+                        id:   83 ,
+                        
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
         
         
-        
-        
-        
-        
+           $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../mansissa_Slim_Proxy_v1/SlimProxyBoot.php',
+                    data: { 
+                        url: 'pkVehicleAppTypesDdList_sysvehicleapptypes', 
+                     
+                        pk:  'GsZVzEYe50uGgNM',
+                        language_code :  'en',
+                        
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
         
         
         

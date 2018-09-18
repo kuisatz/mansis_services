@@ -24,7 +24,7 @@ $app = new \Slim\SlimExtended(array(
 /**
  * "Cross-origion resource sharing" kontrolüne izin verilmesi için eklenmiştir
  * @author Okan CIRAN
- * @since 2.10.2015
+ * @since 02.10.2015
  */
 $res = $app->response();
 $res->header('Access-Control-Allow-Origin', '*');
@@ -60,7 +60,7 @@ $app->get("/pkAccBodyDeffDdList_sysaccbodydeff/", function () use ($app ) {
     }
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkAccBodyDeffDdList_sysaccbodydeff" end point, X-Public variable not found');
-    //$pk = $headerParams['X-Public'];
+   // $pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
@@ -183,24 +183,22 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
-                "id" => $menu["id"],
+               "id" => $menu["id"],
+                "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
+                "acc_body_type_id" => $menu["acc_body_type_id"], 
                 "body_type_name" => html_entity_decode($menu["body_type_name"]),   
-                "op_username" => html_entity_decode($menu["op_user_name"]),
-                "active" => $menu["active"],   
+                "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
                 "date_modified" => $menu["date_modified"],  
                 "language_code" => $menu["language_code"],
+                "active" => $menu["active"], 
+                "op_user_id" => $menu["op_user_id"], 
+                "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
                  
-                "attributes" => array("notroot" => true,
-                    "active" => $menu["active"],                     
-                    "act_parent_id" => intval($menu["act_parent_id"]),  
-                    "active" => $menu["active"],
-                    "language_id" => $menu["language_id"],
-                    "op_user_id" => $menu["op_user_id"], 
-                    ),
+               
             );
         }
        $counts = $resTotalRowCount[0]['count'];
@@ -209,11 +207,10 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
     $app->response()->header("Content-Type", "application/json");
     $resultArray = array();
     $resultArray['totalCount'] = $counts;
-    $resultArray['rows'] = $menus;
+    $resultArray['items'] = $menus;
     $app->response()->body(json_encode($resultArray));
 });
-
-
+ 
 /**
  *  * Okan CIRAN
  * @since 15-08-2018
@@ -329,14 +326,14 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
     
-    
+   /* 
   //Connecting to Redis server on localhost 
    $redis = new Redis(); 
    $redis->connect('127.0.0.1', 6379); 
    echo "Connection to server sucessfully"; 
    //check whether server is running or not 
    echo "Server is running: ".$redis->ping(); 
-    
+  */  
     
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
@@ -364,8 +361,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $app->response()->body(json_encode($resData));
 }
 ); 
-
-
+ 
 /**
  *  * Okan CIRAN
  * @since 13-01-2016
@@ -444,7 +440,7 @@ $app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
      
           
     $resDataInsert = $BLL->updateAct(array(
-            'id' => $vId,   
+            'Id' => $vId,   
             'Name' => $vName,   
             'AccBodyTypeId' => $AccBodyTypeId,  
             'pk' => $pk));

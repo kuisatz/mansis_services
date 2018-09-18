@@ -30,13 +30,25 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
                                     'pkInsertAct_sysaccbodydeff' => 'restApiDefaultCall',
                                     'pkUpdateAct_sysaccbodydeff' => 'restApiDefaultCall',
-            
-        
-        
+                                    'pkDeletedAct_sysaccbodydeff' => 'restApiDefaultCall',        
         
             
-        //**---- sysAccBodyDeffBLL ------------------- 
+            
+        //**---- sysVehicleAppTypesBLL ------------------- 
+        
+                                    'pkVehicleAppTypesDdList_sysvehicleapptypes' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehicleapptypes' => 'restApiDefaultCall',
+        
+         //** sysVehicleAppTypesBLL ----------------------//
+        
+        
+        
           
+        
+        //**---- sysAccBodyDeffBLL ------------------- 
+            
+        
+        
         
         
  //** infoDealerOwner ----------------------
@@ -1546,6 +1558,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 echo "_test!";
                 break;
             
+            
+            case "_sysvehicleapptypes": 
+                $this->setRestApiEndPoint('sysvehicleapptypes.php/');
+                break; 
             case "_sysaccbodydeff": 
                 $this->setRestApiEndPoint('sysaccbodydeff.php/');
                 break;  

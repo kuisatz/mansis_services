@@ -210,7 +210,8 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             FROM sys_acc_body_deff  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND
-                a.acc_body_type_id = " . intval($params['acc_body_type_id'] ). "
+                a.acc_body_type_id = " . intval($params['acc_body_type_id'] ). " AND 
+                a.language_id = 385
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
@@ -873,14 +874,16 @@ class SysAccBodyDeff extends \DAL\DalSlim {
     public function makePassive($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
-            $statement = $pdo->prepare(" 
+            $sql = "
                 UPDATE sys_acc_body_deff
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id or language_parent_id = :id");
-            $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
+                WHERE  
+                    id = " . intval($params['id']) . " or language_parent_id = " . intval($params['id']) . "  " ;
+            $statement = $pdo->prepare($sql); 
+        //     echo debugPDO($sql, $params);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
             $errorInfo = $statement->errorInfo();
@@ -914,7 +917,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
 
                 $this->makePassive(array('id' => $params['id'])); 
                             
-                $statementInsert = $pdo->prepare(" 
+                $sql = "
                     INSERT INTO sys_acc_body_deff (
                         name,
                         name_eng,
@@ -941,9 +944,11 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_acc_body_deff 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
-
+                    WHERE   
+                        id  =" . intval($params['id']) . " OR  language_parent_id = " . intval($params['id']) . "  
+                       ";
+                $statementInsert = $pdo->prepare($sql);
+            //   echo debugPDO($sql, $params);
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
@@ -1028,8 +1033,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                             'name' => $name,  
                             'acc_body_type_id' => $AccBodyTypeId
                 ));
-                
-                print_r($kontrol);
+                            
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_acc_body_deff(
@@ -1167,13 +1171,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
         }
     }
          
-    
-    
-    
-    
-    
-    
-    
+                            
     
     
     /**
@@ -1189,6 +1187,14 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $errorInfo[0] = "99999";
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                print_r("zxzx") ;
+                throw new \PDOException($errorInfo[0]);
+            }
+
             $name = "";
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
@@ -1209,13 +1215,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             }else {
                 throw new \PDOException($errorInfo[0]);
             }   
-            $Id = -1111;
-            if ((isset($params['Id']) && $params['Id'] != "")) {
-                $Id = intval($params['Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-
+          
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
             $opUserId = $opUserIdArray->getUserId($opUserIdParams);
@@ -1231,9 +1231,9 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
-                    $statementInsert = $pdo->prepare("
+               $sql = "
                 INSERT INTO sys_acc_body_deff (  
                         name,
                         name_eng,
@@ -1246,8 +1246,8 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,    
-                    " . ($nameEng) . " AS name_eng, 
+                    '" . ($name) . "' AS name,    
+                    '" . ($nameEng) . "' AS name_eng, 
                     " . intval($AccBodyTypeId) . " AS AccBodyTypeId,   
                      
                     priority,
@@ -1258,7 +1258,9 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 FROM sys_acc_body_deff 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
-                                                ");
+                                                ";
+                    $statementInsert = $pdo->prepare($sql);
+                  //    echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
                     $affectedRows = $statementInsert->rowCount();
