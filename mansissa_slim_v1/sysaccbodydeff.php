@@ -348,6 +348,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
                         if (isset($_GET['RootId'])) {   print_r($jsonFilter ["RootId"]);   }
                         print_r(">>>>>>>>>>>>>>>>>" );  
     } 
+    else   print_r("<<<<<<<OFFLINE>>>>>>>" );  
    
    
     
