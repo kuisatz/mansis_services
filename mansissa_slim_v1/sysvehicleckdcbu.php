@@ -72,8 +72,7 @@ $app->get("/pkVehicleCkdCbuDdList_sysvehicleckdcbu/", function () use ($app ) {
     if($stripper->offsetExists('status_type_id')) $StatusTypeId = $stripper->offsetGet('status_type_id')->getFilterValue();
         
     $resCombobox = $BLL->vehicleCkdCbuDdList(array(                                   
-                                    'language_code' => $vLanguageCode,
-                                    'StatusTypeId' => $StatusTypeId,
+                                    'language_code' => $vLanguageCode,  
                                     'LanguageID' => $lid,
                         ));    
 
