@@ -338,7 +338,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $user = $redis->hGetAll($rid);
  
    print_r($user) ; 
-     if (isset($user['data'])) {
+      if (isset($user['data']) && $user['data'] != "") {
             $user=  trim($user['data']);
 
             print_r($user) ; 
