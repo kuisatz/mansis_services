@@ -484,10 +484,9 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
      * @throws \PDOException 
      */
     public function  vehicleConfigTypesDdList($params = array()) {
-        try {
-            print_r("2123123");
+        try {            
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');     
-            $statement = $pdo->prepare("       
+           $sql = "   
                 SELECT                    
                     a.act_parent_id AS id, 	
                     a.name AS name,  
@@ -500,8 +499,9 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0   
                 ORDER BY a.priority 
-                                 ");
-            $statement->execute();
+                                 " ;
+               $statement = $pdo->prepare($sql);
+             echo debugPDO($sql, $params);
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
