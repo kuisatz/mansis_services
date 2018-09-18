@@ -337,6 +337,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $redis->hGetAll($rid);
  
+    trim($user['data']);
    $jsonFilter = json_decode($user, true);
     foreach ($jsonFilter as $std) {
                     if ($std['Id'] != null) {
