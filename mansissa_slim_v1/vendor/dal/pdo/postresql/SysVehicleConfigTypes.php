@@ -483,7 +483,7 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
-    public function  vehicleConfigTypesDdList($params = array()) {
+    public function  vehicleConfigTypesDdList_($params = array()) {
         try {            
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');     
            $sql = "   
@@ -514,6 +514,45 @@ class SysVehicleConfigTypes extends \DAL\DalSlim {
         }
     }
  
+        /** 
+     * @author Okan CIRAN
+     * @ araç cbu ckd tipleri dropdown ya da tree ye doldurmak için sys_vehicle_ckdcbu tablosundan kayıtları döndürür !!
+     * @version v 1.0  31.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  vehicleConfigTypesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+           
+              
+            $statement = $pdo->prepare("   
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.name  AS name,  
+                    a.name AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicle_config_types a    
+                 WHERE   
+                    a.deleted = 0 AND
+                    a.active =0   
+                ORDER BY  id  
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+  
+  
     /** 
      * @author Okan CIRAN
      * @ araç konfig tip tanımlarını grid formatında döndürür !! ana tablo  sys_vehicle_config_types 
