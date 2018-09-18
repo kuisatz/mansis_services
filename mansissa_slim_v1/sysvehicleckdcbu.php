@@ -65,6 +65,12 @@ $app->get("/pkVehicleCkdCbuDdList_sysvehicleckdcbu/", function () use ($app ) {
                                                 $app,
                                                 $_GET['language_code']));
     } 
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
    
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
