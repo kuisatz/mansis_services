@@ -501,11 +501,11 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $addSQL =0 ;
+            $addSQL =null;
             $accBodyTypeId =0 ;
             if (isset($params['accBodyTypeID']) && $params['accBodyTypeID'] != "") {
                 $accBodyTypeId = $params['accBodyTypeID'];
-                $addSQL =   " a.acc_body_type_id  = " . intval($accBodyTypeId). "  AND  " ;
+                $addSQL .=   " a.acc_body_type_id  = " . intval($accBodyTypeId). "  AND  " ;
             }  
               
             $sql =  "    
@@ -528,7 +528,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 ORDER BY  id  
                                  " ;
              $statement = $pdo->prepare($sql);
-             echo debugPDO($sql, $params);
+         //    echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
