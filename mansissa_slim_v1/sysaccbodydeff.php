@@ -327,14 +327,8 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  * @since 29-03-2016
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
-     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
-  
-  //  $RedisConnect = $this->slimApp->getServiceManager()->get('redisConnectFactory');  
-    $statement = $RedisConnect;
-  
-    print_r("---redis connect--->");
-       print_r($statement);
-          print_r("<---redis connect---");
+     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory'); 
+    echo "Server is running: ".$RedisConnect->ping(); 
   //Connecting to Redis server on localhost 
  //  $redis = new Redis(); 
   // $redis->connect('127.0.0.1', 6379); 
@@ -343,8 +337,8 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
    //check whether server is running or not 
  //   echo "Server is running: ".$redis->ping(); 
     $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
-    $user = $statement->hGetAll($rid);
-    echo "Server is running: ".$statement->ping(); 
+    $user = $RedisConnect->hGetAll($rid);
+    echo "Server is running: ".$RedisConnect->ping(); 
   
     print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
