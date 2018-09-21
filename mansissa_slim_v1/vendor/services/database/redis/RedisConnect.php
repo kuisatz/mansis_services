@@ -23,11 +23,11 @@ class RedisConnect implements \Zend\ServiceManager\FactoryInterface {
      */
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
         try {
-            $pdo = new \PDO('pgsql:dbname=ga;host=localhost;port=5433;',
-                            'postgres',
-                            '123456',
-                            PostgreSQLConnectPDOConfig::getConfig());
-            return $pdo;
+            
+            $redis = new Redis(); 
+            $redis->connect('127.0.0.1', 6379); 
+            $redis->auth('1q2w3e4r'); 
+            return $redis;
         } catch (PDOException $e) {
             return false;
         } 

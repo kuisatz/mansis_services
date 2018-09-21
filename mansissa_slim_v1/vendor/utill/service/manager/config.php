@@ -34,6 +34,7 @@ class config {
                 'test' => 'Utill\BLL\Test\Test'
             ),
             'factories' => [ 
+                'redisConnectFactory' => 'Services\Database\Redis\RedisConnect',
                 'oracleConnectFactory' => 'Services\Database\Oracle\OracleSQLConnectPDO',
                 'pgConnectFactory' => 'Services\Database\Postgresql\PostgreSQLConnectPDO',
                 'pgConnectLogFactory' => 'Services\Database\Postgresql\PostgreSQLConnectLogPDO',

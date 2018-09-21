@@ -326,11 +326,14 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
     
-   
+    $RedisConnect = $this->slimApp->getServiceManager()->get('redisConnectFactory');  
+    $statement = $RedisConnect;
+    
+    print_r($statement);
   //Connecting to Redis server on localhost 
-   $redis = new Redis(); 
-   $redis->connect('127.0.0.1', 6379); 
-   $redis->auth('1q2w3e4r'); 
+ //  $redis = new Redis(); 
+  // $redis->connect('127.0.0.1', 6379); 
+ //  $redis->auth('1q2w3e4r'); 
  //  echo "Connection to server sucessfully"; 
    //check whether server is running or not 
  //   echo "Server is running: ".$redis->ping(); 
@@ -355,11 +358,11 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
             print_r(">>>>>>>>>>>>>>>>>");
         }
     } else{
-        print_r("<<<<<<<OFFLINE>>>>>>>");
-  print_r("zzzzz");
+        print_r("<<<<<<<OFF-LINE>>>>>>>");
+        print_r("zzzzz");
     }
 
-  print_r("oOOoo");
+ 
 
 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
