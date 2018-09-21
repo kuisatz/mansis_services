@@ -7,14 +7,14 @@
  * @license 
  */
 
-namespace Services\Database\Redis;
+namespace Services\Database\Postgresql;
 
  
 /**
  * service manager layer for database connection
  * @author Mustafa Zeynel Dağlı
  */
-class RedisConnect implements \Zend\ServiceManager\FactoryInterface {
+class PostgreSQLConnectPDO implements \Zend\ServiceManager\FactoryInterface {
     
     /**
      * service ceration via factory on zend service manager
