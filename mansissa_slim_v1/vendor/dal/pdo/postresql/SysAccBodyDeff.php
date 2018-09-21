@@ -508,7 +508,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                 $addSQL =   " a.acc_body_type_id  = " . intval($accBodyTypeId). "  AND  " ;
             }  
               
-            $statement = $pdo->prepare("    
+            $sql =  "    
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
@@ -526,7 +526,9 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                     a.active =0 AND
                     a.language_parent_id =0  
                 ORDER BY  id  
-                                 ");
+                                 " ;
+             $statement = $pdo->prepare($sql);
+                //  echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
