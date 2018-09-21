@@ -328,14 +328,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
-
-    //Connecting to Redis server on localhost 
-    //  $redis = new Redis(); 
-    // $redis->connect('127.0.0.1', 6379); 
-    //  $redis->auth('1q2w3e4r'); 
-    //  echo "Connection to server sucessfully"; 
-    //check whether server is running or not 
-    //   echo "Server is running: ".$redis->ping(); 
+ 
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $RedisConnect->hGetAll($rid);
     //   echo "Server is running: ".$RedisConnect->ping(); 
@@ -348,15 +341,15 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
         if ($jsonFilter != null) {
     //        print_r("<<<<<<<<<<<<<<<<<<<<");
             if (isset($jsonFilter['Id'])) {
-                print_r($jsonFilter ["Id"]);
+           //     print_r($jsonFilter ["Id"]);
             }
     ///        print_r(">>>>>>>>><<<<<<<<<<<");
             if (isset($jsonFilter['RootId'])) {
-                print_r($jsonFilter ["RootId"]);
+      //          print_r($jsonFilter ["RootId"]);
             }
       //      print_r(">>>>>>>>>>>>>>>>>");
             if (isset($jsonFilter['RoleId'])) {
-                print_r($jsonFilter ["RoleId"]);
+       //         print_r($jsonFilter ["RoleId"]);
             }
         //    print_r(">>>>>>>>>>>>>>>>>");
         }
@@ -371,11 +364,11 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
 
     
-     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
+    $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
       
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];
-    $user = $RedisConnect->hGetAll($Pk);
+ //   $user = $RedisConnect->hGetAll($Pk);
 
     $vId = NULL;
     if (isset($_GET['id'])) {
