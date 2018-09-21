@@ -334,7 +334,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  //  echo "Connection to server sucessfully"; 
    //check whether server is running or not 
  //   echo "Server is running: ".$redis->ping(); 
-    $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34_';
+    $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $redis->hGetAll($rid);
   
     print_r($user);
@@ -354,12 +354,12 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
             }
             print_r(">>>>>>>>>>>>>>>>>");
         }
-    } else
+    } else{
         print_r("<<<<<<<OFFLINE>>>>>>>");
+  print_r("zzzzz");
+    }
 
-
-
-
+  print_r("oOOoo");
 
 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
