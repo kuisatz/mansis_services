@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
-namespace DAL\Factory\PDO\Redis;
+ 
 
 /*$app = new \Slim\Slim(array(
     'mode' => 'development',
