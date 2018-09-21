@@ -24,12 +24,12 @@ class RedisConnect implements \Zend\ServiceManager\FactoryInterface {
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
         try {
             
-            $redis = new Redis(); 
+            $redis = new \Redis(); 
             $redis->connect('127.0.0.1', 6379); 
             $redis->auth('1q2w3e4r'); 
             
             return $redis;
-        } catch (PDOException $e) {
+        } catch ( Exception $e ) {
             return false;
         } 
 
