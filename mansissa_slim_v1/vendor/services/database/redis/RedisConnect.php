@@ -27,6 +27,7 @@ class RedisConnect implements \Zend\ServiceManager\FactoryInterface {
             $redis = new Redis(); 
             $redis->connect('127.0.0.1', 6379); 
             $redis->auth('1q2w3e4r'); 
+            
             return $redis;
         } catch (PDOException $e) {
             return false;

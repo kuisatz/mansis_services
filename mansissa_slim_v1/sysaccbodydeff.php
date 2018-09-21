@@ -327,8 +327,9 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  * @since 29-03-2016
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
-    
-    $RedisConnect = $this->slimApp->getServiceManager()->get('redisConnectFactory');  
+     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
+  
+  //  $RedisConnect = $this->slimApp->getServiceManager()->get('redisConnectFactory');  
     $statement = $RedisConnect;
   
     print_r("---redis connect--->");
