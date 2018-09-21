@@ -340,37 +340,42 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     $user = $RedisConnect->hGetAll($rid);
     //   echo "Server is running: ".$RedisConnect->ping(); 
 
-    print_r($user);
+ //   print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
         $user = trim($user['data']);
 
         $jsonFilter = json_decode($user, true);
         if ($jsonFilter != null) {
-            print_r("<<<<<<<<<<<<<<<<<<<<");
+    //        print_r("<<<<<<<<<<<<<<<<<<<<");
             if (isset($jsonFilter['Id'])) {
                 print_r($jsonFilter ["Id"]);
             }
-            print_r(">>>>>>>>><<<<<<<<<<<");
+    ///        print_r(">>>>>>>>><<<<<<<<<<<");
             if (isset($jsonFilter['RootId'])) {
                 print_r($jsonFilter ["RootId"]);
             }
-            print_r(">>>>>>>>>>>>>>>>>");
+      //      print_r(">>>>>>>>>>>>>>>>>");
+            if (isset($jsonFilter['RoleId'])) {
+                print_r($jsonFilter ["RoleId"]);
+            }
+        //    print_r(">>>>>>>>>>>>>>>>>");
         }
     } else {
-        print_r("<<<<<<<3ee3>>>>>>>");
-         print_r("<<<<<<<123>>>>>>>");
-          print_r("<<<<<<<OFlE>>>>>>>");
+       //  print_r("<<<<<<<3ee3>>>>>>>");
+         //  print_r("<<<<<<<123>>>>>>>"); 
+        ;
     }
-
-
-
-
+ 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
 
+    
+     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
+      
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];
+    $user = $RedisConnect->hGetAll($Pk);
 
     $vId = NULL;
     if (isset($_GET['id'])) {
