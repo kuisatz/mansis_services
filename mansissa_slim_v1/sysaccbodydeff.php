@@ -343,7 +343,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
    //check whether server is running or not 
  //   echo "Server is running: ".$redis->ping(); 
     $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
-    $user = $redis->hGetAll($rid);
+    $user = $statement->hGetAll($rid);
   
     print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
