@@ -5,6 +5,8 @@ require 'vendor/autoload.php';
 
 use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
+namespace DAL\Factory\PDO\Redis;
+
 /*$app = new \Slim\Slim(array(
     'mode' => 'development',
     'debug' => true,
@@ -328,8 +330,10 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     
     $RedisConnect = $this->slimApp->getServiceManager()->get('redisConnectFactory');  
     $statement = $RedisConnect;
-    
-    print_r($statement);
+  
+    print_r("---redis connect--->");
+       print_r($statement);
+          print_r("<---redis connect---");
   //Connecting to Redis server on localhost 
  //  $redis = new Redis(); 
   // $redis->connect('127.0.0.1', 6379); 
