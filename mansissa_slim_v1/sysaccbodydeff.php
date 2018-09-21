@@ -326,24 +326,24 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 29-03-2016
  */
-$app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) { 
-     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory'); 
- 
-  //Connecting to Redis server on localhost 
-  //  $redis = new Redis(); 
-  // $redis->connect('127.0.0.1', 6379); 
-  //  $redis->auth('1q2w3e4r'); 
-  //  echo "Connection to server sucessfully"; 
-  //check whether server is running or not 
-  //   echo "Server is running: ".$redis->ping(); 
-    $rid =  'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
+$app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
+    $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
+
+    //Connecting to Redis server on localhost 
+    //  $redis = new Redis(); 
+    // $redis->connect('127.0.0.1', 6379); 
+    //  $redis->auth('1q2w3e4r'); 
+    //  echo "Connection to server sucessfully"; 
+    //check whether server is running or not 
+    //   echo "Server is running: ".$redis->ping(); 
+    $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $RedisConnect->hGetAll($rid);
- //   echo "Server is running: ".$RedisConnect->ping(); 
-  
+    //   echo "Server is running: ".$RedisConnect->ping(); 
+
     print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
         $user = trim($user['data']);
-  
+
         $jsonFilter = json_decode($user, true);
         if ($jsonFilter != null) {
             print_r("<<<<<<<<<<<<<<<<<<<<");
@@ -356,43 +356,40 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
             }
             print_r(">>>>>>>>>>>>>>>>>");
         }
-    } else{
-   
-        print_r("zzzzz");
-        
-             print_r("<<<<<<<OFF-LINE>>>>>>>");
+    } else {
+        print_r("<<<<<<<OFlE>>>>>>>");
     }
 
- 
+
 
 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
-    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
-  
+
     $headerParams = $app->request()->headers();
-    $Pk = $headerParams['X-Public'];  
-     
+    $Pk = $headerParams['X-Public'];
+
     $vId = NULL;
     if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['id']));
-    } 
+        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['id']));
+    }
 
-    $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }
-      
-    $resData = $BLL->makeActiveOrPassive(array(                  
-            'id' => $vId ,    
-            'pk' => $Pk,        
-            )); 
+    $stripper->strip();
+    if ($stripper->offsetExists('id')) {
+        $vId = $stripper->offsetGet('id')->getFilterValue();
+    }
 
-    $app->response()->header("Content-Type", "application/json"); 
+    $resData = $BLL->makeActiveOrPassive(array(
+        'id' => $vId,
+        'pk' => $Pk,
+    ));
+
+    $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resData));
 }
-); 
- 
+);
+
 /**
  *  * Okan CIRAN
  * @since 13-01-2016
