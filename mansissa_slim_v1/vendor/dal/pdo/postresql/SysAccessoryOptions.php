@@ -1177,6 +1177,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                     language_id = 385 AND id  =" . intval($Id) . "                  
                                                 "  ;
                     $statementInsert = $pdo->prepare($sql);
+                   echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_accessory_options_id_seq');
                     $affectedRows = $statementInsert->rowCount();
