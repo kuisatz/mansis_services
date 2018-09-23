@@ -669,11 +669,12 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                echo debugPDO($sql, $params);    
-                print_r($statement);
+            //    echo debugPDO($sql, $params);    
+         
                         
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                       print_r($result);
                 $errorInfo = $statement->errorInfo(); 
               //  $ColumnCount = $statement->columnCount();
                 if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
