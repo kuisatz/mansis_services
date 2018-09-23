@@ -108,17 +108,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkAccBodyTypesDdList_sysaccbodytypes' => 'restApiDefaultCall', 
          //** sysAccBodyTypesBLL ----------------------//    
         
-           //**---- sysAccBodyMatrixBLL ------------------- 
+           //**---- sysAccDeffBLL ------------------- 
                                     'pkAccDeffSalesmanDdList_sysaccdeff' => 'restApiDefaultCall',
                                     'pkAccDeffBackOfficeDdList_sysaccdeff' => 'restApiDefaultCall',
-                                    'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
-                                    'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkFillAccDeffGridx_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysaccdeff' => 'restApiDefaultCall',
         
-                                    'pkInsertAct_sysaccbodymatrix' => 'restApiDefaultCall',
-                                    'pkUpdateAct_sysaccbodymatrix' => 'restApiDefaultCall',
-                                    'pkDeletedAct_sysaccbodymatrix' => 'restApiDefaultCall',  
+                                    'pkInsertAct_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysaccdeff' => 'restApiDefaultCall',  
         
-         //** sysAccBodyMatrixBLL ----------------------//    
+         //** sysAccDeffBLL ----------------------//    
         
         
         
