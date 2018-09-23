@@ -202,7 +202,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                '' name ,
+                '' AS name ,
                 1 AS value, 
                 true AS control,
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
