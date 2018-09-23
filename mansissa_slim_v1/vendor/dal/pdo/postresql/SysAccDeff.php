@@ -202,13 +202,14 @@ class SysAccDeff extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                a.name_sm ,
+                '" . $params['name_sm'] . "' AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acc_deff  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(name_sm,' ','')) = LOWER(REPLACE('" . $params['name_sm'] . "',' ','')) AND 
+                LOWER(REPLACE(name_bo,' ','')) = LOWER(REPLACE('" . $params['name_bo'] . "',' ',''))
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
