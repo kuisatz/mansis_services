@@ -160,8 +160,8 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
 
     $app->response()->header("Content-Type", "application/json");
     $resultArray = array();
-    $resultArray['total'] = $counts;
-    $resultArray['rows'] = $menus;
+    $resultArray['totalCount'] = $counts;
+    $resultArray['items'] = $menus;
     $app->response()->body(json_encode($resultArray));
 });
 
