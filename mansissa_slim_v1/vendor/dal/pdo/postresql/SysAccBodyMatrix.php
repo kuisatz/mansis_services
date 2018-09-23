@@ -203,12 +203,15 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             $sql = "  
             SELECT  
                 a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                1 AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acc_body_matrix  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                 vehicle_gt_models_id = " . intval($params['VehicleGtModelId']) . "   AND 
+                 supplier_id = " . intval($params['SupplierId']) . "   AND 
+                 acc_body_deff_id=  " . intval($params['AccBodyDeffId']) . "  AND 
+                 acc_body_type_id= " . intval($params['AccBodyTypeId']) . "   AND 
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
