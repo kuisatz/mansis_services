@@ -137,7 +137,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysBbContractTypesBLL ----------------------//    
            //**---- sysBranchesDealersDeffBLL ------------------- 
                                     'pkBranchesDealersDeffDdList_sysbranchesdealersdeff' => 'restApiDefaultCall', 
-                                    'pkFillAccOptionsGridx_sysbranchesdealersdeff' => 'restApiDefaultCall',
+                                    'pkFillAccBodyDeffGridx_sysbranchesdealersdeff' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysbranchesdealersdeff' => 'restApiDefaultCall',
         
                                     'pkInsertAct_sysbranchesdealersdeff' => 'restApiDefaultCall',
