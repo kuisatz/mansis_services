@@ -110,6 +110,30 @@ class SysAccDeff extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+      /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccDeffGridx ($params = array()) {
+        
+        $DAL = $this->slimApp->getDALManager()->get('sysAccDeffPostgrePDO');
+        $resultSet = $DAL->fillAccDeffGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccDeffGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccDeffPostgrePDO');
+        $resultSet = $DAL->fillAccDeffGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    
         /**
      * public key / private key and value update function
      * @param array | null $params
