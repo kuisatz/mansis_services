@@ -132,8 +132,17 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "name" => html_entity_decode($menu["name"]), 
-                "body_type_name" => html_entity_decode($menu["body_type_name"]),   
+                "apid" => intval($menu["act_parent_id"]),  
+                "vehicle_gtname" => html_entity_decode($menu["vehicle_gtname"]), 
+                "supplier_name" => html_entity_decode($menu["supplier_name"]),   
+                "body_deff_name" => html_entity_decode($menu["body_deff_name"]), 
+                "body_type_name" => html_entity_decode($menu["body_type_name"]), 
+                
+                "vehicle_gt_models_id" => $menu["vehicle_gt_models_id"],   
+                "supplier_id" => $menu["supplier_id"],   
+                "cost" => $menu["cost"],   
+                "acc_body_deff_id" => $menu["acc_body_deff_id"],   
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]),
                 "active" => $menu["active"],   
                 "state_active" => html_entity_decode($menu["state_active"]),       
@@ -141,14 +150,9 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
                 "date_modified" => $menu["date_modified"],  
                 "language_code" => $menu["language_code"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
-                 
-                "attributes" => array("notroot" => true,
-                    "active" => $menu["active"],                     
-                    "act_parent_id" => intval($menu["act_parent_id"]),  
-                    "active" => $menu["active"],
-                    "language_id" => $menu["language_id"],
-                    "op_user_id" => $menu["op_user_id"], 
-                    ),
+                "language_id" => $menu["language_id"],
+                "op_user_id" => $menu["op_user_id"], 
+                
             );
         }
        $counts = $resTotalRowCount[0]['count'];
