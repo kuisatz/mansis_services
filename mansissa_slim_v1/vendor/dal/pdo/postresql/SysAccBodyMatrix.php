@@ -897,7 +897,10 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO sys_acc_body_matrix (
                         vehicle_gt_models_id,
-                        acc_body_supp_id, 
+                        supplier_id,
+                        acc_body_deff_id, 
+                        acc_body_type_id,
+                        cost,
                          
                         active,
                         deleted,
@@ -907,7 +910,10 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         )
                     SELECT
                         vehicle_gt_models_id,
-                        acc_body_supp_id,  
+                        supplier_id,
+                        acc_body_deff_id, 
+                        acc_body_type_id,
+                        cost,
                          
                         1 AS active,  
                         1 AS deleted, 
