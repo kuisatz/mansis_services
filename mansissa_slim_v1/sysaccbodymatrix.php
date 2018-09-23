@@ -132,7 +132,7 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "apid" => intval($menu["act_parent_id"]),  
+                "apid" => intval($menu["apid"]),  
                 "vehicle_gtname" => html_entity_decode($menu["vehicle_gtname"]), 
                 "supplier_name" => html_entity_decode($menu["supplier_name"]),   
                 "body_deff_name" => html_entity_decode($menu["body_deff_name"]), 
