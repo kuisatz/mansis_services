@@ -947,9 +947,9 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             $pdo->beginTransaction();
 
             $errorInfo[0] = "99999";
-            $accBodySuppId = -1111;
-            if ((isset($params['AccBodySuppId']) && $params['AccBodySuppId'] != "")) {
-                $accBodySuppId = intval($params['AccBodySuppId']);
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
@@ -958,7 +958,25 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $vehicleGtModelId = intval($params['VehicleGtModelId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }               
+            }    
+            $accBodyDeffId= -1111;
+            if ((isset($params['AccBodyDeffId']) && $params['AccBodyDeffId'] != "")) {
+                $accBodyDeffId = intval($params['AccBodyDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }    
+            $accBodyTypeId= -1111;
+            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
+                $accBodyTypeId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $cost= -1111;
+            if ((isset($params['Cost']) && $params['Cost'] != "")) {
+                $cost = floatval($params['Cost']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
 
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -967,20 +985,28 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'vehicle_gt_models_id' => $vehicleGtModelId,
-                            'acc_body_type_id' => $accBodySuppId
+                            'supplier_id' => $supplierId,
+                            'acc_body_deff_id' => $accBodyDeffId,
+                            'acc_body_type_id' => $accBodyTypeId, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_acc_body_matrix(
-                            vehicle_gt_models_id, 
-                            acc_body_supp_id, 
+                            vehicle_gt_models_id,
+                            supplier_id,
+                            acc_body_deff_id, 
+                            acc_body_type_id,
+                            cost,
                            
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
                             " . intval($vehicleGtModelId) . ",
-                            " . intval($accBodySuppId) . ", 
+                            " . intval($supplierId) . ", 
+                            " . intval($accBodyDeffId) . ",
+                            " . intval($accBodyTypeId) . ",
+                            " . floatval($cost) . ",
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_acc_body_matrix_id_seq)
@@ -1026,9 +1052,16 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $errorInfo[0] = "99999";
-            $accBodySuppId = -1111;
-            if ((isset($params['AccBodySuppId']) && $params['AccBodySuppId'] != "")) {
-                $accBodySuppId = intval($params['AccBodySuppId']);
+           
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
@@ -1037,13 +1070,25 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $vehicleGtModelId = intval($params['VehicleGtModelId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $Id = -1111;
-            if ((isset($params['Id']) && $params['Id'] != "")) {
-                $Id = intval($params['Id']);
+            }    
+            $accBodyDeffId= -1111;
+            if ((isset($params['AccBodyDeffId']) && $params['AccBodyDeffId'] != "")) {
+                $accBodyDeffId = intval($params['AccBodyDeffId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }             
+            }    
+            $accBodyTypeId= -1111;
+            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
+                $accBodyTypeId = intval($params['AccBodyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $cost= -1111;
+            if ((isset($params['Cost']) && $params['Cost'] != "")) {
+                $cost = floatval($params['Cost']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1055,7 +1100,9 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'vehicle_gt_models_id' => $vehicleGtModelId,
-                            'acc_body_type_id' => $accBodySuppId,
+                            'supplier_id' => $supplierId,
+                            'acc_body_deff_id' => $accBodyDeffId,
+                            'acc_body_type_id' => $accBodyTypeId, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1064,15 +1111,21 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_acc_body_matrix (  
-                        vehicle_gt_models_id, 
-                        acc_body_supp_id, 
+                        vehicle_gt_models_id,
+                        supplier_id,
+                        acc_body_deff_id, 
+                        acc_body_type_id,
+                        cost,
                          
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     " . intval($vehicleGtModelId) . ",
-                    " . intval($accBodySuppId) . ", 
+                    " . intval($supplierId) . ", 
+                    " . intval($accBodyDeffId) . ",
+                    " . intval($accBodyTypeId) . ",
+                    " . floatval($cost) . ",
                       
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

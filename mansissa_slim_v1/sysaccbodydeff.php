@@ -320,7 +320,7 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
 
 /**x
  *  * Okan CIRAN
- * @since 29-03-2016
+ * @since 15-08-2018
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
@@ -388,7 +388,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
 
 /**
  *  * Okan CIRAN
- * @since 13-01-2016
+ * @since 15-08-2018
  */ 
 $app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
@@ -428,7 +428,7 @@ $app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
 
 /**
  *  * Okan CIRAN
- * @since 13-01-2016
+ * @since 15-08-2018
  */ 
 $app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
@@ -477,7 +477,7 @@ $app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
  
 /**
  *  * Okan CIRAN
- * @since 13-01-2016
+ * @since 15-08-2018
  */
 $app->get("/pkDeletedAct_sysaccbodydeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');

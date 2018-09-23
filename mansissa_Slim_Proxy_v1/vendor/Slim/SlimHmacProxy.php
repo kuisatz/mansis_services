@@ -93,12 +93,29 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateMakeActiveOrPassive_sysvehiclegroups' => 'restApiDefaultCall',
         
          //** sysVehicleGtModelsBLL ----------------------//    
-           //**---- sysVehicleGtModelsBLL ------------------- 
+         //**---- sysAccBodyMatrixBLL ------------------- 
         
                                     'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
         
-         //** sysVehicleGtModelsBLL ----------------------//    
+                                    'pkInsertAct_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysaccbodymatrix' => 'restApiDefaultCall',  
+        
+         //** sysAccBodyMatrixBLL ----------------------//    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         

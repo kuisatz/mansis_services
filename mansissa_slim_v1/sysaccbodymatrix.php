@@ -172,7 +172,7 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
 
 /**x
  *  * Okan CIRAN
- * @since 29-03-2016
+ * @since 15-08-2018
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodymatrix/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
@@ -238,6 +238,169 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodymatrix/", function () use ($ap
 }
 );
 
+/**
+ *  * Okan CIRAN
+ * @since 15-08-2018
+ */ 
+$app->get("/pkInsertAct_sysaccbodymatrix/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysAccBodyMatrixBLL');  
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysaccbodymatrix" end point, X-Public variable not found');    
+     $pk =  $headerParams['X-Public'];
+       
+    $supplierId = NULL;
+    if (isset($_GET['supplier_id'])) {
+         $stripper->offsetSet('supplier_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['supplier_id']));
+    } 
+    $vehicleGtModelId = NULL;
+    if (isset($_GET['vehicle_gt_models_id'])) {
+         $stripper->offsetSet('vehicle_gt_models_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_models_id']));
+    } 
+    $accBodyDeffId = NULL;
+    if (isset($_GET['acc_body_deff_id'])) {
+         $stripper->offsetSet('acc_body_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['acc_body_deff_id']));
+    } 
+    $accBodyTypeId = NULL;
+    if (isset($_GET['acc_body_type_id'])) {
+         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['acc_body_type_id']));
+    } 
+    $cost = NULL;
+    if (isset($_GET['cost'])) {
+         $stripper->offsetSet('cost',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost']));
+    } 
+     
+    $stripper->strip(); 
+    if($stripper->offsetExists('supplier_id')) $supplierId = $stripper->offsetGet('supplier_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_models_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue();
+    if($stripper->offsetExists('acc_body_deff_id')) $accBodyDeffId = $stripper->offsetGet('acc_body_deff_id')->getFilterValue();
+    if($stripper->offsetExists('acc_body_type_id')) $accBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('cost')) $cost = $stripper->offsetGet('cost')->getFilterValue();
+          
+    $resDataInsert = $BLL->insertAct(array(
+            'SupplierId' => $supplierId,   
+            'VehicleGtModelId' => $vehicleGtModelId,  
+            'AccBodyDeffId' => $accBodyDeffId, 
+            'AccBodyTypeId' => $accBodyTypeId, 
+            'Cost' => $cost,   
+            'pk' => $pk));
+        
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resDataInsert));
+    
+}
+);
+
+/**
+ *  * Okan CIRAN
+ * @since 15-08-2018
+ */ 
+$app->get("/pkUpdateAct_sysaccbodymatrix/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysAccBodyMatrixBLL');  
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysaccbodymatrix" end point, X-Public variable not found');    
+    $pk = $headerParams['X-Public'];
+    
+    $vId = NULL;
+    if (isset($_GET['id'])) {
+         $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['id']));
+    } 
+   $supplierId = NULL;
+    if (isset($_GET['supplier_id'])) {
+         $stripper->offsetSet('supplier_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['supplier_id']));
+    } 
+    $vehicleGtModelId = NULL;
+    if (isset($_GET['vehicle_gt_models_id'])) {
+         $stripper->offsetSet('vehicle_gt_models_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_models_id']));
+    } 
+    $accBodyDeffId = NULL;
+    if (isset($_GET['acc_body_deff_id'])) {
+         $stripper->offsetSet('acc_body_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['acc_body_deff_id']));
+    } 
+    $accBodyTypeId = NULL;
+    if (isset($_GET['acc_body_type_id'])) {
+         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['acc_body_type_id']));
+    } 
+    $cost = NULL;
+    if (isset($_GET['cost'])) {
+         $stripper->offsetSet('cost',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost']));
+    } 
+     
+    $stripper->strip(); 
+    if($stripper->offsetExists('supplier_id')) $supplierId = $stripper->offsetGet('supplier_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_models_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue();
+    if($stripper->offsetExists('acc_body_deff_id')) $accBodyDeffId = $stripper->offsetGet('acc_body_deff_id')->getFilterValue();
+    if($stripper->offsetExists('acc_body_type_id')) $accBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('cost')) $cost = $stripper->offsetGet('cost')->getFilterValue(); 
+    if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
+     
+          
+    $resDataInsert = $BLL->updateAct(array(
+            'Id' => $vId,   
+            'SupplierId' => $supplierId,   
+            'VehicleGtModelId' => $vehicleGtModelId,  
+            'AccBodyDeffId' => $accBodyDeffId, 
+            'AccBodyTypeId' => $accBodyTypeId, 
+            'Cost' => $cost,   
+            'pk' => $pk));
+        
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resDataInsert));
+    
+}
+);
+ 
+/**
+ *  * Okan CIRAN
+ * @since 15-08-2018
+ */
+$app->get("/pkDeletedAct_sysaccbodymatrix/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
+    $BLL = $app->getBLLManager()->get('sysAccBodyMatrixBLL');   
+    $headerParams = $app->request()->headers();
+    $Pk = $headerParams['X-Public'];  
+    $vId = NULL;
+    if (isset($_GET['id'])) {
+        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['id']));
+    } 
+    $stripper->strip(); 
+    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }  
+    $resDataDeleted = $BLL->deletedAct(array(                  
+            'id' => $vId ,    
+            'pk' => $Pk,        
+            ));
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resDataDeleted));
+}
+); 
 
 
 
