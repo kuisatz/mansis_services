@@ -890,7 +890,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_accessory_options 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
