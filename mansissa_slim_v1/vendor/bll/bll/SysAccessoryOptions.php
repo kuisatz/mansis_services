@@ -96,6 +96,29 @@ class SysAccessoryOptions extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+       /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccOptionsGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsPostgrePDO');
+        $resultSet = $DAL->fillAccOptionsGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccOptionsGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoryOptionsPostgrePDO');
+        $resultSet = $DAL->fillAccOptionsGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    
     /**
      * public key / private key and value update function
      * @param array | null $params
