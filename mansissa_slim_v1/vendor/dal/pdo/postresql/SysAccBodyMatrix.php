@@ -823,7 +823,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         
                          "; 
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $parameters);                
+                  echo debugPDO($sql, $params);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 

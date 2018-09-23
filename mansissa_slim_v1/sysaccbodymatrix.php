@@ -116,7 +116,7 @@ print_r("1111");
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
-    print_r($resDataGrid);
+ 
    print_r("2222");
     $resTotalRowCount = $BLL->fillBodyMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
