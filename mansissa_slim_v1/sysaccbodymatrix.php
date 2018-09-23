@@ -54,7 +54,7 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
         throw new Exception('rest api "pkFillBodyMatrixGridx_sysaccbodymatrix" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
-    $vLanguageCode = 'tr';
+    $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
     } 
@@ -84,18 +84,11 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['lid']));
     }
-    $accBodySuppId= NULL;
-    if (isset($_GET['acc_body_supp_id'])) {
-        $stripper->offsetSet('acc_body_supp_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['acc_body_supp_id']));
-    }
+    
     $vehicleGtModelsId= NULL;
     if (isset($_GET['vehicle_gt_models_id'])) {
         $stripper->offsetSet('vehicle_gt_models_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['vehicle_gt_models_id']));
-    }
-    $accessoryBodyId= NULL;
-    if (isset($_GET['accessory_body_id'])) {
-        $stripper->offsetSet('accessory_body_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['accessory_body_id']));
-    }
+    } 
     $supplierID= NULL;
     if (isset($_GET['supplier_id'])) {
         $stripper->offsetSet('supplier_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['supplier_id']));
@@ -108,9 +101,7 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
-    if ($stripper->offsetExists('acc_body_supp_id'))$accBodySuppId = $stripper->offsetGet('acc_body_supp_id')->getFilterValue();
-    if ($stripper->offsetExists('vehicle_gt_models_id'))$vehicleGtModelsId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue();
-    if ($stripper->offsetExists('accessory_body_id'))$accessoryBodyId = $stripper->offsetGet('accessory_body_id')->getFilterValue();
+    if ($stripper->offsetExists('vehicle_gt_models_id'))$vehicleGtModelsId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue(); 
     if ($stripper->offsetExists('supplier_id'))$supplierID = $stripper->offsetGet('supplier_id')->getFilterValue();
 
     $resDataGrid = $BLL->fillBodyMatrixGridx(array(
@@ -119,10 +110,8 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
         'page' => $vPage,
         'rows' => $vRows,
         'sort' => $vSort,
-        'order' => $vOrder,
-        'AccBodyTypeID' => $accBodySuppId,
-        'VehicleGTmodelsID' => $accBodySuppId,
-        'AccessoryBodyID' => $accBodySuppId,
+        'order' => $vOrder, 
+        'VehicleGTmodelsID' => $vehicleGtModelsId, 
         'SupplierID' => $supplierID,
         'filterRules' => $filterRules,
         'pk' => $pk,
@@ -131,10 +120,8 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
     $resTotalRowCount = $BLL->fillBodyMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid, 
-        'filterRules' => $filterRules,
-        'AccBodyTypeID' => $accBodySuppId,
-        'VehicleGTmodelsID' => $accBodySuppId,
-        'AccessoryBodyID' => $accBodySuppId,
+        'filterRules' => $filterRules, 
+        'VehicleGTmodelsID' => $vehicleGtModelsId, 
         'SupplierID' => $supplierID,
         'pk' => $pk,
     ));

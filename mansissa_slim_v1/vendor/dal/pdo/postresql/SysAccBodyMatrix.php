@@ -525,7 +525,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         switch (trim($std['field'])) {
                             case 'vehicle_gtname':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND vgm.name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND concat (vgt.name ,' - ',vgm.name )" . $sorguExpression . ' ';
                               
                                 break;
                             case 'supplier_name':
@@ -535,7 +535,12 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                                 break; 
                              case 'body_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(bdx.name, ''), bd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(cx.name, ''), c.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'body_deff_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(bx.name, ''), b.name_eng)" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -585,16 +590,11 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             if (isset($params['VehicleGTmodelsID']) && $params['VehicleGTmodelsID'] != "") {
                 $vehicleGtModelsId = $params['VehicleGTmodelsID'];
                 $addSql .="  a.vehicle_gt_models_id  = " . intval($vehicleGtModelsId). "  AND  " ; 
-            }  
-            $accessoryBodyId =0 ;
-            if (isset($params['AccessoryBodyID']) && $params['AccessoryBodyID'] != "") {
-                $accessoryBodyId = $params['AccessoryBodyID'];
-                $addSql .="  bs.accessory_body_id  = " . intval($accessoryBodyId). "  AND  " ; 
-            } 
+            }               
             $supplierID =0 ;
             if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
                 $supplierID = $params['SupplierID'];
-                $addSql .="  bs.supplier_id  = " . intval($supplierID). "  AND  " ; 
+                $addSql .="  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
             } 
 
                 $sql = "  
@@ -602,16 +602,14 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         a.id, 
                         a.act_parent_id as apid,  
                         a.vehicle_gt_models_id , 
-			vgm.name  AS vehicle_gtname,  
-  
-			a.acc_body_supp_id,
-			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,
-			
-			bs.cost, 
-			bs.accessory_body_id ,
-			COALESCE(NULLIF(bdx.name, ''), bd.name_eng) AS body_type_name, 
-                        
-
+			concat (vgt.name ,' - ',vgm.name ) AS vehicle_gtname,  
+			a.supplier_id,
+			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name, 
+			a.cost, 
+			a.acc_body_deff_id ,
+			COALESCE(NULLIF(bx.name, ''), b.name_eng) AS body_deff_name,  
+			a.acc_body_deff_id ,
+			COALESCE(NULLIF(cx.name, ''), c.name_eng) AS body_type_name,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -626,18 +624,23 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_acc_body_matrix a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.show_it =0  
                  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                    INNER JOIN sys_acc_body_matrix bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-		    LEFT JOIN sys_acc_body_matrix bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                    INNER JOIN sys_acc_body_types c ON c.act_parent_id = a.acc_body_type_id AND c.show_it = 0 AND c.language_parent_id =0 AND c.language_id =l.id  
+		    LEFT JOIN sys_acc_body_types cx ON (cx.act_parent_id = c.act_parent_id OR cx.language_parent_id= c.act_parent_id) AND cx.show_it = 0 AND cx.language_id =lx.id  
+		 
+                    INNER JOIN sys_acc_body_deff b ON b.act_parent_id = a.acc_body_deff_id AND b.show_it = 0 AND b.language_parent_id =0 AND b.language_id =l.id  
+		    LEFT JOIN sys_acc_body_deff bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.show_it = 0 AND bx.language_id =lx.id  
+  
                     
-		    INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
-		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
+		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
+		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = s.act_parent_id OR sx.language_parent_id= s.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
   
 		    LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.show_it = 0  
+
+		    LEFT JOIN sys_vehicle_group_types vgt ON vgt.id = vgm.vehicle_group_types_id AND vgt.show_it = 0  
                     
                     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -701,9 +704,9 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                             case 'vehicle_gtname':
+                              case 'vehicle_gtname':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND vgm.name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND concat (vgt.name ,' - ',vgm.name )" . $sorguExpression . ' ';
                               
                                 break;
                             case 'supplier_name':
@@ -713,7 +716,12 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                                 break; 
                              case 'body_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(bdx.name, ''), bd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(cx.name, ''), c.name_eng)" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'body_deff_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND COALESCE(NULLIF(bx.name, ''), b.name_eng)" . $sorguExpression . ' ';
 
                                 break; 
                             case 'op_user_name':
@@ -752,54 +760,52 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-           $accBodySuppId =0 ;
-            if (isset($params['AccBodyTypeID']) && $params['AccBodyTypeID'] != "") {
-                $accBodySuppId = $params['AccBodyTypeID'];
-                $addSql ="  a.acc_body_supp_id  = " . intval($accBodySuppId). "  AND  " ; 
-            }  
-            $vehicleGtModelsId =0 ;
+             $vehicleGtModelsId =0 ;
             if (isset($params['VehicleGTmodelsID']) && $params['VehicleGTmodelsID'] != "") {
                 $vehicleGtModelsId = $params['VehicleGTmodelsID'];
                 $addSql .="  a.vehicle_gt_models_id  = " . intval($vehicleGtModelsId). "  AND  " ; 
-            }  
-            $accessoryBodyId =0 ;
-            if (isset($params['AccessoryBodyID']) && $params['AccessoryBodyID'] != "") {
-                $accessoryBodyId = $params['AccessoryBodyID'];
-                $addSql .="  bs.accessory_body_id  = " . intval($accessoryBodyId). "  AND  " ; 
-            } 
+            }               
             $supplierID =0 ;
             if (isset($params['SupplierID']) && $params['SupplierID'] != "") {
                 $supplierID = $params['SupplierID'];
-                $addSql .="  bs.supplier_id  = " . intval($supplierID). "  AND  " ; 
+                $addSql .="  a.supplier_id  = " . intval($supplierID). "  AND  " ; 
             } 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                            SELECT 
-                                a.id,  
+                           SELECT 
+                                a.id, 
+                               
                                 a.vehicle_gt_models_id , 
-                                vgm.name  AS vehicle_gtname,  
-                                a.acc_body_supp_id,
+                                concat (vgt.name ,' - ',vgm.name ) AS vehicle_gtname,  
+                                a.supplier_id,
                                 COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name, 
-                                bs.cost, 
-                                bs.accessory_body_id ,
-                                COALESCE(NULLIF(bdx.name, ''), bd.name_eng) AS body_type_name,  
+                            
+                                a.acc_body_deff_id ,
+                                COALESCE(NULLIF(bx.name, ''), b.name_eng) AS body_deff_name,  
+                                a.acc_body_deff_id ,
+                                COALESCE(NULLIF(cx.name, ''), c.name_eng) AS body_type_name,   
+                                a.active,
                                 COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                                a.op_user_id,
                                 u.username AS op_user_name 
                             FROM sys_acc_body_matrix a                    
                             INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                            LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
+                            LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.show_it =0  
 
                             INNER JOIN info_users u ON u.id = a.op_user_id 
                             /*----*/
-                            INNER JOIN sys_acc_body_supp bs ON bs.act_parent_id = a.acc_body_supp_id AND bs.show_it = 0   
-                            INNER JOIN sys_acc_body_matrix bd ON bd.act_parent_id = bs.accessory_body_id AND bd.show_it = 0 AND bd.language_parent_id =0 AND bd.language_id =l.id  
-                            LEFT JOIN sys_acc_body_matrix bdx ON (bdx.act_parent_id = bd.act_parent_id OR bdx.language_parent_id= bd.act_parent_id) AND bdx.show_it = 0 AND bdx.language_id =lx.id  
+                            INNER JOIN sys_acc_body_types c ON c.act_parent_id = a.acc_body_type_id AND c.show_it = 0 AND c.language_parent_id =0 AND c.language_id =l.id  
+                            LEFT JOIN sys_acc_body_types cx ON (cx.act_parent_id = c.act_parent_id OR cx.language_parent_id= c.act_parent_id) AND cx.show_it = 0 AND cx.language_id =lx.id  
 
-                            INNER JOIN sys_supplier s ON s.act_parent_id = bs.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
-                            LEFT JOIN sys_supplier sx ON (sx.act_parent_id = bd.act_parent_id OR sx.language_parent_id= bd.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
+                            INNER JOIN sys_acc_body_deff b ON b.act_parent_id = a.acc_body_deff_id AND b.show_it = 0 AND b.language_parent_id =0 AND b.language_id =l.id  
+                            LEFT JOIN sys_acc_body_deff bx ON (bx.act_parent_id = b.act_parent_id OR bx.language_parent_id= b.act_parent_id) AND bx.show_it = 0 AND bx.language_id =lx.id  
+
+
+                            INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id =l.id  
+                            LEFT JOIN sys_supplier sx ON (sx.act_parent_id = s.act_parent_id OR sx.language_parent_id= s.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
 
                             LEFT JOIN sys_vehicle_gt_models vgm ON vgm.act_parent_id = a.vehicle_gt_models_id AND vgm.show_it = 0  
+
+                            LEFT JOIN sys_vehicle_group_types vgt ON vgt.id = vgm.vehicle_group_types_id AND vgt.show_it = 0  
 
                             /*----*/                 
                            /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -807,7 +813,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                             /**/
                           /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                             LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-                    
+
                             WHERE  
                                 a.deleted =0  AND 
                                 a.show_it =0 

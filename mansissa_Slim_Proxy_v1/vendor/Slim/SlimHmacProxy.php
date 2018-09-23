@@ -93,7 +93,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateMakeActiveOrPassive_sysvehiclegroups' => 'restApiDefaultCall',
         
          //** sysVehicleGtModelsBLL ----------------------//    
+           //**---- sysVehicleGtModelsBLL ------------------- 
         
+                                    'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
+        
+         //** sysVehicleGtModelsBLL ----------------------//    
         
         
         
@@ -1606,6 +1611,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break;
             
             
+            case "_sysaccbodymatrix": 
+                $this->setRestApiEndPoint('sysaccbodymatrix.php/');
+                break; 
             case "_sysvehiclegroups": 
                 $this->setRestApiEndPoint('sysvehiclegroups.php/');
                 break; 
