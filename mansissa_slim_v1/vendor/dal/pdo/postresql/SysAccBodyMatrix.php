@@ -208,10 +208,10 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acc_body_matrix  a                          
             WHERE 
-                 vehicle_gt_models_id = " . intval($params['VehicleGtModelId']) . "   AND 
-                 supplier_id = " . intval($params['SupplierId']) . "   AND 
-                 acc_body_deff_id=  " . intval($params['AccBodyDeffId']) . "  AND 
-                 acc_body_type_id= " . intval($params['AccBodyTypeId']) . "   AND 
+                 vehicle_gt_models_id = " . intval($params['vehicle_gt_models_id']) . "   AND 
+                 supplier_id = " . intval($params['supplier_id']) . "   AND 
+                 acc_body_deff_id=  " . intval($params['acc_body_deff_id']) . "  AND 
+                 acc_body_type_id= " . intval($params['acc_body_type_id']) . "   AND 
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
