@@ -491,7 +491,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                 SELECT                    
                     a.act_parent_id AS id, 	
                     a.name AS name,  
-                    a.name_eng AS name_eng,
+                    a.branch_no AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
