@@ -103,7 +103,7 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
     if ($stripper->offsetExists('vehicle_gt_models_id'))$vehicleGtModelsId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue(); 
     if ($stripper->offsetExists('supplier_id'))$supplierID = $stripper->offsetGet('supplier_id')->getFilterValue();
-print_r("1111");
+ 
     $resDataGrid = $BLL->fillBodyMatrixGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
@@ -117,7 +117,7 @@ print_r("1111");
         'pk' => $pk,
     ));
  
-   print_r("2222");
+ 
     $resTotalRowCount = $BLL->fillBodyMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid, 
@@ -127,7 +127,7 @@ print_r("1111");
         'pk' => $pk,
     ));
     $counts=0;
-  print_r("3333");
+ 
     $menu = array();            
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
