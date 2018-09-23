@@ -287,26 +287,26 @@ $app->get("/pkInsertAct_sysaccdeff/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysaccdeff" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vNameBo = NULL;
+    if (isset($_GET['name_bo'])) {
+         $stripper->offsetSet('name_bo',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['name_bo']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vNameSm = NULL;
+    if (isset($_GET['name_sm'])) {
+         $stripper->offsetSet('name_sm',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
-    } 
-     
+                                                $_GET['name_sm']));
+    }
+   
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('name_bo')) $vNameBo = $stripper->offsetGet('name_bo')->getFilterValue(); 
+    if($stripper->offsetExists('name_sm')) $vNameSm = $stripper->offsetGet('name_sm')->getFilterValue();  
           
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'NameBo' => $vNameBo,   
+            'NameSm' => $vNameSm,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -333,29 +333,29 @@ $app->get("/pkUpdateAct_sysaccdeff/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vNameBo = NULL;
+    if (isset($_GET['name_bo'])) {
+         $stripper->offsetSet('name_bo',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['name_bo']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vNameSm = NULL;
+    if (isset($_GET['name_sm'])) {
+         $stripper->offsetSet('name_sm',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
-    } 
-     
+                                                $_GET['name_sm']));
+    }
+   
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('name_bo')) $vNameBo = $stripper->offsetGet('name_bo')->getFilterValue(); 
+    if($stripper->offsetExists('name_sm')) $vNameSm = $stripper->offsetGet('name_sm')->getFilterValue();  
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'NameBo' => $vNameBo,   
+            'NameSm' => $vNameSm,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

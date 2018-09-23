@@ -1043,10 +1043,9 @@ class SysAccDeff extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name_sm' => $nameSm,
-                            'name_sm_eng' => $nameSmEng,
+                            'name_sm' => $nameSm, 
                             'name_bo' => $nameBo,
-                            'name_bo_eng' => $nameBoEng, 
+                            
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
