@@ -96,6 +96,29 @@ class SysBranchesDealersDeff extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+       /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillBranchesDealersDeffGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysBranchesDealersDeffPostgrePDO');
+        $resultSet = $DAL->fillBranchesDealersDeffGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillBranchesDealersDeffGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBranchesDealersDeffPostgrePDO');
+        $resultSet = $DAL->fillBranchesDealersDeffGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    
     /**
      * public key / private key and value update function
      * @param array | null $params
