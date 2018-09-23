@@ -1179,6 +1179,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                     $insertID = $pdo->lastInsertId('sys_accessory_options_id_seq');
                     $affectedRows = $statementInsert->rowCount();
                     $errorInfo = $statementInsert->errorInfo();
+                    print_r($errorInfo) ; 
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
 
