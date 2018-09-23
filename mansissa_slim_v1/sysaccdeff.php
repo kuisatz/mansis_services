@@ -88,11 +88,7 @@ $app->get("/pkAccDeffSalesmanDdList_sysaccdeff/", function () use ($app ) {
             "value" =>  intval($flow["id"]),
             "selected" => false,
             "description" => $flow["name_eng"],
-            "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            "imageSrc"=>"",   
         );
     }
     $app->response()->header("Content-Type", "application/json");

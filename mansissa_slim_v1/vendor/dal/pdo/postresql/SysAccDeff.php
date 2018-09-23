@@ -499,30 +499,7 @@ class SysAccDeff extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
               
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM ( 
-
-                SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
+            $statement = $pdo->prepare("    
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name_sm, ''), a.name_sm_eng) AS name,  
@@ -537,10 +514,8 @@ class SysAccDeff extends \DAL\DalSlim {
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
-
+                    a.language_parent_id =0  
+                ORDER BY  id  
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
@@ -553,7 +528,7 @@ class SysAccDeff extends \DAL\DalSlim {
         }
     }
     
-     /** 
+    /** 
      * @author Okan CIRAN
      * @ backoffice in göreceği aksesuar tanımları dropdown ya da tree ye doldurmak için sys_acc_deff tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -577,29 +552,7 @@ class SysAccDeff extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
               
-            $statement = $pdo->prepare("       
-
-            SELECT * FROM ( 
-
-                SELECT                    
-                   0 AS id, 	
-                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
-                    a.description_eng AS name_eng,
-                    0 as parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_specific_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
-                WHERE                     
-                    a.main_group = 31 AND   
-                    a.first_group = 1 AND                   
-                    a.deleted = 0 AND
-                    a.language_parent_id =0 
-                 
-                UNION 
-
+            $statement = $pdo->prepare("  
                 SELECT                    
                     a.act_parent_id AS id, 	
                     COALESCE(NULLIF(sd.name_bo, ''), a.name_bo_eng) AS name,  
@@ -613,10 +566,8 @@ class SysAccDeff extends \DAL\DalSlim {
                 LEFT JOIN sys_acc_deff sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
                 WHERE   
                     a.deleted = 0 AND
-                    a.language_parent_id =0 
-                    ) asd 
-                ORDER BY  id 
-
+                    a.language_parent_id =0  
+                ORDER BY  id  
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 

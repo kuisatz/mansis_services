@@ -108,7 +108,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkAccBodyTypesDdList_sysaccbodytypes' => 'restApiDefaultCall', 
          //** sysAccBodyTypesBLL ----------------------//    
         
+           //**---- sysAccBodyMatrixBLL ------------------- 
+                                    'pkAccDeffSalesmanDdList_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkAccDeffBackOfficeDdList_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
         
+                                    'pkInsertAct_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysaccbodymatrix' => 'restApiDefaultCall',  
+        
+         //** sysAccBodyMatrixBLL ----------------------//    
         
         
         
@@ -1627,12 +1637,16 @@ class SlimHmacProxy extends \Proxy\Proxy {
         switch ($endPoint) {
             case "_test":
                 echo "_test!";
-                break;
-            
-            
-            case "_sysaccbodytypes": 
-                $this->setRestApiEndPoint('sysaccbodytypes.php/');
                 break; 
+            
+            
+            
+            case "_sysaccdeff": 
+                $this->setRestApiEndPoint('sysaccdeff.php/');
+                break; 
+             case "_sysaccbodytypes": 
+                $this->setRestApiEndPoint('sysaccbodytypes.php/');
+                break;
              case "_sysaccbodymatrix": 
                 $this->setRestApiEndPoint('sysaccbodymatrix.php/');
                 break; 
