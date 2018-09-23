@@ -866,7 +866,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]); 
-            print_r( "11111");
+                              
             return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
         } catch (\PDOException $e /* Exception $e */) { 
             return array("found" => false, "errorInfo" => $e->getMessage());
@@ -930,7 +930,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                 $errorInfo = $statementInsert->errorInfo();
                 if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                print_r( "22222");
+                              
                 $pdo->commit();
                 return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
             } else {

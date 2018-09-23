@@ -104,7 +104,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysAccBodyMatrixBLL ----------------------//    
         
-        
+          //**---- sysAccBodyTypesBLL -------------------  
+                                    'pkAccBodySuppDdList_sysaccbodytypes' => 'restApiDefaultCall', 
+         //** sysAccBodyTypesBLL ----------------------//    
         
         
         
@@ -1628,7 +1630,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break;
             
             
-            case "_sysaccbodymatrix": 
+            case "_sysaccbodytypes": 
+                $this->setRestApiEndPoint('sysaccbodytypes.php/');
+                break; 
+             case "_sysaccbodymatrix": 
                 $this->setRestApiEndPoint('sysaccbodymatrix.php/');
                 break; 
             case "_sysvehiclegroups": 
