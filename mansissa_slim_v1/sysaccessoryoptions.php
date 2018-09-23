@@ -177,8 +177,7 @@ $app->get("/pkFillAccOptionsGridx_sysaccessoryoptions/", function () use ($app )
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
-                "acc_body_type_id" => $menu["acc_body_type_id"], 
-                "body_type_name" => html_entity_decode($menu["body_type_name"]),   
+               
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
