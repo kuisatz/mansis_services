@@ -1165,8 +1165,8 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,    
-                    " . ($nameEng) . " AS name_eng,  
+                    '" . ($name) . "' AS name,    
+                    '" . ($nameEng) . "' AS name_eng,  
                    
                     language_id,
                     language_parent_id ,
