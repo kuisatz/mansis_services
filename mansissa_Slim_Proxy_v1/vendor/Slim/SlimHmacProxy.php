@@ -133,15 +133,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
               
          //**---- sysBbContractTypesBLL ------------------- 
                                     'pkBbContractTypesDdList_sysbbcontracttypes' => 'restApiDefaultCall', 
-                                    'pkFillAccOptionsGridx_sysbbcontracttypes' => 'restApiDefaultCall',
-                                    'pkUpdateMakeActiveOrPassive_sysbbcontracttypes' => 'restApiDefaultCall',
-        
-                                    'pkInsertAct_sysbbcontracttypes' => 'restApiDefaultCall',
-                                    'pkUpdateAct_sysbbcontracttypes' => 'restApiDefaultCall',
-                                    'pkDeletedAct_sysbbcontracttypes' => 'restApiDefaultCall',  
-        
+            
          //** sysBbContractTypesBLL ----------------------//    
+           //**---- sysBranchesDealersDeffBLL ------------------- 
+                                    'pkBranchesDealersDeffDdList_sysbranchesdealersdeff' => 'restApiDefaultCall', 
+                                    'pkFillAccOptionsGridx_sysbranchesdealersdeff' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysbranchesdealersdeff' => 'restApiDefaultCall',
         
+                                    'pkInsertAct_sysbranchesdealersdeff' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysbranchesdealersdeff' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysbranchesdealersdeff' => 'restApiDefaultCall',  
+        
+         //** sysBranchesDealersDeffBLL ----------------------//    
         
         
         
@@ -1658,9 +1661,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysbranchesdealersdeff": 
+                $this->setRestApiEndPoint('sysbranchesdealersdeff.php/');
+                break; 
             case "_sysbbcontracttypes": 
                 $this->setRestApiEndPoint('sysbbcontracttypes.php/');
-                break; 
+                break;
             case "_sysaccessoryoptions": 
                 $this->setRestApiEndPoint('sysaccessoryoptions.php/');
                 break; 

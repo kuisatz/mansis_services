@@ -1169,8 +1169,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
-            } else {
-                print_r("zxzx") ;
+            } else {    
                 throw new \PDOException($errorInfo[0]);
             }
 
