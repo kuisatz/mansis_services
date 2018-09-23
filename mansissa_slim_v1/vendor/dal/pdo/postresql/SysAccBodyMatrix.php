@@ -211,7 +211,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                  vehicle_gt_models_id = " . intval($params['vehicle_gt_models_id']) . "   AND 
                  supplier_id = " . intval($params['supplier_id']) . "   AND 
                  acc_body_deff_id=  " . intval($params['acc_body_deff_id']) . "  AND 
-                 acc_body_type_id= " . intval($params['acc_body_type_id']) . "   AND 
+                 acc_body_type_id= " . intval($params['acc_body_type_id']) . "    
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
@@ -1015,7 +1015,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_acc_body_matrix_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    echo debugPDO($sql, $params);
+                    //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
