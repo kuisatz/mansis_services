@@ -109,7 +109,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysAccBodyTypesBLL ----------------------//    
         
            //**---- sysAccDeffBLL ------------------- 
-                                    'pkAccessoryOptionsDdList_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkAccDeffSalesmanDdList_sysaccdeff' => 'restApiDefaultCall',
                                     'pkAccDeffBackOfficeDdList_sysaccdeff' => 'restApiDefaultCall',
                                     'pkFillAccDeffGridx_sysaccdeff' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysaccdeff' => 'restApiDefaultCall',
@@ -122,7 +122,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
          //**---- sysAccessoryOptionsBLL ------------------- 
                                     'pkAccessoryOptionsDdList_sysaccessoryoptions' => 'restApiDefaultCall', 
-                                    'pkFillAccDeffGridx_sysaccessoryoptions' => 'restApiDefaultCall',
+                                    'pkFillAccOptionsGridx_sysaccessoryoptions' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysaccessoryoptions' => 'restApiDefaultCall',
         
                                     'pkInsertAct_sysaccessoryoptions' => 'restApiDefaultCall',
