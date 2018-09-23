@@ -895,7 +895,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
 
                 $this->makePassive(array('id' => $params['id']));
 
-                $statementInsert = $pdo->prepare(" 
+                $sql = "
                     INSERT INTO sys_acc_body_matrix (
                         vehicle_gt_models_id,
                         supplier_id,
@@ -923,8 +923,8 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_acc_body_matrix 
                     WHERE id  =" . intval($params['id']) . "  
-                    )");
-
+                     " ;
+                $statementInsert = $pdo->prepare($sql);
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
