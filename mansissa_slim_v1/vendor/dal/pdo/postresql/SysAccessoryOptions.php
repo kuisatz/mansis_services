@@ -1157,8 +1157,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                 INSERT INTO sys_accessory_options (  
                         name,
                         name_eng, 
-                        
-                        priority,
+                         
                         language_id,
                         language_parent_id,
                         op_user_id,
@@ -1167,8 +1166,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                 SELECT  
                     " . ($name) . " AS name,    
                     " . ($nameEng) . " AS name_eng,  
-                     
-                    priority,
+                   
                     language_id,
                     language_parent_id ,
                     " . intval($opUserIdValue) . " AS op_user_id,  
