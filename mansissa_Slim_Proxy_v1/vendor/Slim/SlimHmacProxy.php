@@ -130,7 +130,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_sysaccessoryoptions' => 'restApiDefaultCall',  
         
          //** sysAccessoryOptionsBLL ----------------------//    
-         
+              
+         //**---- sysBbContractTypesBLL ------------------- 
+                                    'pkBbContractTypesDdList_sysbbcontracttypes' => 'restApiDefaultCall', 
+                                    'pkFillAccOptionsGridx_sysbbcontracttypes' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysbbcontracttypes' => 'restApiDefaultCall',
+        
+                                    'pkInsertAct_sysbbcontracttypes' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysbbcontracttypes' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysbbcontracttypes' => 'restApiDefaultCall',  
+        
+         //** sysBbContractTypesBLL ----------------------//    
         
         
         
@@ -1648,16 +1658,19 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysbbcontracttypes": 
+                $this->setRestApiEndPoint('sysbbcontracttypes.php/');
+                break; 
             case "_sysaccessoryoptions": 
                 $this->setRestApiEndPoint('sysaccessoryoptions.php/');
                 break; 
             case "_sysaccdeff": 
                 $this->setRestApiEndPoint('sysaccdeff.php/');
                 break; 
-             case "_sysaccbodytypes": 
+            case "_sysaccbodytypes": 
                 $this->setRestApiEndPoint('sysaccbodytypes.php/');
                 break;
-             case "_sysaccbodymatrix": 
+            case "_sysaccbodymatrix": 
                 $this->setRestApiEndPoint('sysaccbodymatrix.php/');
                 break; 
             case "_sysvehiclegroups": 
