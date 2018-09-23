@@ -608,7 +608,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
 			a.cost, 
 			a.acc_body_deff_id ,
 			COALESCE(NULLIF(bx.name, ''), b.name_eng) AS body_deff_name,  
-			a.acc_body_deff_id ,
+			a.acc_body_type_id ,
 			COALESCE(NULLIF(cx.name, ''), c.name_eng) AS body_type_name,   
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -782,7 +782,7 @@ class SysAccBodyMatrix extends \DAL\DalSlim {
                             
                                 a.acc_body_deff_id ,
                                 COALESCE(NULLIF(bx.name, ''), b.name_eng) AS body_deff_name,  
-                                a.acc_body_deff_id ,
+                                a.acc_body_type_id ,
                                 COALESCE(NULLIF(cx.name, ''), c.name_eng) AS body_type_name,   
                                 a.active,
                                 COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 

@@ -142,6 +142,9 @@ $app->get("/pkFillBodyMatrixGridx_sysaccbodymatrix/", function () use ($app ) {
                 "supplier_id" => $menu["supplier_id"],   
                 "cost" => $menu["cost"],   
                 "acc_body_deff_id" => $menu["acc_body_deff_id"],   
+                "acc_body_type_id" => $menu["acc_body_type_id"], 
+                
+                
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]),
                 "active" => $menu["active"],   
