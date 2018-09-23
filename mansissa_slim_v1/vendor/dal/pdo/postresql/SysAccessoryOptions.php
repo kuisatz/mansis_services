@@ -895,7 +895,8 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
-
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
                 $pdo->commit();
                 return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
             } else {
@@ -1153,7 +1154,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
 
                     $this->makePassive(array('id' => $params['Id']));
 
-                    $statementInsert = $pdo->prepare("
+                     $sql = "
                 INSERT INTO sys_accessory_options (  
                         name,
                         name_eng, 
@@ -1174,12 +1175,13 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                 FROM sys_accessory_options 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
-                                                ");
+                                                "  ;
+                    $statementInsert = $pdo->prepare($sql);
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_accessory_options_id_seq');
                     $affectedRows = $statementInsert->rowCount();
                     $errorInfo = $statementInsert->errorInfo();
-                    print_r($errorInfo) ; 
+                            
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
 
@@ -1198,7 +1200,7 @@ class SysAccessoryOptions extends \DAL\DalSlim {
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
         } catch (\PDOException $e /* Exception $e */) {
-            // $pdo->rollback();
+            $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
