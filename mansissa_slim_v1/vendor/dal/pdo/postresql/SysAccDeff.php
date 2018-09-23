@@ -1206,6 +1206,7 @@ class SysAccDeff extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $errorInfo[0] = "99999";
+            $languageIdValue= 385;
             $nameSm = null;
             if ((isset($params['NameSm']) && $params['NameSm'] != "")) {
                 $nameSm = $params['NameSm'];
@@ -1236,6 +1237,12 @@ class SysAccDeff extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+                               
+                ////*********///// 2    
+            if ($languageIdValue == 385 )  
+                 {$nameSmEng = $nameSm; 
+                    $nameBoEng = $nameBo;} 
+                ////*********///// 2        
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
