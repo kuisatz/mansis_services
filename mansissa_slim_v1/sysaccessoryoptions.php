@@ -89,10 +89,7 @@ $app->get("/pkAccessoryOptionsDdList_sysaccessoryoptions/", function () use ($ap
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+          
         );
     }
     $app->response()->header("Content-Type", "application/json");

@@ -109,7 +109,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysAccBodyTypesBLL ----------------------//    
         
            //**---- sysAccDeffBLL ------------------- 
-                                    'pkAccDeffSalesmanDdList_sysaccdeff' => 'restApiDefaultCall',
+                                    'pkAccessoryOptionsDdList_sysaccdeff' => 'restApiDefaultCall',
                                     'pkAccDeffBackOfficeDdList_sysaccdeff' => 'restApiDefaultCall',
                                     'pkFillAccDeffGridx_sysaccdeff' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysaccdeff' => 'restApiDefaultCall',
@@ -119,11 +119,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_sysaccdeff' => 'restApiDefaultCall',  
         
          //** sysAccDeffBLL ----------------------//    
+            
+         //**---- sysAccessoryOptionsBLL ------------------- 
+                                    'pkAccessoryOptionsDdList_sysaccessoryoptions' => 'restApiDefaultCall', 
+                                    'pkFillAccDeffGridx_sysaccessoryoptions' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysaccessoryoptions' => 'restApiDefaultCall',
         
+                                    'pkInsertAct_sysaccessoryoptions' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysaccessoryoptions' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysaccessoryoptions' => 'restApiDefaultCall',  
         
-        
-        
-        
+         //** sysAccessoryOptionsBLL ----------------------//    
+         
         
         
         
@@ -1641,6 +1648,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysaccessoryoptions": 
+                $this->setRestApiEndPoint('sysaccessoryoptions.php/');
+                break; 
             case "_sysaccdeff": 
                 $this->setRestApiEndPoint('sysaccdeff.php/');
                 break; 
