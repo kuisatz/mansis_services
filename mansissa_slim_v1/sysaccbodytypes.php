@@ -47,7 +47,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 05.05.2016
  */
-$app->get("/pkAccBodySuppDdList_sysaccbodytypes/", function () use ($app ) {
+$app->get("/pkAccBodyTypesDdList_sysaccbodytypes/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysAccBodyTypesBLL');
@@ -57,7 +57,7 @@ $app->get("/pkAccBodySuppDdList_sysaccbodytypes/", function () use ($app ) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkAccBodySuppDdList_sysaccbodytypes" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkAccBodyTypesDdList_sysaccbodytypes" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';

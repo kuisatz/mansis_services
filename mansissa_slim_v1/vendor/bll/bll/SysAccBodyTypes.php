@@ -102,9 +102,9 @@ class SysAccBodyTypes extends \BLL\BLLSlim{
      * @param array $params
      * @return array 
     */
-    public function accBodySuppDdList($params = array()) {
+    public function accBodyTypesDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysAccBodyTypesPostgrePDO');
-        $resultSet = $DAL->accBodySuppDdList($params);
+        $resultSet = $DAL->accBodyTypesDdList($params);
         return $resultSet['resultSet'];
     }
     

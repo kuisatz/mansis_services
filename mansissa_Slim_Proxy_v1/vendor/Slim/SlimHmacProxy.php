@@ -105,7 +105,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysAccBodyMatrixBLL ----------------------//    
         
           //**---- sysAccBodyTypesBLL -------------------  
-                                    'pkAccBodySuppDdList_sysaccbodytypes' => 'restApiDefaultCall', 
+                                    'pkAccBodyTypesDdList_sysaccbodytypes' => 'restApiDefaultCall', 
          //** sysAccBodyTypesBLL ----------------------//    
         
         
