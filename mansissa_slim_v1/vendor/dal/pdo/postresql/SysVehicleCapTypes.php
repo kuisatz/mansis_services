@@ -746,7 +746,7 @@ class SysVehicleCapTypes extends \DAL\DalSlim {
                             a.id, 
                             a.name AS name,  
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name,  
+                            u.username AS op_user_name
                         FROM sys_vehicle_cap_types a                    
                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
