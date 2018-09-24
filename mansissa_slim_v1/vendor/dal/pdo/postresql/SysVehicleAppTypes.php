@@ -1161,7 +1161,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_app_types (  
