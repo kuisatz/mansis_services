@@ -889,7 +889,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicle_group_types 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -989,7 +989,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
         }
     }
 
-      /**
+    /**
      * @author Okan CIRAN
      * sys_vehicle_group_types tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  26.08.2018
@@ -1037,7 +1037,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_group_types (  

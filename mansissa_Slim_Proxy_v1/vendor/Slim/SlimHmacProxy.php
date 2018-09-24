@@ -87,6 +87,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
                                     'pkVehicleGroupTypesDdList_sysvehiclegrouptypes' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysvehiclegrouptypes' => 'restApiDefaultCall',
+                                    'pkFillVehicleGroupTypesGridx_sysvehiclegrouptypes' => 'restApiDefaultCall',
+                                    
+                                    'pkInsertAct_sysvehiclegrouptypes' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysvehiclegrouptypes' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysvehiclegrouptypes' => 'restApiDefaultCall', 
         
          //** sysVehicleGroupTypesBLL ----------------------//    
         
