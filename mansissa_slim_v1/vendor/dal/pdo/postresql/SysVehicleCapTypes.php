@@ -994,7 +994,7 @@ class SysVehicleCapTypes extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,    
+                    '" . ($name) . "' AS name,    
                       
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
