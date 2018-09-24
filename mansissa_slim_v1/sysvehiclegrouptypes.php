@@ -306,7 +306,7 @@ $app->get("/pkInsertAct_sysvehiclegrouptypes/", function () use ($app ) {
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $VehicleGroupsId = $stripper->offsetGet('vehicle_groups_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_groups_id')) $VehicleGroupsId = $stripper->offsetGet('vehicle_groups_id')->getFilterValue();
           
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
