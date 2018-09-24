@@ -989,17 +989,13 @@ class SysVehicleCapTypes extends \DAL\DalSlim {
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_cap_types (  
                         name,
-                         
-                        language_id,
-                        language_parent_id,
+                          
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     " . ($name) . " AS name,    
-                     
-                    language_id,
-                    language_parent_id ,
+                      
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_vehicle_cap_types 
