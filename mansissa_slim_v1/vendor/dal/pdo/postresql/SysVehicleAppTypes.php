@@ -902,7 +902,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicle_app_types 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1175,8 +1175,8 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,    
-                    " . ($nameEng) . " AS name_eng,  
+                    '" . ($name) . "' AS name,    
+                    '" . ($nameEng) . "' AS name_eng,  
                      
                     priority,
                     language_id,
@@ -1188,7 +1188,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                     language_id = 385 AND id  =" . intval($Id) . "                  
                                                 " ;
                     $statementInsert = $pdo->prepare($sql);
-                    echo debugPDO($sql, $params);
+                  //  echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_vehicle_app_types_id_seq');
                     $affectedRows = $statementInsert->rowCount();
