@@ -337,8 +337,7 @@ $app->get("/pkUpdateAct_sysvehiclecaptypes/", function () use ($app ) {
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'Name' => $vName,    
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
