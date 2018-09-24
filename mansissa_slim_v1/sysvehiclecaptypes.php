@@ -104,7 +104,7 @@ $app->get("/pkVehicleCapTypesDdList_sysvehiclecaptypes/", function () use ($app 
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillVehicleCapTypesGridx_sysvehicleapptypes/", function () use ($app ) {
+$app->get("/pkFillVehicleCapTypesGridx_sysvehiclecaptypes/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysVehicleCapTypesBLL');
