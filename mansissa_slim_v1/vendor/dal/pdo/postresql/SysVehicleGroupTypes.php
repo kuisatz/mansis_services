@@ -1043,20 +1043,14 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
                 INSERT INTO sys_vehicle_group_types (  
                         name, 
                         vehicle_groups_id,
-                        
-                        priority,
-                        language_id,
-                        language_parent_id,
+                         
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     '" . $name . "', 
                     " . intval($vehicleGroupId) . ",
-                     
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                      
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_vehicle_group_types 
