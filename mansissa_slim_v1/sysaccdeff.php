@@ -148,7 +148,7 @@ $app->get("/pkAccDeffBackOfficeDdList_sysaccdeff/", function () use ($app ) {
  * @since 15-08-2018
  */ 
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccdeff/", function () use ($app ) {
-    print_r("978987");
+  
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('sysAccDeffBLL');
