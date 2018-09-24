@@ -337,6 +337,12 @@ $app->get("/pkUpdateAct_sysvehiclegrouptypes/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
+     $vName = NULL;
+    if (isset($_GET['name'])) {
+         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['name']));
+    }  
     $VehicleGroupsId = NULL;
     if (isset($_GET['vehicle_groups_id'])) {
          $stripper->offsetSet('vehicle_groups_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
