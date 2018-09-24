@@ -777,7 +777,7 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
                             a.vehicle_groups_id,
                             b.name AS vehicle_group_name,
                             a.name AS name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active 
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_vehicle_group_types a                    
                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
