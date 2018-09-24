@@ -645,8 +645,7 @@ class SysVehicleCapTypes extends \DAL\DalSlim {
                     
                     WHERE  
                         a.deleted =0 AND
-                        a.show_it =0 AND 
-                        a.language_parent_id =0 
+                        a.show_it =0 
                      
                 " . $addSql . "
                 " . $sorguStr . " 
