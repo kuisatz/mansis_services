@@ -841,7 +841,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id or language_parent_id = :id");
+                WHERE id = :id ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -1163,7 +1163,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
 
                     $this->makePassive(array('id' => $params['Id']));
 
-                    $statementInsert = $pdo->prepare("
+                     $sql = "
                 INSERT INTO sys_vehicle_app_types (  
                         name,
                         name_eng,
@@ -1186,7 +1186,9 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                 FROM sys_vehicle_app_types 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
-                                                ");
+                                                " ;
+                    $statementInsert = $pdo->prepare($sql);
+                    echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_vehicle_app_types_id_seq');
                     $affectedRows = $statementInsert->rowCount();
