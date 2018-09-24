@@ -60,9 +60,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateMakeActiveOrPassive_sysvehiclecaptypes' => 'restApiDefaultCall',
                                     'pkFillVehicleCapTypesGridx_sysvehiclecaptypes' => 'restApiDefaultCall',
                                     
-                                    'pkInsertAct_sysvehicleapptypes' => 'restApiDefaultCall',
-                                    'pkUpdateAct_sysvehicleapptypes' => 'restApiDefaultCall',
-                                    'pkDeletedAct_sysvehicleapptypes' => 'restApiDefaultCall',      
+                                    'pkInsertAct_sysvehiclecaptypes' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysvehiclecaptypes' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysvehiclecaptypes' => 'restApiDefaultCall',      
         
          //** sysvehiclecaptypesBLL ----------------------// 
         
