@@ -1000,10 +1000,10 @@ class SysVehicleCapTypes extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_vehicle_cap_types 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 " ;
                     $statementInsert = $pdo->prepare($sql);
-                    echo debugPDO($sql, $params);
+                   // echo debugPDO($sql, $params);
                     $result = $statementInsert->execute(); 
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
