@@ -1198,9 +1198,7 @@ class SysVehicleAppTypes extends \DAL\DalSlim {
                     $affectedRows = $statementInsert->rowCount();
                     if ($affectedRows> 0 ){
                     $insertID = $pdo->lastInsertId('sys_vehicle_app_types_id_seq');}
-                    else $insertID =0 ; 
-                  
-                    
+                    else $insertID =0 ;   
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
