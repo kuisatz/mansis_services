@@ -705,7 +705,7 @@ class SysWarranties extends \DAL\DalSlim {
                         a.id, 
                         a.act_parent_id as apid, 
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
+		 
                         a.vehicle_group_id , 
                         erd.name as vehicle_group_name, 
                       /*  a.name_eng, */ 
@@ -729,9 +729,7 @@ class SysWarranties extends \DAL\DalSlim {
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-                    
+		      
                     INNER JOIN sys_vehicle_groups erd ON drd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
 		     
                     /*----*/   

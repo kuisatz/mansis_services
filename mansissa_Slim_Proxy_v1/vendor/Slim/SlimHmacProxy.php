@@ -161,7 +161,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
                                     'pkWarrantyTypesDdList_syswarrantytypes' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_syswarrantytypes' => 'restApiDefaultCall',
-                                    'pkFillVehicleModelVariantsGridx_syswarrantytypes' => 'restApiDefaultCall',
+                                    'pkFillWarrantiesGridx_syswarrantytypes' => 'restApiDefaultCall',
                                     
                                     'pkInsertAct_syswarrantytypes' => 'restApiDefaultCall',
                                     'pkUpdateAct_syswarrantytypes' => 'restApiDefaultCall',
