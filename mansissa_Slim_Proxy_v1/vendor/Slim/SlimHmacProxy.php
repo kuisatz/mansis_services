@@ -123,7 +123,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
                                     'pkVehicleModelVariantsDdList_sysvehiclemodelvariants' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysvehiclemodelvariants' => 'restApiDefaultCall',
-                                    'pkFillAccBodyDeffGridx_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    'pkFillVehicleModelVariantsGridx_sysvehiclemodelvariants' => 'restApiDefaultCall',
                                     
                                     'pkInsertAct_sysvehiclemodelvariants' => 'restApiDefaultCall',
                                     'pkUpdateAct_sysvehiclemodelvariants' => 'restApiDefaultCall',
