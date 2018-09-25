@@ -355,7 +355,13 @@ $app->get("/pkUpdateAct_sysvehiclegtmodels/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-     $vModelDescription = NULL;
+     $vName = NULL;
+    if (isset($_GET['name'])) {
+         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['name']));
+    }  
+    $vModelDescription = NULL;
     if (isset($_GET['model_description'])) {
          $stripper->offsetSet('model_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
