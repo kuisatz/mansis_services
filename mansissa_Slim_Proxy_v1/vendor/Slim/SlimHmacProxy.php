@@ -119,7 +119,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysvehiclegroupsBLL ----------------------//    
             
-            //**---- sysVehicleModelVariantsBLL ------------------- 
+        //**---- sysVehicleModelVariantsBLL ------------------- 
         
                                     'pkVehicleModelVariantsDdList_sysvehiclemodelvariants' => 'restApiDefaultCall',
                                     'pkUpdateMakeActiveOrPassive_sysvehiclemodelvariants' => 'restApiDefaultCall',
@@ -132,6 +132,34 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysVehicleModelVariantsBLL ----------------------//      
             
             
+        //**---- sysVehiclesEndgroupsBLL ------------------- 
+        
+                                    'pkVehiclesEndgroupsCostDdList_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkVehiclesEndgroupsBbDdList_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkFillVehicleModelVariantsGridx_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    
+                                    'pkInsertAct_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysvehiclesendgroups' => 'restApiDefaultCall', 
+        
+         //** sysVehiclesEndgroupsBLL ----------------------//      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
             
          //**---- sysAccBodyMatrixBLL ------------------- 
         
@@ -1701,6 +1729,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysvehiclesendgroups": 
+                $this->setRestApiEndPoint('sysvehiclesendgroups.php/');
+                break; 
             case "_sysvehiclemodelvariants": 
                 $this->setRestApiEndPoint('sysvehiclemodelvariants.php/');
                 break; 

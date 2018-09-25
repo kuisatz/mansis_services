@@ -1027,13 +1027,16 @@ class SysVehicleModelVariants extends \DAL\DalSlim {
                 WHERE 
                      id  =" . intval($Id) . "                  
                                                 ");
-                    $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_vehicle_model_variants_id_seq');
-                    $affectedRows = $statementInsert->rowCount();
+                    $result = $statementInsert->execute(); 
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-
+                    
+                    $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('sys_vehicle_model_variants_id_seq');}
+                    else $insertID =0 ;    
+                    
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
