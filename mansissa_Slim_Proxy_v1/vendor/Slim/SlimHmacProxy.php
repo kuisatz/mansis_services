@@ -148,17 +148,26 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //**---- sysWarrantiesBLL ------------------- 
             
                                     'pkWarrantiesParentsDdList_syswarranties' => 'restApiDefaultCall',
-                                    'pkUpdateMakeActiveOrPassive_syswarrantie' => 'restApiDefaultCall',
-                                    'pkFillVehicleModelVariantsGridx_syswarrantie' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_syswarranties' => 'restApiDefaultCall',
+                                    'pkFillVehicleModelVariantsGridx_syswarranties' => 'restApiDefaultCall',
                                     
-                                    'pkInsertAct_syswarrantie' => 'restApiDefaultCall',
-                                    'pkUpdateAct_syswarrantie' => 'restApiDefaultCall',
-                                    'pkDeletedAct_syswarrantie' => 'restApiDefaultCall', 
+                                    'pkInsertAct_syswarranties' => 'restApiDefaultCall',
+                                    'pkUpdateAct_syswarranties' => 'restApiDefaultCall',
+                                    'pkDeletedAct_syswarranties' => 'restApiDefaultCall', 
         
          //** sysWarrantiesBLL ----------------------//       
+            
+           //**---- sysWarrantyTypesBLL ------------------- 
+            
+                                    'pkWarrantyTypesDdList_syswarrantytypes' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_syswarrantytypes' => 'restApiDefaultCall',
+                                    'pkFillVehicleModelVariantsGridx_syswarrantytypes' => 'restApiDefaultCall',
+                                    
+                                    'pkInsertAct_syswarrantytypes' => 'restApiDefaultCall',
+                                    'pkUpdateAct_syswarrantytypes' => 'restApiDefaultCall',
+                                    'pkDeletedAct_syswarrantytypes' => 'restApiDefaultCall', 
         
-        
-        
+         //** sysWarrantyTypesBLL ----------------------//       
         
         
         
@@ -1740,9 +1749,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syswarrantytypes": 
+                $this->setRestApiEndPoint('syswarrantytypes.php/');
+                break;  
             case "_syswarranties": 
                 $this->setRestApiEndPoint('syswarranties.php/');
-                break;  
+                break; 
             case "_sysvehiclesendgroups": 
                 $this->setRestApiEndPoint('sysvehiclesendgroups.php/');
                 break; 
