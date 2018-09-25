@@ -962,8 +962,7 @@ class SysWarranties extends \DAL\DalSlim {
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO sys_warranties (
                         name,
-                        name_eng,
-                        parent_id,
+                        name_eng, 
                         vehicle_group_id,
                         
                         language_id,
@@ -976,8 +975,7 @@ class SysWarranties extends \DAL\DalSlim {
                         )
                     SELECT
                         name,
-                        name_eng,
-                        parent_id,
+                        name_eng, 
                         vehicle_group_id,
                         
                         language_id,
@@ -989,7 +987,7 @@ class SysWarranties extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_warranties 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1059,14 +1057,7 @@ class SysWarranties extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $parentId = -1111;
-            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
-                $parentId = intval($params['ParentId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-                            
-                ////*********///// 2   
+                 ////*********///// 2   
             if ($languageIdValue != 385 )  
                  {$nameTemp = $name;  }     else  {$nameEng = $name;  }
                 ////*********///// 2          
@@ -1078,18 +1069,16 @@ class SysWarranties extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name,
+                            'name' => $name, 
                             'vehicle_group_id' => $vehicleGroupId,
-                            'parent_id' => $parentId
+                            
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_warranties(
                             name, 
                             name_eng, 
-                            vehicle_group_id, 
-                            parent_id, 
+                            vehicle_group_id,  
 
                             op_user_id,
                             act_parent_id  
@@ -1097,8 +1086,7 @@ class SysWarranties extends \DAL\DalSlim {
                     VALUES (
                             '" . $name . "',
                             '" . $nameEng . "',
-                            " . intval($vehicleGroupId) . ",
-                            " . intval($parentId) . ",
+                            " . intval($vehicleGroupId) . ", 
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_warranties_id_seq)
@@ -1166,9 +1154,7 @@ class SysWarranties extends \DAL\DalSlim {
                     name, 
                     name_eng, 
                     vehicle_group_id, 
-                    parent_id, 
-                 
- 
+                    
                     language_id,
                     language_parent_id, 
                     act_parent_id,
@@ -1187,8 +1173,7 @@ class SysWarranties extends \DAL\DalSlim {
                 FROM ( 
                     SELECT  
                         c.vehicle_group_id, 
-                        c.parent_id,  
-                        
+                     
 			case when l.id = 385 then c.name_eng   
 			    when " . intval($params['language_id']) . " = l.id then '" .($params['nameTemp']). "'  
                             else '' end as name,  
@@ -1246,7 +1231,7 @@ class SysWarranties extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             
-             $nameTemp = null;
+            $nameTemp = null;
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
@@ -1267,12 +1252,6 @@ class SysWarranties extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $parentId = -1111;
-            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
-                $parentId = intval($params['ParentId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
                             
                 ////*********///// 2   
             if ($languageIdValue != 385 )  
@@ -1289,10 +1268,8 @@ class SysWarranties extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'name_eng' => $name,
-                            'vehicle_group_id' => $vehicleGroupId,
-                            'parent_id' => $parentId,
+                            'name' => $name, 
+                            'vehicle_group_id' => $vehicleGroupId, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1304,16 +1281,14 @@ class SysWarranties extends \DAL\DalSlim {
                         name, 
                         name_eng, 
                         vehicle_group_id, 
-                        parent_id, 
-                            
+                        
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     '" . $name . "',
                     '" . $nameEng . "',
-                    " . intval($vehicleGroupId) . ",
-                    " . intval($parentId) . ",
+                    " . intval($vehicleGroupId) . ", 
                                 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

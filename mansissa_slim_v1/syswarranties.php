@@ -269,7 +269,7 @@ $app->get("/pkFillWarrantiesGridx_syswarranties/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkUpdateMakeActiveOrPassive_syswarranties/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
@@ -337,12 +337,12 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkInsertAct_syswarranties/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysWarrantiesBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysaccbodydeff" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_syswarranties" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
     $vName = NULL;
@@ -351,20 +351,20 @@ $app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vehicleGroupId = NULL;
+    if (isset($_GET['vehicle_group_id'])) {
+         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['vehicle_group_id']));
     } 
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
           
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'VehicleGroupId' => $vehicleGroupId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -377,12 +377,12 @@ $app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkUpdateAct_syswarranties/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysWarrantiesBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysaccbodydeff" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_syswarranties" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     
     $vId = NULL;
@@ -426,7 +426,7 @@ $app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkDeletedAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkDeletedAct_syswarranties/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('sysWarrantiesBLL');   
