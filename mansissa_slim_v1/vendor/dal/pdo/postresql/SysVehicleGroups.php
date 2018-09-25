@@ -869,8 +869,7 @@ class SysVehicleGroups extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name, 
-                        vehicle_groups_id,
+                        name,  
                          
                         1 AS active,  
                         1 AS deleted, 
