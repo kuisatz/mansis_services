@@ -917,11 +917,12 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                     FROM sys_vehicle_gt_models 
                     WHERE id  =" . intval($params['id']) . "    
                     ");
-
+                            
+                $errorInfo = $statementInsert->errorInfo(); 
                 $insertAct = $statementInsert->execute();
+                 if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
                 $affectedRows = $statementInsert->rowCount(); 
-                $errorInfo = $statementInsert->errorInfo();
-
                 $pdo->commit();
                 return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
             } else {
