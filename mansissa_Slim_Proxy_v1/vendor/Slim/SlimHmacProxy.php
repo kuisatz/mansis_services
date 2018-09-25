@@ -1740,7 +1740,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "__syswarranties": 
+            case "_syswarranties": 
                 $this->setRestApiEndPoint('syswarranties.php/');
                 break;  
             case "_sysvehiclesendgroups": 
