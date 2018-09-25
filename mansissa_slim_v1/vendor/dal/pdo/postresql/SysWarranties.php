@@ -875,7 +875,7 @@ class SysWarranties extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                     
-                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 
+                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND erd.show_it = 0 
 		    /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
