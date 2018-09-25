@@ -299,6 +299,18 @@ $app->get("/pkInsertAct_sysvehiclegtmodels/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
+    $vModelDescription = NULL;
+    if (isset($_GET['model_description'])) {
+         $stripper->offsetSet('model_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['model_description']));
+    }  
+    $vModelGrouping = NULL;
+    if (isset($_GET['model_grouping'])) {
+         $stripper->offsetSet('model_grouping',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['model_grouping']));
+    }  
     $vehicleGroupTypeId = NULL;
     if (isset($_GET['vehicle_group_types_id'])) {
          $stripper->offsetSet('vehicle_group_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -308,11 +320,15 @@ $app->get("/pkInsertAct_sysvehiclegtmodels/", function () use ($app ) {
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('model_description')) $vModelDescription = $stripper->offsetGet('model_description')->getFilterValue(); 
+    if($stripper->offsetExists('model_grouping')) $vModelGrouping = $stripper->offsetGet('model_grouping')->getFilterValue(); 
     if($stripper->offsetExists('vehicle_group_types_id')) $vehicleGroupTypeId = $stripper->offsetGet('vehicle_group_types_id')->getFilterValue();
           
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
-            'AccBodyTypeId' => $vehicleGroupTypeId,  
+            'ModelDescription' => $vModelDescription,   
+            'ModelGrouping' => $vModelGrouping,   
+            'VehicleGroupTypeId' => $vehicleGroupTypeId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -339,29 +355,39 @@ $app->get("/pkUpdateAct_sysvehiclegtmodels/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+     $vModelDescription = NULL;
+    if (isset($_GET['model_description'])) {
+         $stripper->offsetSet('model_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['model_description']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vModelGrouping = NULL;
+    if (isset($_GET['model_grouping'])) {
+         $stripper->offsetSet('model_grouping',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['model_grouping']));
+    }  
+    $vehicleGroupTypeId = NULL;
+    if (isset($_GET['vehicle_group_types_id'])) {
+         $stripper->offsetSet('vehicle_group_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_group_types_id']));
     } 
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('model_description')) $vModelDescription = $stripper->offsetGet('model_description')->getFilterValue(); 
+    if($stripper->offsetExists('model_grouping')) $vModelGrouping = $stripper->offsetGet('model_grouping')->getFilterValue(); 
+    if($stripper->offsetExists('vehicle_group_types_id')) $vehicleGroupTypeId = $stripper->offsetGet('vehicle_group_types_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'ModelDescription' => $vModelDescription,   
+            'ModelGrouping' => $vModelGrouping,   
+            'VehicleGroupTypeId' => $vehicleGroupTypeId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
