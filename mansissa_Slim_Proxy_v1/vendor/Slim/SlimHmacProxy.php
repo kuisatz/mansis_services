@@ -118,6 +118,21 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_sysvehiclegroups' => 'restApiDefaultCall', 
         
          //** sysvehiclegroupsBLL ----------------------//    
+            
+            //**---- sysVehicleModelVariantsBLL ------------------- 
+        
+                                    'pkVehicleModelVariantsDdList_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    'pkFillVehicleGroupsGridx_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    
+                                    'pkInsertAct_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    'pkUpdateAct_sysvehiclemodelvariants' => 'restApiDefaultCall',
+                                    'pkDeletedAct_sysvehiclemodelvariants' => 'restApiDefaultCall', 
+        
+         //** sysVehicleModelVariantsBLL ----------------------//      
+            
+            
+            
          //**---- sysAccBodyMatrixBLL ------------------- 
         
                                     'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
@@ -1686,6 +1701,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysvehiclemodelvariants": 
+                $this->setRestApiEndPoint('sysvehiclemodelvariants.php/');
+                break; 
             case "_sysbranchesdealersdeff": 
                 $this->setRestApiEndPoint('sysbranchesdealersdeff.php/');
                 break; 
