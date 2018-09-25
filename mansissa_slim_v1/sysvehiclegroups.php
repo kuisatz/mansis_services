@@ -104,13 +104,13 @@ $app->get("/pkVehicleGroupsDdList_sysvehiclegroups/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillVehicleGroupsGridx_sysvehiclegtmodels/", function () use ($app ) {
+$app->get("/pkFillVehicleGroupsGridx_sysvehiclegroups/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysVehicleGroupsBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillVehicleGroupsGridx_sysvehiclegtmodels" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillVehicleGroupsGridx_sysvehiclegroups" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
