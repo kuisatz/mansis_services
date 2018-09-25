@@ -1013,25 +1013,19 @@ class SysVehicleModelVariants extends \DAL\DalSlim {
                 INSERT INTO sys_vehicle_model_variants (  
                         name, 
                         abbrevation,
-                        
-                        priority,
-                        language_id,
-                        language_parent_id,
+                         
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     '" . $name . "',
                     '" . $abbrevation . "', 
-                     
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                      
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_vehicle_model_variants 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_vehicle_model_variants_id_seq');
