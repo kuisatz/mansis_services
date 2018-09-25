@@ -879,7 +879,7 @@ class SysVehicleGroups extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicle_groups 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1011,29 +1011,23 @@ class SysVehicleGroups extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_groups (  
                         name,
-                      
-                        priority,
-                        language_id,
-                        language_parent_id,
+                       
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
                     " . ($name) . " AS name,    
-                  
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                   
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_vehicle_groups 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                    id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_vehicle_groups_id_seq');
