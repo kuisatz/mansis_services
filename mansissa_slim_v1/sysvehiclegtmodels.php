@@ -187,6 +187,8 @@ $app->get("/pkFillVehicleGtModelsGridx_sysvehiclegtmodels/", function () use ($a
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
+                "model_description" => html_entity_decode($menu["model_description"]), 
+                "model_grouping" => html_entity_decode($menu["model_grouping"]), 
                 "vehicle_group_types_id" => $menu["vehicle_group_types_id"], 
                 "vehicle_group_type_name" => html_entity_decode($menu["vehicle_group_type_name"]),   
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
@@ -198,8 +200,7 @@ $app->get("/pkFillVehicleGtModelsGridx_sysvehiclegtmodels/", function () use ($a
                 "op_user_id" => $menu["op_user_id"], 
                 "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
-                 
-               
+                  
             );
         }
        $counts = $resTotalRowCount[0]['count'];
