@@ -864,9 +864,7 @@ class SysWarranties extends \DAL\DalSlim {
                         SELECT  
                         a.id, 
                         erd.name as vehicle_group_name, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
-			a.parent_id,    
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
                     FROM sys_warranties a                    
@@ -876,10 +874,8 @@ class SysWarranties extends \DAL\DalSlim {
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-                    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
                     
-                    INNER JOIN sys_vehicle_groups erd ON drd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
+                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND drd.show_it = 0 
 		    /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
