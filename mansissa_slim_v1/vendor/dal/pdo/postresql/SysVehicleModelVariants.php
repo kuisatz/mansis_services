@@ -498,11 +498,8 @@ class SysVehicleModelVariants extends \DAL\DalSlim {
                 FROM sys_vehicle_model_variants a    
                 WHERE   
                     a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  id 
-
+                    a.active =0   
+                ORDER BY  id  
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
