@@ -893,6 +893,8 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO sys_vehicle_gt_models (
                         name, 
+                        model_description,
+                        model_grouping,
                         vehicle_group_types_id,
                        
                         active,
@@ -903,6 +905,8 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                         )
                     SELECT
                         name, 
+                        model_description,
+                        model_grouping,
                         vehicle_group_types_id,
                         
                         1 AS active,  
@@ -912,7 +916,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicle_gt_models 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
