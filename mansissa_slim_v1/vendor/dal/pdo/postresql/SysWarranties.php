@@ -549,11 +549,7 @@ class SysWarranties extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
             $addSql =null;
-            $ParentId = -1 ; 
-            if (isset($params['ParentId']) && $params['Parent'] != "") {
-                $ParentId = $params['Parent']; 
-                 $addSql =  " a.parent_id = " . intval($ParentId)." AND ";
-            }   
+                            
             $vehicleGroupID = -1 ; 
             if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
                 $vehicleGroupID = $params['VehicleGroupID']; 

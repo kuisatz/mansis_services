@@ -117,10 +117,10 @@ $app->get("/pkWarrantiesParentsDdList_syswarranties/", function () use ($app ) {
                                                 $_GET['language_code']));
     }
     $ParentId = -1;
-    if (isset($_GET['parent_id'])) {
-         $stripper->offsetSet('parent_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['vehicle_group_id'])) {
+         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['parent_id']));
+                                                $_GET['vehicle_group_id']));
     }
     $lid = null;
     if (isset($_GET['lid'])) {
@@ -131,11 +131,11 @@ $app->get("/pkWarrantiesParentsDdList_syswarranties/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('parent_id')) $ParentId = $stripper->offsetGet('parent_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_group_id')) $ParentId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
         
     $resCombobox = $BLL->warrantiesParentsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
-                                    'Parent' => $ParentId,
+                                    'VehicleGroupID' => $ParentId,
                                     'LanguageID' => $lid,
         
                         ));    
