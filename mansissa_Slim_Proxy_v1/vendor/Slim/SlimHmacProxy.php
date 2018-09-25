@@ -155,7 +155,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_syswarrantie' => 'restApiDefaultCall',
                                     'pkDeletedAct_syswarrantie' => 'restApiDefaultCall', 
         
-         //** sysWarrantiesBLL ----------------------//      
+         //** sysWarrantiesBLL ----------------------//       
         
         
         
