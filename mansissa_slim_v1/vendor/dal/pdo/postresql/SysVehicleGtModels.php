@@ -574,6 +574,16 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                                 $sorguStr.=" AND  a.name" . $sorguExpression . ' ';
                               
                                 break;
+                            case 'model_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND  a.model_description" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'model_grouping':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND  a.model_grouping" . $sorguExpression . ' ';
+                              
+                                break;
                             case 'vehicle_group_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND b.name" . $sorguExpression . ' ';
@@ -630,6 +640,8 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                        a.id, 
                         a.act_parent_id as apid, 
                         a.name  AS name, 
+                        a.model_description,
+                        a.model_grouping,
 			a.vehicle_group_types_id,
 			b.name AS vehicle_group_type_name,  
                       /*  a.name_eng, */ 
@@ -718,6 +730,16 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                                 $sorguStr.=" AND  a.name" . $sorguExpression . ' ';
                               
                                 break;
+                             case 'model_description':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND  a.model_description" . $sorguExpression . ' ';
+                              
+                                break;
+                            case 'model_grouping':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND  a.model_grouping" . $sorguExpression . ' ';
+                              
+                                break;
                             case 'vehicle_group_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND b.name" . $sorguExpression . ' ';
@@ -774,6 +796,8 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                          SELECT 
                             a.id, 
                             a.name  AS name, 
+                            a.model_description,
+                            a.model_grouping,
                             a.vehicle_group_types_id,
                             b.name AS vehicle_group_type_name,   
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
