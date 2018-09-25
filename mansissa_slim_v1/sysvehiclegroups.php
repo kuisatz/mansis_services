@@ -153,7 +153,7 @@ $app->get("/pkFillVehicleGroupsGridx_sysvehiclegroups/", function () use ($app )
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
 
-    $resDataGrid = $BLL->fillAccBodyDeffGridx(array(
+    $resDataGrid = $BLL->fillVehicleGroupsGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
         'page' => $vPage,
@@ -165,7 +165,7 @@ $app->get("/pkFillVehicleGroupsGridx_sysvehiclegroups/", function () use ($app )
         'pk' => $pk,
     ));
    
-    $resTotalRowCount = $BLL->fillAccBodyDeffGridxRtl(array(
+    $resTotalRowCount = $BLL->fillVehicleGroupsGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
  
