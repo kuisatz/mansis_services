@@ -859,7 +859,7 @@ class SysVehicleModelVariants extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicle_model_variants 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1007,7 +1007,7 @@ class SysVehicleModelVariants extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_model_variants (  

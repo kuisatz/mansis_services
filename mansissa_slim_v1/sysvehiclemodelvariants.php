@@ -289,20 +289,21 @@ $app->get("/pkInsertAct_sysvehiclemodelvariants/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vAbbrevation= NULL;
+    if (isset($_GET['abbrevation'])) {
+         $stripper->offsetSet('abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
-    } 
+                                                $_GET['abbrevation']));
+    }  
+     
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue();  
+    if($stripper->offsetExists('abbrevation')) $vAbbrevation = $stripper->offsetGet('abbrevation')->getFilterValue(); 
           
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'Abbrevation' => $vAbbrevation,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -329,29 +330,30 @@ $app->get("/pkUpdateAct_sysvehiclemodelvariants/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
+   $vName = NULL;
     if (isset($_GET['name'])) {
          $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vAbbrevation= NULL;
+    if (isset($_GET['abbrevation'])) {
+         $stripper->offsetSet('abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
-    } 
+                                                $_GET['abbrevation']));
+    }  
+     
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue();  
+    if($stripper->offsetExists('abbrevation')) $vAbbrevation = $stripper->offsetGet('abbrevation')->getFilterValue(); 
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'Abbrevation' => $vAbbrevation,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
