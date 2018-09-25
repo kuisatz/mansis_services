@@ -86,11 +86,7 @@ $app->get("/pkWarrantiesMainGroupDdList_syswarranties/", function () use ($app )
             "value" =>  intval($flow["id"]),
             "selected" => false,
             "description" => $flow["name_eng"],
-            "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            "imageSrc"=>"",   
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -152,10 +148,7 @@ $app->get("/pkWarrantiesParentsDdList_syswarranties/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            
         );
     }
     $app->response()->header("Content-Type", "application/json");

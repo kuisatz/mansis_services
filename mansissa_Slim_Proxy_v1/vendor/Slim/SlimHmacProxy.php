@@ -145,7 +145,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysVehiclesEndgroupsBLL ----------------------//      
         
+         //**---- sysWarrantiesBLL ------------------- 
+            
+                                    'pkWarrantiesParentsDdList_syswarranties' => 'restApiDefaultCall',
+                                    'pkUpdateMakeActiveOrPassive_syswarrantie' => 'restApiDefaultCall',
+                                    'pkFillVehicleModelVariantsGridx_syswarrantie' => 'restApiDefaultCall',
+                                    
+                                    'pkInsertAct_syswarrantie' => 'restApiDefaultCall',
+                                    'pkUpdateAct_syswarrantie' => 'restApiDefaultCall',
+                                    'pkDeletedAct_syswarrantie' => 'restApiDefaultCall', 
         
+         //** sysWarrantiesBLL ----------------------//      
         
         
         
@@ -1729,6 +1739,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            
+            case "_syswarrantie": 
+                $this->setRestApiEndPoint('syswarrantie.php/');
+                break;  
             case "_sysvehiclesendgroups": 
                 $this->setRestApiEndPoint('sysvehiclesendgroups.php/');
                 break; 
