@@ -159,13 +159,13 @@ $app->get("/pkWarrantiesParentsDdList_syswarranties/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillWarrantiesGridx_syswarrantytypes/", function () use ($app ) {
+$app->get("/pkFillWarrantiesGridx_syswarranties/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysWarrantiesBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillAccBodyDeffGridx_sysaccbodydeff" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillWarrantiesGridx_syswarranties" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
