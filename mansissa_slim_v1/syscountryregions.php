@@ -81,7 +81,7 @@ $app->get("/pkCountryRegionsDdList_syscountryregions/", function () use ($app ) 
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
     if($stripper->offsetExists('country_id')) $vCountryId = $stripper->offsetGet('country_id')->getFilterValue();
         
-    $resCombobox = $BLL->commissionPricerangeDefsDdList(array(                                   
+    $resCombobox = $BLL->CountryRegionsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'CountryId' => $vCountryId, 
                                     'LanguageID' => $lid,
