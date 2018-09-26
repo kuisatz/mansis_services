@@ -1274,7 +1274,7 @@ class SysWarranties extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_warranties (  
