@@ -169,7 +169,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysWarrantyTypesBLL ----------------------//       
         
-           //**---- sysWarrantyMatrixBLL ------------------- 
+        //**---- sysWarrantyMatrixBLL ------------------- 
             
                                     'pkUpdateMakeActiveOrPassive_syswarrantymatrix' => 'restApiDefaultCall',
                                     'pkFillWarrantyMatrixGridx_syswarrantymatrix' => 'restApiDefaultCall',
@@ -179,7 +179,14 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_syswarrantymatrix' => 'restApiDefaultCall', 
         
          //** sysWarrantyMatrixBLL ----------------------//       
+        //**---- sysMonthsBLL ------------------- 
+                                    'pkJustMonthsDdList_sysmonths' => 'restApiDefaultCall',
+                                    'pkWarrantyMonthsDdList_sysmonths' => 'restApiDefaultCall',
+                                    'pkRmMonthsDdList_sysmonths' => 'restApiDefaultCall',
+                                    'pkTradebackMonthsDdList_sysmonths' => 'restApiDefaultCall',
+            
         
+         //** sysMonthsBLL ----------------------//       
         
         
         
@@ -1758,6 +1765,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysmonths": 
+                $this->setRestApiEndPoint('sysmonths.php/');
+                break; 
             case "_syswarrantymatrix": 
                 $this->setRestApiEndPoint('syswarrantymatrix.php/');
                 break;  

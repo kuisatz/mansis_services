@@ -45,7 +45,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkMonthsMainGroupDdList_sysmonths/", function () use ($app ) {
+$app->get("/pkJustMonthsDdList_sysmonths/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysMonthsBLL');
@@ -55,7 +55,7 @@ $app->get("/pkMonthsMainGroupDdList_sysmonths/", function () use ($app ) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkMonthsMainGroupDdList_sysmonths" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkJustMonthsDdList_sysmonths" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
@@ -74,7 +74,7 @@ $app->get("/pkMonthsMainGroupDdList_sysmonths/", function () use ($app ) {
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->monthsMainGroupDdList(array(                                   
+    $resCombobox = $BLL->justMonthsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
                         ));    
@@ -86,11 +86,7 @@ $app->get("/pkMonthsMainGroupDdList_sysmonths/", function () use ($app ) {
             "value" =>  intval($flow["id"]),
             "selected" => false,
             "description" => $flow["name_eng"],
-            "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            "imageSrc"=>"",   
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -101,7 +97,7 @@ $app->get("/pkMonthsMainGroupDdList_sysmonths/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkMonthsParentDdList_sysmonths/", function () use ($app ) {
+$app->get("/pkWarrantyMonthsDdList_sysmonths/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysMonthsBLL');
@@ -111,7 +107,7 @@ $app->get("/pkMonthsParentDdList_sysmonths/", function () use ($app ) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkMonthsParentDdList_sysmonths" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkWarrantyMonthsDdList_sysmonths" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
@@ -119,12 +115,6 @@ $app->get("/pkMonthsParentDdList_sysmonths/", function () use ($app ) {
          $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
                                                 $app,
                                                 $_GET['language_code']));
-    }
-    $ParentId = -1;
-    if (isset($_GET['parent_id'])) {
-         $stripper->offsetSet('parent_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['parent_id']));
     }
     $lid = null;
     if (isset($_GET['lid'])) {
@@ -135,13 +125,10 @@ $app->get("/pkMonthsParentDdList_sysmonths/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('parent_id')) $ParentId = $stripper->offsetGet('parent_id')->getFilterValue();
         
-    $resCombobox = $BLL->monthsParentDdList(array(                                   
+    $resCombobox = $BLL->warrantyMonthsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
-                                    'Parent' => $ParentId,
                                     'LanguageID' => $lid,
-        
                         ));    
 
     $flows = array(); 
@@ -151,17 +138,116 @@ $app->get("/pkMonthsParentDdList_sysmonths/", function () use ($app ) {
             "value" =>  intval($flow["id"]),
             "selected" => false,
             "description" => $flow["name_eng"],
-            "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            "imageSrc"=>"",   
         );
     }
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($flows));
 });
 
- 
+  /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkRmMonthsDdList_sysmonths/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysMonthsBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkRmMonthsDdList_sysmonths" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+        
+    $resCombobox = $BLL->rmMonthsDdList(array(                                   
+                                    'language_code' => $vLanguageCode,
+                                    'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",   
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkTradebackMonthsDdList_sysmonths/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysMonthsBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkTradebackMonthsDdList_sysmonths" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+        
+    $resCombobox = $BLL->tradebackMonthsDdList(array(                                   
+                                    'language_code' => $vLanguageCode,
+                                    'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",   
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
 
 $app->run();

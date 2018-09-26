@@ -139,7 +139,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                 "mileages1_id" => intval($menu["mileages1_id"]),  
                 "ismaintenance" => intval($menu["ismaintenance"]),  
                 "maintenance" => html_entity_decode($menu["maintenance"]), 
-                 "ismaintenance" => ($menu["price_in_euros"]),  
+              
                  
                 "unique_code" => html_entity_decode($menu["unique_code"]), 
                 "price_in_euros" => $menu["price_in_euros"], 
