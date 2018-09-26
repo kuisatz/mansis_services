@@ -1018,7 +1018,7 @@ class SysWarranties extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_warranty_matrix 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1295,7 +1295,7 @@ class SysWarranties extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_warranty_matrix (  
