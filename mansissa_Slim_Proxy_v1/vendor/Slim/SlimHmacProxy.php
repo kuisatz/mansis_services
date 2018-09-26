@@ -184,11 +184,19 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkWarrantyMonthsDdList_sysmonths' => 'restApiDefaultCall',
                                     'pkRmMonthsDdList_sysmonths' => 'restApiDefaultCall',
                                     'pkTradebackMonthsDdList_sysmonths' => 'restApiDefaultCall',
+                                    'pkBuybackMonthsDdList_sysmonths' => 'restApiDefaultCall',
             
         
          //** sysMonthsBLL ----------------------//       
         
+        //**---- sysMileagesBLL ------------------- 
+                                    'pkMileagesRmDdList_sysmileages' => 'restApiDefaultCall',
+                                    'pkMileagesBuybackDdList_sysmileages' => 'restApiDefaultCall',
+                                    'pkMileagesTradebackDdList_sysmileages' => 'restApiDefaultCall',
+                                    'pkMileagesWarrantyDdList_sysmileages' => 'restApiDefaultCall',
+            
         
+         //** sysMileagesBLL ----------------------//       
         
         
         
