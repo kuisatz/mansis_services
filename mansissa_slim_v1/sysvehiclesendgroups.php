@@ -349,26 +349,68 @@ $app->get("/pkInsertAct_sysvehiclesendgroups/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysvehiclesendgroups" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $modelGrouping = NULL;
+    if (isset($_GET['model_grouping'])) {
+         $stripper->offsetSet('model_grouping',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['model_grouping']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $endgroupDescription = NULL;
+    if (isset($_GET['endgroup_description'])) {
+         $stripper->offsetSet('endgroup_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['endgroup_description']));
+    }  
+    $ckdcbuTypeId = NULL;
+    if (isset($_GET['ckdcbu_type_id'])) {
+         $stripper->offsetSet('ckdcbu_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ckdcbu_type_id']));
     } 
-     
+    $vehicleGtModelId = NULL;
+    if (isset($_GET['vehicle_gt_model_id'])) {
+         $stripper->offsetSet('vehicle_gt_model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_model_id']));
+    } 
+    $modelVariantId = NULL;
+    if (isset($_GET['model_variant_id'])) {
+         $stripper->offsetSet('model_variant_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_variant_id']));
+    } 
+    $configTypeId = NULL;
+    if (isset($_GET['config_type_id'])) {
+         $stripper->offsetSet('config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['config_type_id']));
+    }  
+    $capTypeId = NULL;
+    if (isset($_GET['cap_type_id'])) {
+         $stripper->offsetSet('cap_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['cap_type_id']));
+    } 
+    
+      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('model_grouping')) $modelGrouping = $stripper->offsetGet('model_grouping')->getFilterValue(); 
+    if($stripper->offsetExists('endgroup_description')) $endgroupDescription = $stripper->offsetGet('endgroup_description')->getFilterValue();
+    if($stripper->offsetExists('ckdcbu_type_id')) $ckdcbuTypeId = $stripper->offsetGet('ckdcbu_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_model_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();
+    if($stripper->offsetExists('model_variant_id')) $modelVariantId = $stripper->offsetGet('model_variant_id')->getFilterValue();
+    if($stripper->offsetExists('config_type_id')) $configTypeId = $stripper->offsetGet('config_type_id')->getFilterValue();
+    if($stripper->offsetExists('cap_type_id')) $capTypeId = $stripper->offsetGet('cap_type_id')->getFilterValue();
           
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'ModelGrouping' => $modelGrouping,   
+            'EndgroupDescription' => $endgroupDescription,  
+            'CkdcbuTypeId' => $ckdcbuTypeId,   
+            'VehicleGtModelId' => $vehicleGtModelId,  
+            'ModelVariantId' => $modelVariantId,   
+            'ConfigTypeId' => $configTypeId,  
+            'CapTypeId' => $capTypeId,   
+         
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -395,29 +437,69 @@ $app->get("/pkUpdateAct_sysvehiclesendgroups/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+   $modelGrouping = NULL;
+    if (isset($_GET['model_grouping'])) {
+         $stripper->offsetSet('model_grouping',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['model_grouping']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $endgroupDescription = NULL;
+    if (isset($_GET['endgroup_description'])) {
+         $stripper->offsetSet('endgroup_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['endgroup_description']));
+    }  
+    $ckdcbuTypeId = NULL;
+    if (isset($_GET['ckdcbu_type_id'])) {
+         $stripper->offsetSet('ckdcbu_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ckdcbu_type_id']));
+    } 
+    $vehicleGtModelId = NULL;
+    if (isset($_GET['vehicle_gt_model_id'])) {
+         $stripper->offsetSet('vehicle_gt_model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_model_id']));
+    } 
+    $modelVariantId = NULL;
+    if (isset($_GET['model_variant_id'])) {
+         $stripper->offsetSet('model_variant_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_variant_id']));
+    } 
+    $configTypeId = NULL;
+    if (isset($_GET['config_type_id'])) {
+         $stripper->offsetSet('config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['config_type_id']));
+    }  
+    $capTypeId = NULL;
+    if (isset($_GET['cap_type_id'])) {
+         $stripper->offsetSet('cap_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['cap_type_id']));
     } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('model_grouping')) $modelGrouping = $stripper->offsetGet('model_grouping')->getFilterValue(); 
+    if($stripper->offsetExists('endgroup_description')) $endgroupDescription = $stripper->offsetGet('endgroup_description')->getFilterValue();
+    if($stripper->offsetExists('ckdcbu_type_id')) $ckdcbuTypeId = $stripper->offsetGet('ckdcbu_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_model_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();
+    if($stripper->offsetExists('model_variant_id')) $modelVariantId = $stripper->offsetGet('model_variant_id')->getFilterValue();
+    if($stripper->offsetExists('config_type_id')) $configTypeId = $stripper->offsetGet('config_type_id')->getFilterValue();
+    if($stripper->offsetExists('cap_type_id')) $capTypeId = $stripper->offsetGet('cap_type_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'ModelGrouping' => $modelGrouping,   
+            'EndgroupDescription' => $endgroupDescription,  
+            'CkdcbuTypeId' => $ckdcbuTypeId,   
+            'VehicleGtModelId' => $vehicleGtModelId,  
+            'ModelVariantId' => $modelVariantId,   
+            'ConfigTypeId' => $configTypeId,  
+            'CapTypeId' => $capTypeId,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
