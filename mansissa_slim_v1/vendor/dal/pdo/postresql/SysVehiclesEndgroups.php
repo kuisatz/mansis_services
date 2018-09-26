@@ -968,44 +968,37 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
 
                 $sql = "
                     SELECT COUNT(asdx.id) count FROM ( 
-
                         SELECT    
-                             a.id, 
-                             c.name cbuckd_name,
-                             a.vehicle_gt_model_id,
-                             vgtm.name  gt_model_name,
-                             a.model_variant_id,
-                             vmv.name variant_name ,
-                             a.config_type_id,
-                             vct.name config_type_name ,
-                             a.cap_type_id,
-                             vcat.name cap_name , 
-                             a.endgroup_description, 
-                             a.act_parent_id,   
-                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
-                             u.username AS op_user_name  
-                             COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                         FROM sys_vehicles_endgroups a                    
-                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                         LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0    
-                         INNER JOIN info_users u ON u.id = a.op_user_id 
-                         /*----*/
-                         INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.show_it = 0  
-                         INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
-                         INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
-                         INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
-                         INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0  
+                            a.id,  
+                            c.name cbuckd_name, 
+                            vgtm.name  gt_model_name, 
+                            vmv.name variant_name , 
+                            vct.name config_type_name , 
+                            vcat.name cap_name , 
+                            a.endgroup_description, 
+                            a.model_grouping,                            
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active                           
+                        FROM sys_vehicles_endgroups a                    
+                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0    
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/
+                        INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = a.vehicle_gt_model_id AND vgtm.show_it = 0  
+                        INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = a.model_variant_id AND vmv.show_it = 0  
+                        INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = a.config_type_id AND vct.show_it = 0  
+                        INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = a.cap_type_id AND vcat.show_it = 0  
+                        INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
 
-                          /*----*/                 
-                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                         /**/
-                       /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                         /*----*/                 
+                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                        /**/
+                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
-                         WHERE  
+                        WHERE  
                             a.deleted =0 AND
-                            a.show_it =0  
+                            a.show_it =0   
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
