@@ -87,10 +87,7 @@ $app->get("/pkMileagesMainGroupDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+             
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -152,10 +149,7 @@ $app->get("/pkMileagesParentDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -208,10 +202,7 @@ $app->get("/pkMileagesBuybackDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -264,10 +255,7 @@ $app->get("/pkMileagesRmDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -320,10 +308,7 @@ $app->get("/pkMileagesTradebackDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -376,10 +361,7 @@ $app->get("/pkMileagesWarrantyDdList_sysmileages/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+             
         );
     }
     $app->response()->header("Content-Type", "application/json");

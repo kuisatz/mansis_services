@@ -20,8 +20,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
     protected $redirectMap = array('getReports_test' => 'restApiDefaultCall',
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
-        
-        
+            
         
         //**---- sysCountryRegionsBLL ------------------- 
                                     'pkCountryRegionsDdList_syscountryregions' => 'restApiDefaultCall', 
@@ -709,6 +708,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkFillGrid_syscity' => 'restApiDefaultCall',
                                     'fillComboBox_syscity' => 'restApiDefaultCall',   
                                     'pkInsertLanguageTemplate_syscity' => 'restApiDefaultCall',  
+                                    'pkCityDdList_syscity' => 'restApiDefaultCall', 
          //**---- syscity -------------------
          //** syslanguage ----------------------
                                     'pkDelete_syslanguage' => 'restApiDefaultCall',
