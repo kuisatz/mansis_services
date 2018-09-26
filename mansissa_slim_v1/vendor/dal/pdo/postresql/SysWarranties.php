@@ -1222,6 +1222,7 @@ class SysWarranties extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
+            $languageIdValue = 385 ;
             $errorInfo[0] = "99999";
             
             $Id = -1111;
