@@ -917,13 +917,10 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
 
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO sys_warranty_matrix (
-                        warranty_id,
-                        vehicle_group_id,
+                        warranty_id, 
                         vehicle_config_type_id,
                         months1_id,
-                        mileages1_id,
-                        months2_id,
-                        mileages2_id,
+                        mileages1_id, 
                         warranty_types_id,
                         ismaintenance,
                         unique_code,
@@ -940,9 +937,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                         vehicle_group_id,
                         vehicle_config_type_id,
                         months1_id,
-                        mileages1_id,
-                        months2_id,
-                        mileages2_id,
+                        mileages1_id, 
                         warranty_types_id,
                         ismaintenance,
                         unique_code,
@@ -1126,43 +1121,37 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                 $Id = intval($params['Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            print_r("11111");
+            }             
               $warrantyId = -1111;
             if ((isset($params['WarrantyId']) && $params['WarrantyId'] != "")) {
                 $warrantyId = intval($params['WarrantyId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-              print_r("22222");
              $vehicleConfigTypeId= -1111;
             if ((isset($params['VehicleConfigTypeId']) && $params['VehicleConfigTypeId'] != "")) {
                 $vehicleConfigTypeId = intval($params['VehicleConfigTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-              print_r("33333");
             $months1Id = -1111;
             if ((isset($params['Months1Id']) && $params['Months1Id'] != "")) {
                 $months1Id = intval($params['Months1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }             
-              print_r("44444");
             $mileages1Id = -1111;
             if ((isset($params['Mileages1Id']) && $params['Mileages1Id'] != "")) {
                 $mileages1Id = intval($params['Mileages1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }       
-              print_r("55555");
+            }             
             $warrantyTypesId = -1111;
             if ((isset($params['WarrantyTypesId']) && $params['WarrantyTypesId'] != "")) {
                 $warrantyTypesId = intval($params['WarrantyTypesId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-              print_r("66666");
             $ismaintenance = -1111;
             if ((isset($params['Ismaintenance']) && $params['Ismaintenance'] != "")) {
                 $ismaintenance = intval($params['Ismaintenance']);
@@ -1175,14 +1164,12 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-              print_r("77777");
             $priceInEuros = -1111;
             if ((isset($params['PriceInEuros']) && $params['PriceInEuros'] != "")) {
                 $priceInEuros = intval($params['PriceInEuros']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-              print_r("88888");
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1239,12 +1226,15 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                 WHERE 
                     id  =" . intval($Id) . "                  
                                                 ");
-                    $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_warranty_matrix_id_seq');
-                    $affectedRows = $statementInsert->rowCount();
+                    $result = $statementInsert->execute(); 
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
+                            
+                    $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('sys_warranty_matrix_id_seq');}
+                    else $insertID =0 ;   
 
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);

@@ -1368,7 +1368,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_vehicles_endgroups 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_vehicles_endgroups_id_seq');
