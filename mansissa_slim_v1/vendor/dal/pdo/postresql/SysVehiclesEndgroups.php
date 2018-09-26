@@ -527,8 +527,8 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
             $statement = $pdo->prepare("     
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    a.cost_description AS name,  
-                    a.cost_description AS name_eng,
+                    a.endgroup_description AS name,  
+                    a.endgroup_description AS name_eng,
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
