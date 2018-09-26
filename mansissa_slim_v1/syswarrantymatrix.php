@@ -134,13 +134,14 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                 "warranty_types_id" => $menu["warranty_types_id"], 
                 "warranty_type_name" => html_entity_decode($menu["warranty_type_name"]),   
                 
-                 "months1_id" => intval($menu["months1_id"]),  
-                 "month_value" => intval($menu["month_value"]),  
-                 "mileages1_id" => intval($menu["mileages1_id"]),  
-                 "ismaintenance" => intval($menu["ismaintenance"]),  
-                  "maintenance" => html_entity_decode($menu["maintenance"]), 
+                "months1_id" => intval($menu["months1_id"]),  
+                "month_value" => intval($menu["month_value"]),  
+                "mileages1_id" => intval($menu["mileages1_id"]),  
+                "ismaintenance" => intval($menu["ismaintenance"]),  
+                "maintenance" => html_entity_decode($menu["maintenance"]), 
                  "ismaintenance" => ($menu["price_in_euros"]),  
                  
+                "unique_code" => html_entity_decode($menu["unique_code"]), 
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
@@ -245,26 +246,77 @@ $app->get("/pkInsertAct_syswarrantymatrix/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_syswarrantymatrix" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    
+    $warrantyId = NULL;
+    if (isset($_GET['warranty_id'])) {
+         $stripper->offsetSet('warranty_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $vehicleGroupId = NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['warranty_id']));
+    } 
+    $vehicleConfigTypId = NULL;
+    if (isset($_GET['vehicle_config_type_id'])) {
+         $stripper->offsetSet('vehicle_config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_group_id']));
+                                                $_GET['vehicle_config_type_id']));
+    } 
+    $months1Id = NULL;
+    if (isset($_GET['months1_id'])) {
+         $stripper->offsetSet('months1_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['months1_id']));
+    } 
+    $mileages1Id = NULL;
+    if (isset($_GET['mileages1_id'])) {
+         $stripper->offsetSet('mileages1_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileages1_id']));
+    }
+    $warrantyTypesId = NULL;
+    if (isset($_GET['warranty_types_id'])) {
+         $stripper->offsetSet('warranty_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['warranty_types_id']));
+    }
+    $ismaintenance = NULL;
+    if (isset($_GET['ismaintenance'])) {
+         $stripper->offsetSet('ismaintenance',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ismaintenance']));
+    }
+    $uniqueCode = NULL;
+    if (isset($_GET['unique_code'])) {
+         $stripper->offsetSet('unique_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['unique_code']));
+    }
+    $priceInEuros = NULL;
+    if (isset($_GET['price_in_euros'])) {
+         $stripper->offsetSet('price_in_euros',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['price_in_euros']));
     } 
      
+     
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+    if($stripper->offsetExists('warranty_id')) $warrantyId = $stripper->offsetGet('warranty_id')->getFilterValue(); 
+    if($stripper->offsetExists('vehicle_config_type_id')) $vehicleConfigTypId = $stripper->offsetGet('vehicle_config_type_id')->getFilterValue();
+    if($stripper->offsetExists('months1_id')) $months1Id = $stripper->offsetGet('months1_id')->getFilterValue();
+    if($stripper->offsetExists('mileages1_id')) $mileages1Id = $stripper->offsetGet('mileages1_id')->getFilterValue();
+    if($stripper->offsetExists('warranty_types_id')) $warrantyTypesId = $stripper->offsetGet('warranty_types_id')->getFilterValue();
+    if($stripper->offsetExists('ismaintenance')) $ismaintenance = $stripper->offsetGet('ismaintenance')->getFilterValue(); 
+    if($stripper->offsetExists('unique_code')) $uniqueCode = $stripper->offsetGet('unique_code')->getFilterValue();
+    if($stripper->offsetExists('price_in_euros')) $priceInEuros = $stripper->offsetGet('price_in_euros')->getFilterValue();
+ 
           
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'VehicleGroupId' => $vehicleGroupId,  
+            'WarrantyId' => $warrantyId,   
+            'VehicleConfigTypeId' => $vehicleConfigTypId,  
+            'Months1Id' => $months1Id,  
+            'Mileages1Id' => $mileages1Id,  
+            'WarrantyTypesId' => $warrantyTypesId,  
+            'Ismaintenance' => $ismaintenance,  
+            'UniqueCode' => $uniqueCode,  
+            'PriceInEuros' => $priceInEuros,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -291,29 +343,77 @@ $app->get("/pkUpdateAct_syswarrantymatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+   $warrantyId = NULL;
+    if (isset($_GET['warranty_id'])) {
+         $stripper->offsetSet('warranty_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $vehicleGroupId = NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['warranty_id']));
+    } 
+    $vehicleConfigTypId = NULL;
+    if (isset($_GET['vehicle_config_type_id'])) {
+         $stripper->offsetSet('vehicle_config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_group_id']));
+                                                $_GET['vehicle_config_type_id']));
+    } 
+    $months1Id = NULL;
+    if (isset($_GET['months1_id'])) {
+         $stripper->offsetSet('months1_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['months1_id']));
+    } 
+    $mileages1Id = NULL;
+    if (isset($_GET['mileages1_id'])) {
+         $stripper->offsetSet('mileages1_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileages1_id']));
+    }
+    $warrantyTypesId = NULL;
+    if (isset($_GET['warranty_types_id'])) {
+         $stripper->offsetSet('warranty_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['warranty_types_id']));
+    }
+    $ismaintenance = NULL;
+    if (isset($_GET['ismaintenance'])) {
+         $stripper->offsetSet('ismaintenance',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ismaintenance']));
+    }
+    $uniqueCode = NULL;
+    if (isset($_GET['unique_code'])) {
+         $stripper->offsetSet('unique_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['unique_code']));
+    }
+    $priceInEuros = NULL;
+    if (isset($_GET['price_in_euros'])) {
+         $stripper->offsetSet('price_in_euros',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['price_in_euros']));
     } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+    if($stripper->offsetExists('warranty_id')) $warrantyId = $stripper->offsetGet('warranty_id')->getFilterValue(); 
+    if($stripper->offsetExists('vehicle_config_type_id')) $vehicleConfigTypId = $stripper->offsetGet('vehicle_config_type_id')->getFilterValue();
+    if($stripper->offsetExists('months1_id')) $months1Id = $stripper->offsetGet('months1_id')->getFilterValue();
+    if($stripper->offsetExists('mileages1_id')) $mileages1Id = $stripper->offsetGet('mileages1_id')->getFilterValue();
+    if($stripper->offsetExists('warranty_types_id')) $warrantyTypesId = $stripper->offsetGet('warranty_types_id')->getFilterValue();
+    if($stripper->offsetExists('ismaintenance')) $ismaintenance = $stripper->offsetGet('ismaintenance')->getFilterValue(); 
+    if($stripper->offsetExists('unique_code')) $uniqueCode = $stripper->offsetGet('unique_code')->getFilterValue();
+    if($stripper->offsetExists('price_in_euros')) $priceInEuros = $stripper->offsetGet('price_in_euros')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'VehicleGroupId' => $vehicleGroupId,  
+            'WarrantyId' => $warrantyId,   
+            'VehicleConfigTypeId' => $vehicleConfigTypId,  
+            'Months1Id' => $months1Id,  
+            'Mileages1Id' => $mileages1Id,  
+            'WarrantyTypesId' => $warrantyTypesId,  
+            'Ismaintenance' => $ismaintenance,  
+            'UniqueCode' => $uniqueCode,  
+            'PriceInEuros' => $priceInEuros,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

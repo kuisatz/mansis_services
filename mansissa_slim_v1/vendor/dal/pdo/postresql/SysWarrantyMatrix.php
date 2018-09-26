@@ -202,16 +202,22 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '-' AS name ,
+                '-' AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_warranty_matrix  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.warranty_id = " . intval($params['warranty_id']) . " AND 
+                a.vehicle_config_type_id = " . intval($params['vehicle_config_type_id']) . " AND 
+                a.months1_id = " . intval($params['months1_id']) . " AND 
+                a.mileages1_id = " . intval($params['mileages1_id']) . " AND 
+                a.warranty_types_id = " . intval($params['warranty_types_id']) . " AND 
+                a.ismaintenance = " . intval($params['ismaintenance']) . "    
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
+                            
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
             $statement->execute();
@@ -614,7 +620,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
 			a.ismaintenance,
 			COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance, 
 			a.price_in_euros, 
- 
+                        a.unique_code,
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -800,6 +806,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             hrd.id mileages1_id,  
                             hrd.mileages1, 			 
                             a.ismaintenance,
+                            a.unique_code,
                             COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance,   
                             u.username AS op_user_name  
                         FROM sys_warranty_matrix a                    
@@ -1000,24 +1007,14 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $months2Id = -1111;
-            if ((isset($params['Months2Id']) && $params['Months2Id'] != "")) {
-                $months2Id = intval($params['Months2Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                            
             $mileages1Id = -1111;
             if ((isset($params['Mileages1Id']) && $params['Mileages1Id'] != "")) {
                 $mileages1Id = intval($params['Mileages1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $mileages2Id = -1111;
-            if ((isset($params['Mileages2Id']) && $params['Mileages2Id'] != "")) {
-                $mileages2Id = intval($params['Mileages2Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                            
             $warrantyTypesId = -1111;
             if ((isset($params['WarrantyTypesId']) && $params['WarrantyTypesId'] != "")) {
                 $warrantyTypesId = intval($params['WarrantyTypesId']);
@@ -1052,13 +1049,9 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             'warranty_id' => $warrantyId,
                             'vehicle_config_type_id' => $vehicleConfigTypeId,
                             'months1_id' =>  $months1Id,
-                            'mileages1_id' => $mileages1Id,
-                            'months2_id' => $months2Id,
-                            'mileages2_id' => $mileages2Id,
+                            'mileages1_id' => $mileages1Id, 
                             'warranty_types_id' => $warrantyTypesId,
-                            'ismaintenance' => $ismaintenance,
-                            'unique_code' => $uniqueCode,
-                           
+                            'ismaintenance' => $ismaintenance,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
@@ -1066,9 +1059,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             warranty_id, 
                             vehicle_config_type_id,
                             months1_id,
-                            mileages1_id,
-                            months2_id,
-                            mileages2_id,
+                            mileages1_id, 
                             warranty_types_id,
                             ismaintenance,
                             unique_code,
@@ -1081,15 +1072,12 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             " . intval($warrantyId) . ",
                             " . intval($vehicleConfigTypeId) . ",
                             " . intval($months1Id) . ",
-                            " . intval($mileages1Id) . ",
-                            " . intval($months2Id) . ",
-                            " . intval($mileages2Id) . ",
+                            " . intval($mileages1Id) . ", 
                             " . intval($warrantyTypesId) . ", 
                             " . intval($ismaintenance) . ", 
                             " . intval($priceInEuros) . ", 
                             " . intval($uniqueCode) . ",
-                                                                          
-
+                                                        
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_warranty_matrix_id_seq)
                                                  )   ";
@@ -1159,25 +1147,13 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                 $months1Id = intval($params['Months1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $months2Id = -1111;
-            if ((isset($params['Months2Id']) && $params['Months2Id'] != "")) {
-                $months2Id = intval($params['Months2Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            }             
             $mileages1Id = -1111;
             if ((isset($params['Mileages1Id']) && $params['Mileages1Id'] != "")) {
                 $mileages1Id = intval($params['Mileages1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $mileages2Id = -1111;
-            if ((isset($params['Mileages2Id']) && $params['Mileages2Id'] != "")) {
-                $mileages2Id = intval($params['Mileages2Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            }             
             $warrantyTypesId = -1111;
             if ((isset($params['WarrantyTypesId']) && $params['WarrantyTypesId'] != "")) {
                 $warrantyTypesId = intval($params['WarrantyTypesId']);
@@ -1215,12 +1191,10 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             'warranty_id' => $warrantyId,
                             'vehicle_config_type_id' => $vehicleConfigTypeId,
                             'months1_id' =>  $months1Id,
-                            'mileages1_id' => $mileages1Id,
-                            'months2_id' => $months2Id,
-                            'mileages2_id' => $mileages2Id,
+                            'mileages1_id' => $mileages1Id, 
                             'warranty_types_id' => $warrantyTypesId,
                             'ismaintenance' => $ismaintenance,
-                            'unique_code' => $uniqueCode,
+                            
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1232,9 +1206,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                         warranty_id, 
                         vehicle_config_type_id,
                         months1_id,
-                        mileages1_id,
-                        months2_id,
-                        mileages2_id,
+                        mileages1_id, 
                         warranty_types_id,
                         ismaintenance,
                         unique_code,
@@ -1250,9 +1222,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                     " . intval($warrantyId) . ",
                     " . intval($vehicleConfigTypeId) . ",
                     " . intval($months1Id) . ",
-                    " . intval($mileages1Id) . ",
-                    " . intval($months2Id) . ",
-                    " . intval($mileages2Id) . ",
+                    " . intval($mileages1Id) . ", 
                     " . intval($warrantyTypesId) . ", 
                     " . intval($ismaintenance) . ", 
                     " . intval($priceInEuros) . ", 
@@ -1262,7 +1232,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_warranty_matrix 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                    id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_warranty_matrix_id_seq');
