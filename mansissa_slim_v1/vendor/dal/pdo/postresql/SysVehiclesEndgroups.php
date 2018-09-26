@@ -775,6 +775,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                    SELECT    
                         a.id, 
                         a.act_parent_id as apid,  
+                        a.ckdcbu_type_id,
                         c.name cbuckd_name,
                         a.vehicle_gt_model_id,
 			vgtm.name  gt_model_name,

@@ -154,23 +154,19 @@ $app->get("/pkVehiclesEndgroupsBbDdList_sysvehiclesendgroups/", function () use 
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkFillVehiclesEndgroupsGridx_sysvehiclesendgroups/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
-    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
+    $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillAccBodyDeffGridx_sysaccbodydeff" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillAccBodyDeffGridx_sysvehiclesendgroups" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
-    }
-    $vAccBodyTypeID= NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-        $stripper->offsetSet('acc_body_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['acc_body_type_id']));
-    }
+    } 
     $vPage = NULL;
     if (isset($_GET['page'])) {
         $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
@@ -200,7 +196,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
-    if ($stripper->offsetExists('acc_body_type_id'))$vAccBodyTypeID = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+ 
     if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
     if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
@@ -214,7 +210,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-        'AccBodyTypeID' => $vAccBodyTypeID,
+ 
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -222,7 +218,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
     $resTotalRowCount = $BLL->fillAccBodyDeffGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-        'AccBodyTypeID' => $vAccBodyTypeID,
+ 
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -234,9 +230,22 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
-                "acc_body_type_id" => $menu["acc_body_type_id"], 
-                "body_type_name" => html_entity_decode($menu["body_type_name"]),   
+                "ckdcbu_type_id" => intval($menu["ckdcbu_type_id"]),  
+                "cbuckd_name" => html_entity_decode($menu["cbuckd_name"]), 
+                "vehicle_gt_model_id" => $menu["vehicle_gt_model_id"], 
+                "gt_model_name" => html_entity_decode($menu["gt_model_name"]),   
+                
+                "model_variant_id" => $menu["model_variant_id"], 
+                "variant_name" => html_entity_decode($menu["variant_name"]),   
+                "config_type_id" => $menu["config_type_id"], 
+                "config_type_name" => html_entity_decode($menu["config_type_name"]), 
+                
+                "cap_type_id" => $menu["cap_type_id"], 
+                "cap_name" => html_entity_decode($menu["cap_name"]),    
+                   
+                "endgroup_description" => html_entity_decode($menu["endgroup_description"]),   
+                "model_grouping" => html_entity_decode($menu["model_grouping"]),   
+                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -247,7 +256,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
                 "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
                  
-               
+                
             );
         }
        $counts = $resTotalRowCount[0]['count'];
@@ -264,7 +273,7 @@ $app->get("/pkFillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkUpdateMakeActiveOrPassive_sysvehiclesendgroups/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
@@ -299,7 +308,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
-    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');
+    $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');
 
     
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
@@ -332,12 +341,12 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkInsertAct_sysvehiclesendgroups/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');  
+    $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysaccbodydeff" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysvehiclesendgroups" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
     $vName = NULL;
@@ -372,12 +381,12 @@ $app->get("/pkInsertAct_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkUpdateAct_sysvehiclesendgroups/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');  
+    $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysaccbodydeff" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysvehiclesendgroups" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     
     $vId = NULL;
@@ -421,10 +430,10 @@ $app->get("/pkUpdateAct_sysaccbodydeff/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkDeletedAct_sysaccbodydeff/", function () use ($app ) {
+$app->get("/pkDeletedAct_sysvehiclesendgroups/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysAccBodyDeffBLL');   
+    $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');   
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;

@@ -137,7 +137,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkVehiclesEndgroupsCostDdList_sysvehiclesendgroups' => 'restApiDefaultCall',
                                   /*  'pkVehiclesEndgroupsBbDdList_sysvehiclesendgroups' => 'restApiDefaultCall',*/
                                     'pkUpdateMakeActiveOrPassive_sysvehiclesendgroups' => 'restApiDefaultCall',
-                                    'pkFillVehicleModelVariantsGridx_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkFillVehiclesEndgroupsGridx_sysvehiclesendgroups' => 'restApiDefaultCall',
                                     
                                     'pkInsertAct_sysvehiclesendgroups' => 'restApiDefaultCall',
                                     'pkUpdateAct_sysvehiclesendgroups' => 'restApiDefaultCall',
