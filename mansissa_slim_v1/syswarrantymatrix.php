@@ -291,7 +291,7 @@ $app->get("/pkInsertAct_syswarrantymatrix/", function () use ($app ) {
     }
     $priceInEuros = NULL;
     if (isset($_GET['price_in_euros'])) {
-         $stripper->offsetSet('price_in_euros',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+         $stripper->offsetSet('price_in_euros',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['price_in_euros']));
     } 
