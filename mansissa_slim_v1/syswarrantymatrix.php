@@ -142,6 +142,8 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                  "ismaintenance" => ($menu["price_in_euros"]),  
                  
                 "unique_code" => html_entity_decode($menu["unique_code"]), 
+                "price_in_euros" => $menu["price_in_euros"], 
+                
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
