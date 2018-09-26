@@ -1785,6 +1785,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysnumericalranges": 
+                $this->setRestApiEndPoint('sysnumericalranges.php/');
+                break; 
             case "_sysmileages": 
                 $this->setRestApiEndPoint('sysmileages.php/');
                 break; 
