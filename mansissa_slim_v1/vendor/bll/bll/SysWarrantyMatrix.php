@@ -90,7 +90,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function fillWarrantyMatrixGridx ($params = array()) { 
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         $resultSet = $DAL->fillWarrantyMatrixGridx($params);  
         return $resultSet['resultSet'];
     }
@@ -101,7 +101,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function fillWarrantyMatrixGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         $resultSet = $DAL->fillWarrantyMatrixGridxRtl($params);  
         return $resultSet['resultSet'];
     }
@@ -112,7 +112,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function makeActiveOrPassive($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         return $DAL->makeActiveOrPassive($params);
     }
     
@@ -122,7 +122,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function deletedAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         return $DAL->deletedAct($params);
     }
     
@@ -132,7 +132,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function insertAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         return $DAL->insertAct($params);
     }
     
@@ -142,7 +142,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      * @return array
      */
     public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysAccBodyDeffPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
         return $DAL->updateAct($params);
     }
     
