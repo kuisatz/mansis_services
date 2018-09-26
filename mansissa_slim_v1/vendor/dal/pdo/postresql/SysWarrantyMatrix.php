@@ -16,7 +16,7 @@ namespace DAL\PDO\Postresql;
  * @author Okan CIRAN        
  * @since 30.07.2018                          
  */ 
-class SysWarranties extends \DAL\DalSlim {
+class SysWarrantyMatrix extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN    
