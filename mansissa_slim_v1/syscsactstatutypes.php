@@ -49,7 +49,7 @@ $app->get("/pkCsActStatutypesDdList_syscsactstatutypess/", function () use ($app
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysCsActStatutypesBLL');
-    
+          print_r("22222");
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));

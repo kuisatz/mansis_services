@@ -91,6 +91,7 @@ class SysCsActStatutypes extends \BLL\BLLSlim{
      *  örnek olarak  bırakıldı
     */
     public function csActStatutypesDdList($params = array()) {
+        print_r("11111");
         $DAL = $this->slimApp->getDALManager()->get('sysCsActStatutypesPostgrePDO');
         $resultSet = $DAL->csActStatutypesDdList($params);
         return $resultSet['resultSet'];
