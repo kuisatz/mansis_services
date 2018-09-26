@@ -933,8 +933,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        warranty_id,
-                        vehicle_group_id,
+                        warranty_id, 
                         vehicle_config_type_id,
                         months1_id,
                         mileages1_id, 
