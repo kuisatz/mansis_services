@@ -22,6 +22,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+       //**---- sysNumericalRangesBLL ------------------- 
+                                    'pkNumericalRangesBuybackDdList_sysnumericalranges' => 'restApiDefaultCall',
+                                    'pkNumericalRangesTradebackDdList_sysnumericalranges' => 'restApiDefaultCall',
+                                    'pkNumericalRangesDemoDdList_sysnumericalranges' => 'restApiDefaultCall',
+                                    'pkNumericalRangesRmDdList_sysnumericalranges' => 'restApiDefaultCall',
+            
+        
+         //** sysNumericalRangesBLL ----------------------//      
+        
+        
+        
+        
         //** sysAccBodyDeffBLL ----------------------
                                     'fillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
                                     'pkFillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',

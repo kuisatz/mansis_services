@@ -87,10 +87,7 @@ $app->get("/pkNumericalRangesMainGroupDdList_sysnumericalranges/", function () u
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -152,16 +149,228 @@ $app->get("/pkNumericalRangesParentDdList_sysnumericalranges/", function () use 
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+            
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+ 
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkNumericalRangesBuybackDdList_sysnumericalranges/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysNumericalRangesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkNumericalRangesBuybackDdList_sysnumericalranges" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    } 
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue(); 
+        
+    $resCombobox = $BLL->numericalRangesBuybackDdList(array(                                   
+                                    'language_code' => $vLanguageCode, 
+                                    'LanguageID' => $lid,
+        
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+          
         );
     }
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($flows));
 });
 
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkNumericalRangesTradebackDdList_sysnumericalranges/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysNumericalRangesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkNumericalRangesTradebackDdList_sysnumericalranges" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    } 
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue(); 
+        
+    $resCombobox = $BLL->numericalRangesTradebackDdList_(array(                                   
+                                    'language_code' => $vLanguageCode, 
+                                    'LanguageID' => $lid,
+        
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+          
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkNumericalRangesDemoDdList_sysnumericalranges/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysNumericalRangesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkNumericalRangesDemoDdList_sysnumericalranges" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    } 
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue(); 
+        
+    $resCombobox = $BLL->numericalRangesDemoDdList(array(                                   
+                                    'language_code' => $vLanguageCode, 
+                                    'LanguageID' => $lid,
+        
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+          
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
  
+ /**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkNumericalRangesRmDdList_sysnumericalranges/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysNumericalRangesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkNumericalRangesRmDdList_sysnumericalranges" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    } 
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue(); 
+        
+    $resCombobox = $BLL->numericalRangesRmDdList(array(                                   
+                                    'language_code' => $vLanguageCode, 
+                                    'LanguageID' => $lid,
+        
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+          
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
 
 $app->run();
