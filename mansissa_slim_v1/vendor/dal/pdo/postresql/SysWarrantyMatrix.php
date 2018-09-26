@@ -995,50 +995,56 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            print_r("1111") ; 
              $vehicleConfigTypeId= -1111;
             if ((isset($params['VehicleConfigTypeId']) && $params['VehicleConfigTypeId'] != "")) {
                 $vehicleConfigTypeId = intval($params['VehicleConfigTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            print_r("22222") ; 
             $months1Id = -1111;
             if ((isset($params['Months1Id']) && $params['Months1Id'] != "")) {
                 $months1Id = intval($params['Months1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
+             print_r("33333") ;                 
             $mileages1Id = -1111;
             if ((isset($params['Mileages1Id']) && $params['Mileages1Id'] != "")) {
                 $mileages1Id = intval($params['Mileages1Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
+               print_r("44444") ;             
             $warrantyTypesId = -1111;
             if ((isset($params['WarrantyTypesId']) && $params['WarrantyTypesId'] != "")) {
                 $warrantyTypesId = intval($params['WarrantyTypesId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+                print_r("5555") ;   
             $ismaintenance = -1111;
             if ((isset($params['Ismaintenance']) && $params['Ismaintenance'] != "")) {
                 $ismaintenance = intval($params['Ismaintenance']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+                print_r("66666") ;   
             $uniqueCode = -1111;
             if ((isset($params['UniqueCode']) && $params['UniqueCode'] != "")) {
                 $uniqueCode = intval($params['UniqueCode']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+                print_r("77777") ;   
             $priceInEuros = -1111;
             if ((isset($params['PriceInEuros']) && $params['PriceInEuros'] != "")) {
                 $priceInEuros = intval($params['PriceInEuros']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+                print_r("88888") ;   
                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
