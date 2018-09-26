@@ -26,13 +26,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkNumericalRangesBuybackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesTradebackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesDemoDdList_sysnumericalranges' => 'restApiDefaultCall',
-                                    'pkNumericalRangesRmDdList_sysnumericalranges' => 'restApiDefaultCall',
-            
+                                    'pkNumericalRangesRmDdList_sysnumericalranges' => 'restApiDefaultCall', 
         
          //** sysNumericalRangesBLL ----------------------//      
-        
-        
-        
         
         //** sysAccBodyDeffBLL ----------------------
                                     'fillAccBodyDeffGridx_sysaccbodydeff' => 'restApiDefaultCall',
@@ -697,7 +693,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdate_syscountrys' => 'restApiDefaultCall',
                                     'pkFillGrid_syscountrys' => 'restApiDefaultCall',
                                     'fillComboBox_syscountrys' => 'restApiDefaultCall',
-                                    'pkInsertLanguageTemplate_syscountrys' => 'restApiDefaultCall',
+                                    'pkCountryDdList_syscountrys' => 'restApiDefaultCall',
          //**---- syscountrys -------------------        
         //** syscity ----------------------
                                     'pkDelete_syscity' => 'restApiDefaultCall',
