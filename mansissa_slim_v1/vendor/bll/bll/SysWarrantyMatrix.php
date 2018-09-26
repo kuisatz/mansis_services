@@ -91,7 +91,7 @@ class SysWarrantyMatrix   extends \BLL\BLLSlim{
      */
     public function fillWarrantyMatrixGridx ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('sysWarrantyMatrixPostgrePDO');
-        $resultSet = $DAL->fillWarrantyMatrixGridx($params);  
+        $resultSet = $DAL->fillWarrantyMatrixGridx($params);   
         return $resultSet['resultSet'];
     }
     

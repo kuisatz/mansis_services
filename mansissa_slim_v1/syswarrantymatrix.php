@@ -105,6 +105,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
+    print_r($resDataGrid) ; 
    
     $resTotalRowCount = $BLL->fillWarrantyMatrixGridx(array(
         'language_code' => $vLanguageCode, 
