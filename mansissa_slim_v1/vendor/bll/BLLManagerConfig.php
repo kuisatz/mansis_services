@@ -83,7 +83,7 @@ class BLLManagerConfig{
                    'sysFinanceTypesBLL' => 'BLL\BLL\SysFinanceTypes',
                    'sysFixedSalesCostsBLL' => 'BLL\BLL\SysFixedSalesCosts',
                    'sysKpnumbersBLL' => 'BLL\BLL\SysKpnumbers',
-                   'sysMileagesBLL' => 'BLL\BLL\SysMileages',
+                   'sysMileagesBLL' => 'BLL\BLL\SysMileagesx',
                    'sysMonthsBLL' => 'BLL\BLL\SysMonthsx',
                    'sysNumericalRangesBLL' => 'BLL\BLL\SysNumericalRanges',
                    'sysOmtBLL' => 'BLL\BLL\SysOmt',
