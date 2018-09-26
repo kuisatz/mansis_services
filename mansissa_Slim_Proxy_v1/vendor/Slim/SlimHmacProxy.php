@@ -22,6 +22,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
             
         
+        
+        
+        //**---- sysCsActStatutypesBLL ------------------- 
+                                    'pkCsActStatutypesDdList_syscsactstatutypess' => 'restApiDefaultCall', 
+        
+         //** sysCsActStatutypesBLL ----------------------//  
+        
         //**---- sysCountryRegionsBLL ------------------- 
                                     'pkCountryRegionsDdList_syscountryregions' => 'restApiDefaultCall', 
         
@@ -1787,6 +1794,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syscsactstatutypess": 
+                $this->setRestApiEndPoint('syscsactstatutypess.php/');
+                break; 
             case "_syscountryregions": 
                 $this->setRestApiEndPoint('syscountryregions.php/');
                 break; 
