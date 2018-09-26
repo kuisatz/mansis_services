@@ -57,10 +57,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
     }
-    $vVehicleGroupID= NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-        $stripper->offsetSet('vehicle_group_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['vehicle_group_id']));
-    }
+   
     $vPage = NULL;
     if (isset($_GET['page'])) {
         $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
@@ -90,7 +87,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
-    if ($stripper->offsetExists('vehicle_group_id'))$vVehicleGroupID = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+  
     if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
     if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
@@ -104,7 +101,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-        'VehicleGroupID' => $vVehicleGroupID,
+ 
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -112,7 +109,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
     $resTotalRowCount = $BLL->fillWarrantiesGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-        'VehicleGroupID' => $vVehicleGroupID,
+    
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -126,7 +123,24 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                 "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
                 "vehicle_group_id" => $menu["vehicle_group_id"], 
+                "vehicle_group" => html_entity_decode($menu["vehicle_group"]),   
                 "vehicle_group_name" => html_entity_decode($menu["vehicle_group_name"]),   
+                 
+                "vehicle_config_type_id" => $menu["vehicle_config_type_id"], 
+                "vehicle_config_name" => html_entity_decode($menu["vehicle_config_name"]),   
+                "vehicle_group_id" => $menu["vehicle_group_id"], 
+                "vehicle_group_name" => html_entity_decode($menu["vehicle_group_name"]),   
+                "warranty_types_id" => $menu["warranty_types_id"], 
+                "warranty_type_name" => html_entity_decode($menu["warranty_type_name"]),   
+                
+                 "months1_id" => intval($menu["months1_id"]),  
+                 "month_value" => intval($menu["month_value"]),  
+                 "mileages1_id" => intval($menu["mileages1_id"]),  
+                 "ismaintenance" => intval($menu["ismaintenance"]),  
+                  "maintenance" => html_entity_decode($menu["maintenance"]), 
+                 "ismaintenance" => ($menu["price_in_euros"]),  
+                 
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -137,7 +151,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                 "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
                  
-               
+                 
             );
         }
        $counts = $resTotalRowCount[0]['count'];

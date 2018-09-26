@@ -532,32 +532,12 @@ class SysWarranties extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND krd.name" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'warranty_parent_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
-                             case 'warranty_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                              case 'warranty_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'month1_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(grdx.name, ''), grd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
-                             case 'month2_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -608,45 +588,33 @@ class SysWarranties extends \DAL\DalSlim {
             if (isset($params['VehicleGroupTypeID']) && $params['VehicleGroupTypeID'] != "") {
                 $vehicleGroupTypeID = $params['VehicleGroupTypeID'];
                 $addSql ="  a.vehicle_config_type_id = " . intval($vehicleGroupTypeID). "  AND  " ; 
-            }  
-            $warrantyParentID=0 ;
-            if (isset($params['WarrantyParentID']) && $params['WarrantyParentID'] != "") {
-                $warrantyParentID = $params['WarrantyParentID'];
-                $addSql ="  drd.parent_id= " . intval($warrantyParentID). "  AND  " ; 
-            }  
+            }             
             $warrantyTypeID=0 ;
             if (isset($params['WarrantyTypeID']) && $params['WarrantyTypeID'] != "") {
                 $warrantyTypeID = $params['WarrantyTypeID'];
                 $addSql ="  a.warranty_types_id = " . intval($warrantyTypeID). "  AND  " ; 
             }   
-            $warrantyTypeID=0 ;
-            if (isset($params['WarrantyTypeID']) && $params['WarrantyTypeID'] != "") {
-                $warrantyTypeID = $params['WarrantyTypeID'];
-                $addSql ="  a.warranty_types_id = " . intval($warrantyTypeID). "  AND  " ; 
-            }  
+                            
                 $sql = "
-                    SELECT  
+                     SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
-			ird.vehicle_group_id,
-			ird.name  AS vehicle_group_name, 
+			drd.vehicle_group_id,
+                        vgrd.name  AS vehicle_group, 
+			drd.name  AS vehicle_group_name, 
 			a.vehicle_config_type_id, 
-			krd.name  AS vehicle_config_name, 
-			a.warranty_id warranty_parent_id,
-                        COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS warranty_parent_name,
-			a.warranty_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS warranty_name,
-                      /*  a.name_eng, */
+			krd.name  AS vehicle_config_name,  
+			a.warranty_id, 
 			a.warranty_types_id,
 			COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS warranty_type_name, 
-			a.months1_id,
-			COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS month1_name,
-			grd.mvalue, 
-			a.months2_id,
-			COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS month2_name,
-			hrd.mvalue, 
+			a.months1_id,		        
+			grd.mvalue  month_value, 
+                        hrd.id mileages1_id,  
+			hrd.mileages1, 			 
 			a.ismaintenance,
 			COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance, 
+			a.price_in_euros, 
+ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -661,25 +629,23 @@ class SysWarranties extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name   
                     FROM sys_warranty_matrix a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "    AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+                    
 		    INNER JOIN sys_warranties drd ON drd.act_parent_id = a.warranty_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
+
+		    INNER JOIN sys_vehicle_groups vgrd ON vgrd.act_parent_id = a.warranty_id AND vgrd.show_it = 0 
  
 		    INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_id AND erd.show_it = 0 AND erd.language_id= l.id
 		    LEFT JOIN sys_warranty_types erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it= 0 AND erdx.language_id =lx.id  
-                    
-		    INNER JOIN sys_warranties frd ON frd.act_parent_id = drd.parent_id AND frd.show_it = 0 AND frd.language_id= l.id and frd.parent_id =0 
-		    LEFT JOIN sys_warranties frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.active =0 AND frdx.deleted = 0 AND frdx.language_id =lx.id  
+                 
+		    INNER JOIN sys_monthsx grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0   
                   
-		    INNER JOIN sys_months grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0 AND grd.language_id= l.id  
-		    LEFT JOIN sys_months grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.active =0 AND grdx.deleted = 0 AND grdx.language_id =lx.id  
+		    INNER JOIN sys_mileagesx hrd ON hrd.act_parent_id = a.mileages1_id AND hrd.show_it = 0   
                   
-		    INNER JOIN sys_months hrd ON hrd.act_parent_id = a.months2_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
-		    LEFT JOIN sys_months hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.active =0 AND hrdx.deleted = 0 AND hrdx.language_id =lx.id  
-                  
-		    INNER JOIN sys_vehicle_groups ird ON ird.act_parent_id = a.vehicle_group_id AND ird.show_it  = 0  
+		    INNER JOIN sys_vehicle_groups ird ON ird.act_parent_id = drd.vehicle_group_id AND ird.show_it  = 0  
 		    INNER JOIN sys_vehicle_config_types krd ON krd.act_parent_id = a.vehicle_config_type_id AND krd.show_it  = 0  
 
                     /*----*/   
@@ -747,7 +713,7 @@ class SysWarranties extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                           case 'vehicle_group_name':
+                            case 'vehicle_group_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND ird.name" . $sorguExpression . ' ';
                               
@@ -756,32 +722,12 @@ class SysWarranties extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND krd.name" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'warranty_parent_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
-                             case 'warranty_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                              case 'warranty_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'month1_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(grdx.name, ''), grd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
-                             case 'month2_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -831,66 +777,50 @@ class SysWarranties extends \DAL\DalSlim {
             if (isset($params['VehicleGroupTypeID']) && $params['VehicleGroupTypeID'] != "") {
                 $vehicleGroupTypeID = $params['VehicleGroupTypeID'];
                 $addSql ="  a.vehicle_config_type_id = " . intval($vehicleGroupTypeID). "  AND  " ; 
-            }  
-            $warrantyParentID=0 ;
-            if (isset($params['WarrantyParentID']) && $params['WarrantyParentID'] != "") {
-                $warrantyParentID = $params['WarrantyParentID'];
-                $addSql ="  drd.parent_id= " . intval($warrantyParentID). "  AND  " ; 
-            }  
+            }             
             $warrantyTypeID=0 ;
             if (isset($params['WarrantyTypeID']) && $params['WarrantyTypeID'] != "") {
                 $warrantyTypeID = $params['WarrantyTypeID'];
                 $addSql ="  a.warranty_types_id = " . intval($warrantyTypeID). "  AND  " ; 
             }   
-            $warrantyTypeID=0 ;
-            if (isset($params['WarrantyTypeID']) && $params['WarrantyTypeID'] != "") {
-                $warrantyTypeID = $params['WarrantyTypeID'];
-                $addSql ="  a.warranty_types_id = " . intval($warrantyTypeID). "  AND  " ; 
-            }  
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
                             a.id,  
-                            a.vehicle_group_id,
-                            ird.name  AS vehicle_group_name, 
+                            drd.vehicle_group_id,
+                            vgrd.name  AS vehicle_group, 
+                            drd.name  AS vehicle_group_name, 
                             a.vehicle_config_type_id, 
-                            krd.name  AS vehicle_config_name, 
-                            drd.parent_id warranty_parent_id,
-                            COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS warranty_parent_name,
-                            a.warranty_id,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS warranty_name, 
+                            krd.name  AS vehicle_config_name,  
+                            a.warranty_id, 
                             a.warranty_types_id,
                             COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS warranty_type_name, 
-                            a.months1_id,
-                            COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS month1_name,
-                            grd.mvalue, 
-                            a.months2_id,
-                            COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS month2_name, 
+                            a.months1_id,		        
+                            grd.mvalue month_value, 
+                            hrd.id mileages1_id,  
+                            hrd.mileages1, 			 
                             a.ismaintenance,
-                            COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
+                            COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS  maintenance,   
+                            u.username AS op_user_name  
                         FROM sys_warranty_matrix a                    
                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "    AND lx.show_it =0  
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
+
                         INNER JOIN sys_warranties drd ON drd.act_parent_id = a.warranty_id AND drd.show_it = 0 AND drd.language_id= l.id
                         LEFT JOIN sys_warranties drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
+
+                        INNER JOIN sys_vehicle_groups vgrd ON vgrd.act_parent_id = a.warranty_id AND vgrd.show_it = 0 
 
                         INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_id AND erd.show_it = 0 AND erd.language_id= l.id
                         LEFT JOIN sys_warranty_types erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it= 0 AND erdx.language_id =lx.id  
 
-                        INNER JOIN sys_warranties frd ON frd.act_parent_id = drd.parent_id AND frd.show_it = 0 AND frd.language_id= l.id and frd.parent_id =0 
-                        LEFT JOIN sys_warranties frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.active =0 AND frdx.deleted = 0 AND frdx.language_id =lx.id  
+                        INNER JOIN sys_monthsx grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0   
 
-                        INNER JOIN sys_months grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0 AND grd.language_id= l.id  
-                        LEFT JOIN sys_months grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.active =0 AND grdx.deleted = 0 AND grdx.language_id =lx.id  
+                        INNER JOIN sys_mileagesx hrd ON hrd.act_parent_id = a.mileages1_id AND hrd.show_it = 0   
 
-                        INNER JOIN sys_months hrd ON hrd.act_parent_id = a.months2_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
-                        LEFT JOIN sys_months hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.active =0 AND hrdx.deleted = 0 AND hrdx.language_id =lx.id  
-
-                        INNER JOIN sys_vehicle_groups ird ON ird.act_parent_id = a.vehicle_group_id AND ird.show_it  = 0  
+                        INNER JOIN sys_vehicle_groups ird ON ird.act_parent_id = drd.vehicle_group_id AND ird.show_it  = 0  
                         INNER JOIN sys_vehicle_config_types krd ON krd.act_parent_id = a.vehicle_config_type_id AND krd.show_it  = 0  
 
                         /*----*/   
@@ -905,7 +835,7 @@ class SysWarranties extends \DAL\DalSlim {
 
                         WHERE  
                             a.deleted =0 AND
-                            a.show_it =0   
+                            a.show_it =0  
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
