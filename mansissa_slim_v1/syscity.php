@@ -105,7 +105,7 @@ $app->get("/fillComboBox_syscity/", function () use ($app ) {
 $app->get("/pkCityDdList_syscity/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysMileagesBLL');
+    $BLL = $app->getBLLManager()->get('sysCityBLL');
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
@@ -127,12 +127,28 @@ $app->get("/pkCityDdList_syscity/", function () use ($app ) {
                                                 $app,
                                                 $_GET['lid']));
     }
+    $vCountryId = 107;
+    if (isset($_GET['country_id'])) {
+         $stripper->offsetSet('country_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country_id']));
+    }
+    $vRegionID = 107;
+    if (isset($_GET['region_id'])) {
+         $stripper->offsetSet('region_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['region_id']));
+    }
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+    if($stripper->offsetExists('country_id')) $vCountryId = $stripper->offsetGet('country_id')->getFilterValue();
+    if($stripper->offsetExists('region_id')) $vRegionID = $stripper->offsetGet('region_id')->getFilterValue();
         
     $resCombobox = $BLL->cityDdList(array(                                   
-                                    'language_code' => $vLanguageCode,
+                                    'CountryID' => $vCountryId,
+                                    'RegionID' => $vRegionID,
+                                    'language_code' => $vLanguageCode, 
                                     'LanguageID' => $lid,
                         ));    
 
