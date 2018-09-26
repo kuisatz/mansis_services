@@ -397,23 +397,23 @@ $app->get("/pkUpdateAct_syswarranties/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vehicleGroupId = NULL;
+    if (isset($_GET['vehicle_group_id'])) {
+         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['vehicle_group_id']));
     } 
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'VehicleGroupId' => $vehicleGroupId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
