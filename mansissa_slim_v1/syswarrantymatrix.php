@@ -107,7 +107,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
     ));
   
    
-    $resTotalRowCount = $BLL->fillWarrantyMatrixGridx(array(
+    $resTotalRowCount = $BLL->fillWarrantyMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
     
@@ -115,7 +115,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
         'pk' => $pk,
     ));
     $counts=0;
-    print_r($resTotalRowCount) ; 
+ 
     $menu = array();            
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
