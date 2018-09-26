@@ -1773,7 +1773,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_sysmonths": 
+            case "_sysmileages": 
+                $this->setRestApiEndPoint('sysmileages.php/');
+                break; 
+             case "_sysmonths": 
                 $this->setRestApiEndPoint('sysmonths.php/');
                 break; 
             case "_syswarrantymatrix": 
