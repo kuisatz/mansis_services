@@ -22,6 +22,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+        
+        //**---- sysCountryRegionsBLL ------------------- 
+                                    'pkCountryRegionsDdList_syscountryregions' => 'restApiDefaultCall', 
+        
+         //** sysCountryRegionsBLL ----------------------//  
+        
        //**---- sysNumericalRangesBLL ------------------- 
                                     'pkNumericalRangesBuybackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesTradebackDdList_sysnumericalranges' => 'restApiDefaultCall',
@@ -1781,6 +1787,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syscountryregions": 
+                $this->setRestApiEndPoint('syscountryregions.php/');
+                break; 
             case "_sysnumericalranges": 
                 $this->setRestApiEndPoint('sysnumericalranges.php/');
                 break; 
@@ -1793,7 +1802,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_syswarrantymatrix": 
                 $this->setRestApiEndPoint('syswarrantymatrix.php/');
                 break;  
-             case "_syswarrantytypes": 
+            case "_syswarrantytypes": 
                 $this->setRestApiEndPoint('syswarrantytypes.php/');
                 break;  
             case "_syswarranties": 
