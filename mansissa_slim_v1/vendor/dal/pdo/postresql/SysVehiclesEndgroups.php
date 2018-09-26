@@ -202,15 +202,19 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' AS name ,
+                '' AS value, 
+                true AS control,
+                CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_vehicles_endgroups  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.ckdcbu_type_id =  " . intval($params['ckdcbu_type_id']) . "  AND 
+                a.vehicle_gt_model_id =  " . intval($params['vehicle_gt_model_id']) . "  AND 
+                a.model_variant_id =  " . intval($params['model_variant_id']) . "  AND 
+                a.config_type_id =  " . intval($params['config_type_id']) . "  AND 
+                a.cap_type_id =  " . intval($params['cap_type_id']) . "    
                   " . $addSql . " 
-                AND a.deleted =0    
+                AND a.deleted =0     
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
