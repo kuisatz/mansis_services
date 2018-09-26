@@ -94,7 +94,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
 
-    $resDataGrid = $BLL->fillWarrantiesGridx(array(
+    $resDataGrid = $BLL->fillWarrantyMatrixGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
         'page' => $vPage,
@@ -106,7 +106,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
         'pk' => $pk,
     ));
    
-    $resTotalRowCount = $BLL->fillWarrantiesGridxRtl(array(
+    $resTotalRowCount = $BLL->fillWarrantyMatrixGridx(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
     
