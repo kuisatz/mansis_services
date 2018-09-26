@@ -84,7 +84,7 @@ class BLLManagerConfig{
                    'sysFixedSalesCostsBLL' => 'BLL\BLL\SysFixedSalesCosts',
                    'sysKpnumbersBLL' => 'BLL\BLL\SysKpnumbers',
                    'sysMileagesBLL' => 'BLL\BLL\SysMileages',
-                   'sysMonthsBLL' => 'BLL\BLL\SysMonths',
+                   'sysMonthsBLL' => 'BLL\BLL\SysMonthsx',
                    'sysNumericalRangesBLL' => 'BLL\BLL\SysNumericalRanges',
                    'sysOmtBLL' => 'BLL\BLL\SysOmt',
                    'sysPriorityTypeBLL' => 'BLL\BLL\SysPriorityType',
