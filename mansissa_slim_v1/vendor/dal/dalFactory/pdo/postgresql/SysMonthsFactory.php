@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class SysMonthsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $sysMonths = new \DAL\PDO\Postresql\SysMonths() ;   
+        $sysMonths = new \DAL\PDO\Postresql\SysMonthsx() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $sysMonths -> setSlimApp($slimapp); 
         return $sysMonths; 
