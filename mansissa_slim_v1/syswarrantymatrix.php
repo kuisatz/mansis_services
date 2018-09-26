@@ -121,7 +121,7 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
+             
                 "vehicle_group_id" => $menu["vehicle_group_id"], 
                 "vehicle_group" => html_entity_decode($menu["vehicle_group"]),   
                 "vehicle_group_name" => html_entity_decode($menu["vehicle_group_name"]),   
