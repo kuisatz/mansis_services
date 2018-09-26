@@ -381,7 +381,7 @@ $app->get("/pkUpdateAct_syswarrantymatrix/", function () use ($app ) {
     }
     $uniqueCode = NULL;
     if (isset($_GET['unique_code'])) {
-         $stripper->offsetSet('unique_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+         $stripper->offsetSet('unique_code',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['unique_code']));
     }
