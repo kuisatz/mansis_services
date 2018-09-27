@@ -22,6 +22,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+        
+        
+        
+         //**---- sysCustomerReliabilityBLL ------------------- 
+                                    'pkCustomerTurnoverRatesDdList_syscustomerturnoverrates' => 'restApiDefaultCall', 
+        
+         //** sysCustomerReliabilityBLL ----------------------//     
          //**---- sysCustomerReliabilityBLL ------------------- 
                                     'pkCustomerSegmentTypesDdList_syscustomersegmenttypes' => 'restApiDefaultCall', 
         
@@ -1824,7 +1831,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_syscustomersegmenttypes":  
+            case "_syscustomerturnoverrates":  
+                $this->setRestApiEndPoint('syscustomerturnoverrates.php/');
+                break; 
+             case "_syscustomersegmenttypes":  
                 $this->setRestApiEndPoint('syscustomersegmenttypes.php/');
                 break; 
             case "_syscustomersectortypes":  
