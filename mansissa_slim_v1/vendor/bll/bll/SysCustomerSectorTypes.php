@@ -113,9 +113,9 @@ class SysCustomerSectorTypes extends \BLL\BLLSlim{
      * @return array
      *  örnek olarak  bırakıldı
     */
-    public function customerSectorTypesDdList($params = array()) {
+    public function customerSectorTypesFullDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesPostgrePDO');
-        $resultSet = $DAL->customerSectorTypesDdList($params);
+        $resultSet = $DAL->customerSectorTypesFullDdList($params);
         return $resultSet['resultSet'];
     }
     
