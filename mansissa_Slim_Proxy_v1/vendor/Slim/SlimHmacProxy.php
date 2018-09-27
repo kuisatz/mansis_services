@@ -22,7 +22,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
-        
+        //**---- sysKpnumbersBLL ------------------- 
+                                    'pkKpnumbersDdList_syskpnumbers' => 'restApiDefaultCall', 
+            
+         //** sysKpnumbersBLL ----------------------//  
         
          //**---- sysVehicleBrandBLL ------------------- 
                                     'pkFinanceTypesDdList_sysfinancetypes' => 'restApiDefaultCall', 
@@ -1854,6 +1857,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syskpnumbers":  
+                $this->setRestApiEndPoint('syskpnumbers.php/');
+                break; 
             case "_sysfinancetypes":  
                 $this->setRestApiEndPoint('sysfinancetypes.php/');
                 break; 
