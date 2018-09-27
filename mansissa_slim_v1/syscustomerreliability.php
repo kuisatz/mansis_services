@@ -87,10 +87,7 @@ $app->get("/pkCustomerReliabilityDdList_syscustomerreliability/", function () us
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
