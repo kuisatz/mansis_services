@@ -25,10 +25,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-         //**---- sysCustomerReliabilityBLL ------------------- 
+         //**---- sysCustomerTurnoverRatesBLL ------------------- 
                                     'pkCustomerTurnoverRatesDdList_syscustomerturnoverrates' => 'restApiDefaultCall', 
         
-         //** sysCustomerReliabilityBLL ----------------------//     
+         //** sysCustomerTurnoverRatesBLL ----------------------//     
          //**---- sysCustomerReliabilityBLL ------------------- 
                                     'pkCustomerSegmentTypesDdList_syscustomersegmenttypes' => 'restApiDefaultCall', 
         
