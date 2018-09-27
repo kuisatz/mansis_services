@@ -1841,7 +1841,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_sysprobabilities":  
+            case "_systerrains":  
+                $this->setRestApiEndPoint('systerrains.php/');
+                break; 
+              case "_sysprobabilities":  
                 $this->setRestApiEndPoint('sysprobabilities.php/');
                 break; 
             case "_syscustomerturnoverrates":  
@@ -1853,16 +1856,16 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_syscustomersectortypes":  
                 $this->setRestApiEndPoint('syscustomersectortypes.php/');
                 break; 
-             case "_syscustomerreliability":  
+            case "_syscustomerreliability":  
                 $this->setRestApiEndPoint('syscustomerreliability.php/');
                 break; 
-             case "_syscustomercategories":  
+            case "_syscustomercategories":  
                 $this->setRestApiEndPoint('syscustomercategories.php/');
                 break; 
             case "_syscustomerapplicationtypes":  
                 $this->setRestApiEndPoint('syscustomerapplicationtypes.php/');
                 break; 
-             case "_syscsstatutypes":  
+            case "_syscsstatutypes":  
                 $this->setRestApiEndPoint('syscsstatutypes.php/');
                 break; 
             case "_syscsactivationtypes":  
