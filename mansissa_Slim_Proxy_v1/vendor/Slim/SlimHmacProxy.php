@@ -25,6 +25,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
          //**---- sysProbabilitiesBLL ------------------- 
+                                    'pkTerrainsMainDdList_systerrains' => 'restApiDefaultCall', 
+                                    'pkTerrainsParentDdList_systerrains' => 'restApiDefaultCall', 
+                                    'pkTerrainsBuybackDdList_systerrains' => 'restApiDefaultCall', 
+                                    'pkTerrainsTradebackDdList_systerrains' => 'restApiDefaultCall', 
+        
+         //** sysProbabilitiesBLL ----------------------//     
+         ////**---- sysProbabilitiesBLL ------------------- 
                                     'pkProbabilitiesDdList_sysprobabilities' => 'restApiDefaultCall', 
         
          //** sysProbabilitiesBLL ----------------------//     
