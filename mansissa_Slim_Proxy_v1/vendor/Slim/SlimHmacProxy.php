@@ -25,6 +25,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
         //**---- sysKpnumbersBLL ------------------- 
                                     'pkKpnumbersDdList_syskpnumbers' => 'restApiDefaultCall', 
                                     'pkFillKpnumbersGridx_syskpnumbers' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_syskpnumbers' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_syskpnumbers' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_syskpnumbers' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_syskpnumbers' => 'restApiDefaultCall', 
             
          //** sysKpnumbersBLL ----------------------//  
         

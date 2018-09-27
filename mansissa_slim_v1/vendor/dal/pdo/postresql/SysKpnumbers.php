@@ -843,7 +843,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_kpnumbers 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -901,10 +901,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                             act_parent_id  
                             )
                     VALUES (
-                            '" . $name . "',
-                            '" . $nameEng . "',
-                            " . intval($AccBodyTypeId) . ",
-
+                            '" . $name . "', 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_kpnumbers_id_seq)
                                                  )   ";
@@ -978,7 +975,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_kpnumbers (  
@@ -988,7 +985,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,     
+                    '" . ($name) . "' AS name,     
                     
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
