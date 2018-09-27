@@ -499,24 +499,37 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }   
               
-            $statement = $pdo->prepare("     
-
+            $statement = $pdo->prepare("    
+            select 
+                id, 	
+                case parent_id when 0 then name
+                    else  concat(mname ,' - ',name ) end as name,
+                name_eng,
+                parent_id,
+                active,
+                state_type  
+            from ( 
                 SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type   
-                FROM sys_customer_sector_types a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_customer_sector_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0 
-                ORDER BY a.parent_id , a.priority 
+                      a.act_parent_id AS id, 	
+                      COALESCE(NULLIF(sd.name, ''), a.name_eng)   AS name,                    
+                      a.name_eng AS name_eng,
+                      a.parent_id,
+                      a.active,
+                      0 AS state_type   ,
+                      COALESCE(NULLIF(sdz.name, ''), a.name_eng)   AS mname
+                  FROM sys_customer_sector_types a    
+                  INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+                  LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue). "   AND lx.deleted =0 AND lx.active =0                      		
+                  LEFT JOIN sys_customer_sector_types sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                  LEFT JOIN sys_customer_sector_types sdz ON sdz.show_it =0 AND lx.id = sdz.language_id 
+                           and sdz.act_parent_id=a.parent_id and sdz.parent_id = 0   
+                  WHERE   
+                      a.deleted = 0 AND
+                      a.active =0 AND
+                      a.language_parent_id =0 
+                  ORDER BY a.parent_id , a.priority 
+
+            ) asdasd     
 
                                  ");
             $statement->execute();
