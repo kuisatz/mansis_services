@@ -24,7 +24,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+        //**---- sysCustomerReliabilityBLL ------------------- 
+                                    'pkCustomerSectorTypesDdList_syscustomersectortypes' => 'restApiDefaultCall', 
         
+         //** sysCustomerReliabilityBLL ----------------------//    
         //**---- sysCustomerReliabilityBLL ------------------- 
                                     'pkCustomerReliabilityDdList_syscustomerreliability' => 'restApiDefaultCall', 
         
@@ -1818,7 +1821,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_syscustomerreliability":  
+            case "_syscustomersectortypes":  
+                $this->setRestApiEndPoint('syscustomersectortypes.php/');
+                break; 
+             case "_syscustomerreliability":  
                 $this->setRestApiEndPoint('syscustomerreliability.php/');
                 break; 
              case "_syscustomercategories":  
