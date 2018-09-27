@@ -1883,7 +1883,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_syskpnumbers":  
+            case "_infocustomer":  
+                $this->setRestApiEndPoint('infocustomer.php/');
+                break; 
+             case "_syskpnumbers":  
                 $this->setRestApiEndPoint('syskpnumbers.php/');
                 break; 
             case "_sysfinancetypes":  
