@@ -48,7 +48,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 $app->get("/pkCustomerTurnoverRatesDdList_syscustomerturnoverrates/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysCustomerTurnoverRatesBLL');
+    $BLL = $app->getBLLManager()->get('sysCustomerSegmentTypesBLL');
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
