@@ -35,6 +35,13 @@ class BLLManagerConfig{
                   'salesBLL' => 'BLL\BLL\InfoSales',
                   'dealerOwnerBLL' => 'BLL\BLL\InfoDealerOwner',
               
+                 
+                 
+                 
+                 
+                 
+                 
+                   'infoCustomerBLL' => 'BLL\BLL\InfoCustomer',
                      ////////////////////////////
                    'sysAccBodyDeffBLL' => 'BLL\BLL\SysAccBodyDeff',
                    'sysAccBodyMatrixBLL' => 'BLL\BLL\SysAccBodyMatrix',

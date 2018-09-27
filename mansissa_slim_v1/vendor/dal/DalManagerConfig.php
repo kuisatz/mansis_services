@@ -204,12 +204,20 @@ class DalManagerConfig {
               // oracle  //******************************************************************************************
                 
                 
+                
+                
+                
+                
               // postgresql //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+                
+                
+                
+                'infoCustomerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerFactory',
                 
                 'infoAfterSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoAfterSalesFactory',
                 'infoSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoSalesFactory',
                 'infoDealerOwnerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoDealerOwnerFactory',
-                 
+                 ///////////////////////////////////////////////////////////////////////////////
                 'sysAccBodyDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodyDeffFactory',
                 'sysAccBodyMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodyMatrixFactory',
                 'sysAccBodySuppPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysAccBodySuppFactory',

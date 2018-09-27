@@ -550,7 +550,45 @@ class InfoCustomer extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+     
+    
+     /** 
+     * @author Okan CIRAN
+     * @ back office tarafından onaylanmanmış müşteri tanımları dropdown ya da tree ye doldurmak için info_customer tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  customerDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
                             
+            $statement = $pdo->prepare("    
+              SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.registration_name  AS name,  
+                    a.name_short AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM info_customer a    
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0  
+                ORDER BY  id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
     /** 
      * @author Okan CIRAN
      * @   garanti tanımlarını grid formatında döndürür !! ana tablo  info_customer 
@@ -1094,82 +1132,6 @@ class InfoCustomer extends \DAL\DalSlim {
         }
     }
 
-    /**
-     * @author Okan CIRAN
-     * @ info_customer tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
-     * @version v 1.0  26.08.2018
-     * @todo Su an için aktif değil SQl in değişmesi lazım. 
-     * @return array
-     * @throws \PDOException
-     */
-    public function insertLanguageTemplate($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            //  $pdo->beginTransaction();
-            /**
-             * table names and column names will be changed for specific use
-             */
-            $statement = $pdo->prepare(" 
-                
-                INSERT INTO info_customer(
-                    name, 
-                    name_eng, 
-                    vehicle_group_id, 
-                    
-                    language_id,
-                    language_parent_id, 
-                    act_parent_id,
-                    op_user_id)
-                    
-                  SELECT    
-                    name, 
-                    name_eng, 
-                    vehicle_group_id, 
-                    parent_id, 
-                     
-                    language_id,
-                    language_parent_id, 
-                    ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
-                    op_user_id
-                FROM ( 
-                    SELECT  
-                        c.vehicle_group_id, 
-                     
-			case when l.id = 385 then c.name_eng   
-			    when " . intval($params['language_id']) . " = l.id then '" .($params['nameTemp']). "'  
-                            else '' end as name,  
-                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
-                        l.id as language_id,  
-			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
-			case l.id when 385 then c.id else (SELECT last_value FROM info_customer_id_seq) end as act_parent_id,  
-                        c.op_user_id
-                    FROM info_customer c
-                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
-                    WHERE c.id = " . intval($params['id']) . "  
-                    ) AS xy   
-                    WHERE xy.language_id NOT IN 
-                        (SELECT DISTINCT language_id 
-                        FROM info_customer cx 
-                        WHERE 
-                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
-                            cx.id = " . intval($params['id']) . "  ) /* AND  
-                            cx.deleted =0 AND 
-                            cx.active =0 */ )
-                    ");
-
-            $result = $statement->execute();
-            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            //   $pdo->commit();
-
-            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
-        } catch (\PDOException $e /* Exception $e */) {
-            //  $pdo->rollback();
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
                             
     /**
      * @author Okan CIRAN
