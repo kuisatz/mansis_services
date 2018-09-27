@@ -1804,6 +1804,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syscsstatutypes":  
+                $this->setRestApiEndPoint('syscsstatutypes.php/');
+                break; 
             case "_syscsactivationtypes":  
                 $this->setRestApiEndPoint('syscsactivationtypes.php/');
                 break; 
