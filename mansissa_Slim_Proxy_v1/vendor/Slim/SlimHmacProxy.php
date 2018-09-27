@@ -20,7 +20,15 @@ class SlimHmacProxy extends \Proxy\Proxy {
     protected $redirectMap = array('getReports_test' => 'restApiDefaultCall',
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
-            
+        
+        
+        
+        
+        
+         //**---- sysCsStatuTypesBLL ------------------- 
+                                    'pkCsStatuTypesDdList_syscsstatutypes' => 'restApiDefaultCall', 
+        
+         //** sysCsStatuTypesBLL ----------------------//             
          //**---- sysCsActivationTypesBLL ------------------- 
                                     'pkCsActivationTypesDdList_syscsactivationtypes' => 'restApiDefaultCall', 
         
