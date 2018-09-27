@@ -527,7 +527,7 @@ class SysCustomerSectorTypes extends \DAL\DalSlim {
                       a.deleted = 0 AND
                       a.active =0 AND
                       a.language_parent_id =0 
-                  ORDER BY a.parent_id , a.priority 
+                  ORDER BY a.parent_id , a.priority ,  COALESCE(NULLIF(sd.name, ''), a.name_eng) 
 
             ) asdasd     
 
