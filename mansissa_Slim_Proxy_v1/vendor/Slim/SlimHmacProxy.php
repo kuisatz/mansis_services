@@ -23,7 +23,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+        //**---- sysCustomerApplicationTypesBLL ------------------- 
+                                    'pkCustomerApplicationMainTypesDdList_syscustomerapplicationtypes' => 'restApiDefaultCall', 
         
+         //** sysCustomerApplicationTypesBLL ----------------------//       
         
          //**---- sysCsStatuTypesBLL ------------------- 
                                     'pkCsStatuTypesDdList_syscsstatutypes' => 'restApiDefaultCall', 
@@ -1804,7 +1807,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_syscsstatutypes":  
+            case "_syscustomerapplicationtypes":  
+                $this->setRestApiEndPoint('syscustomerapplicationtypes.php/');
+                break; 
+             case "_syscsstatutypes":  
                 $this->setRestApiEndPoint('syscsstatutypes.php/');
                 break; 
             case "_syscsactivationtypes":  
