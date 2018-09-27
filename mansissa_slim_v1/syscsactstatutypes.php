@@ -2,7 +2,7 @@
 // test commit for branch slim2
 require 'vendor/autoload.php';
 
-
+print_r("qqqqqqqqq");
 use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 /*$app = new \Slim\Slim(array(
