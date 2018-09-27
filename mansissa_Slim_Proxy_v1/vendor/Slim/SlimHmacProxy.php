@@ -21,8 +21,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
             
+         //**---- sysCsActivationTypesBLL ------------------- 
+                                    'pkCsActivationTypesDdList_syscsactivationtypes' => 'restApiDefaultCall', 
         
-        
+         //** sysCsActivationTypesBLL ----------------------//          
         
         //**---- sysCsActStatutypesBLL ------------------- 
                                     'pkCsActStatutypesDdList_syscsactstatutypess' => 'restApiDefaultCall', 
@@ -34,7 +36,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //** sysCountryRegionsBLL ----------------------//  
         
-       //**---- sysNumericalRangesBLL ------------------- 
+        //**---- sysNumericalRangesBLL ------------------- 
                                     'pkNumericalRangesBuybackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesTradebackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesDemoDdList_sysnumericalranges' => 'restApiDefaultCall',
@@ -1794,6 +1796,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syscsactivationtypes":  
+                $this->setRestApiEndPoint('syscsactivationtypes.php/');
+                break; 
             case "_syscsactstatutypess":  
                 $this->setRestApiEndPoint('syscsactstatutypes.php/');
                 break; 
