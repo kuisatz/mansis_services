@@ -109,6 +109,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkNumericalRangesTradebackDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesDemoDdList_sysnumericalranges' => 'restApiDefaultCall',
                                     'pkNumericalRangesRmDdList_sysnumericalranges' => 'restApiDefaultCall', 
+                                    'pkNumericalRangesVeichlesDdList_sysnumericalranges' => 'restApiDefaultCall', 
+                                    'pkNumericalRangesEmployeesDdList_sysnumericalranges' => 'restApiDefaultCall', 
+        
+        
         
          //** sysNumericalRangesBLL ----------------------//      
         

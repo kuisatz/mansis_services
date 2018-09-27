@@ -13,18 +13,18 @@ namespace DAL\PDO\Postresql;
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager
  * @
- * @author Okan CIRAN
- * @since 30.07.2018  
+ * @author Okan CIRAN        
+ * @since 30.07.2018                         
  */ 
-class SysNumericalRanges extends \DAL\DalSlim {
+class InfoCustomer extends \DAL\DalSlim {
 
     /**
-     * @author Okan CIRAN  
-     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @author Okan CIRAN    
+     * @ info_customer tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  30.07.2018
-     * @param array $params
-     * @return array
-     * @throws \PDOException
+     * @param array $params   
+     * @return array  
+     * @throws \PDOException  
      */
     public function delete($params = array()) {
      try {
@@ -34,7 +34,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_numerical_ranges
+                UPDATE info_customer
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosundaki tüm kayıtları getirir.  !!
+     * @ info_customer tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_numerical_ranges a
+                FROM info_customer a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_numerical_ranges ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN info_customer ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosuna yeni bir kayıt oluşturur.  !!
+     * @ info_customer tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_numerical_ranges(
+                INSERT INTO info_customer(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_numerical_ranges_id_seq');
+                    $insertID = $pdo->lastInsertId('info_customer_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ info_customer tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -206,7 +206,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 '" . $params['name'] . "' AS value, 
                 LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_numerical_ranges  a                          
+            FROM info_customer  a                          
             WHERE 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
@@ -227,7 +227,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_numerical_ranges tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * info_customer tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -251,7 +251,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_numerical_ranges
+                    UPDATE info_customer
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +290,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için info_customer tablosundan kayıtları döndürür !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -351,7 +351,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_numerical_ranges a
+                FROM info_customer a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +359,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_numerical_ranges ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN info_customer ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +388,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_numerical_ranges tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için info_customer tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +401,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_numerical_ranges a
+                FROM info_customer a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,7 +425,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ info_customer tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  30.07.2018
      * @param type $params
@@ -442,13 +442,13 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_numerical_ranges
+                UPDATE info_customer
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_numerical_ranges
+                                FROM info_customer
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -477,50 +477,30 @@ class SysNumericalRanges extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ sayısal aralıklar tiplerinin ana grupları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
+     * @ back office tarafından onaylanmış müşteri tanımları dropdown ya da tree ye doldurmak için info_customer tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function  numericalRangesMainGroupDdList($params = array()) {
+    public function  customerConfirmDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-              
-            $statement = $pdo->prepare("       
-
-           
-                SELECT                    
+                            
+            $statement = $pdo->prepare("    
+              SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                     0 as parent_id,
+                    a.registration_name  AS name,  
+                    a.embrace_customer_no AS name_eng,
+                    0 as parent_id,
                     a.active,
                     0 AS state_type   
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                FROM info_customer a    
                 WHERE   
                     a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id =0 AND
-                    a.language_parent_id =0 
-                 
-                ORDER BY  id 
-
+                    a.active =0 AND 
+                    is_bo_confirm = 1 
+                ORDER BY  id   
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
@@ -532,175 +512,33 @@ class SysNumericalRanges extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
+ 
     /** 
      * @author Okan CIRAN
-     * @ sayısal aralıkların   alt grupları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
+     * @ back office tarafından onaylanmanmış müşteri tanımları dropdown ya da tree ye doldurmak için info_customer tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function  numericalRangesParentDdList($params = array()) {
+    public function  customerNoConfirmDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-            
-            $parentIdValue =-1 ;
-            if (isset($params['Parent']) && $params['Parent'] != "") {
-                $parentIdValue = $params['Parent'];
-            }   
-              
-              
-            $statement = $pdo->prepare("     
-
-         
-
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = " . intval($parentIdValue). "  AND
-                    a.language_parent_id =0 
-                 
-                ORDER BY  priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-    
-    /** 
-     * @author Okan CIRAN
-     * @ tradeback de kullanılan sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesBuybackDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
                             
             $statement = $pdo->prepare("    
-                SELECT                    
+              SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
+                    a.registration_name  AS name,  
+                    a.name_short AS name_eng,
+                    0 as parent_id,
                     a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
+                    0 AS state_type   
+                FROM info_customer a    
                 WHERE   
                     a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 1  AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-    
-    /** 
-     * @author Okan CIRAN
-     * @ buyback de kullanılan sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesTradebackDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-                            
-            $statement = $pdo->prepare("    
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 2  AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
+                    a.active =0 AND 
+                    is_bo_confirm = 0 
+                ORDER BY  id   
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
@@ -715,241 +553,13 @@ class SysNumericalRanges extends \DAL\DalSlim {
                             
     /** 
      * @author Okan CIRAN
-     * @ demo da kullanılan sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesDemoDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-                            
-            $statement = $pdo->prepare("    
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 3  AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-   
-    /** 
-     * @author Okan CIRAN
-     * @ R&M da kullanılan sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesRmDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-                            
-            $statement = $pdo->prepare("    
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 4 AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-    
-      /** 
-     * @author Okan CIRAN
-     * @ Customer için da kullanılan calısanların sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesEmployeesDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-                            
-            $statement = $pdo->prepare("    
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 13 AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-  
-        /** 
-     * @author Okan CIRAN
-     * @ Customer için da kullanılan arac sayısal aralıkları dropdown ya da tree ye doldurmak için sys_numerical_ranges tablosundan kayıtları döndürür !!
-     * @version v 1.0  06.09.2018
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException 
-     */
-    public function  numericalRangesVeichlesDdList($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
-                            
-            $statement = $pdo->prepare("    
-                SELECT                    
-                    a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
-                    a.parent_id,
-                    a.active,
-                    0 AS state_type ,
-                    a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
-                WHERE   
-                    a.deleted = 0 AND
-                    a.active =0 AND
-                    a.parent_id = 20 AND
-                    a.language_parent_id =0 
-                  
-                ORDER BY  a.priority
-
-                                 ");
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {           
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-  
-    /** 
-     * @author Okan CIRAN
-     * @ kilometre tipleri tanımlarını grid formatında döndürür !! ana tablo  sys_numerical_ranges 
+     * @   garanti tanımlarını grid formatında döndürür !! ana tablo  info_customer 
      * @version v 1.0  20.08.2018
      * @param array | null $args 
      * @return array
      * @throws \PDOException  
      */  
-    public function fillNumericalRangesGridx($params = array()) {
+    public function fillCustomerGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -989,21 +599,26 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'registration_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'trading_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.trading_name" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'parent_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-                              
-                                break;
+                                break;  
+                             case 'name_short':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.name_short" . $sorguExpression . ' ';
+
+                                break;  
+                              case 'embrace_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.embrace_customer_no" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -1040,19 +655,20 @@ class SysNumericalRanges extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $parentID =0 ;
-            if (isset($params['ParentID']) && $params['ParentID'] != "") {
-                $parentID = $params['ParentID'];
-                $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
-            }  
+                            
+            $isboConfirm = -1 ; 
+            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
+                $isboConfirm = $params['IsBoConfirm']; 
+                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+            }    
                 $sql = "
                     SELECT  
                         a.id, 
-                        a.act_parent_id as apid,  
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-			COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name,
-                      /*  a.name_eng, */ 
-			a.parent_id,   
+                        a.act_parent_id as apid, 
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                        a.vehicle_group_id , 
+                        erd.name as vehicle_group_name, 
+                      /*  a.name_eng, */  
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -1065,15 +681,16 @@ class SysNumericalRanges extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_numerical_ranges a                    
+                    FROM info_customer a                    
                     INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
-                    LEFT JOIN sys_numerical_ranges ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
+                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		    INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
-		    LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+		      
+                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND erd.show_it = 0 
+		     
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -1118,13 +735,13 @@ class SysNumericalRanges extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ kilometre tipleri tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo sys_numerical_ranges
+     * @  garanti tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo info_customer
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillNumericalRangesGridxRtl($params = array()) {
+    public function fillWarrantiesGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -1144,6 +761,11 @@ class SysNumericalRanges extends \DAL\DalSlim {
                             case 'name_eng':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'vehicle_group_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
 
                                 break; 
                             case 'parent_name':
@@ -1191,38 +813,41 @@ class SysNumericalRanges extends \DAL\DalSlim {
             if (isset($params['ParentID']) && $params['ParentID'] != "") {
                 $parentID = $params['ParentID'];
                 $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
-            }  
+            } 
+            $vehicleGroupID = -1 ; 
+            if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
+                $vehicleGroupID = $params['VehicleGroupID']; 
+                 $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
+            }    
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS parent_name, 
-                            a.act_parent_id,   
-                            a.parent_id,    
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
-                        FROM sys_numerical_ranges a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
-                        LEFT JOIN sys_numerical_ranges ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
-
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                        INNER JOIN sys_numerical_ranges drd ON drd.act_parent_id = a.parent_id AND drd.show_it = 0 AND drd.language_id= l.id and drd.parent_id =0 
-                        LEFT JOIN sys_numerical_ranges drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-                        /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0 AND 
-                            a.language_parent_id =0 
+                        a.id, 
+                        erd.name as vehicle_group_name, 
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                        u.username AS op_user_name 
+                    FROM info_customer a                    
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
+                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
+               
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+                    
+                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND erd.show_it = 0 
+		    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.deleted =0 AND
+                        a.show_it =0 AND 
+                        a.language_parent_id =0 
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -1245,7 +870,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ info_customer tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -1255,12 +880,12 @@ class SysNumericalRanges extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE sys_numerical_ranges
+                UPDATE info_customer
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id or language_parent_id = :id");
+               WHERE id = :id or language_parent_id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -1275,7 +900,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_numerical_ranges tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ info_customer tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -1296,11 +921,10 @@ class SysNumericalRanges extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_numerical_ranges (
+                    INSERT INTO info_customer (
                         name,
-                        name_eng,
-                        value1,
-                        parent_id,
+                        name_eng, 
+                        vehicle_group_id,
                         
                         language_id,
                         language_parent_id,
@@ -1312,9 +936,8 @@ class SysNumericalRanges extends \DAL\DalSlim {
                         )
                     SELECT
                         name,
-                        name_eng,
-                        value1,
-                        parent_id,
+                        name_eng, 
+                        vehicle_group_id,
                         
                         language_id,
                         language_parent_id, 
@@ -1323,9 +946,9 @@ class SysNumericalRanges extends \DAL\DalSlim {
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM sys_numerical_ranges 
+                    FROM info_customer 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1347,7 +970,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_numerical_ranges tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ info_customer tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1357,67 +980,77 @@ class SysNumericalRanges extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
-                            
+            ////*********/////  1 
             $languageIdValue = 385;
-                            
+        /*    if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+         * 
+         */
+            ////*********///// 1                  
             $errorInfo[0] = "99999";
-                            
+            $nameTemp = null;
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
-            }            
-            $parentId = -1111;
-            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
-                $parentId = intval($params['ParentId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $value1 = -1111;
-            if ((isset($params['Value1']) && $params['Value1'] != "")) {
-                $value1 = floatval($params['Value1']);
+            $nameEng = null;
+         /*   if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $value2 = -1111;
-            if ((isset($params['Value2']) && $params['Value2'] != "")) {
-                $value2 = floatval($params['Value2']);
+          * 
+          */
+            $vehicleGroupId = -1111;
+            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
+                $vehicleGroupId = intval($params['VehicleGroupId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
+                 ////*********///// 2   
+            if ($languageIdValue != 385 )  
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
+                ////*********///// 2          
+        
+
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'value1' => $value1, 
-                            'value2' => $value2, 
-                            'parent_id' => $parentId,
-                            'language_id' => $languageIdValue,
+                            'name' => $name, 
+                            'vehicle_group_id' => $vehicleGroupId,
                             
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_numerical_ranges(
+                    INSERT INTO info_customer(
                             name, 
-                            value1,
-                            value2,
-                            parent_id,
-                            type_id,
+                            name_eng, 
+                            vehicle_group_id,  
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
-                            '" . $name . "', 
-                            " . floatval($value1) . ",
-                            " . floatval($value2) . ",
-                            " . intval($parentId) . ",
-                            ( SELECT distinct cz.type_id FROM sys_numerical_ranges cz WHERE cz.id =  " . intval($parentId) . " ) type_id, 
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($vehicleGroupId) . ", 
 
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM sys_numerical_ranges_id_seq)
+                           (SELECT last_value FROM info_customer_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
                     //   echo debugPDO($sql, $params);
@@ -1425,8 +1058,22 @@ class SysNumericalRanges extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('sys_numerical_ranges_id_seq');
-                            
+                    $insertID = $pdo->lastInsertId('info_customer_id_seq');
+
+                    ////*********/////  3 
+                    $insertLanguageTemplateParams = array(
+                        'id' => intval($insertID),
+                        'language_id' => intval($languageIdValue),
+                        'nameTemp' =>  ($nameTemp),
+                    );
+                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
+                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
+                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
+                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
+                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
+                    }
+                    ////*********///// 3  
+
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
@@ -1446,10 +1093,87 @@ class SysNumericalRanges extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+
+    /**
+     * @author Okan CIRAN
+     * @ info_customer tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
+     * @version v 1.0  26.08.2018
+     * @todo Su an için aktif değil SQl in değişmesi lazım. 
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertLanguageTemplate($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            //  $pdo->beginTransaction();
+            /**
+             * table names and column names will be changed for specific use
+             */
+            $statement = $pdo->prepare(" 
+                
+                INSERT INTO info_customer(
+                    name, 
+                    name_eng, 
+                    vehicle_group_id, 
+                    
+                    language_id,
+                    language_parent_id, 
+                    act_parent_id,
+                    op_user_id)
+                    
+                  SELECT    
+                    name, 
+                    name_eng, 
+                    vehicle_group_id, 
+                    parent_id, 
+                     
+                    language_id,
+                    language_parent_id, 
+                    ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
+                    op_user_id
+                FROM ( 
+                    SELECT  
+                        c.vehicle_group_id, 
+                     
+			case when l.id = 385 then c.name_eng   
+			    when " . intval($params['language_id']) . " = l.id then '" .($params['nameTemp']). "'  
+                            else '' end as name,  
+                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
+                        l.id as language_id,  
+			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
+			case l.id when 385 then c.id else (SELECT last_value FROM info_customer_id_seq) end as act_parent_id,  
+                        c.op_user_id
+                    FROM info_customer c
+                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
+                    WHERE c.id = " . intval($params['id']) . "  
+                    ) AS xy   
+                    WHERE xy.language_id NOT IN 
+                        (SELECT DISTINCT language_id 
+                        FROM info_customer cx 
+                        WHERE 
+                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
+                            cx.id = " . intval($params['id']) . "  ) /* AND  
+                            cx.deleted =0 AND 
+                            cx.active =0 */ )
+                    ");
+
+            $result = $statement->execute();
+            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            //   $pdo->commit();
+
+            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+        } catch (\PDOException $e /* Exception $e */) {
+            //  $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
                             
     /**
      * @author Okan CIRAN
-     * sys_numerical_ranges tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * info_customer tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1459,36 +1183,43 @@ class SysNumericalRanges extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
+            $languageIdValue = 385 ;
             $errorInfo[0] = "99999";
-            $languageIdValue = 385;
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
-            }            
-            $parentId = -1111;
-            if ((isset($params['ParentId']) && $params['ParentId'] != "")) {
-                $parentId = intval($params['ParentId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $value1 = -1111;
-            if ((isset($params['Value1']) && $params['Value1'] != "")) {
-                $value1 = floatval($params['Value1']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $value2 = -1111;
-            if ((isset($params['Value2']) && $params['Value2'] != "")) {
-                $value2 = floatval($params['Value2']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            
+            $nameTemp = null;
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = null;
+         /*   if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+          * 
+          */
+            $vehicleGroupId = -1111;
+            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
+                $vehicleGroupId = intval($params['VehicleGroupId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                            
+                ////*********///// 2   
+            if ($languageIdValue != 385 )  
+                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
+                ////*********///// 2          
+        
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1499,49 +1230,45 @@ class SysNumericalRanges extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'value1' => $value1, 
-                            'value2' => $value2, 
-                            'parent_id' => $parentId,
-                            'language_id' => $languageIdValue,
+                            'name' => $name, 
+                            'vehicle_group_id' => $vehicleGroupId, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
-                INSERT INTO sys_numerical_ranges (  
+                INSERT INTO info_customer (  
                         name, 
-                        value1,
-                        value2,
-                        parent_id,
-                        type_id
+                        name_eng, 
+                        vehicle_group_id, 
                         
-                        priority, 
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
-                    '" . $name . "', 
-                    " . floatval($value1) . ",
-                    " . floatval($value2) . ",
-                    " . intval($parentId) . ",
-                    ( SELECT cz.type_id FROM sys_numerical_ranges cz WHERE cz.id =  " . intval($parentId) . " ) type_id, 
-                     
-                    priority, 
+                    '" . $name . "',
+                    '" . $nameEng . "',
+                    " . intval($vehicleGroupId) . ", 
+                                
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
-                FROM sys_numerical_ranges 
+                FROM info_customer 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
                                                 ");
-                    $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_numerical_ranges_id_seq');
-                    $affectedRows = $statementInsert->rowCount();
+                    $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
 
+                     $affectedRows = $statementInsert->rowCount();
+                     $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('info_customer_id_seq');}
+                    else $insertID =0 ;   
+                            
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
@@ -1560,11 +1287,7 @@ class SysNumericalRanges extends \DAL\DalSlim {
             // $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
-    }
-
-   
-
-                            
-                            
+    }    
+    
     
 }
