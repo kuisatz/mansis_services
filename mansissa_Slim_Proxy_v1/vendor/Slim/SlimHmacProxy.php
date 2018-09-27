@@ -21,6 +21,15 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+        
+        
+        
+        
+        //**---- sysCustomerReliabilityBLL ------------------- 
+                                    'pkCustomerReliabilityDdList_syscustomerreliability' => 'restApiDefaultCall', 
+        
+         //** sysCustomerReliabilityBLL ----------------------//       
+        
          //**---- sysCustomerCategoriesBLL ------------------- 
                                     'pkCustomerCategoriesDdList_syscustomercategories' => 'restApiDefaultCall', 
         
@@ -1809,7 +1818,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            case "_syscustomercategories":  
+            case "_syscustomerreliability":  
+                $this->setRestApiEndPoint('syscustomerreliability.php/');
+                break; 
+             case "_syscustomercategories":  
                 $this->setRestApiEndPoint('syscustomercategories.php/');
                 break; 
             case "_syscustomerapplicationtypes":  
