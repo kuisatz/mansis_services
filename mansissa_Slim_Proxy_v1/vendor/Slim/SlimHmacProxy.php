@@ -23,7 +23,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+         //**---- sysSupplierBLL ------------------- 
+                                    'pkSupplierLongDdList_syssupplier' => 'restApiDefaultCall', 
+                                    'pkSupplierShortDdList_syssupplier' => 'restApiDefaultCall',  
         
+         //** sysSupplierBLL ----------------------//     
          //**---- sysProbabilitiesBLL ------------------- 
                                     'pkTerrainsMainDdList_systerrains' => 'restApiDefaultCall', 
                                     'pkTerrainsParentDdList_systerrains' => 'restApiDefaultCall', 
@@ -1841,16 +1845,19 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syssupplier":  
+                $this->setRestApiEndPoint('syssupplier.php/');
+                break; 
             case "_systerrains":  
                 $this->setRestApiEndPoint('systerrains.php/');
                 break; 
-              case "_sysprobabilities":  
+            case "_sysprobabilities":  
                 $this->setRestApiEndPoint('sysprobabilities.php/');
                 break; 
             case "_syscustomerturnoverrates":  
                 $this->setRestApiEndPoint('syscustomerturnoverrates.php/');
                 break; 
-             case "_syscustomersegmenttypes":  
+            case "_syscustomersegmenttypes":  
                 $this->setRestApiEndPoint('syscustomersegmenttypes.php/');
                 break; 
             case "_syscustomersectortypes":  
