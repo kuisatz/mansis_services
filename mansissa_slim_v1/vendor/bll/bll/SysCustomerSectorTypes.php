@@ -107,6 +107,17 @@ class SysCustomerSectorTypes extends \BLL\BLLSlim{
         $resultSet = $DAL->customerSectorParentTypesDdList($params);
         return $resultSet['resultSet'];
     }
+      /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function customerSectorTypesDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysCustomerSectorTypesPostgrePDO');
+        $resultSet = $DAL->customerSectorTypesDdList($params);
+        return $resultSet['resultSet'];
+    }
     
       /**
      * Function to fill datagrid on user interface layer
