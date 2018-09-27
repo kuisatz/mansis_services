@@ -74,7 +74,7 @@ $app->get("/pkCustomerDdList_infocustomer/", function () use ($app ) {
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->warrantiesMainGroupDdList(array(                                   
+    $resCombobox = $BLL->customerDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
                         ));    
