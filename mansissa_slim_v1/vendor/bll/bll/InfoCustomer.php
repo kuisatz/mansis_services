@@ -107,6 +107,16 @@ class InfoCustomer  extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+      /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function customerDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoCustomerPostgrePDO');
+        $resultSet = $DAL->customerDdList($params);
+        return $resultSet['resultSet'];
+    }
         
     /**
      * Function to fill datagrid on user interface layer
