@@ -24,7 +24,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+         //**---- sysProbabilitiesBLL ------------------- 
+                                    'pkProbabilitiesDdList_sysprobabilities' => 'restApiDefaultCall', 
         
+         //** sysProbabilitiesBLL ----------------------//     
          //**---- sysCustomerTurnoverRatesBLL ------------------- 
                                     'pkCustomerTurnoverRatesDdList_syscustomerturnoverrates' => 'restApiDefaultCall', 
         
@@ -1831,6 +1834,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysprobabilities":  
+                $this->setRestApiEndPoint('sysprobabilities.php/');
+                break; 
             case "_syscustomerturnoverrates":  
                 $this->setRestApiEndPoint('syscustomerturnoverrates.php/');
                 break; 

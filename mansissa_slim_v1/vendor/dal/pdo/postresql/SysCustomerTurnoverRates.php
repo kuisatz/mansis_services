@@ -500,9 +500,7 @@ class SysCustomerTurnoverRates extends \DAL\DalSlim {
             }   
               
             $statement = $pdo->prepare("       
-
-         
-
+ 
                 SELECT                    
                     a.act_parent_id AS id, 	
                     a.name AS name,  
