@@ -166,7 +166,7 @@ $app->get("/pkContractTypesPDdList_syscontracttypes/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkContractTypesBTdList_sysbbcontracttypes/", function () use ($app ) {
+$app->get("/pkContractTypesBTdList_syscontracttypes/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysContractTypesBLL');
@@ -176,7 +176,7 @@ $app->get("/pkContractTypesBTdList_sysbbcontracttypes/", function () use ($app )
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkContractTypesBTdList_sysbbcontracttypes" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkContractTypesBTdList_syscontracttypes" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
