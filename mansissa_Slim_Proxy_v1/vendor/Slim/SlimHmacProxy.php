@@ -23,11 +23,16 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-        
+        //**---- sysCustomerReliabilityBLL ------------------- 
+                                    'pkCustomerReliabilityDdList_syscustomerreliability' => 'restApiDefaultCall', 
+            
+         //** sysCustomerReliabilityBLL ----------------------//  
          //**---- infoCustomerBLL ------------------- 
                                     'pkCustomerConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerNoConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerDdList_infocustomer' => 'restApiDefaultCall', 
+        
+                                    'pkFillCustomerGridx_infocustomer' => 'restApiDefaultCall', 
         
         
                                     'pkFillKpnumbersGridx_infocustomer' => 'restApiDefaultCall', 
@@ -1883,6 +1888,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syscustomerreliability":  
+                $this->setRestApiEndPoint('syscustomerreliability.php/');
+                break; 
             case "_infocustomer":  
                 $this->setRestApiEndPoint('infocustomer.php/');
                 break; 
