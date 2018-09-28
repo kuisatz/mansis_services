@@ -362,6 +362,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
               
          //**---- sysBbContractTypesBLL ------------------- 
                                     'pkBbContractTypesDdList_sysbbcontracttypes' => 'restApiDefaultCall', 
+                                     'pkContractTypesBTdList_sysbbcontracttypes' => 'restApiDefaultCall', 
+        
+        
             
          //** sysBbContractTypesBLL ----------------------//    
            //**---- sysBranchesDealersDeffBLL ------------------- 

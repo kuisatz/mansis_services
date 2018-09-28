@@ -281,9 +281,38 @@ $app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
-                "vehicle_group_id" => $menu["vehicle_group_id"], 
-                "vehicle_group_name" => html_entity_decode($menu["vehicle_group_name"]),   
+                  "registration_name" => html_entity_decode($menu["registration_name"]),
+                  "trading_name" => html_entity_decode($menu["trading_name"]),
+                  "name_short" => html_entity_decode($menu["name_short"]),
+                  "embrace_customer_no" => html_entity_decode($menu["embrace_customer_no"]),
+                  "tu_emb_customer_no" => html_entity_decode($menu["tu_emb_customer_no"]),
+                  "ce_emb_customer_no" => html_entity_decode($menu["ce_emb_customer_no"]),
+                  "other_emb_customer_no" => html_entity_decode($menu["other_emb_customer_no"]),
+                  "www" => html_entity_decode($menu["www"]),
+                  "vatnumber" => html_entity_decode($menu["vatnumber"]),
+                  "registration_number" => html_entity_decode($menu["registration_number"]),
+                  "registration_date" =>  ($menu["registration_date"]),
+                  "ne_count_type_id" =>  ($menu["ne_count_type_id"]),
+                  "numberofemployees" => html_entity_decode($menu["numberofemployees"]),
+                 "nv_count_type_id" =>  ($menu["nv_count_type_id"]),
+                 "numberofvehicles" => html_entity_decode($menu["numberofvehicles"]),
+                 "customer_category_id" =>  ($menu["customer_category_id"]),
+                 "customer_category_name" => html_entity_decode($menu["customer_category_name"]),
+                 "reliability_id" => ($menu["reliability_id"]),
+                 "reliability_name" => html_entity_decode($menu["reliability_name"]),
+                 "turnover_rate_id" => ($menu["turnover_rate_id"]),
+                 "turnover_rate_name" => html_entity_decode($menu["turnover_rate_name"]),
+                 "sector_type_id" => ($menu["sector_type_id"]),
+                 "sector_type_name" => html_entity_decode($menu["sector_type_name"]),
+                 "application_type_id" =>  ($menu["application_type_id"]),
+                 "application_type_name" => html_entity_decode($menu["application_type_name"]),
+                 "segment_type_id" =>  ($menu["segment_type_id"]),
+                 "segment_type_name" => html_entity_decode($menu["segment_type_name"]),
+                 "is_bo_confirm" =>  ($menu["is_bo_confirm"]),
+                 "country_id" =>  ($menu["country_id"]),
+                  "country_name" => html_entity_decode($menu["country_name"]),
+                 
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -387,26 +416,162 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomer" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $embraceCustomerNo = NULL;
+    if (isset($_GET['embrace_customer_no'])) {
+         $stripper->offsetSet('embrace_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['embrace_customer_no']));
     }  
-    $vehicleGroupId = NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $tuEmbCustomerNo = NULL;
+    if (isset($_GET['tu_emb_customer_no'])) {
+         $stripper->offsetSet('tu_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['vehicle_group_id']));
+                                                $_GET['tu_emb_customer_no']));
+    }  
+    $ceEmbCustomerNo = NULL;
+    if (isset($_GET['ce_emb_customer_no'])) {
+         $stripper->offsetSet('ce_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['ce_emb_customer_no']));
+    }  
+    $otherEmbCustomerNo = NULL;
+    if (isset($_GET['other_emb_customer_no'])) {
+         $stripper->offsetSet('other_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['other_emb_customer_no']));
+    }  
+    $registrationName = NULL;
+    if (isset($_GET['registration_name'])) {
+         $stripper->offsetSet('registration_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['registration_name']));
+    }  
+    $tradingName = NULL;
+    if (isset($_GET['trading_name'])) {
+         $stripper->offsetSet('trading_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['trading_name']));
+    }   
+    $nameShort = NULL;
+    if (isset($_GET['name_short'])) {
+         $stripper->offsetSet('name_short',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['name_short']));
+    }   
+    $www = NULL;
+    if (isset($_GET['www'])) {
+         $stripper->offsetSet('www',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['www']));
+    } 
+    $vatnumber = NULL;
+    if (isset($_GET['vatnumber'])) {
+         $stripper->offsetSet('vatnumber',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['vatnumber']));
+    } 
+    $registrationNumber = NULL;
+    if (isset($_GET['registration_number'])) {
+         $stripper->offsetSet('registration_number',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['registration_number']));
+    } 
+    $registrationDate = NULL;
+    if (isset($_GET['registration_date'])) {
+         $stripper->offsetSet('registration_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['registration_date']));
+    }  
+    
+    $neCountTypeId = NULL;
+    if (isset($_GET['ne_count_type_id'])) {
+         $stripper->offsetSet('ne_count_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ne_count_type_id']));
+    } 
+    $nvCountTypeId = NULL;
+    if (isset($_GET['nv_count_type_id'])) {
+         $stripper->offsetSet('nv_count_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['nv_count_type_id']));
+    } 
+    $customerCategoryId = NULL;
+    if (isset($_GET['customer_category_id'])) {
+         $stripper->offsetSet('customer_category_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_category_id']));
+    } 
+    $reliabilityId = NULL;
+    if (isset($_GET['reliability_id'])) {
+         $stripper->offsetSet('reliability_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['reliability_id']));
+    } 
+    $turnoverRateId = NULL;
+    if (isset($_GET['turnover_rate_id'])) {
+         $stripper->offsetSet('turnover_rate_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['turnover_rate_id']));
+    } 
+    $sectorTypeId = NULL;
+    if (isset($_GET['sector_type_id'])) {
+         $stripper->offsetSet('sector_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['sector_type_id']));
+    } 
+    $applicationTypeId = NULL;
+    if (isset($_GET['application_type_id'])) {
+         $stripper->offsetSet('application_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['application_type_id']));
+    } 
+    $segmentTypeId = NULL;
+    if (isset($_GET['segment_type_id'])) {
+         $stripper->offsetSet('segment_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['segment_type_id']));
     } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
-          
+    if($stripper->offsetExists('embrace_customer_no')) $embraceCustomerNo = $stripper->offsetGet('embrace_customer_no')->getFilterValue(); 
+    if($stripper->offsetExists('tu_emb_customer_no')) $tuEmbCustomerNo = $stripper->offsetGet('tu_emb_customer_no')->getFilterValue();
+    if($stripper->offsetExists('ce_emb_customer_no')) $ceEmbCustomerNo = $stripper->offsetGet('ce_emb_customer_no')->getFilterValue();
+    if($stripper->offsetExists('other_emb_customer_no')) $otherEmbCustomerNo = $stripper->offsetGet('other_emb_customer_no')->getFilterValue();
+    if($stripper->offsetExists('registration_name')) $registrationName = $stripper->offsetGet('registration_name')->getFilterValue();
+    if($stripper->offsetExists('trading_name')) $tradingName = $stripper->offsetGet('trading_name')->getFilterValue();
+    if($stripper->offsetExists('name_short')) $nameShort = $stripper->offsetGet('name_short')->getFilterValue();
+    if($stripper->offsetExists('www')) $www = $stripper->offsetGet('www')->getFilterValue();
+    if($stripper->offsetExists('vatnumber')) $vatnumber = $stripper->offsetGet('vatnumber')->getFilterValue();
+    if($stripper->offsetExists('registration_number')) $registrationNumber = $stripper->offsetGet('registration_number')->getFilterValue();
+    if($stripper->offsetExists('registration_date')) $registrationDate = $stripper->offsetGet('registration_date')->getFilterValue();
+    if($stripper->offsetExists('ne_count_type_id')) $neCountTypeId = $stripper->offsetGet('ne_count_type_id')->getFilterValue();
+    if($stripper->offsetExists('nv_count_type_id')) $nvCountTypeId = $stripper->offsetGet('nv_count_type_id')->getFilterValue();     
+    if($stripper->offsetExists('customer_category_id')) $customerCategoryId= $stripper->offsetGet('customer_category_id')->getFilterValue();
+    if($stripper->offsetExists('reliability_id')) $reliabilityId = $stripper->offsetGet('reliability_id')->getFilterValue();
+    if($stripper->offsetExists('sector_type_id')) $sectorTypeId  = $stripper->offsetGet('sector_type_id')->getFilterValue();
+    if($stripper->offsetExists('application_type_id')) $applicationTypeId = $stripper->offsetGet('application_type_id')->getFilterValue();
+    if($stripper->offsetExists('segment_type_id')) $segmentTypeId = $stripper->offsetGet('segment_type_id')->getFilterValue();
+  
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'VehicleGroupId' => $vehicleGroupId,  
+            'EmbraceCustomerNo' => $embraceCustomerNo,   
+            'TuEmbCustomerNo' => $tuEmbCustomerNo,  
+            'CeEmbCustomerNo' => $ceEmbCustomerNo,  
+            'OtherEmbCustomerNo' => $otherEmbCustomerNo,  
+            'RegistrationName' => $registrationName,  
+            'TradingName' => $tradingName,  
+            'NameShort' => $nameShort,  
+            'www' => $www,  
+            'Vatnumber' => $vatnumber,  
+            'RegistrationNumber' => $registrationNumber,  
+            'RegistrationDate' => $registrationDate,  
+            'NeCountTypeId' => $neCountTypeId,   
+            'NvCountTypeId' => $nvCountTypeId,  
+            'CustomerCategoryId' => $customerCategoryId,  
+            'ReliabilityId' => $reliabilityId,  
+            'SectorTypeId' => $sectorTypeId,   
+            'ApplicationTypeId' => $applicationTypeId,  
+            'SegmentTypeId' => $segmentTypeId,  
+          
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

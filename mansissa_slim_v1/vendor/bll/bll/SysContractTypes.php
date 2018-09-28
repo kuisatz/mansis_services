@@ -95,6 +95,19 @@ class SysContractTypes extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }
     
+       /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function contractTypesBTdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysContractTypesPostgrePDO');
+        $resultSet = $DAL->contractTypesBTdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params

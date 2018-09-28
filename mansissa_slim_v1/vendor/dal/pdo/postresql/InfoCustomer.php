@@ -202,15 +202,20 @@ class InfoCustomer extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                a.registration_name ,
+                '" . $params['registration_name'] . "' AS value, 
+                LOWER(a.registration_name) = LOWER(TRIM('" . $params['registration_name'] . "')) AS control,
+                CONCAT(a.registration_name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_customer  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(registration_name,' ','')) = LOWER(REPLACE('" . $params['registration_name'] . "',' ','')) OR 
+               ( LOWER(REPLACE(tu_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['tu_emb_customer_no'] . "',' ','')) OR  
+                   LOWER(REPLACE(embrace_customer_no,' ','')) = LOWER(REPLACE('" . $params['embrace_customer_no'] . "',' ','')) OR  
+                        LOWER(REPLACE(ce_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['ce_emb_customer_no'] . "',' ','')) OR  
+                             LOWER(REPLACE(other_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['other_emb_customer_no'] . "',' ','')) )  
                   " . $addSql . " 
                 AND a.deleted =0    
+                 
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -550,9 +555,8 @@ class InfoCustomer extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-     
-    
-     /** 
+                            
+    /** 
      * @author Okan CIRAN
      * @ back office tarafından onaylanmanmış müşteri tanımları dropdown ya da tree ye doldurmak için info_customer tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -647,14 +651,79 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.trading_name" . $sorguExpression . ' ';
 
                                 break;  
-                             case 'name_short':
+                            case 'name_short':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.name_short" . $sorguExpression . ' ';
 
                                 break;  
-                              case 'embrace_customer_no':
+                            case 'embrace_customer_no':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND a.embrace_customer_no" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'tu_emb_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.tu_emb_customer_no" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'ce_emb_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.ce_emb_customer_no" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'other_emb_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.other_emb_customer_no" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'www':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.www" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'vatnumber':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.vatnumber" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'registration_number':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.vatnumber" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'customer_category_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.customer_category_name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'reliability_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.reliability_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'turnover_rate_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.turnover_rate_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'sector_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.sector_type_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'country_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.country_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'application_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.application_type_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'segment_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.segment_type_name" . $sorguExpression . ' ';
 
                                 break;  
                             case 'op_user_name':
@@ -699,13 +768,52 @@ class InfoCustomer extends \DAL\DalSlim {
                 $isboConfirm = $params['IsBoConfirm']; 
                  $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
             }    
-                $sql = "
+                $sql = "    
+
                     SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                        a.vehicle_group_id , 
-                        erd.name as vehicle_group_name, 
+                        a.registration_name, 
+                        a.trading_name,
+                        a.name_short, 
+                        a.embrace_customer_no , 
+                        a.tu_emb_customer_no,
+			a.ce_emb_customer_no,
+			a.other_emb_customer_no,
+                        a.www, 
+                        a.vatnumber, 
+                        a.registration_number, 
+                        a.registration_date, 
+                        a.ne_count_type_id, 
+                        nre.name numberofemployees, 
+                       
+                        a.nv_count_type_id, 
+                         nrv.name numberofvehicles,
+                         
+                        a.customer_category_id, 
+                        cc.name customer_category_name, 
+                        
+                        a.reliability_id, 
+                        scr.name reliability_name, 
+
+                        a.turnover_rate_id, 
+			tr.name turnover_rate_name, 
+                        
+                        a.sector_type_id, 
+			st.name sector_type_name, 
+                        
+                        a.application_type_id, 
+			cat.name application_type_name, 
+
+                        a.segment_type_id,
+                        cst.name segment_type_name, 
+
+                        
+                        a.is_bo_confirm, 
+                        a.country_id, 
+                        coun.name country_name,
+                        
+                        
                       /*  a.name_eng, */  
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -714,20 +822,27 @@ class InfoCustomer extends \DAL\DalSlim {
                         a.op_user_id,
                         u.username AS op_user_name,  
                         a.s_date date_saved,
-                        a.c_date date_modified,
-                        /* a.priority, */ 
+                        a.c_date date_modified, 
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
-                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0    
+                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id ) AND ax.show_it =0 
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		      
-                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND erd.show_it = 0 
+                    LEFT JOIN sys_countrys coun ON coun.id = a.country_id AND coun.show_it = 0 
+                    LEFT JOIN sys_numerical_ranges nre ON nre.act_parent_id = a.ne_count_type_id AND nre.show_it = 0 AND nre.parent_id = 13
+                    LEFT JOIN sys_numerical_ranges nrv ON nrv.act_parent_id = a.nv_count_type_id AND nrv.show_it = 0 AND nrv.parent_id = 20
+                    inner join sys_customer_categories cc on cc.act_parent_id = a.customer_category_id and cc.show_it = 0 
+		    inner join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0 
+		    left join sys_customer_turnover_rates tr on tr.act_parent_id = a.turnover_rate_id and tr.show_it = 0 
+		    left join sys_customer_sector_types st on st.act_parent_id = a.sector_type_id and st.show_it = 0 
+		    left join sys_customer_application_types cat on cat.act_parent_id = a.application_type_id and cat.show_it = 0 
+                    left join sys_customer_segment_types cst on cst.act_parent_id = a.segment_type_id and cst.show_it = 0 
 		     
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -738,8 +853,7 @@ class InfoCustomer extends \DAL\DalSlim {
                     
                     WHERE  
                         a.deleted =0 AND
-                        a.show_it =0 AND 
-                        a.language_parent_id =0 
+                        a.show_it =0  
                 " . $addSql . "
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
@@ -779,7 +893,7 @@ class InfoCustomer extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-    public function fillWarrantiesGridxRtl($params = array()) {
+    public function fillCustomerGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -791,26 +905,91 @@ class InfoCustomer extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'registration_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'trading_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.trading_name" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'name_short':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.name_short" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'embrace_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.embrace_customer_no" . $sorguExpression . ' ';
+
+                                break;  
+                            case 'tu_emb_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.tu_emb_customer_no" . $sorguExpression . ' ';
 
                                 break; 
-                             case 'vehicle_group_name':
+                            case 'ce_emb_customer_no':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND a.ce_emb_customer_no" . $sorguExpression . ' ';
 
                                 break; 
-                            case 'parent_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-                              
+                             case 'other_emb_customer_no':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.other_emb_customer_no" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'www':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.www" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'vatnumber':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.vatnumber" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'registration_number':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.vatnumber" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'customer_category_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.customer_category_name" . $sorguExpression . ' ';
+
+                                break; 
+                            case 'reliability_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.reliability_name" . $sorguExpression . ' ';
+
                                 break;
+                            case 'turnover_rate_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.turnover_rate_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'sector_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.sector_type_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'country_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.country_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'application_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.application_type_name" . $sorguExpression . ' ';
+
+                                break;
+                            case 'segment_type_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.segment_type_name" . $sorguExpression . ' ';
+
+                                break;  
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -821,6 +1000,7 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
 
                                 break;
+                            
                             
                             default:
                                 break;
@@ -847,35 +1027,76 @@ class InfoCustomer extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $parentID =0 ;
-            if (isset($params['ParentID']) && $params['ParentID'] != "") {
-                $parentID = $params['ParentID'];
-                $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
-            } 
-            $vehicleGroupID = -1 ; 
-            if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
-                $vehicleGroupID = $params['VehicleGroupID']; 
-                 $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
-            }    
+            $isboConfirm = -1 ; 
+            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
+                $isboConfirm = $params['IsBoConfirm']; 
+                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+            }      
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
                         a.id, 
-                        erd.name as vehicle_group_name, 
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                        a.act_parent_id as apid, 
+                        a.registration_name, 
+                        a.trading_name,
+                        a.name_short, 
+                        a.embrace_customer_no , 
+                        a.tu_emb_customer_no,
+			a.ce_emb_customer_no,
+			a.other_emb_customer_no,
+                        a.www, 
+                        a.vatnumber, 
+                        a.registration_number, 
+                        a.registration_date, 
+                        a.ne_count_type_id, 
+                        nre.name numberofemployees, 
+                       
+                        a.nv_count_type_id, 
+                         nrv.name numberofvehicles,
+                         
+                        a.customer_category_id, 
+                        cc.name customer_category_name, 
+                        
+                        a.reliability_id, 
+                        scr.name reliability_name, 
+
+                        a.turnover_rate_id, 
+			tr.name turnover_rate_name, 
+                        
+                        a.sector_type_id, 
+			st.name sector_type_name, 
+                        
+                        a.application_type_id, 
+			cat.name application_type_name, 
+
+                        a.segment_type_id,
+                        cst.name segment_type_name, 
+ 
+                        a.is_bo_confirm, 
+                        a.country_id, 
+                        coun.name country_name, 
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         u.username AS op_user_name 
                     FROM info_customer a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
-                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0    
+                    LEFT JOIN info_customer ax ON (ax.act_parent_id =a.act_parent_id ) AND ax.show_it =0 
                
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-                    
-                    INNER JOIN sys_vehicle_groups erd ON erd.act_parent_id = a.vehicle_group_id AND erd.show_it = 0 
-		    /*----*/   
+		      
+                    LEFT JOIN sys_countrys coun ON coun.id = a.country_id AND coun.show_it = 0 
+                    LEFT JOIN sys_numerical_ranges nre ON nre.act_parent_id = a.ne_count_type_id AND nre.show_it = 0 AND nre.parent_id = 13
+                    LEFT JOIN sys_numerical_ranges nrv ON nrv.act_parent_id = a.nv_count_type_id AND nrv.show_it = 0 AND nrv.parent_id = 20
+                    inner join sys_customer_categories cc on cc.act_parent_id = a.customer_category_id and cc.show_it = 0 
+		    inner join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0 
+		    left join sys_customer_turnover_rates tr on tr.act_parent_id = a.turnover_rate_id and tr.show_it = 0 
+		    left join sys_customer_sector_types st on st.act_parent_id = a.sector_type_id and st.show_it = 0 
+		    left join sys_customer_application_types cat on cat.act_parent_id = a.application_type_id and cat.show_it = 0 
+                    left join sys_customer_segment_types cst on cst.act_parent_id = a.segment_type_id and cst.show_it = 0 
+		     
+                    /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -884,8 +1105,7 @@ class InfoCustomer extends \DAL\DalSlim {
                     
                     WHERE  
                         a.deleted =0 AND
-                        a.show_it =0 AND 
-                        a.language_parent_id =0 
+                        a.show_it =0  
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -959,13 +1179,30 @@ class InfoCustomer extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO info_customer (
-                        name,
-                        name_eng, 
-                        vehicle_group_id,
-                        
-                        language_id,
-                        language_parent_id,
+                    INSERT INTO info_customer ( 
+                        embrace_customer_no, 
+                        tu_emb_customer_no, 
+                        ce_emb_customer_no, 
+                        other_emb_customer_no
+                        registration_name, 
+                        trading_name, 
+                        name_short, 
+                        www, 
+                        vatnumber, 
+                        registration_number, 
+                        registration_date, 
+                        ne_count_type_id, 
+                        nv_count_type_id, 
+                        customer_category_id, 
+                        reliability_id, 
+                        turnover_rate_id, 
+                        sector_type_id, 
+                        application_type_id, 
+                        segment_type_id,  
+
+                        is_bo_confirm, 
+                        country_id,
+                         
                         active,
                         deleted,
                         op_user_id,
@@ -973,19 +1210,36 @@ class InfoCustomer extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name,
-                        name_eng, 
-                        vehicle_group_id,
-                        
-                        language_id,
-                        language_parent_id, 
+                        embrace_customer_no, 
+                        tu_emb_customer_no, 
+                        ce_emb_customer_no, 
+                        other_emb_customer_no
+                        registration_name, 
+                        trading_name, 
+                        name_short, 
+                        www, 
+                        vatnumber, 
+                        registration_number, 
+                        registration_date, 
+                        ne_count_type_id, 
+                        nv_count_type_id, 
+                        customer_category_id, 
+                        reliability_id, 
+                        turnover_rate_id, 
+                        sector_type_id, 
+                        application_type_id, 
+                        segment_type_id,  
+
+                        is_bo_confirm, 
+                        country_id 
+                         
                         1 AS active,  
                         1 AS deleted, 
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
                     FROM info_customer 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
+                    WHERE id  =" . intval($params['id']) . "   
                     ");
 
                 $insertAct = $statementInsert->execute();
@@ -1018,75 +1272,170 @@ class InfoCustomer extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
-            ////*********/////  1 
-            $languageIdValue = 385;
-        /*    if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }  
-         * 
-         */
-            ////*********///// 1                  
+            $kontrol =0 ;                
             $errorInfo[0] = "99999";
-            $nameTemp = null;
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
+            $addSQL1 =null ;    
+            $addSQL2 =null ;             
+            $embraceCustomerNo = null;
+            if ((isset($params['EmbraceCustomerNo']) && $params['EmbraceCustomerNo'] != "")) {
+                $embraceCustomerNo = $params['EmbraceCustomerNo'];
+            } else {
+               $kontrol=$kontrol+1 ;  
+            }
+            $tuEmbCustomerNo = null;
+            if ((isset($params['TuEmbCustomerNo']) && $params['TuEmbCustomerNo'] != "")) {
+                $tuEmbCustomerNo = $params['TuEmbCustomerNo'];
+            } else {
+                $kontrol=$kontrol+1 ;  
+            }
+            $ceEmbCustomerNo = null;
+            if ((isset($params['CeEmbCustomerNo']) && $params['CeEmbCustomerNo'] != "")) {
+                $ceEmbCustomerNo = $params['CeEmbCustomerNo'];
+            } else {
+                 $kontrol=$kontrol+1 ;  
+            }
+            $otherEmbCustomerNo= null;
+            if ((isset($params['OtherEmbCustomerNo']) && $params['OtherEmbCustomerNo'] != "")) {
+                $otherEmbCustomerNo = $params['OtherEmbCustomerNo'];
+            } else {
+                 $kontrol=$kontrol+1 ;  
+            }
+                     
+            if ($kontrol> 1 ) {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $registrationName = null;
+            if ((isset($params['RegistrationName']) && $params['RegistrationName'] != "")) {
+                $registrationName = $params['RegistrationName'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $nameEng = null;
-         /*   if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
+            
+            $tradingName = null;
+            if ((isset($params['TradingName']) && $params['TradingName'] != "")) {
+                $tradingName = $params['TradingName'];
+            }  
+            $nameShort = null;
+            if ((isset($params['NameShort']) && $params['NameShort'] != "")) {
+                $nameShort = $params['NameShort'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-          * 
-          */
-            $vehicleGroupId = -1111;
-            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
-                $vehicleGroupId = intval($params['VehicleGroupId']);
+            $www = null;
+            if ((isset($params['www']) && $params['www'] != "")) {
+                $www = $params['www'];
+            }  
+            $vatnumber = null;
+            if ((isset($params['Vatnumber']) && $params['Vatnumber'] != "")) {
+                $vatnumber = $params['Vatnumber'];
+            } 
+            $registrationNumber= null;
+            if ((isset($params['RegistrationNumber']) && $params['RegistrationNumber'] != "")) {
+                $registrationNumber = $params['RegistrationNumber'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                 ////*********///// 2   
-            if ($languageIdValue != 385 )  
-                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
-                ////*********///// 2          
-        
-
+            $registrationDate= null;
+            if ((isset($params['RegistrationDate']) && $params['RegistrationDate'] != "")) {
+                $registrationDate = $params['RegistrationDate'];
+                $addSQL1 = 'registration_date,  ';
+                $addSQL2 = "'". $registrationDate."'";
+            }  
+                            
+            $neCountTypeId = -1111;
+            if ((isset($params['NeCountTypeId']) && $params['NeCountTypeId'] != "")) {
+                $neCountTypeId = intval($params['NeCountTypeId']);
+            }  
+            $nvCountTypeId = -1111;
+            if ((isset($params['NvCountTypeId']) && $params['NvCountTypeId'] != "")) {
+                $nvCountTypeId = intval($params['NvCountTypeId']);
+            } 
+            $customerCategoryId= -1111;
+            if ((isset($params['CustomerCategoryId']) && $params['CustomerCategoryId'] != "")) {
+                $customerCategoryId = intval($params['CustomerCategoryId']);
+            } 
+            $reliabilityId = -1111;
+            if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
+                $reliabilityId = intval($params['ReliabilityId']);
+            } 
+            $turnoverRateId = -1111;
+            if ((isset($params['TurnoverRateId']) && $params['TurnoverRateId'] != "")) {
+                $turnoverRateId = intval($params['TurnoverRateId']);
+            } 
+            $sectorTypeId = -1111;
+            if ((isset($params['SectorTypeId']) && $params['SectorTypeId'] != "")) {
+                $sectorTypeId = intval($params['SectorTypeId']);
+            }                
+            $applicationTypeId= -1111;
+            if ((isset($params['ApplicationTypeId']) && $params['ApplicationTypeId'] != "")) {
+                $applicationTypeId = intval($params['ApplicationTypeId']);
+            }  
+            $segmentTypeId= -1111;
+            if ((isset($params['SegmentTypeId']) && $params['SegmentTypeId'] != "")) {
+                $segmentTypeId = intval($params['SegmentTypeId']);
+            }  
+            
+            
+            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name, 
-                            'vehicle_group_id' => $vehicleGroupId,
-                            
+                            'embrace_customer_no' => $embraceCustomerNo, 
+                            'tu_emb_customer_no' => $tuEmbCustomerNo,
+                            'ce_emb_customer_no' => $ceEmbCustomerNo,
+                            'other_emb_customer_no' => $otherEmbCustomerNo,
+                            'registration_name' => $registrationName,
+                         //   'registration_number' => $registrationDate,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO info_customer(
-                            name, 
-                            name_eng, 
-                            vehicle_group_id,  
+                            embrace_customer_no, 
+                            tu_emb_customer_no, 
+                            ce_emb_customer_no, 
+                            other_emb_customer_no
+                            registration_name, 
+                            trading_name, 
+                            name_short, 
+                            www, 
+                            vatnumber, 
+                            registration_number, 
+                            ".$addSQL1." 
+                            ne_count_type_id, 
+                            nv_count_type_id, 
+                            customer_category_id, 
+                            reliability_id, 
+                            turnover_rate_id, 
+                            sector_type_id, 
+                            application_type_id, 
+                            segment_type_id,    
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
-                            '" . $name . "',
-                            '" . $nameEng . "',
-                            " . intval($vehicleGroupId) . ", 
-
+                            '" . $embraceCustomerNo . "',
+                            '" . $tuEmbCustomerNo . "',
+                            '" . $ceEmbCustomerNo . "',
+                            '" . $otherEmbCustomerNo . "',
+                            '" . $registrationName . "',
+                            '" . $tradingName . "',
+                            '" . $nameShort . "',
+                            '" . $www . "',
+                            '" . $vatnumber . "',
+                            '" . $registrationNumber . "',
+                            ".$addSQL2." 
+                            " .  intval($neCountTypeId). ",
+                            " .  intval($nvCountTypeId) . ",
+                            " .  intval($customerCategoryId). ",
+                            " .  intval($reliabilityId) . ",
+                            " .  intval($turnoverRateId). ",
+                            " .  intval($sectorTypeId) . ",
+                            " .  intval($applicationTypeId) . ",
+                                 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_id_seq)
                                                  )   ";
@@ -1098,19 +1447,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('info_customer_id_seq');
 
-                    ////*********/////  3 
-                    $insertLanguageTemplateParams = array(
-                        'id' => intval($insertID),
-                        'language_id' => intval($languageIdValue),
-                        'nameTemp' =>  ($nameTemp),
-                    );
-                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
-                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
-                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
-                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
-                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
-                    }
-                    ////*********///// 3  
+                            
 
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
@@ -1131,7 +1468,6 @@ class InfoCustomer extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
                             
     /**
      * @author Okan CIRAN
@@ -1144,8 +1480,7 @@ class InfoCustomer extends \DAL\DalSlim {
     public function updateAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $pdo->beginTransaction();
-            $languageIdValue = 385 ;
+            $pdo->beginTransaction(); 
             $errorInfo[0] = "99999";
             
             $Id = -1111;
@@ -1155,33 +1490,109 @@ class InfoCustomer extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             
-            $nameTemp = null;
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
+            $kontrol =0 ;                
+            $errorInfo[0] = "99999";
+            $addSQL1 =null ;    
+            $addSQL2 =null ;             
+            $embraceCustomerNo = null;
+            if ((isset($params['EmbraceCustomerNo']) && $params['EmbraceCustomerNo'] != "")) {
+                $embraceCustomerNo = $params['EmbraceCustomerNo'];
+            } else {
+               $kontrol=$kontrol+1 ;  
+            }
+            $tuEmbCustomerNo = null;
+            if ((isset($params['TuEmbCustomerNo']) && $params['TuEmbCustomerNo'] != "")) {
+                $tuEmbCustomerNo = $params['TuEmbCustomerNo'];
+            } else {
+                $kontrol=$kontrol+1 ;  
+            }
+            $ceEmbCustomerNo = null;
+            if ((isset($params['CeEmbCustomerNo']) && $params['CeEmbCustomerNo'] != "")) {
+                $ceEmbCustomerNo = $params['CeEmbCustomerNo'];
+            } else {
+                 $kontrol=$kontrol+1 ;  
+            }
+            $otherEmbCustomerNo= null;
+            if ((isset($params['OtherEmbCustomerNo']) && $params['OtherEmbCustomerNo'] != "")) {
+                $otherEmbCustomerNo = $params['OtherEmbCustomerNo'];
+            } else {
+                 $kontrol=$kontrol+1 ;  
+            }
+                     
+            if ($kontrol> 1 ) {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $registrationName = null;
+            if ((isset($params['RegistrationName']) && $params['RegistrationName'] != "")) {
+                $registrationName = $params['RegistrationName'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $nameEng = null;
-         /*   if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
+            
+            $tradingName = null;
+            if ((isset($params['TradingName']) && $params['TradingName'] != "")) {
+                $tradingName = $params['TradingName'];
+            }  
+            $nameShort = null;
+            if ((isset($params['NameShort']) && $params['NameShort'] != "")) {
+                $nameShort = $params['NameShort'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-          * 
-          */
-            $vehicleGroupId = -1111;
-            if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
-                $vehicleGroupId = intval($params['VehicleGroupId']);
+            $www = null;
+            if ((isset($params['www']) && $params['www'] != "")) {
+                $www = $params['www'];
+            }  
+            $vatnumber = null;
+            if ((isset($params['Vatnumber']) && $params['NameShort'] != "")) {
+                $vatnumber = $params['vatnumber'];
+            } 
+            $registrationNumber= null;
+            if ((isset($params['RegistrationNumber']) && $params['RegistrationNumber'] != "")) {
+                $registrationNumber = $params['RegistrationNumber'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            $registrationDate= null;
+            if ((isset($params['RegistrationDate']) && $params['RegistrationDate'] != "")) {
+                $registrationDate = $params['RegistrationDate'];
+                $addSQL1 = 'registration_date,  ';
+                $addSQL2 = "'". $registrationDate."'";
+            }  
                             
-                ////*********///// 2   
-            if ($languageIdValue != 385 )  
-                 {$nameTemp = $name;  }     else  {$nameEng = $name;  }
-                ////*********///// 2          
-        
+            $neCountTypeId = -1111;
+            if ((isset($params['NeCountTypeId']) && $params['NeCountTypeId'] != "")) {
+                $neCountTypeId = intval($params['NeCountTypeId']);
+            }  
+            $nvCountTypeId = -1111;
+            if ((isset($params['NvCountTypeId']) && $params['NvCountTypeId'] != "")) {
+                $nvCountTypeId = intval($params['NvCountTypeId']);
+            } 
+            $customerCategoryId= -1111;
+            if ((isset($params['CustomerCategoryId']) && $params['CustomerCategoryId'] != "")) {
+                $customerCategoryId = intval($params['CustomerCategoryId']);
+            } 
+            $reliabilityId = -1111;
+            if ((isset($params['NvCountTypeId']) && $params['ReliabilityId'] != "")) {
+                $reliabilityId = intval($params['ReliabilityId']);
+            } 
+            $turnoverRateId = -1111;
+            if ((isset($params['TurnoverRateId']) && $params['TurnoverRateId'] != "")) {
+                $turnoverRateId = intval($params['TurnoverRateId']);
+            } 
+            $sectorTypeId = -1111;
+            if ((isset($params['SectorTypeId']) && $params['SectorTypeId'] != "")) {
+                $sectorTypeId = intval($params['SectorTypeId']);
+            }                
+            $applicationTypeId= -1111;
+            if ((isset($params['ApplicationTypeId']) && $params['ApplicationTypeId'] != "")) {
+                $applicationTypeId = intval($params['ApplicationTypeId']);
+            }  
+            $segmentTypeId= -1111;
+            if ((isset($params['SegmentTypeId']) && $params['SegmentTypeId'] != "")) {
+                $segmentTypeId = intval($params['SegmentTypeId']);
+            }  
+            
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1192,8 +1603,12 @@ class InfoCustomer extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name, 
-                            'vehicle_group_id' => $vehicleGroupId, 
+                            'embrace_customer_no' => $embraceCustomerNo, 
+                            'tu_emb_customer_no' => $tuEmbCustomerNo,
+                            'ce_emb_customer_no' => $ceEmbCustomerNo,
+                            'other_emb_customer_no' => $otherEmbCustomerNo,
+                            'registration_name' => $registrationName,
+                         //   'registration_number' => $registrationDate,  
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1202,30 +1617,60 @@ class InfoCustomer extends \DAL\DalSlim {
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO info_customer (  
-                        name, 
-                        name_eng, 
-                        vehicle_group_id, 
+                        embrace_customer_no, 
+                        tu_emb_customer_no, 
+                        ce_emb_customer_no, 
+                        other_emb_customer_no
+                        registration_name, 
+                        trading_name, 
+                        name_short, 
+                        www, 
+                        vatnumber, 
+                        registration_number, 
+                        registration_date, 
+                        ne_count_type_id, 
+                        nv_count_type_id, 
+                        customer_category_id, 
+                        reliability_id, 
+                        turnover_rate_id, 
+                        sector_type_id, 
+                        application_type_id, 
+                        segment_type_id,  
                         
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
-                    '" . $name . "',
-                    '" . $nameEng . "',
-                    " . intval($vehicleGroupId) . ", 
+                    '" . $embraceCustomerNo . "',
+                    '" . $tuEmbCustomerNo . "',
+                    '" . $ceEmbCustomerNo . "',
+                    '" . $otherEmbCustomerNo . "',
+                    '" . $registrationName . "',
+                    '" . $tradingName . "',
+                    '" . $nameShort . "',
+                    '" . $www . "',
+                    '" . $vatnumber . "',
+                    '" . $registrationNumber . "',
+                    ".$addSQL2." 
+                    " .  intval($neCountTypeId). ",
+                    " .  intval($nvCountTypeId) . ",
+                    " .  intval($customerCategoryId). ",
+                    " .  intval($reliabilityId) . ",
+                    " .  intval($turnoverRateId). ",
+                    " .  intval($sectorTypeId) . ",
+                    " .  intval($applicationTypeId) . ",
                                 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM info_customer 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                    id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-
-                     $affectedRows = $statementInsert->rowCount();
+                            
                      $affectedRows = $statementInsert->rowCount();
                     if ($affectedRows> 0 ){
                     $insertID = $pdo->lastInsertId('info_customer_id_seq');}

@@ -66,8 +66,7 @@ class InfoCustomer  extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillGrid ($params = array()) {
-        
+    public function fillGrid ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('infoCustomerPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
         return $resultSet['resultSet'];
