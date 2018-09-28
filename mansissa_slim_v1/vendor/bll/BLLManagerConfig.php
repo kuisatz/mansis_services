@@ -79,6 +79,7 @@ class BLLManagerConfig{
                    'sysCustomerSectorTypesBLL' => 'BLL\BLL\SysCustomerSectorTypes',
                    'sysCustomerSegmentTypesBLL' => 'BLL\BLL\SysCustomerSegmentTypes',
                    'sysCustomerTurnoverRatesBLL' => 'BLL\BLL\SysCustomerTurnoverRates',
+                   'sysCustomerTypesBLL' => 'BLL\BLL\SysCustomerTypes',
                    'sysDemoAllocationTypesBLL' => 'BLL\BLL\SysDemoAllocationTypes',
                    'sysDemoQuotasBLL' => 'BLL\BLL\SysDemoQuotas',
                    'sysDepartmentsBLL' => 'BLL\BLL\SysDepartments',
