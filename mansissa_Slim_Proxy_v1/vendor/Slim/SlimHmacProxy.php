@@ -21,6 +21,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+            //**---- sysContractTypesBLL -------------------  
+                                     'pkContractTypesBTdList_syscontracttypes' => 'restApiDefaultCall', 
+            
+         //** sysContractTypesBLL ----------------------//    
         
          //**---- sysCustomerTypesBLL ------------------- 
                                     'pkCustomerTypesDdList_syscustomertypes' => 'restApiDefaultCall', 
@@ -362,9 +366,6 @@ class SlimHmacProxy extends \Proxy\Proxy {
               
          //**---- sysBbContractTypesBLL ------------------- 
                                     'pkBbContractTypesDdList_sysbbcontracttypes' => 'restApiDefaultCall', 
-                                     'pkContractTypesBTdList_syscontracttypes' => 'restApiDefaultCall', 
-        
-        
             
          //** sysBbContractTypesBLL ----------------------//    
            //**---- sysBranchesDealersDeffBLL ------------------- 
@@ -1893,6 +1894,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
+             case "_syscontracttypes":  
+                $this->setRestApiEndPoint('_syscontracttypes.php/');
+                break; 
              case "_syscustomertypes":  
                 $this->setRestApiEndPoint('syscustomertypes.php/');
                 break; 
