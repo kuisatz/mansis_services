@@ -92,12 +92,13 @@ $app->get("/pkCustomerDdList_infocustomer/", function () use ($app ) {
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($flows));
 });
+ 
 
- /**
+/**
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkWarrantiesParentsDdList_infocustomer/", function () use ($app ) {
+$app->get("/pkCustomerNoConfirmDdList_infocustomer/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerBLL');
@@ -107,7 +108,7 @@ $app->get("/pkWarrantiesParentsDdList_infocustomer/", function () use ($app ) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkWarrantiesParentsDdList_infocustomer" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerNoConfirmDdList_infocustomer" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
@@ -115,12 +116,6 @@ $app->get("/pkWarrantiesParentsDdList_infocustomer/", function () use ($app ) {
          $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
                                                 $app,
                                                 $_GET['language_code']));
-    }
-    $ParentId = -1;
-    if (isset($_GET['vehicle_group_id'])) {
-         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['vehicle_group_id']));
     }
     $lid = null;
     if (isset($_GET['lid'])) {
@@ -131,13 +126,10 @@ $app->get("/pkWarrantiesParentsDdList_infocustomer/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('vehicle_group_id')) $ParentId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
         
-    $resCombobox = $BLL->warrantiesParentsDdList(array(                                   
+    $resCombobox = $BLL->customerNoConfirmDdList(array(                                   
                                     'language_code' => $vLanguageCode,
-                                    'VehicleGroupID' => $ParentId,
                                     'LanguageID' => $lid,
-        
                         ));    
 
     $flows = array(); 
@@ -147,35 +139,85 @@ $app->get("/pkWarrantiesParentsDdList_infocustomer/", function () use ($app ) {
             "value" =>  intval($flow["id"]),
             "selected" => false,
             "description" => $flow["name_eng"],
-            "imageSrc"=>"",              
-            
+            "imageSrc"=>"",   
         );
     }
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($flows));
 });
+ 
+
+/**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkCustomerConfirmDdList_infocustomer/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('infoCustomerBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerConfirmDdList_infocustomer" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+        
+    $resCombobox = $BLL->customerConfirmDdList(array(                                   
+                                    'language_code' => $vLanguageCode,
+                                    'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",   
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+ 
+
 
 /**
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillWarrantiesGridx_infocustomer/", function () use ($app ) {
+$app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('infoCustomerBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillWarrantiesGridx_infocustomer" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillCustomerGridx_infocustomer" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
         $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
-    }
-    $vVehicleGroupID= NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-        $stripper->offsetSet('vehicle_group_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['vehicle_group_id']));
-    }
+    } 
     $vPage = NULL;
     if (isset($_GET['page'])) {
         $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
@@ -205,7 +247,7 @@ $app->get("/pkFillWarrantiesGridx_infocustomer/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
-    if ($stripper->offsetExists('vehicle_group_id'))$vVehicleGroupID = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+ 
     if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
     if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
@@ -219,7 +261,7 @@ $app->get("/pkFillWarrantiesGridx_infocustomer/", function () use ($app ) {
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-        'VehicleGroupID' => $vVehicleGroupID,
+ 
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -227,7 +269,7 @@ $app->get("/pkFillWarrantiesGridx_infocustomer/", function () use ($app ) {
     $resTotalRowCount = $BLL->fillWarrantiesGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-        'VehicleGroupID' => $vVehicleGroupID,
+  
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
