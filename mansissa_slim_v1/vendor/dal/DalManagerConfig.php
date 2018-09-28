@@ -255,7 +255,7 @@ class DalManagerConfig {
                 'sysCustomerSectorTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerSectorTypesFactory',
                 'sysCustomerSegmentTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerSegmentTypesFactory',
                 'sysCustomerTurnoverRatesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerTurnoverRatesFactory',
-                'sysCustomerTypesPostgrePDO' => 'DAL\Factory\PDO\Oracle\SysCustomerTypesFactory',
+                'sysCustomerTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysCustomerTypesFactory',
                 'sysDemoAllocationTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoAllocationTypesFactory',
                 'sysDemoQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoQuotasFactory',
                 'sysDepartmentsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDepartmentsFactory',
