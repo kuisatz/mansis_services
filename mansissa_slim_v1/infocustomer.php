@@ -254,7 +254,7 @@ $app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
 
-    $resDataGrid = $BLL->fillWarrantiesGridx(array(
+    $resDataGrid = $BLL->fillCustomerGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
         'page' => $vPage,
@@ -266,7 +266,7 @@ $app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
         'pk' => $pk,
     ));
    
-    $resTotalRowCount = $BLL->fillWarrantiesGridxRtl(array(
+    $resTotalRowCount = $BLL->fillCustomerGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
   
