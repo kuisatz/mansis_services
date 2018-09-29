@@ -1895,7 +1895,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
              case "_syscontracttypes":  
-                $this->setRestApiEndPoint('_syscontracttypes.php/');
+                $this->setRestApiEndPoint('syscontracttypes.php/');
                 break; 
              case "_syscustomertypes":  
                 $this->setRestApiEndPoint('syscustomertypes.php/');
