@@ -101,6 +101,7 @@ class SysContractTypes extends \BLL\BLLSlim{
      * @return array 
     */
     public function contractTypesBTdList($params = array()) {
+        print_r("2222");
         $DAL = $this->slimApp->getDALManager()->get('sysContractTypesPostgrePDO');
         $resultSet = $DAL->contractTypesBTdList($params);
         return $resultSet['resultSet'];

@@ -167,6 +167,7 @@ $app->get("/pkContractTypesPDdList_syscontracttypes/", function () use ($app ) {
  * @since 11.08.2018
  */
 $app->get("/pkContractTypesBTdList_syscontracttypes/", function () use ($app ) {
+    print_r("111");
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysContractTypesBLL');
@@ -194,7 +195,7 @@ $app->get("/pkContractTypesBTdList_syscontracttypes/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-        
+        print_r("3333");
     $resCombobox = $BLL->contractTypesBTdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
