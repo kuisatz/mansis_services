@@ -195,7 +195,7 @@ $app->get("/pkContractTypesBTdList_syscontracttypes/", function () use ($app ) {
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->contractTypesBTdList_(array(                                   
+    $resCombobox = $BLL->contractTypesBTdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
                         ));    
