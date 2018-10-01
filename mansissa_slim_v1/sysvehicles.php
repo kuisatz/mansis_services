@@ -320,18 +320,111 @@ $app->get("/pkInsertAct_sysvehicles/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysvehicles" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['description']));
+    }   
+     $factorymodelName = NULL;
+    if (isset($_GET['factorymodel_name'])) {
+         $stripper->offsetSet('factorymodel_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['factorymodel_name']));
     }  
+    $gfz = NULL;
+    if (isset($_GET['gfz'])) {
+         $stripper->offsetSet('gfz',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['gfz']));
+    }  
+    
+    $ckdcbuTypeId = null;
+    if (isset($_GET['ckdcbu_type_id'])) {
+         $stripper->offsetSet('ckdcbu_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ckdcbu_type_id']));
+    }
+     $vehicleGtModelId = null;
+    if (isset($_GET['vehicle_gt_model_id'])) {
+         $stripper->offsetSet('vehicle_gt_model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_model_id']));
+    }
+     $modelVariantId = null;
+    if (isset($_GET['model_variant_id'])) {
+         $stripper->offsetSet('model_variant_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_variant_id']));
+    }
+     $configTypeId = null;
+    if (isset($_GET['config_type_id'])) {
+         $stripper->offsetSet('config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['config_type_id']));
+    }
+     $capTypeId = null;
+    if (isset($_GET['cap_type_id'])) {
+         $stripper->offsetSet('cap_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['cap_type_id']));
+    }
+     $vehicleAppTypeId = null;
+    if (isset($_GET['vehicle_app_type_id'])) {
+         $stripper->offsetSet('vehicle_app_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_app_type_id']));
+    }
+     $kpnumberId = null;
+    if (isset($_GET['kpnumber_id'])) {
+         $stripper->offsetSet('kpnumber_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['kpnumber_id']));
+    }
+    $btsbtoTypeId = null;
+    if (isset($_GET['btsbto_type_id'])) {
+         $stripper->offsetSet('btsbto_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['btsbto_type_id']));
+    }
+    $roadTypeId = null;
+    if (isset($_GET['roadtype_id'])) {
+         $stripper->offsetSet('roadtype_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['roadtype_id']));
+    }
+    
+    
    
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
+    if($stripper->offsetExists('factorymodel_name')) $factorymodelName = $stripper->offsetGet('factorymodel_name')->getFilterValue();
+    if($stripper->offsetExists('gfz')) $gfz= $stripper->offsetGet('gfz')->getFilterValue();
+    if($stripper->offsetExists('ckdcbu_type_id')) $ckdcbuTypeId = $stripper->offsetGet('ckdcbu_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_model_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();
+    if($stripper->offsetExists('model_variant_id')) $modelVariantId = $stripper->offsetGet('model_variant_id')->getFilterValue();
+    if($stripper->offsetExists('config_type_id')) $configTypeId = $stripper->offsetGet('config_type_id')->getFilterValue();
+    if($stripper->offsetExists('cap_type_id')) $capTypeId = $stripper->offsetGet('cap_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_app_type_id')) $vehicleAppTypeId = $stripper->offsetGet('vehicle_app_type_id')->getFilterValue();
+    if($stripper->offsetExists('kpnumber_id')) $kpnumberId = $stripper->offsetGet('kpnumber_id')->getFilterValue();
+    if($stripper->offsetExists('btsbto_type_id')) $btsbtoTypeId = $stripper->offsetGet('btsbto_type_id')->getFilterValue();
+    if($stripper->offsetExists('roadtype_id')) $roadTypeId = $stripper->offsetGet('roadtype_id')->getFilterValue();
+        
     
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,    
+            'Description' => $description,    
+            'FactorymodelName' => $factorymodelName,   
+            'Gfz' => $gfz,   
+            'CkdcbuTypeId' => $ckdcbuTypeId,   
+            'VehicleGtModelId' => $vehicleGtModelId,   
+            'ModelVariantId' => $modelVariantId,   
+            'ConfigTypeId' => $configTypeId,   
+            'CapTypeId' => $capTypeId,   
+            'VehicleAppTypeId' => $vehicleAppTypeId,   
+            'KpnumberId' => $kpnumberId,   
+            'BtsbtoTypeId' => $btsbtoTypeId,   
+            'RoadTypeId' => $roadTypeId,   
+        
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -358,21 +451,113 @@ $app->get("/pkUpdateAct_sysvehicles/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+   $description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['description']));
+    }   
+     $factorymodelName = NULL;
+    if (isset($_GET['factorymodel_name'])) {
+         $stripper->offsetSet('factorymodel_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['factorymodel_name']));
     }  
-     
+    $gfz = NULL;
+    if (isset($_GET['gfz'])) {
+         $stripper->offsetSet('gfz',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['gfz']));
+    }  
+    
+    $ckdcbuTypeId = null;
+    if (isset($_GET['ckdcbu_type_id'])) {
+         $stripper->offsetSet('ckdcbu_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['ckdcbu_type_id']));
+    }
+     $vehicleGtModelId = null;
+    if (isset($_GET['vehicle_gt_model_id'])) {
+         $stripper->offsetSet('vehicle_gt_model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_model_id']));
+    }
+     $modelVariantId = null;
+    if (isset($_GET['model_variant_id'])) {
+         $stripper->offsetSet('model_variant_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_variant_id']));
+    }
+     $configTypeId = null;
+    if (isset($_GET['config_type_id'])) {
+         $stripper->offsetSet('config_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['config_type_id']));
+    }
+     $capTypeId = null;
+    if (isset($_GET['cap_type_id'])) {
+         $stripper->offsetSet('cap_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['cap_type_id']));
+    }
+     $vehicleAppTypeId = null;
+    if (isset($_GET['vehicle_app_type_id'])) {
+         $stripper->offsetSet('vehicle_app_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_app_type_id']));
+    }
+     $kpnumberId = null;
+    if (isset($_GET['kpnumber_id'])) {
+         $stripper->offsetSet('kpnumber_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['kpnumber_id']));
+    }
+    $btsbtoTypeId = null;
+    if (isset($_GET['btsbto_type_id'])) {
+         $stripper->offsetSet('btsbto_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['btsbto_type_id']));
+    }
+    $roadTypeId = null;
+    if (isset($_GET['roadtype_id'])) {
+         $stripper->offsetSet('roadtype_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['roadtype_id']));
+    }
+    
+    
+   
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
+    if($stripper->offsetExists('factorymodel_name')) $factorymodelName = $stripper->offsetGet('factorymodel_name')->getFilterValue();
+    if($stripper->offsetExists('gfz')) $gfz= $stripper->offsetGet('gfz')->getFilterValue();
+    if($stripper->offsetExists('ckdcbu_type_id')) $ckdcbuTypeId = $stripper->offsetGet('ckdcbu_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gt_model_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();
+    if($stripper->offsetExists('model_variant_id')) $modelVariantId = $stripper->offsetGet('model_variant_id')->getFilterValue();
+    if($stripper->offsetExists('config_type_id')) $configTypeId = $stripper->offsetGet('config_type_id')->getFilterValue();
+    if($stripper->offsetExists('cap_type_id')) $capTypeId = $stripper->offsetGet('cap_type_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_app_type_id')) $vehicleAppTypeId = $stripper->offsetGet('vehicle_app_type_id')->getFilterValue();
+    if($stripper->offsetExists('kpnumber_id')) $kpnumberId = $stripper->offsetGet('kpnumber_id')->getFilterValue();
+    if($stripper->offsetExists('btsbto_type_id')) $btsbtoTypeId = $stripper->offsetGet('btsbto_type_id')->getFilterValue();
+    if($stripper->offsetExists('roadtype_id')) $roadTypeId = $stripper->offsetGet('roadtype_id')->getFilterValue();
+        
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
+            'Description' => $description,    
+            'FactorymodelName' => $factorymodelName,   
+            'Gfz' => $gfz,   
+            'CkdcbuTypeId' => $ckdcbuTypeId,   
+            'VehicleGtModelId' => $vehicleGtModelId,   
+            'ModelVariantId' => $modelVariantId,   
+            'ConfigTypeId' => $configTypeId,   
+            'CapTypeId' => $capTypeId,   
+            'VehicleAppTypeId' => $vehicleAppTypeId,   
+            'KpnumberId' => $kpnumberId,   
+            'BtsbtoTypeId' => $btsbtoTypeId,   
+            'RoadTypeId' => $roadTypeId,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
