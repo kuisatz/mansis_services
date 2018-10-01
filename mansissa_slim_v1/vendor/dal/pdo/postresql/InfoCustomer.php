@@ -711,9 +711,9 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.sector_type_name" . $sorguExpression . ' ';
 
                                 break;
-                            case 'country_name':
+                            case 'firm_country_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.country_name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND coun.name" . $sorguExpression . ' ';
 
                                 break;
                             case 'application_type_name':
@@ -726,6 +726,46 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.segment_type_name" . $sorguExpression . ' ';
 
                                 break;  
+                             case 'address1':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address1" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'address2':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address2" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'address3':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address3" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'postalcode':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.postalcode" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND city.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'region':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND region.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND city.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'country_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND coun2.name" . $sorguExpression . ' ';
+
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -991,9 +1031,9 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.sector_type_name" . $sorguExpression . ' ';
 
                                 break;
-                            case 'country_name':
+                            case 'firm_country_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.country_name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND coun.name" . $sorguExpression . ' ';
 
                                 break;
                             case 'application_type_name':
@@ -1006,6 +1046,46 @@ class InfoCustomer extends \DAL\DalSlim {
                                 $sorguStr.=" AND a.segment_type_name" . $sorguExpression . ' ';
 
                                 break;  
+                             case 'address1':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address1" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'address2':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address2" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'address3':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.address3" . $sorguExpression . ' ';
+
+                                break;  
+                             case 'postalcode':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND a.postalcode" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND city.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'region':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND region.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'city_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND city.name" . $sorguExpression . ' ';
+
+                                break; 
+                             case 'country_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr.=" AND coun2.name" . $sorguExpression . ' ';
+
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -1088,12 +1168,37 @@ class InfoCustomer extends \DAL\DalSlim {
 
                         a.segment_type_id,
                         cst.name segment_type_name, 
- 
+
+                        
                         a.is_bo_confirm, 
-                        a.country_id, 
-                        coun.name country_name, 
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                        u.username AS op_user_name 
+                        a.country_id firm_country_id, 
+                        coun.name firm_country_name,
+ 
+			a.address1,
+			a.address2,
+			a.address3,
+			a.postalcode,
+			
+			a.city_id,
+			city.name as city_name, 
+			city.region_id, 
+			region.name as region, 
+			a.country_id, 			
+			coun2.name country_name,
+                        
+                        
+                      /*  a.name_eng, */  
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified, 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0    
@@ -1102,7 +1207,11 @@ class InfoCustomer extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		      
-                    LEFT JOIN sys_countrys coun ON coun.id = a.country_id AND coun.show_it = 0 
+                    LEFT JOIN sys_countrys coun ON coun.id = a.country2_id AND coun.show_it = 0 
+                    LEFT JOIN sys_countrys coun2 ON coun2.id = a.country_id AND coun2.show_it = 0 
+		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = a.city_id AND region.show_it = 0 
+                    
                     LEFT JOIN sys_numerical_ranges nre ON nre.act_parent_id = a.ne_count_type_id AND nre.show_it = 0 AND nre.parent_id = 13
                     LEFT JOIN sys_numerical_ranges nrv ON nrv.act_parent_id = a.nv_count_type_id AND nrv.show_it = 0 AND nrv.parent_id = 20
                     inner join sys_customer_categories cc on cc.act_parent_id = a.customer_category_id and cc.show_it = 0 
