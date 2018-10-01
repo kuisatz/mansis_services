@@ -205,7 +205,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                 a.user_id ,
                 '" . $params['user_id'] . "' AS value, 
                true  AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_educations_salesman  a                          
             WHERE 
                 a.user_id = " . intval($params['user_id']) . "  AND 
@@ -1104,7 +1104,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                             " . intval($userId) . ", 
                             " . intval($cityId) . ",
                             " . floatval($educationValue) . ",    
-                            " . $addSQLvalue . ", 
+                            " . $addSQLvalue . "
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_educations_salesman_id_seq)
