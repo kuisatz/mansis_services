@@ -484,9 +484,7 @@ class SysVehicles extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
-        
+                            
     /** 
      * @author Okan CIRAN
      * @ arac description ları dropdown ya da tree ye doldurmak için sys_vehicles tablosundan kayıtları döndürür !!
@@ -540,7 +538,7 @@ class SysVehicles extends \DAL\DalSlim {
         }
     }
     
-        /** 
+    /** 
      * @author Okan CIRAN
      * @ arac description ları dropdown ya da tree ye doldurmak için sys_vehicles tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
@@ -593,10 +591,7 @@ class SysVehicles extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
-    
-    
+                            
     /** 
      * @author Okan CIRAN
      * @ body aksesuar tanımlarını grid formatında döndürür !! ana tablo  sys_vehicles 
