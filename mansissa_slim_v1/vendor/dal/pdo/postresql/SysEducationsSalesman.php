@@ -1088,8 +1088,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                             address2,
                             address3, 
                             postalcode,
-                            description,
-                            
+                            description, 
                             education_definition_id,
                             user_id, 
                             city_id,
