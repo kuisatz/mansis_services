@@ -180,7 +180,7 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]),  
+             
                 
                 "ckdcbu_type_id" => intval($menu["ckdcbu_type_id"]),  
                 "cbuckd_name" => html_entity_decode($menu["cbuckd_name"]),  
