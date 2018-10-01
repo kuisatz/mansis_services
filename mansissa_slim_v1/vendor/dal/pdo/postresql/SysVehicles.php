@@ -497,7 +497,7 @@ class SysVehicles extends \DAL\DalSlim {
      */
     public function vehicleDescriptionsDdList($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
             $languageIdValue = 385;
             if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
@@ -550,7 +550,7 @@ class SysVehicles extends \DAL\DalSlim {
      */
     public function vehicleFactoryNamesDdList($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
             $languageIdValue = 385;
             if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
