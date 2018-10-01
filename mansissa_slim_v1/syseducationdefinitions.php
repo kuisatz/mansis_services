@@ -48,7 +48,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 $app->get("/pkEducationDefinitionsDdList_syseducationdefinitions/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysDiscountRatesBLL');
+    $BLL = $app->getBLLManager()->get('sysEducationDefinitionsBLL');
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {

@@ -23,6 +23,22 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+             //**---- sysVehiclesBLL ------------------- 
+            
+                                    'pkEducationDefinitionsDdList_syseducationdefinitions' => 'restApiDefaultCall', 
+            
+                                    'pkFillVehiclesGridx_syseducationdefinitions' => 'restApiDefaultCall', 
+        
+        
+            
+                                    'pkUpdateMakeActiveOrPassive_syseducationdefinitions' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_syseducationdefinitions' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_syseducationdefinitions' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_syseducationdefinitions' => 'restApiDefaultCall', 
+            
+         //** sysVehiclesBLL ----------------------//  
+        
          //**---- sysVehiclesBLL ------------------- 
                                     'pkVehicleDescriptionsDdList_sysvehicles' => 'restApiDefaultCall', 
                                     'pkVehicleFactoryNamesDdList_sysvehicles' => 'restApiDefaultCall', 
@@ -1913,7 +1929,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-             case "_sysvehicles":  
+             case "_syseducationdefinitions":  
+                $this->setRestApiEndPoint('syseducationdefinitions.php/');
+                break; 
+            case "_sysvehicles":  
                 $this->setRestApiEndPoint('sysvehicles.php/');
                 break; 
             case "_syscontracttypes":  
