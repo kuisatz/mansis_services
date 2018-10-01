@@ -21,20 +21,40 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
-            //**---- sysContractTypesBLL -------------------  
+        
+        
+         //**---- sysVehiclesBLL ------------------- 
+                                    'pkCustomerConfirmDdList_infocustomer' => 'restApiDefaultCall', 
+                                    'pkCustomerNoConfirmDdList_infocustomer' => 'restApiDefaultCall', 
+                                    'pkCustomerDdList_infocustomer' => 'restApiDefaultCall', 
+        
+                                    'pkFillVehiclesGridx_sysvehicles' => 'restApiDefaultCall', 
+        
+        
+            
+                                    'pkUpdateMakeActiveOrPassive_sysvehicles' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_sysvehicles' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_sysvehicles' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_sysvehicles' => 'restApiDefaultCall', 
+            
+         //** sysVehiclesBLL ----------------------//  
+        
+        
+        //**---- sysContractTypesBLL -------------------  
                                      'pkContractTypesBTdList_syscontracttypes' => 'restApiDefaultCall', 
             
-         //** sysContractTypesBLL ----------------------//    
+        //** sysContractTypesBLL ----------------------//    
         
-         //**---- sysCustomerTypesBLL ------------------- 
+        //**---- sysCustomerTypesBLL ------------------- 
                                     'pkCustomerTypesDdList_syscustomertypes' => 'restApiDefaultCall', 
             
-         //** sysCustomerTypesBLL ----------------------//   
+        //** sysCustomerTypesBLL ----------------------//   
         //**---- sysCustomerReliabilityBLL ------------------- 
                                     'pkCustomerReliabilityDdList_syscustomerreliability' => 'restApiDefaultCall', 
             
-         //** sysCustomerReliabilityBLL ----------------------//  
-         //**---- infoCustomerBLL ------------------- 
+        //** sysCustomerReliabilityBLL ----------------------//  
+        //**---- infoCustomerBLL ------------------- 
                                     'pkCustomerConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerNoConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerDdList_infocustomer' => 'restApiDefaultCall', 
@@ -1894,7 +1914,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-             case "_syscontracttypes":  
+             case "_sysvehicles":  
+                $this->setRestApiEndPoint('sysvehicles.php/');
+                break; 
+            case "_syscontracttypes":  
                 $this->setRestApiEndPoint('syscontracttypes.php/');
                 break; 
              case "_syscustomertypes":  

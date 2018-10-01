@@ -850,7 +850,7 @@ class InfoCustomer extends \DAL\DalSlim {
 
                         
                         a.is_bo_confirm, 
-                        a.country_id firm_country_id, 
+                        a.country2_id firm_country_id, 
                         coun.name firm_country_name,
  
 			a.address1,
@@ -1171,7 +1171,7 @@ class InfoCustomer extends \DAL\DalSlim {
 
                         
                         a.is_bo_confirm, 
-                        a.country_id firm_country_id, 
+                        a.country2_id firm_country_id, 
                         coun.name firm_country_name,
  
 			a.address1,
@@ -1326,7 +1326,15 @@ class InfoCustomer extends \DAL\DalSlim {
                         segment_type_id,  
 
                         is_bo_confirm, 
-                        country_id,
+                        country2_id,
+                        
+                        address1,
+			address2,
+			address3,
+			postalcode,
+			
+			city_id, 
+			country_id,  
                          
                         active,
                         deleted,
@@ -1356,7 +1364,15 @@ class InfoCustomer extends \DAL\DalSlim {
                         segment_type_id,  
 
                         is_bo_confirm, 
-                        country_id 
+                        country2_id,
+                        
+                        address1,
+			address2,
+			address3,
+			postalcode,
+			
+			city_id, 
+			country_id,  
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1467,41 +1483,67 @@ class InfoCustomer extends \DAL\DalSlim {
                 $addSQL2 = "'". $registrationDate."'";
             }  
                             
-            $neCountTypeId = -1111;
+            $neCountTypeId = 0;
             if ((isset($params['NeCountTypeId']) && $params['NeCountTypeId'] != "")) {
                 $neCountTypeId = intval($params['NeCountTypeId']);
             }  
-            $nvCountTypeId = -1111;
+            $nvCountTypeId = 0;
             if ((isset($params['NvCountTypeId']) && $params['NvCountTypeId'] != "")) {
                 $nvCountTypeId = intval($params['NvCountTypeId']);
             } 
-            $customerCategoryId= -1111;
+            $customerCategoryId= 0;
             if ((isset($params['CustomerCategoryId']) && $params['CustomerCategoryId'] != "")) {
                 $customerCategoryId = intval($params['CustomerCategoryId']);
             } 
-            $reliabilityId = -1111;
+            $reliabilityId = 0;
             if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
                 $reliabilityId = intval($params['ReliabilityId']);
             } 
-            $turnoverRateId = -1111;
+            $turnoverRateId = 0;
             if ((isset($params['TurnoverRateId']) && $params['TurnoverRateId'] != "")) {
                 $turnoverRateId = intval($params['TurnoverRateId']);
             } 
-            $sectorTypeId = -1111;
+            $sectorTypeId =0;
             if ((isset($params['SectorTypeId']) && $params['SectorTypeId'] != "")) {
                 $sectorTypeId = intval($params['SectorTypeId']);
             }                
-            $applicationTypeId= -1111;
+            $applicationTypeId= 0;
             if ((isset($params['ApplicationTypeId']) && $params['ApplicationTypeId'] != "")) {
                 $applicationTypeId = intval($params['ApplicationTypeId']);
             }  
-            $segmentTypeId= -1111;
+            $segmentTypeId= 0;
             if ((isset($params['SegmentTypeId']) && $params['SegmentTypeId'] != "")) {
                 $segmentTypeId = intval($params['SegmentTypeId']);
             }  
-            
-            
-            
+            $firmCountryId= 107;
+            if ((isset($params['FirmCountryId']) && $params['FirmCountryId'] != "")) {
+                $firmCountryId = intval($params['FirmCountryId']);
+            }  
+            $address1= null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            }  
+            $address2= null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            }  
+            $address3= null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            }  
+            $postalCode= null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            }  
+            $countryId= 107;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $countryId = intval($params['CountryId']);
+            }  
+            $cityId= 0;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            }  
+                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
@@ -1537,7 +1579,17 @@ class InfoCustomer extends \DAL\DalSlim {
                             sector_type_id, 
                             application_type_id, 
                             segment_type_id,    
+                            
+                            country2_id,
+            
+                            address1,
+                            address2,
+                            address3,
+                            postalcode,
 
+                            city_id, 
+                            country_id,  
+ 
                             op_user_id,
                             act_parent_id  
                             )
@@ -1560,7 +1612,16 @@ class InfoCustomer extends \DAL\DalSlim {
                             " .  intval($turnoverRateId). ",
                             " .  intval($sectorTypeId) . ",
                             " .  intval($applicationTypeId) . ",
-                                 
+                            " .  intval($segmentTypeId) . ",
+                            " .  intval($firmCountryId) . ",
+                            '" . $address1 . "',
+                            '" . $address2 . "',
+                            '" . $address3 . "',
+                            '" . $postalCode. "',
+                            " .  intval($cityId) . ",
+                            " .  intval($countryId) . ",
+                                
+ 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_id_seq)
                                                  )   ";
@@ -1619,7 +1680,7 @@ class InfoCustomer extends \DAL\DalSlim {
             $errorInfo[0] = "99999";
             $addSQL1 =null ;    
             $addSQL2 =null ;             
-            $embraceCustomerNo = null;
+           $embraceCustomerNo = null;
             if ((isset($params['EmbraceCustomerNo']) && $params['EmbraceCustomerNo'] != "")) {
                 $embraceCustomerNo = $params['EmbraceCustomerNo'];
             } else {
@@ -1669,8 +1730,8 @@ class InfoCustomer extends \DAL\DalSlim {
                 $www = $params['www'];
             }  
             $vatnumber = null;
-            if ((isset($params['Vatnumber']) && $params['NameShort'] != "")) {
-                $vatnumber = $params['vatnumber'];
+            if ((isset($params['Vatnumber']) && $params['Vatnumber'] != "")) {
+                $vatnumber = $params['Vatnumber'];
             } 
             $registrationNumber= null;
             if ((isset($params['RegistrationNumber']) && $params['RegistrationNumber'] != "")) {
@@ -1685,40 +1746,68 @@ class InfoCustomer extends \DAL\DalSlim {
                 $addSQL2 = "'". $registrationDate."'";
             }  
                             
-            $neCountTypeId = -1111;
+            $neCountTypeId = 0;
             if ((isset($params['NeCountTypeId']) && $params['NeCountTypeId'] != "")) {
                 $neCountTypeId = intval($params['NeCountTypeId']);
             }  
-            $nvCountTypeId = -1111;
+            $nvCountTypeId = 0;
             if ((isset($params['NvCountTypeId']) && $params['NvCountTypeId'] != "")) {
                 $nvCountTypeId = intval($params['NvCountTypeId']);
             } 
-            $customerCategoryId= -1111;
+            $customerCategoryId= 0;
             if ((isset($params['CustomerCategoryId']) && $params['CustomerCategoryId'] != "")) {
                 $customerCategoryId = intval($params['CustomerCategoryId']);
             } 
-            $reliabilityId = -1111;
-            if ((isset($params['NvCountTypeId']) && $params['ReliabilityId'] != "")) {
+            $reliabilityId = 0;
+            if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
                 $reliabilityId = intval($params['ReliabilityId']);
             } 
-            $turnoverRateId = -1111;
+            $turnoverRateId = 0;
             if ((isset($params['TurnoverRateId']) && $params['TurnoverRateId'] != "")) {
                 $turnoverRateId = intval($params['TurnoverRateId']);
             } 
-            $sectorTypeId = -1111;
+            $sectorTypeId =0;
             if ((isset($params['SectorTypeId']) && $params['SectorTypeId'] != "")) {
                 $sectorTypeId = intval($params['SectorTypeId']);
             }                
-            $applicationTypeId= -1111;
+            $applicationTypeId= 0;
             if ((isset($params['ApplicationTypeId']) && $params['ApplicationTypeId'] != "")) {
                 $applicationTypeId = intval($params['ApplicationTypeId']);
             }  
-            $segmentTypeId= -1111;
+            $segmentTypeId= 0;
             if ((isset($params['SegmentTypeId']) && $params['SegmentTypeId'] != "")) {
                 $segmentTypeId = intval($params['SegmentTypeId']);
             }  
-            
-
+            $firmCountryId= 107;
+            if ((isset($params['FirmCountryId']) && $params['FirmCountryId'] != "")) {
+                $firmCountryId = intval($params['FirmCountryId']);
+            }  
+            $address1= null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            }  
+            $address2= null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            }  
+            $address3= null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            }  
+            $postalCode= null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            }  
+            $countryId= 107;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $countryId = intval($params['CountryId']);
+            }  
+             $cityId= 0;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            }  
+                  
+                            
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
             $opUserId = $opUserIdArray->getUserId($opUserIdParams);
@@ -1752,7 +1841,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         www, 
                         vatnumber, 
                         registration_number, 
-                        registration_date, 
+                        ".$addSQL1." 
                         ne_count_type_id, 
                         nv_count_type_id, 
                         customer_category_id, 
@@ -1760,10 +1849,20 @@ class InfoCustomer extends \DAL\DalSlim {
                         turnover_rate_id, 
                         sector_type_id, 
                         application_type_id, 
-                        segment_type_id,  
-                        
+                        segment_type_id,    
+
+                        country2_id,
+
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+
+                        city_id, 
+                        country_id,  
+
                         op_user_id,
-                        act_parent_id 
+                        act_parent_id  
                         )  
                 SELECT  
                     '" . $embraceCustomerNo . "',
@@ -1784,7 +1883,15 @@ class InfoCustomer extends \DAL\DalSlim {
                     " .  intval($turnoverRateId). ",
                     " .  intval($sectorTypeId) . ",
                     " .  intval($applicationTypeId) . ",
-                                
+                    " .  intval($segmentTypeId) . ",
+                    " .  intval($firmCountryId) . ",
+                    '" . $address1 . "',
+                    '" . $address2 . "',
+                    '" . $address3 . "',
+                    '" . $postalCode. "',
+                    " .  intval($cityId) . ",
+                    " .  intval($countryId) . ",
+                                 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM info_customer 
