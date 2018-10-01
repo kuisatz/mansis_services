@@ -188,7 +188,7 @@ $app->get("/pkFillEducationsSalesmanGridx_syseducationssalesman/", function () u
                 "city_id" => intval($menu["city_id"]),  
                 "city_name" => html_entity_decode($menu["city_name"]), 
                 "education_value" => floatval($menu["education_value"]),  
-                "edu_start_date_date" => intval($menu["edu_start_date_date"]),  
+                "edu_start_date" => intval($menu["edu_start_date"]),  
                 "edu_end_date" => intval($menu["edu_end_date"]),  
           
                     
