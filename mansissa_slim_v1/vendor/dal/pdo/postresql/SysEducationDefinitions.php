@@ -1148,10 +1148,9 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     $this->makePassive(array('id' => $params['Id']));
 
                $sql = "
-                INSERT INTO sys_acc_body_deff (  
+                INSERT INTO sys_education_definitions (  
                         name,
-                        name_eng,
-                        acc_body_type_id,
+                        name_eng, 
                         
                         priority,
                         language_id,
@@ -1168,14 +1167,14 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     language_parent_id ,
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
-                FROM sys_acc_body_deff 
+                FROM sys_education_definitions 
                 WHERE 
                     language_id = 385 AND id  =" . intval($Id) . "                  
                                                 ";
                     $statementInsert = $pdo->prepare($sql);
                   //    echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_education_definitions_id_seq');
                     $affectedRows = $statementInsert->rowCount();
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
