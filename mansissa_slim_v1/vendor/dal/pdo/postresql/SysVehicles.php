@@ -485,6 +485,118 @@ class SysVehicles extends \DAL\DalSlim {
         }
     }
     
+    
+        
+    /** 
+     * @author Okan CIRAN
+     * @ arac description ları dropdown ya da tree ye doldurmak için sys_vehicles tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function vehicleDescriptionsDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $accBodyTypeId =0 ;
+            if (isset($params['accBodyTypeID']) && $params['accBodyTypeID'] != "") {
+                $accBodyTypeId = $params['accBodyTypeID'];
+            }  
+              
+            $statement = $pdo->prepare("     
+                    SELECT  
+                        a.act_parent_id AS id, 	
+                        a.description AS name,  
+                        a.factorymodel_name AS name_eng,
+                        0 as parent_id,
+                        a.active,
+                        0 AS state_type  
+                    FROM sys_vehicles a  
+                    WHERE  
+                        a.deleted =0 AND  
+                        a.show_it =0  
+                     ORDER BY a.description   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+        /** 
+     * @author Okan CIRAN
+     * @ arac description ları dropdown ya da tree ye doldurmak için sys_vehicles tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function vehicleFactoryNamesDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $accBodyTypeId =0 ;
+            if (isset($params['accBodyTypeID']) && $params['accBodyTypeID'] != "") {
+                $accBodyTypeId = $params['accBodyTypeID'];
+            }  
+              
+            $statement = $pdo->prepare("     
+                    SELECT  
+                        a.act_parent_id AS id, 	
+                        a.factorymodel_name AS name,  
+                        a.description AS name_eng,
+                        0 as parent_id,
+                        a.active,
+                        0 AS state_type  
+                    FROM sys_vehicles a  
+                    WHERE  
+                        a.deleted =0 AND  
+                        a.show_it =0  
+                        order by  a.factorymodel_name
+                      
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    
+    
+    
     /** 
      * @author Okan CIRAN
      * @ body aksesuar tanımlarını grid formatında döndürür !! ana tablo  sys_vehicles 

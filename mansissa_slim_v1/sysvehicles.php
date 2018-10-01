@@ -45,7 +45,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 11.08.2018
  */
-$app->get("/pkVexxxxxx_sysvehicles/", function () use ($app ) {
+$app->get("/pkVehicleDescriptionsDdList_sysvehicles/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysVehiclesBLL');
@@ -55,7 +55,7 @@ $app->get("/pkVexxxxxx_sysvehicles/", function () use ($app ) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkVehicleGroupsDdList_sysvehicles" end point, X-Public variable not found');
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkVehicleDescriptionsDdList_sysvehicles" end point, X-Public variable not found');
     //$pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
@@ -76,7 +76,7 @@ $app->get("/pkVexxxxxx_sysvehicles/", function () use ($app ) {
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
     
         
-    $resCombobox = $BLL->vehicleGroupsDdList(array(                                   
+    $resCombobox = $BLL->vehicleDescriptionsDdList(array(                                   
                                     'language_code' => $vLanguageCode, 
                                     'LanguageID' => $lid,
                         ));    
@@ -99,6 +99,65 @@ $app->get("/pkVexxxxxx_sysvehicles/", function () use ($app ) {
     $app->response()->body(json_encode($flows));
 });
 
+/**
+ *  * Okan CIRAN
+ * @since 11.08.2018
+ */
+$app->get("/pkVehicleFactoryNamesDdList_sysvehicles/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysVehiclesBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkVehicleFactoryNamesDdList_sysvehicles" end point, X-Public variable not found');
+    //$pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+  
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+    
+        
+    $resCombobox = $BLL->vehicleFactoryNamesDdList(array(                                   
+                                    'language_code' => $vLanguageCode, 
+                                    'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",              
+            "attributes" => array( 
+                                    "active" => $flow["active"], 
+                   
+                ),
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
+ 
  
 /**
  *  * Okan CIRAN

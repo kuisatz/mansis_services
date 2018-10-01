@@ -24,10 +24,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
          //**---- sysVehiclesBLL ------------------- 
-                                    'pkCustomerConfirmDdList_infocustomer' => 'restApiDefaultCall', 
-                                    'pkCustomerNoConfirmDdList_infocustomer' => 'restApiDefaultCall', 
-                                    'pkCustomerDdList_infocustomer' => 'restApiDefaultCall', 
-        
+                                    'pkVehicleDescriptionsDdList_sysvehicles' => 'restApiDefaultCall', 
+                                    'pkVehicleFactoryNamesDdList_sysvehicles' => 'restApiDefaultCall', 
+            
                                     'pkFillVehiclesGridx_sysvehicles' => 'restApiDefaultCall', 
         
         
