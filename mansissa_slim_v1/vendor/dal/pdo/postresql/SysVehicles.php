@@ -202,15 +202,25 @@ class SysVehicles extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                a.description ,
+                '" . $params['description'] . "' AS value, 
+                LOWER(a.description) = LOWER(TRIM('" . $params['description'] . "')) AS control,
+                CONCAT(a.description, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_vehicles  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+               a.ckdcbu_type_id = ".  $params['ckdcbu_type_id'] ."  AND 
+                   a.vehicle_gt_model_id = ".  $params['vehicle_gt_model_id'] ."  AND 
+                    a.model_variant_id = ".  $params['model_variant_id'] ."  AND 
+                    a.config_type_id = ".  $params['config_type_id'] ."  AND 
+                    a.cap_type_id = ".  $params['cap_type_id'] ."  AND 
+                    a.vehicle_app_type_id = ".  $params['vehicle_app_type_id'] ."  AND 
+                    a.kpnumber_id = ".  $params['kpnumber_id'] ."  AND   
+                    a.btsbto_type_id = ".  $params['btsbto_type_id'] ."  AND   
+                    a.roadtype_id = ".  $params['roadtype_id'] ."      
+
                   " . $addSql . " 
                 AND a.deleted =0    
+                 
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -1213,7 +1223,8 @@ class SysVehicles extends \DAL\DalSlim {
                             'kpnumber_id' => $kpnumberId,
                             'btsbto_type_id' => $btsbtoTypeId,                            
                             'roadtype_id' => $roadTypeId,
-                            'gfz' => $gfz,
+                            'description' =>   $description , 
+                         //   'gfz' => $gfz,
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "

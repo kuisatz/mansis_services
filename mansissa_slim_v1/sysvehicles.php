@@ -411,6 +411,9 @@ $app->get("/pkInsertAct_sysvehicles/", function () use ($app ) {
     if($stripper->offsetExists('roadtype_id')) $roadTypeId = $stripper->offsetGet('roadtype_id')->getFilterValue();
         
     
+//    &description=aracdescriptioni&factorymodel_name=xcv&gfz=ggttrr&ckdcbu_type_id=1&vehicle_gt_model_id=2&model_variant_id=1&config_type_id=2&cap_type_id=3&vehicle_app_type_id=1&kpnumber_id=5&btsbto_type_id=1&roadtype_id=2
+    
+    
     $resDataInsert = $BLL->insertAct(array(
             'Description' => $description,    
             'FactorymodelName' => $factorymodelName,   
