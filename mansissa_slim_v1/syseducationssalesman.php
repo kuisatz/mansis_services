@@ -361,7 +361,7 @@ $app->get("/pkInsertAct_syseducationssalesman/", function () use ($app ) {
                                                 $app,
                                                 $_GET['edu_end_date']));}
                        
-   
+   // &address1=asd sok&address2=no 11&address3=dai 5&postalcode=061010&description=asdaasdasdasd&education_definition_id=1&user_id=1&city_id=1&education_value=10/10/2018&edu_start_date=11/10/2018&$eduEndDate=1
      
     $stripper->strip();
     if($stripper->offsetExists('address1')) $address1 = $stripper->offsetGet('address1')->getFilterValue(); 

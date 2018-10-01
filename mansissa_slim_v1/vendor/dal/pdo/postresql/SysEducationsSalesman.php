@@ -1023,14 +1023,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
             if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
                 $postalCode = $params['PostalCode'];
             }
-            
-            $nameEng = null;
-            if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            
+                            
             
             $educationDfinitionId = -1111;
             if ((isset($params['EducationDfinitionId']) && $params['EducationDfinitionId'] != "")) {
