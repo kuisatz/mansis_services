@@ -1402,7 +1402,7 @@ class SysVehicles extends \DAL\DalSlim {
                             'kpnumber_id' => $kpnumberId,
                             'btsbto_type_id' => $btsbtoTypeId,                            
                             'roadtype_id' => $roadTypeId,
-                            'gfz' => $gfz,
+                            'description' =>   $description , 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
