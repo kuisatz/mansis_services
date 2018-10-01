@@ -969,7 +969,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_educations_salesman 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1196,7 +1196,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_educations_salesman (  
@@ -1211,8 +1211,8 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         act_parent_id 
                         )  
                 SELECT  
-                    " . ($name) . " AS name,    
-                    " . ($nameEng) . " AS name_eng, 
+                    '" . ($name) . "' AS name,    
+                    '" . ($nameEng) . "' AS name_eng, 
                     " . intval($AccBodyTypeId) . " AS AccBodyTypeId,   
                      
                     priority,

@@ -886,7 +886,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_education_definitions 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
+                    WHERE id  =" . intval($params['id']) . " 
                     ");
 
                 $insertAct = $statementInsert->execute();
@@ -1169,7 +1169,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_education_definitions 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                   id  =" . intval($Id) . "                  
                                                 ";
                     $statementInsert = $pdo->prepare($sql);
                   //    echo debugPDO($sql, $params);
