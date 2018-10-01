@@ -635,7 +635,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			a.city_id,
 		        COALESCE(NULLIF(cx.name, ''), c.name_eng) AS city_name,
 			a.education_value,
-			a.edu_start_date_date,
+			a.edu_start_date,
 			a.edu_end_date,
                         a.act_parent_id,   
                         a.active,
