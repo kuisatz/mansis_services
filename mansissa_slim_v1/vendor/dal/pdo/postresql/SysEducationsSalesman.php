@@ -1150,30 +1150,72 @@ class SysEducationsSalesman extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $errorInfo[0] = "99999";
-            $name = "";
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $nameEng = $name;
-        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-         * 
-         */
-            $AccBodyTypeId = -1111;
-            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
-                $AccBodyTypeId = intval($params['AccBodyTypeId']);
-            }
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+             $address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            }  
+            $address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            }  
+            $address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            }  
+            $description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $description = $params['Description'];
+            }  
+            $postalCode = null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            }
+                            
+            
+            $educationDfinitionId = -1111;
+            if ((isset($params['EducationDfinitionId']) && $params['EducationDfinitionId'] != "")) {
+                $educationDfinitionId = intval($params['EducationDfinitionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $userId = -1111;
+            if ((isset($params['UserId']) && $params['UserId'] != "")) {
+                $userId = intval($params['UserId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $educationValue = -1111;
+            if ((isset($params['EducationValue']) && $params['EducationValue'] != "")) {
+                $educationValue = floatval($params['EducationValue']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $addSQLinsert = null ;
+            $addSQLvalue = null ;
+            $eduStartDate = null;
+            if ((isset($params['EduStartDate']) && $params['EduStartDate'] != "")) {
+                $eduStartDate =  $params['EduStartDate'] ;
+                $addSQLinsert .= ' edu_start_date, ' ;
+                $addSQLvalue .= " '".$eduStartDate."' ,"; 
+            }  
+            $eduEndDate = null;
+            if ((isset($params['EduEndDate']) && $params['EduEndDate'] != "")) {
+                $eduEndDate =  $params['EduEndDate'] ;
+                $addSQLinsert .= ' edu_end_date, ' ;
+                $addSQLvalue .= " '".$eduEndDate."' ,"; 
+            }  
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1184,8 +1226,8 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' =>$name,
-                            'acc_body_type_id' => $AccBodyTypeId,
+                           'user_id' => $userId,
+                            'education_definition_id' => $educationDfinitionId,
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1194,29 +1236,39 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_educations_salesman (  
-                        name,
-                        name_eng,
-                        acc_body_type_id,
+                        address1,
+                        address2,
+                        address3, 
+                        postalcode,
+                        description, 
+                        education_definition_id,
+                        user_id, 
+                        city_id,
+                        education_value,
+                        ".$addSQLinsert." 
                         
-                        priority,
-                        language_id,
-                        language_parent_id,
+                       
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
-                    '" . ($name) . "' AS name,    
-                    '" . ($nameEng) . "' AS name_eng, 
-                    " . intval($AccBodyTypeId) . " AS AccBodyTypeId,   
-                     
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                    '" . $address1 . "',
+                    '" . $address2 . "',
+                    '" . $address3 . "', 
+                    '" . $postalCode . "',
+                    '" . $description . "',
+
+                    " . intval($educationDfinitionId) . ",
+                    " . intval($userId) . ", 
+                    " . intval($cityId) . ",
+                    " . floatval($educationValue) . ",    
+                    " . $addSQLvalue . "
+ 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_educations_salesman 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                    id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_educations_salesman_id_seq');
