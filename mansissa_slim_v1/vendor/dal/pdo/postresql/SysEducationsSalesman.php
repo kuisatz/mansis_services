@@ -202,15 +202,17 @@ class SysEducationsSalesman extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
+                a.user_id ,
+                '" . $params['user_id'] . "' AS value, 
+               true  AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_educations_salesman  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.user_id = " . intval($params['user_id']) . "  AND 
+                a.education_definition_id = " . intval($params['education_definition_id']) . "    
                   " . $addSql . " 
                 AND a.deleted =0    
+                 
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
