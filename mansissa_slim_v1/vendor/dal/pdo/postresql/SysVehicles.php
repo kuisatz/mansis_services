@@ -1315,66 +1315,56 @@ class SysVehicles extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("1111");
              $gfz = null;
             if ((isset($params['Gfz']) && $params['Gfz'] != "")) {
                 $gfz = $params['Gfz'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("2222");
             $factorymodelName = null;
             if ((isset($params['FactorymodelName']) && $params['FactorymodelName'] != "")) {
                 $factorymodelName = $params['FactorymodelName'];
             }  
-            print_r("3333");
             $description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $description = $params['Description'];
             } 
-            print_r("4444");
             $ckdcbuTypeId = -1111;
             if ((isset($params['CkdcbuTypeId']) && $params['CkdcbuTypeId'] != "")) {
                 $ckdcbuTypeId = intval($params['CkdcbuTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("5555");
             $vehicleGtModelId = -1111;
             if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
                 $vehicleGtModelId = intval($params['VehicleGtModelId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("6666");
              $modelVariantId = -1111;
             if ((isset($params['ModelVariantId']) && $params['ModelVariantId'] != "")) {
                 $modelVariantId = intval($params['ModelVariantId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("7777");
              $configTypeId = -1111;
             if ((isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "")) {
                 $configTypeId = intval($params['ConfigTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("8888");
             $capTypeId = -1111;
             if ((isset($params['CapTypeId']) && $params['CapTypeId'] != "")) {
                 $capTypeId = intval($params['CapTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("9999");
             $vehicleAppTypeId = -1111;
             if ((isset($params['VehicleAppTypeId']) && $params['VehicleAppTypeId'] != "")) {
                 $vehicleAppTypeId = intval($params['VehicleAppTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("1000");
             $kpnumberId = -1111;
             if ((isset($params['KpnumberId']) && $params['KpnumberId'] != "")) {
                 $kpnumberId = intval($params['KpnumberId']);
@@ -1387,14 +1377,13 @@ class SysVehicles extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("1111*");
             $roadTypeId = -1111;
             if ((isset($params['RoadTypeId']) && $params['RoadTypeId'] != "")) {
                 $roadTypeId = intval($params['RoadTypeId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("12222* ");
+
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
             $opUserId = $opUserIdArray->getUserId($opUserIdParams);
@@ -1418,7 +1407,7 @@ class SysVehicles extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicles (  
