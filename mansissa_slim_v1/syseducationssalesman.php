@@ -416,23 +416,103 @@ $app->get("/pkUpdateAct_syseducationssalesman/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $address1 = NULL;
+    if (isset($_GET['address1'])) {
+         $stripper->offsetSet('address1',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['address1']));
     }  
-   
+    $address2 = NULL;
+    if (isset($_GET['address2'])) {
+         $stripper->offsetSet('address2',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address2']));
+    }  
+    $address3 = NULL;
+    if (isset($_GET['address3'])) {
+         $stripper->offsetSet('address3',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address3']));
+    }  
+    $postalCode = NULL;
+    if (isset($_GET['postalcode'])) {
+         $stripper->offsetSet('postalcode',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['postalcode']));
+    }  
+    $description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['description']));
+    }  
+    $educationDfinitionId = null;
+    if (isset($_GET['education_definition_id'])) {
+         $stripper->offsetSet('education_definition_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['education_definition_id']));
+    }
+    $userId = null;
+    if (isset($_GET['user_id'])) {
+         $stripper->offsetSet('user_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['user_id']));
+    }
+    $cityId = null;
+    if (isset($_GET['city_id'])) {
+         $stripper->offsetSet('city_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['city_id']));
+    }
+    $educationValue = null;
+    if (isset($_GET['education_value'])) {
+         $stripper->offsetSet('education_value',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['education_value']));
+    }
+    $eduStartDate = null;
+    if (isset($_GET['edu_start_date'])) {
+         $stripper->offsetSet('edu_start_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['edu_start_date']));}
+     
+     $eduEndDate = null;
+    if (isset($_GET['edu_end_date'])) {
+         $stripper->offsetSet('edu_end_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['edu_end_date']));}
+                       
+   // &address1=asd sok&address2=no 11&address3=dai 5&postalcode=061010&description=asdaasdasdasd&education_definition_id=1&user_id=1&city_id=1&education_value=10/10/2018&edu_start_date=11/10/2018&$eduEndDate=1
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-     
+    if($stripper->offsetExists('address1')) $address1 = $stripper->offsetGet('address1')->getFilterValue(); 
+    if($stripper->offsetExists('address2')) $address2 = $stripper->offsetGet('address2')->getFilterValue(); 
+    if($stripper->offsetExists('address3')) $address3 = $stripper->offsetGet('address3')->getFilterValue(); 
+    if($stripper->offsetExists('postalcode')) $postalCode = $stripper->offsetGet('postalcode')->getFilterValue(); 
+    if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
+    if($stripper->offsetExists('education_definition_id')) $educationDfinitionId = $stripper->offsetGet('education_definition_id')->getFilterValue(); 
+    if($stripper->offsetExists('user_id')) $userId = $stripper->offsetGet('user_id')->getFilterValue(); 
+    if($stripper->offsetExists('city_id')) $cityId = $stripper->offsetGet('city_id')->getFilterValue(); 
+    if($stripper->offsetExists('education_value')) $educationValue = $stripper->offsetGet('education_value')->getFilterValue(); 
+    if($stripper->offsetExists('edu_start_date')) $eduStartDate= $stripper->offsetGet('edu_start_date')->getFilterValue(); 
+    if($stripper->offsetExists('edu_end_date')) $eduEndDate = $stripper->offsetGet('edu_end_date')->getFilterValue(); 
+ 
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
+            'Address1' => $address1,  
+            'Address2' => $address2, 
+            'Address3' => $address3, 
+            'PostalCode' => $postalCode, 
+            'Description' => $description, 
+            'EducationDfinitionId' => $educationDfinitionId, 
+            'UserId' => $userId, 
+            'CityId' => $cityId, 
+            'EducationValue' => $educationValue, 
+            'EduStartDate' => $eduStartDate, 
+            'EduEndDate' => $eduEndDate, 
           
             'pk' => $pk));
         
