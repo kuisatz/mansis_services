@@ -1105,7 +1105,7 @@ class SysVehicles extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicles 
                     WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
