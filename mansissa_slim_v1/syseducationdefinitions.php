@@ -328,23 +328,18 @@ $app->get("/pkUpdateAct_syseducationdefinitions/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['acc_body_type_id']));
-    } 
+   
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+     
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+          
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
