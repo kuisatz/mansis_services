@@ -23,21 +23,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-             //**---- sysVehiclesBLL ------------------- 
+             //**---- sysEducationDefinitionsBLL ------------------- 
             
-                                    'pkEducationDefinitionsDdList_syseducationdefinitions' => 'restApiDefaultCall', 
-            
-                                    'pkFillVehiclesGridx_syseducationdefinitions' => 'restApiDefaultCall', 
-        
-        
-            
+                                    'pkEducationDefinitionsDdList_syseducationdefinitions' => 'restApiDefaultCall',             
+                                    'pkFillEducationDefinitionsGridx_syseducationdefinitions' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_syseducationdefinitions' => 'restApiDefaultCall', 
         
                                     'pkInsertAct_syseducationdefinitions' => 'restApiDefaultCall', 
                                     'pkUpdateAct_syseducationdefinitions' => 'restApiDefaultCall', 
                                     'pkDeletedAct_syseducationdefinitions' => 'restApiDefaultCall', 
             
-         //** sysVehiclesBLL ----------------------//  
+         //** sysEducationDefinitionsBLL ----------------------//  
         
          //**---- sysVehiclesBLL ------------------- 
                                     'pkVehicleDescriptionsDdList_sysvehicles' => 'restApiDefaultCall', 
