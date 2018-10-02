@@ -202,13 +202,17 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' AS name ,
+                1 AS value, 
+                True AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_buyback_matrix  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.contract_type_id = " . intval($params['contract_type_id']) . "  AND 
+                a.model_id = " . intval($params['model_id']) . "  AND 
+                a.terrain_id = " . intval($params['terrain_id']) . "  AND 
+                a.month_id = " . intval($params['month_id']) . "  AND 
+                a.mileage_id = " . intval($params['mileage_id']) . "    
                   " . $addSql . " 
                 AND a.deleted =0    
                                ";
@@ -837,25 +841,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.month_id,
                         frd.name AS month_name,
                         a.mileage_id,
-                        erd.name  AS mileage_type_name,
-                        a.price,
-                        crd.vehicles_endgroup_id,  
-                        
-                        a.active,
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                       /* a.deleted,
-                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
-                        a.op_user_id,
-                        u.username AS op_user_name,  
-                        a.s_date date_saved,
-                        a.c_date date_modified,
-                        /* a.priority, */ 
-                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                        lx.language_main_code language_code, 
-                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                        erd.name  AS mileage_type_name, 
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                        u.username AS op_user_name 
                     FROM sys_buyback_matrix a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id = 3" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0    
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0    
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                     INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
@@ -990,7 +981,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_buyback_matrix 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                   ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1133,6 +1124,141 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
+        /**
+     * @author Okan CIRAN
+     * sys_buyback_matrix tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $contractTypeId = -1111;
+            if ((isset($params['ContractTypeId']) && $params['ContractTypeId'] != "")) {
+                $contractTypeId = intval($params['ContractTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }     
+            $modelId= -1111;
+            if ((isset($params['ModelId']) && $params['ModelId'] != "")) {
+                $modelId = intval($params['ModelId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $buybackTypeId = -1111;
+            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
+                $buybackTypeId = intval($params['BuybackTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $terrainId = -1111;
+            if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
+                $terrainId = intval($params['TerrainId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }                           
+            $monthId = -1111;
+            if ((isset($params['MonthId']) && $params['MonthId'] != "")) {
+                $monthId = intval($params['MonthId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $mileageId = -1111;
+            if ((isset($params['MileageId']) && $params['MileageId'] != "")) {
+                $mileageId = intval($params['MileageId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $price = -1111;
+            if ((isset($params['Price']) && $params['Price'] != "")) {
+                $price = floatval($params['Price']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }               
+           
+
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' =>$name, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['Id']));
+
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_buyback_matrix (  
+                        contract_type_id,
+                        model_id,
+                        buyback_type_id,
+                        terrain_id,
+                        month_id,
+                        mileage_id,
+                        price,
+                         
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " . intval($contractTypeId) . ",
+                    " . intval($modelId) . ",
+                    " . intval($buybackTypeId) . ",
+                    " . intval($terrainId) . ",
+                    " . intval($monthId) . ", 
+                    " . intval($mileageId) . ",
+                    " . floatval($price) . ", 
+               
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_buyback_matrix 
+                WHERE 
+                     id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_buyback_matrix_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
 
                            
     

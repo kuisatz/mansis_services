@@ -182,11 +182,20 @@ $app->get("/pkFillBuybackTradeBackMatrixGridx_sysbuybackmatrix/", function () us
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
-                "acc_body_type_id" => $menu["acc_body_type_id"], 
-                "body_type_name" => html_entity_decode($menu["body_type_name"]),   
-                
-                
+                "contract_type_id" => intval($menu["contract_type_id"]),  
+                "contract_name" => html_entity_decode($menu["contract_name"]), 
+                "model_id" => $menu["model_id"], 
+                "vahicle_description" => html_entity_decode($menu["vahicle_description"]),   
+                "buyback_type_id" => $menu["buyback_type_id"], 
+                "buyback_type_name" => html_entity_decode($menu["buyback_type_name"]), 
+                "terrain_id" => $menu["terrain_id"], 
+                "terrain_name" => html_entity_decode($menu["terrain_name"]), 
+                "month_id" => $menu["month_id"], 
+                "month_name" => html_entity_decode($menu["month_name"]), 
+                "mileage_id" => $menu["mileage_id"], 
+                "mileage_type_name" => html_entity_decode($menu["mileage_type_name"]), 
+                "price" => $menu["price"], 
+                 
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
@@ -210,116 +219,7 @@ $app->get("/pkFillBuybackTradeBackMatrixGridx_sysbuybackmatrix/", function () us
     $resultArray['items'] = $menus;
     $app->response()->body(json_encode($resultArray));
 });
- 
-/**
- *  * Okan CIRAN
- * @since 15-08-2018
- */
-$app->get("/fillAccBodyDeffGridx_sysbuybackmatrix/", function () use ($app ) {
-    $stripper = $app->getServiceManager()->get('filterChainerCustom');
-    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
-    $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');
-   /* $headerParams = $app->request()->headers();
-    if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "fillAccBodyDeffGridx_sysbuybackmatrix" end point, X-Public variable not found');
-    $pk = $headerParams['X-Public'];
-*/
-    $vLanguageCode = 'en';
-    if (isset($_GET['language_code'])) {
-        $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
-    }
-    $vAccBodyTypeID= NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-        $stripper->offsetSet('acc_body_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['acc_body_type_id']));
-    }
-    $vPage = NULL;
-    if (isset($_GET['page'])) {
-        $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
-    }
-    $vRows = NULL;
-    if (isset($_GET['rows'])) {
-        $stripper->offsetSet('rows', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['rows']));
-    }
-    $vSort = NULL;
-    if (isset($_GET['sort'])) {
-        $stripper->offsetSet('sort', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, $app, $_GET['sort']));
-    }
-    $vOrder = NULL;
-    if (isset($_GET['order'])) {
-        $stripper->offsetSet('order', $stripChainerFactory->get(stripChainers::FILTER_ONLY_ORDER, $app, $_GET['order']));
-    }
-    $filterRules = null;
-    if (isset($_GET['filterRules'])) {
-        $stripper->offsetSet('filterRules', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_JASON_LVL1, $app, $_GET['filterRules']));
-    } 
-    $lid = null;
-    if (isset($_GET['lid'])) {
-         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['lid']));
-    }
-    $stripper->strip();
-    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
-    if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
-    if ($stripper->offsetExists('acc_body_type_id'))$vAccBodyTypeID = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
-    if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
-    if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
-    if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
-    if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
-    if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
-
-    $resDataGrid = $BLL->fillAccBodyDeffGridx(array(
-        'language_code' => $vLanguageCode,
-        'LanguageID' => $lid,
-        'page' => $vPage,
-        'rows' => $vRows,
-        'sort' => $vSort,
-        'order' => $vOrder,
-        'AccBodyTypeID' => $vAccBodyTypeID,
-        'filterRules' => $filterRules,
-   
-    ));
-   
-    $resTotalRowCount = $BLL->fillAccBodyDeffGridxRtl(array(
-        'language_code' => $vLanguageCode, 
-        'LanguageID' => $lid,
-        'AccBodyTypeID' => $vAccBodyTypeID,
-        'filterRules' => $filterRules,
-     
-    ));
-    $counts=0;
   
-    $menu = array();            
-    if (isset($resDataGrid[0]['id'])) {      
-        foreach ($resDataGrid as $menu) {
-            $menus[] = array(
-                "id" => $menu["id"],
-                "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
-                "acc_body_type_id" => $menu["acc_body_type_id"], 
-                "body_type_name" => html_entity_decode($menu["body_type_name"]),   
-                "op_username" => html_entity_decode($menu["op_user_name"]), 
-                "state_active" => html_entity_decode($menu["state_active"]),       
-                "date_saved" => $menu["date_saved"],
-                "date_modified" => $menu["date_modified"],  
-                "language_code" => $menu["language_code"],
-                "active" => $menu["active"], 
-                "op_user_id" => $menu["op_user_id"], 
-                "language_id" => $menu["language_id"],
-                "language_name" =>html_entity_decode( $menu["language_name"]), 
-            );
-        }
-       $counts = $resTotalRowCount[0]['count'];
-      } ELSE  $menus = array();       
-
-    $app->response()->header("Content-Type", "application/json");
-    $resultArray = array();
-    $resultArray['totalCount'] = $counts;
-    $resultArray['items'] = $menus;
-    $app->response()->body(json_encode($resultArray));
-});
-
-
 /**x
  *  * Okan CIRAN
  * @since 15-08-2018
@@ -400,26 +300,70 @@ $app->get("/pkInsertAct_sysbuybackmatrix/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysbuybackmatrix" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $contractTypeId = NULL;
+    if (isset($_GET['contract_type_id'])) {
+         $stripper->offsetSet('contract_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['contract_type_id']));
+    } 
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['model_id']));
+    } 
+    $buybackTypeId = NULL;
+    if (isset($_GET['buyback_type_id'])) {
+         $stripper->offsetSet('buyback_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['buyback_type_id']));
+    } 
+    $terrainId = NULL;
+    if (isset($_GET['terrain_id'])) {
+         $stripper->offsetSet('terrain_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['terrain_id']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+    $mileageId = NULL;
+    if (isset($_GET['mileage_id'])) {
+         $stripper->offsetSet('mileage_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileage_id']));
+    } 
+    $price = NULL;
+    if (isset($_GET['price'])) {
+         $stripper->offsetSet('price',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['price']));
     } 
      
+  
+    //  &contract_type_id=1,&model_id=2,&buyback_type_id=2,&terrain_id=2,&month_id=23,&mileage_id=23,&price=123      
+     
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('contract_type_id')) $contractTypeId = $stripper->offsetGet('contract_type_id')->getFilterValue(); 
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
+    if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
+    if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
+    if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
           
+     
     $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'ContractTypeId' => $contractTypeId,   
+            'ModelId' => $modelId,  
+            'BuybackTypeId' => $buybackTypeId, 
+            'TerrainId' => $terrainId, 
+            'MonthId' => $monthId, 
+            'MileageId' => $mileageId, 
+            'Price' => $price, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -446,29 +390,72 @@ $app->get("/pkUpdateAct_sysbuybackmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $contractTypeId = NULL;
+    if (isset($_GET['contract_type_id'])) {
+         $stripper->offsetSet('contract_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['contract_type_id']));
+    } 
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['model_id']));
+    } 
+    $buybackTypeId = NULL;
+    if (isset($_GET['buyback_type_id'])) {
+         $stripper->offsetSet('buyback_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['buyback_type_id']));
+    } 
+    $terrainId = NULL;
+    if (isset($_GET['terrain_id'])) {
+         $stripper->offsetSet('terrain_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['terrain_id']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+    $mileageId = NULL;
+    if (isset($_GET['mileage_id'])) {
+         $stripper->offsetSet('mileage_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileage_id']));
+    } 
+    $price = NULL;
+    if (isset($_GET['price'])) {
+         $stripper->offsetSet('price',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['price']));
     } 
      
+  
+            
+     
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('contract_type_id')) $contractTypeId = $stripper->offsetGet('contract_type_id')->getFilterValue(); 
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
+    if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
+    if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
+    if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'ContractTypeId' => $contractTypeId,   
+            'ModelId' => $modelId,  
+            'BuybackTypeId' => $buybackTypeId, 
+            'TerrainId' => $terrainId, 
+            'MonthId' => $monthId, 
+            'MileageId' => $mileageId, 
+            'Price' => $price, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

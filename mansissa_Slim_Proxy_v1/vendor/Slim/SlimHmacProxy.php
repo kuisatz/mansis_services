@@ -22,6 +22,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+        
+          //**---- sysAccessoriesMatrixBLL -------------------  
+            
+                                    'pkFillBuybackTradeBackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_sysbuybackmatrix' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+            
+         //** sysAccessoriesMatrixBLL ----------------------//   
+        
         //**---- sysPriorityTypeBLL -------------------  
                                      'pkPriorityTypeDdList_sysprioritytype' => 'restApiDefaultCall',  
         //** sysPriorityTypeBLL ----------------------//   
@@ -1958,6 +1970,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+             case "_sysbuybackmatrix":  
+                $this->setRestApiEndPoint('sysbuybackmatrix.php/');
+                break; 
              case "_sysprioritytype":  
                 $this->setRestApiEndPoint('sysprioritytype.php/');
                 break; 
