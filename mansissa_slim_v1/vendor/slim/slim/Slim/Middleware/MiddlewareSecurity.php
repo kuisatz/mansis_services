@@ -37,14 +37,14 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * service pk temp required or not
      * @var mixed boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3 27/01/2016
      */
     protected $isServicePkTempRequired = null;
       
     /**
      * determines what will be done if private temp key not found
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @var boolean
      */
      protected $privateKeyTempNotFoundRedirect = true;
@@ -52,7 +52,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * determine if public key not found
      * @var boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3 27/01/2016
      */
     protected $isPublicTempKeyNotFoundRedirect = true;
@@ -60,7 +60,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * determine if private key not found
      * @var boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     protected $isPrivateKeyNotFoundRedirect = true;
@@ -68,7 +68,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * determine if public key not found
      * @var boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     protected $isPublicKeyNotFoundRedirect = true;
@@ -76,7 +76,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * determine if company public key not found
      * @var boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since  10/06/2016
      */
     protected $isPublicCompanyKeyNotFoundRedirect = true;
@@ -84,7 +84,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * determine if user not registered
      * @var boolean | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     protected $isUserNotRegisteredRedirect = true;
@@ -101,7 +101,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get if to redirect due to public key not found process
      * @return boolean 
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since  10/06/2016
      */
     public function getCompanyPublicKeyNotFoundRedirect() {
@@ -111,7 +111,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set if to redirect due to public key not found process
      * @param boolean | null $boolean 
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since  10/06/2016
      */
     public function setCompanyPublicKeyNotFoundRedirect($boolean = null) {
@@ -120,7 +120,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
     /**
      * public key not found process is being evaluated here
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since  10/06/2016
      */
     public function companyPublicKeyNotFoundRedirect() { 
@@ -136,7 +136,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * if user id and company id does not match , rest api forwarded here
      * inherit classes
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version  10/06/2016
      */
     public function userNotBelongCompany() {
@@ -147,7 +147,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get if to redirect due to user not registered  process
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function getUserNotRegisteredRedirect() {
@@ -157,7 +157,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set if to redirect due to user not registered  process
      * @param boolean $boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function setUserNotRegisteredRedirect($boolean = null) {
@@ -167,7 +167,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * user not registered process is being evaluated here
      * inherit classes
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function userNotRegisteredRedirect() {
@@ -182,7 +182,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get if to redirect due to public key not found process
      * @return boolean 
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function getPublicKeyNotFoundRedirect() {
@@ -192,7 +192,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set if to redirect due to public key not found process
      * @param boolean | null $boolean 
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function setPublicKeyNotFoundRedirect($boolean = null) {
@@ -201,7 +201,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
     /**
      * public key not found process is being evaluated here
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function publicKeyNotFoundRedirect() {
@@ -217,7 +217,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get if to redirect due to private key not found process
      * @return type
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function getPrivateKeyNotFoundRedirect() {
@@ -227,7 +227,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set if to redirect due to private key not found process
      * @param boolean $boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function setPrivateKeyNotFoundRedirect($boolean = null) {
@@ -236,7 +236,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     
     /**
      * private key not found process is being evaluated here
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function privateKeyNotFoundRedirect() {
@@ -251,7 +251,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
     * set if public / private key controler to be worked
     * @return boolean
-    * @author Okan CIRAN
+    * @author Mustafa Zeynel DAĞLI
     * @since version 0.3
     */
     public function servicePkRequired() {
@@ -273,7 +273,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
     * set if public / private key controler to be worked
     * @return boolean
-    * @author Okan CIRAN
+    * @author Mustafa Zeynel DAĞLI
     * @since  10/06/2016
     */
     public function serviceCpkRequired() {
@@ -299,7 +299,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         /**
          * determine if public key temp control to be done
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 0.3 27/01/2016
          * @todo after detail test code description block will be removed
          */
@@ -307,7 +307,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         /**
          * determine if company public key  control to be done
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since  10/06/2016
          * @todo after detail test code description block will be removed
          */
@@ -318,7 +318,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         /**
          * company public  key processes wrapper
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since  10/06/2016
          * @todo after detailed test code description block will be removed
          */
@@ -326,7 +326,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         /**
          * public  key processes wrapper
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 0.3 27/01/2016
          * @todo after detailed test code description block will be removed
          */
@@ -334,7 +334,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         
         /**
          * public  key temp processes wrapper
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 0.3 27/01/2016
          * @todo after detailed test code description block will be removed
          */
@@ -362,7 +362,7 @@ use PhpAmqpLib\Message\AMQPMessage;
            
            /**
             * getting private key due to public key
-            * @author Okan CIRAN
+            * @author Mustafa Zeynel DAĞLI
             * @since 05/01/2016 version 0.3
             */
            if(isset($requestHeaderParams['X-Public-Temp'])) { 
@@ -381,7 +381,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * public key control processes has been wrapped
      * @param array $requestHeaderParams
      * @return mixed array | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 0.3 27/01/2016
      */
     private function publicKeyProcessControler($requestHeaderParams) {
@@ -397,7 +397,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
            /**
             * getting public key if user registered    
-            * @author Okan CIRAN
+            * @author Mustafa Zeynel DAĞLI
             * @since 06/01/2016 version 0.3
             */
            if(isset($requestHeaderParams['X-Public'])) {
@@ -408,7 +408,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
            /**
             * getting private key due to public key
-            * @author Okan CIRAN
+            * @author Mustafa Zeynel DAĞLI
             * @since 05/01/2016 version 0.3
             */
            if(isset($requestHeaderParams['X-Public'])) { 
@@ -427,7 +427,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * company public key control processes has been wrapped
      * @param array $requestHeaderParams
      * @return mixed array | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since  10/06/2016
      */
     private function publicCompanyKeyProcessControler($requestHeaderParams, $params) {
@@ -443,7 +443,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
            /**
             * controlling user belongs to company   
-            * @author Okan CIRAN
+            * @author Mustafa Zeynel DAĞLI
             * @since 10/06/2016 
             */
            if(isset($requestHeaderParams['X-Public'])) {
@@ -463,7 +463,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     
     /**
      * public key temp not found process is being evaluated here
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3
      */
     public function publicKeyTempNotFoundRedirect() {
@@ -478,7 +478,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set variable for public key temp not found strategy
      * @param type $boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/01/2016  
      */
     public function getPublicKeyTempNotFoundRedirect() {
@@ -488,7 +488,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get variable for public key temp not found strategy
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/01/2016
      */
     public function setPublicKeyTempNotFoundRedirect($boolean = null) {
@@ -498,7 +498,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * public key temp not found process function, will be overridden by
      * inherit classes
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since version 0.3 27/01/2016
      */
     public function privateKeyTempNotFoundRedirect() {
@@ -513,7 +513,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get variable for private key temp not found strategy
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/01/2016
      */
     public function getPrivateKeyTempNotFoundRedirect() {
@@ -523,7 +523,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set variable for private key temp not found strategy
      * @param type $boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/01/2016  
      */
     public function setPrivateKeyTempNotFoundRedirect($boolean = null) {
@@ -533,7 +533,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
       * 
       * @return boolean
-      * @author Okan CIRAN
+      * @author Mustafa Zeynel DAĞLI
       * @since version 0.3 27/01/2016
       */
     public function servicePkTempRequired() {

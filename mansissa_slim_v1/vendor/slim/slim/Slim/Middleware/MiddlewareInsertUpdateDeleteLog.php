@@ -21,7 +21,7 @@ use PhpAmqpLib\Message\AMQPMessage;
   * the next request.
   *
   * @package    Slim
-  * @author     Okan CIRAN
+  * @author     Mustafa Zeynel DAĞLI
   * @since      1.6.0 27/03/2016
   */
   class MiddlewareInsertUpdateDeleteLog extends \Slim\Middleware implements  
@@ -62,7 +62,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get request params
      * @return array
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/03/2016
      */
     public function getAppRequestParams() {
@@ -74,7 +74,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * 
      * @param array $appRequestParams
      * @return array
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 27/03/2016
      */
     public function setAppRequestParams($appRequestParams = array()) {
@@ -87,7 +87,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get Application request object
      * @return \Slim\Http\Request
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function getAppRequest() {
         if($this->requestObj == null) $this->requestObj = $this->setAppRequest();
@@ -97,7 +97,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set Application request object
      * @return \Slim\Http\Request
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function setAppRequest(\Slim\Http\Request $request = null) {
         return $this->app->container['request'];
@@ -109,7 +109,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get request custom header info
      * @return array | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function getRequestHeaderData()  {
         if($this->requestHeaderData == null)   {
@@ -123,7 +123,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set request custom header info into array
      * @return array
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @link http://php.net/manual/en/function.getallheaders.php
      */
     public function setRequestHeaderData($requestHeaderData = array())  {
@@ -151,7 +151,7 @@ use PhpAmqpLib\Message\AMQPMessage;
          /**
          * slim_codebase was turned off during work.
          * When to use rabbitmq will be opened
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 30.11.2016
          */
         //   $this->controlUpdate();
@@ -162,7 +162,7 @@ use PhpAmqpLib\Message\AMQPMessage;
          /**
          * slim_codebase was turned off during work.
          * When to use rabbitmq will be opened
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 30.11.2016
          */
         //    $this->controlInsert();
@@ -173,7 +173,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         /**
          * slim_codebase was turned off during work.
          * When to use rabbitmq will be opened
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 30.11.2016
          */
         //      $this->controlDelete();
@@ -187,7 +187,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * vis MQ Manager
      * @param type $wordTosearch
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 22/03/2016
      */
     private function controlDelete($wordTosearch = null) {
@@ -210,7 +210,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * vis MQ Manager
      * @param type $wordTosearch
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 22/03/2016
      */
     private function controlUpdate($wordTosearch = null) {
@@ -233,7 +233,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      * vis MQ Manager
      * @param type $wordTosearch
      * @return boolean
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 22/03/2016
      */
     private function controlInsert($wordTosearch = null) {
@@ -255,7 +255,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * message wrapper function
      * @param \Exception $e
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function publishMessage($e = null, array $params = array()) {
         $exceptionMQ = new \Utill\MQ\hashMacMQ();

@@ -17,7 +17,7 @@ namespace Slim\Middleware;
   * RAbbitMQ messaging between HTTP requests. 
   *
   * @package    Slim
-  * @author     Okan CIRAN
+  * @author     Mustafa Zeynel DAĞLI
   * @since      
   */
   class MiddlewareMQManager extends \Slim\Middleware 

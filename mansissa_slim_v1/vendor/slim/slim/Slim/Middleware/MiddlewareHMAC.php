@@ -81,7 +81,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get request custom header info
      * @return array | null
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function getRequestHeaderData()  {
         if($this->requestHeaderData == null)   {
@@ -95,7 +95,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set request custom header info into array
      * @return array
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @link http://php.net/manual/en/function.getallheaders.php
      */
     public function setRequestHeaderData($requestHeaderData = array())  {
@@ -125,7 +125,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * message wrapper function
      * @param \Exception $e
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function publishMessage($e = null, array $params = array()) {
         $exceptionMQ = new \Utill\MQ\hashMacMQ();
@@ -173,7 +173,7 @@ use PhpAmqpLib\Message\AMQPMessage;
      
      /**
      * get info to calculate HMAC security measures
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     private function evaluateHash() {
         $this->getHmacObj();
@@ -186,7 +186,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         /**
          * private key due to public key,
          * if public key not found request redirected
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 05/01/2016
          */
         $resultset = $BLLLogLogout->pkControl(array('pk'=>$this->getRequestHeaderData()['X-Public']));
@@ -206,7 +206,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         /**
          * slim_codebase was turned off during work.
          * When to use rabbitmq will be opened
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 30.11.2016
          */
          //    $this->publishMessage();
@@ -220,7 +220,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     
     /**
      * get info to calculate HMAC security measures
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @since 0.3 27/01/2016
      */
     private function evaluateHashByTempKey() {
@@ -234,7 +234,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         /**
          * private key due to public key,
          * if public key not found request redirected
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 27/01/2016
          */
         $resultset = $BLLLogLogout->pkTempControl(array('pktemp'=>$this->getRequestHeaderData()['X-Public-Temp']));
@@ -251,7 +251,7 @@ use PhpAmqpLib\Message\AMQPMessage;
         /**
          * slim_codebase was turned off during work.
          * When to use rabbitmq will be opened
-         * @author Okan CIRAN
+         * @author Mustafa Zeynel DAĞLI
          * @since 30.11.2016
          */
         //    $this->publishMessage();
@@ -308,7 +308,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * get Application request object
      * @return \Slim\Http\Request
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function getAppRequest() {
         if($this->requestObj == null) $this->requestObj = $this->setAppRequest();
@@ -318,7 +318,7 @@ use PhpAmqpLib\Message\AMQPMessage;
     /**
      * set Application request object
      * @return \Slim\Http\Request
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      */
     public function setAppRequest(\Slim\Http\Request $request = null) {
         return $this->app->container['request'];

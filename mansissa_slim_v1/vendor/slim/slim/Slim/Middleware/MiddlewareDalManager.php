@@ -44,7 +44,7 @@ namespace Slim\Middleware;
     /**
      * set request custom header info into array
      * @return array
-     * @author Okan CIRAN
+     * @author Mustafa Zeynel DAĞLI
      * @link http://php.net/manual/en/function.getallheaders.php
      */
     /*public function setRequestHeaderData($requestHeaderData = array())  {
