@@ -615,26 +615,26 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                 $addSql .="  asm.supplier_id  = " . intval($supplierID). "  AND  " ; 
             }  
 
-                $sql = "
-                     SELECT 
+                $sql = "  
+                    SELECT 
                         a.id, 
                         a.act_parent_id as apid,  
 			a.vehicle_group_id,
 			vg.name vehicle_group, 
 			a.kpnumber_id,
 			k.name kp, 
-			asm.accessory_option_id,
+			a.accessory_option_id,
                         COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
-                       /*  a.name_eng, */ 
-                        
-			asm.acc_deff_id , 
+                    
+			a.acc_deff_id , 
 			COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,
 			COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng) AS name_acc_deff_bo,
 			 
-			asm.supplier_id ,
-			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
-			asm.cost_local, 
-		        asm.cost_national,
+			a.supplier_id ,
+			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name, 
+ 
+			a.cost_local, 
+		        a.cost_national,
 			a.part_num_local, 
 			a.part_num_nat,
                         a.active,
@@ -651,21 +651,20 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_accessories_matrix a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0  
+                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-
-		    INNER JOIN sys_acc_supplier_matrix asm ON asm.act_parent_id = a.acc_supplier_matrix_id AND asm.deleted = 0 AND asm.active = 0  
+ 
 		    left JOIN sys_kpnumbers k ON k.act_parent_id = a.kpnumber_id AND k.deleted = 0 AND k.active = 0  
 		    left JOIN sys_vehicle_groups vg ON vg.act_parent_id = a.vehicle_group_id AND vg.deleted = 0 AND vg.active = 0  
  
-		    INNER JOIN sys_acc_deff ad ON ad.act_parent_id = asm.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
+		    INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
 		    LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.deleted = 0 AND adx.active = 0 AND adx.language_id =lx.id  
 
-		    INNER JOIN sys_accessory_options ap on ap.act_parent_id = asm.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
+		    INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
 		    LEFT JOIN sys_accessory_options apx ON (apx.act_parent_id = ap.id OR apx.language_parent_id = ap.act_parent_id) AND apx.deleted = 0 AND apx.active = 0 AND apx.language_id = lx.id  
                   
-		    INNER JOIN sys_supplier s ON s.act_parent_id = asm.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
+		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
 		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
     
 
@@ -678,7 +677,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                     
                     WHERE  
                       a.deleted =0 AND
-                        a.show_it =0                      
+                        a.show_it =0                               
                         
                 " . $addSql . "
                 " . $sorguStr . " 
@@ -826,68 +825,67 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
-                            a.id, 
-                            a.vehicle_group_id,
-                            vg.name vehicle_group, 
-                            a.kpnumber_id,
-                            k.name kp, 
-                            asm.accessory_option_id,
-                            COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
-                           /*  a.name_eng, */
-                            a.act_parent_id,  
+                        a.id, 
+                        a.act_parent_id as apid,  
+			a.vehicle_group_id,
+			vg.name vehicle_group, 
+			a.kpnumber_id,
+			k.name kp, 
+			a.accessory_option_id,
+                        COALESCE(NULLIF(apx.name, ''), ap.name_eng) AS name_acc_opt,
+                    
+			a.acc_deff_id , 
+			COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,
+			COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng) AS name_acc_deff_bo,
+			 
+			a.supplier_id ,
+			COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name, 
+ 
+			a.cost_local, 
+		        a.cost_national,
+			a.part_num_local, 
+			a.part_num_nat,
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified,
+                        /* a.priority, */ 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM sys_accessories_matrix a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0  
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+ 
+		    left JOIN sys_kpnumbers k ON k.act_parent_id = a.kpnumber_id AND k.deleted = 0 AND k.active = 0  
+		    left JOIN sys_vehicle_groups vg ON vg.act_parent_id = a.vehicle_group_id AND vg.deleted = 0 AND vg.active = 0  
+ 
+		    INNER JOIN sys_acc_deff ad ON ad.act_parent_id = a.acc_deff_id AND ad.deleted = 0 AND ad.active = 0 AND ad.language_id= l.id
+		    LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.deleted = 0 AND adx.active = 0 AND adx.language_id =lx.id  
 
-                            asm.acc_deff_id , 
-                            COALESCE(NULLIF(adx.name_sm, ''), ad.name_sm_eng) AS name_acc_deff_sm,
-                            COALESCE(NULLIF(adx.name_bo, ''), ad.name_bo_eng) AS name_acc_deff_bo,
+		    INNER JOIN sys_accessory_options ap on ap.act_parent_id = a.accessory_option_id and ap.deleted =0 AND ap.active = 0 AND ap.language_id = l.id
+		    LEFT JOIN sys_accessory_options apx ON (apx.act_parent_id = ap.id OR apx.language_parent_id = ap.act_parent_id) AND apx.deleted = 0 AND apx.active = 0 AND apx.language_id = lx.id  
+                  
+		    INNER JOIN sys_supplier s ON s.act_parent_id = a.supplier_id AND s.deleted = 0 AND s.active = 0 AND s.language_parent_id =0 AND s.language_id= l.id
+		    LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.deleted = 0 AND sx.active = 0 AND sx.language_id =lx.id  
+    
 
-                            asm.supplier_id ,
-                            COALESCE(NULLIF(sx.name, ''), s.name_eng) AS supplier_name,  
-                            asm.cost_local, 
-                            asm.cost_national,
-                            a.part_num_local, 
-                            a.part_num_nat,
-                            a.active,
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                           /* a.deleted,
-                            COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
-                            a.op_user_id,
-                            u.username AS op_user_name,  
-                            a.s_date date_saved,
-                            a.c_date date_modified,
-                            /* a.priority, */ 
-                            COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                            lx.language_main_code language_code, 
-                            COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                        FROM sys_accessories_matrix a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.show_it =0  
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-
-                        INNER JOIN sys_acc_supplier_matrix asm ON asm.act_parent_id = a.acc_supplier_matrix_id AND asm.show_it = 0  
-                        left JOIN sys_kpnumbers k ON k.act_parent_id = a.kpnumber_id AND k.show_it = 0  
-                        left JOIN sys_vehicle_groups vg ON vg.act_parent_id = a.vehicle_group_id AND vg.show_it = 0  
-
-                        INNER JOIN sys_acc_deff ad ON ad.act_parent_id = asm.acc_deff_id AND ad.show_it = 0 AND ad.language_id= l.id
-                        LEFT JOIN sys_acc_deff adx ON (adx.act_parent_id = ad.act_parent_id OR adx.language_parent_id= ad.act_parent_id) AND adx.show_it = 0 AND adx.language_id =lx.id  
-
-                        INNER JOIN sys_accessory_options ap on ap.act_parent_id = asm.accessory_option_id and ap.show_it = 0 AND ap.language_id = l.id
-                        LEFT JOIN sys_accessory_options apx ON (apx.act_parent_id = ap.act_parent_id OR apx.language_parent_id = ap.act_parent_id) AND apx.show_it = 0 AND apx.language_id = lx.id  
-
-                        INNER JOIN sys_supplier s ON s.act_parent_id = asm.supplier_id AND s.show_it = 0 AND s.language_parent_id =0 AND s.language_id= l.id
-                        LEFT JOIN sys_supplier sx ON (sx.act_parent_id = a.act_parent_id OR sx.language_parent_id= a.act_parent_id) AND sx.show_it = 0 AND sx.language_id =lx.id  
-
-
-                        /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =385
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0   
+		    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =385
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                      a.deleted =0 AND
+                        a.show_it =0      
                             " . $addSql . "
                             " . $sorguStr . " 
                     ) asdx
