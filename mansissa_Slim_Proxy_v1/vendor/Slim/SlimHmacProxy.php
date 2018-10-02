@@ -21,8 +21,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+         //**---- sysAccessoriesMatrixBLL ------------------- 
+            
+                                    'pkEducationDefinitionsDdList_syseducationssalesman' => 'restApiDefaultCall',             
+                                    'pkFillAccMatrixGridx_syseducationssalesman' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_syseducationssalesman' => 'restApiDefaultCall', 
         
-        
+                                    'pkInsertAct_syseducationssalesman' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_syseducationssalesman' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_syseducationssalesman' => 'restApiDefaultCall', 
+            
+         //** sysAccessoriesMatrixBLL ----------------------//   
+            
         //**---- sysEducationsSalesmanBLL ------------------- 
             
                                     'pkEducationDefinitionsDdList_syseducationssalesman' => 'restApiDefaultCall',             
@@ -1944,10 +1954,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-             case "_syseducationssalesman":  
+            case "_sysaccessoriesmatrix":  
+                $this->setRestApiEndPoint('sysaccessoriesmatrix.php/');
+                break; 
+            case "_syseducationssalesman":  
                 $this->setRestApiEndPoint('syseducationssalesman.php/');
                 break; 
-             case "_syseducationdefinitions":  
+            case "_syseducationdefinitions":  
                 $this->setRestApiEndPoint('syseducationdefinitions.php/');
                 break; 
             case "_sysvehicles":  
@@ -1956,7 +1969,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_syscontracttypes":  
                 $this->setRestApiEndPoint('syscontracttypes.php/');
                 break; 
-             case "_syscustomertypes":  
+            case "_syscustomertypes":  
                 $this->setRestApiEndPoint('syscustomertypes.php/');
                 break; 
             case "_syscustomerreliability":  
