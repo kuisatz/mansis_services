@@ -202,15 +202,19 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                a.vehicle_group_id name ,
+                '" . $params['vehicle_group_id'] . "' AS value, 
+               true AS control,
+                CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_accessories_matrix  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.vehicle_group_id = " . intval($params['vehicle_group_id']) . " AND 
+                    a.kpnumber_id = " . intval($params['kpnumber_id']) . " AND 
+                    a.supplier_id = " . intval($params['supplier_id']) . " AND 
+                    a.acc_deff_id = " . intval($params['acc_deff_id']) . " AND 
+                    a.accessory_option_id = " . intval($params['accessory_option_id']) . "  
                   " . $addSql . " 
-                AND a.deleted =0    
+                AND a.deleted =0     
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -962,7 +966,11 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                     INSERT INTO sys_accessories_matrix (
                         vehicle_group_id,
                         kpnumber_id,
-                        acc_supplier_matrix_id,
+                        supplier_id,
+                        acc_deff_id,
+                        accessory_option_id,
+                        cost_local,
+                        cost_national,
                         part_num_local,
                         part_num_nat,
                          
@@ -975,7 +983,11 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                     SELECT
                         vehicle_group_id,
                         kpnumber_id,
-                        acc_supplier_matrix_id,
+                        supplier_id,
+                        acc_deff_id,
+                        accessory_option_id,
+                        cost_local,
+                        cost_national,
                         part_num_local,
                         part_num_nat,
                          
@@ -986,7 +998,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_accessories_matrix 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1027,17 +1039,42 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
              $kpnumberId = -1111;
-            if ((isset($params['KpnumberId']) && $params['AccBodyTypeId'] != "")) {
-                $kpnumberId = intval($params['AccBodyTypeId']);
+            if ((isset($params['KpnumberId']) && $params['KpnumberId'] != "")) {
+                $kpnumberId = intval($params['KpnumberId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-             $accSupplierMatrixId = -1111;
-            if ((isset($params['AccSupplierMatrixId']) && $params['AccSupplierMatrixId'] != "")) {
-                $accSupplierMatrixId = intval($params['AccSupplierMatrixId']);
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            $accDeffId = -1111;
+            if ((isset($params['AccDeffId']) && $params['AccDeffId'] != "")) {
+                $accDeffId = intval($params['AccDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accessoryOptionId = -1111;
+            if ((isset($params['AccessoryOptionId']) && $params['AccessoryOptionId'] != "")) {
+                $accessoryOptionId = intval($params['AccessoryOptionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costLocal = -1111;
+            if ((isset($params['CostLocal']) && $params['CostLocal'] != "")) {
+                $costLocal = floatval($params['CostLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costNational = -1111;
+            if ((isset($params['CostNational']) && $params['CostNational'] != "")) {
+                $costNational = floatval($params['CostNational']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                          
              $partNumLocal= null;
             if ((isset($params['PartNumLocal']) && $params['PartNumLocal'] != "")) {
                 $partNumLocal =  ($params['PartNumLocal']);
@@ -1059,14 +1096,20 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                         array( 
                             'vehicle_group_id' => $vehicleGroupId,
                             'kpnumber_id' => $kpnumberId,
-                            'acc_supplier_matrix_id' => $accSupplierMatrixId
+                            'supplier_id' => $supplierId,
+                            'acc_deff_id' => $accDeffId,
+                            'accessory_option_id' => $accessoryOptionId, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_accessories_matrix(
                             vehicle_group_id,
                             kpnumber_id,
-                            acc_supplier_matrix_id,
+                            supplier_id,
+                            acc_deff_id,
+                            accessory_option_id,
+                            cost_local,
+                            cost_national,
                             part_num_local,
                             part_num_nat,
 
@@ -1076,7 +1119,10 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                     VALUES ( 
                             " . intval($vehicleGroupId) . ",
                             " . intval($kpnumberId) . ",
-                            " . intval($accSupplierMatrixId) . ",
+                            " . intval($supplierId) . ", 
+                            " . intval($accDeffId) . ",
+                            " . floatval($costLocal) . ",
+                            " . floatval($costNational) . ", 
                             '" . $partNumLocal . "',
                             '" . $partNumNat . "',
 
@@ -1124,24 +1170,55 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $errorInfo[0] = "99999";
-             $vehicleGroupId = -1111;
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $vehicleGroupId = -1111;
             if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
                 $vehicleGroupId = intval($params['VehicleGroupId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
              $kpnumberId = -1111;
-            if ((isset($params['KpnumberId']) && $params['AccBodyTypeId'] != "")) {
-                $kpnumberId = intval($params['AccBodyTypeId']);
+            if ((isset($params['KpnumberId']) && $params['KpnumberId'] != "")) {
+                $kpnumberId = intval($params['KpnumberId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-             $accSupplierMatrixId = -1111;
-            if ((isset($params['AccSupplierMatrixId']) && $params['AccSupplierMatrixId'] != "")) {
-                $accSupplierMatrixId = intval($params['AccSupplierMatrixId']);
+            $supplierId = -1111;
+            if ((isset($params['SupplierId']) && $params['SupplierId'] != "")) {
+                $supplierId = intval($params['SupplierId']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            $accDeffId = -1111;
+            if ((isset($params['AccDeffId']) && $params['AccDeffId'] != "")) {
+                $accDeffId = intval($params['AccDeffId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $accessoryOptionId = -1111;
+            if ((isset($params['AccessoryOptionId']) && $params['AccessoryOptionId'] != "")) {
+                $accessoryOptionId = intval($params['AccessoryOptionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costLocal = -1111;
+            if ((isset($params['CostLocal']) && $params['CostLocal'] != "")) {
+                $costLocal = floatval($params['CostLocal']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $costNational = -1111;
+            if ((isset($params['CostNational']) && $params['CostNational'] != "")) {
+                $costNational = floatval($params['CostNational']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+                          
              $partNumLocal= null;
             if ((isset($params['PartNumLocal']) && $params['PartNumLocal'] != "")) {
                 $partNumLocal =  ($params['PartNumLocal']);
@@ -1154,13 +1231,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-
-            $Id = -1111;
-            if ((isset($params['Id']) && $params['Id'] != "")) {
-                $Id = intval($params['Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                          
 
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1173,18 +1244,24 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                         array(
                             'vehicle_group_id' => $vehicleGroupId,
                             'kpnumber_id' => $kpnumberId,
-                            'acc_supplier_matrix_id' => $accSupplierMatrixId,
+                            'supplier_id' => $supplierId,
+                            'acc_deff_id' => $accDeffId,
+                            'accessory_option_id' => $accessoryOptionId, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_accessories_matrix (  
-                       vehicle_group_id,
+                            vehicle_group_id,
                             kpnumber_id,
-                            acc_supplier_matrix_id,
+                            supplier_id,
+                            acc_deff_id,
+                            accessory_option_id,
+                            cost_local,
+                            cost_national,
                             part_num_local,
                             part_num_nat,
  
@@ -1193,11 +1270,14 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                             act_parent_id 
                         )  
                 SELECT  
-                    " . intval($vehicleGroupId) . ",
-                    " . intval($kpnumberId) . ",
-                    " . intval($accSupplierMatrixId) . ",
-                    '" . $partNumLocal . "',
-                    '" . $partNumNat . "',
+                  " . intval($vehicleGroupId) . ",
+                            " . intval($kpnumberId) . ",
+                            " . intval($supplierId) . ", 
+                            " . intval($accDeffId) . ",
+                            " . floatval($costLocal) . ",
+                            " . floatval($costNational) . ", 
+                            '" . $partNumLocal . "',
+                            '" . $partNumNat . "',
                      
                     priority, 
                     " . intval($opUserIdValue) . " AS op_user_id,  
@@ -1206,12 +1286,17 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                 WHERE id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
-                    $insertID = $pdo->lastInsertId('sys_accessories_matrix_id_seq');
-                    $affectedRows = $statementInsert->rowCount();
+                          
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
 
+                    
+                    $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('sys_accessories_matrix_id_seq');}
+                    else $insertID =0 ;   
+                    
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
                 } else {

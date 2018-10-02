@@ -251,44 +251,81 @@ $app->get("/pkInsertAct_sysaccessoriesmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['supplier_id']));
     } 
-    $vehicleGtModelId = NULL;
-    if (isset($_GET['vehicle_gt_models_id'])) {
-         $stripper->offsetSet('vehicle_gt_models_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vehicleGroupId = NULL;
+    if (isset($_GET['vehicle_group_id'])) {
+         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_gt_models_id']));
+                                                $_GET['vehicle_group_id']));
     } 
-    $accBodyDeffId = NULL;
-    if (isset($_GET['acc_body_deff_id'])) {
-         $stripper->offsetSet('acc_body_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $kpnumberId = NULL;
+    if (isset($_GET['kpnumber_id'])) {
+         $stripper->offsetSet('kpnumber_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_deff_id']));
+                                                $_GET['kpnumber_id']));
     } 
-    $accBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $accessoryOptionId = NULL;
+    if (isset($_GET['accessory_option_id'])) {
+         $stripper->offsetSet('accessory_option_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['accessory_option_id']));
     } 
-    $cost = NULL;
-    if (isset($_GET['cost'])) {
-         $stripper->offsetSet('cost',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $accDeffId = NULL;
+    if (isset($_GET['acc_deff_id'])) {
+         $stripper->offsetSet('acc_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['cost']));
+                                                $_GET['acc_deff_id']));
     } 
+    $costLocal = NULL;
+    if (isset($_GET['cost_local'])) {
+         $stripper->offsetSet('cost_local',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost_local']));
+    } 
+    $costNational = NULL;
+    if (isset($_GET['cost_national'])) {
+         $stripper->offsetSet('cost_national',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost_national']));
+    }  
+    $partNumLocal = NULL;
+    if (isset($_GET['part_num_local'])) {
+         $stripper->offsetSet('part_num_local',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['part_num_local']));
+    } 
+    $partNumNat = NULL;
+    if (isset($_GET['part_num_nat'])) {
+         $stripper->offsetSet('part_num_nat',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['part_num_nat']));
+    } 
+              
      
     $stripper->strip(); 
     if($stripper->offsetExists('supplier_id')) $supplierId = $stripper->offsetGet('supplier_id')->getFilterValue();
-    if($stripper->offsetExists('vehicle_gt_models_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue();
-    if($stripper->offsetExists('acc_body_deff_id')) $accBodyDeffId = $stripper->offsetGet('acc_body_deff_id')->getFilterValue();
-    if($stripper->offsetExists('acc_body_type_id')) $accBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
-    if($stripper->offsetExists('cost')) $cost = $stripper->offsetGet('cost')->getFilterValue();
-          
+    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+    if($stripper->offsetExists('kpnumber_id')) $kpnumberId = $stripper->offsetGet('kpnumber_id')->getFilterValue();
+    if($stripper->offsetExists('acc_deff_id')) $accDeffId = $stripper->offsetGet('acc_deff_id')->getFilterValue();
+    if($stripper->offsetExists('accessory_option_id')) $accessoryOptionId = $stripper->offsetGet('accessory_option_id')->getFilterValue(); 
+    if($stripper->offsetExists('cost_local')) $costLocal = $stripper->offsetGet('cost_local')->getFilterValue();
+    if($stripper->offsetExists('cost_national')) $costNational = $stripper->offsetGet('cost_national')->getFilterValue();
+    if($stripper->offsetExists('part_num_local')) $partNumLocal = $stripper->offsetGet('part_num_local')->getFilterValue();
+    if($stripper->offsetExists('part_num_nat')) $partNumNat = $stripper->offsetGet('part_num_nat')->getFilterValue();
+     
+    
+    
     $resDataInsert = $BLL->insertAct(array(
             'SupplierId' => $supplierId,   
-            'VehicleGtModelId' => $vehicleGtModelId,  
-            'AccBodyDeffId' => $accBodyDeffId, 
-            'AccBodyTypeId' => $accBodyTypeId, 
-            'Cost' => $cost,   
+            'VehicleGroupId' => $vehicleGroupId,  
+            'KpnumberId' => $kpnumberId, 
+            'AccDeffId' => $accDeffId, 
+            'AccessoryOptionId' => $accessoryOptionId,   
+        
+            'CostLocal' => $costLocal, 
+            'CostNational' => $costNational,   
+        
+            'PartNumLocal' => $partNumLocal, 
+            'PartNumNat' => $partNumNat,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -315,53 +352,86 @@ $app->get("/pkUpdateAct_sysaccessoriesmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-   $supplierId = NULL;
+    $supplierId = NULL;
     if (isset($_GET['supplier_id'])) {
          $stripper->offsetSet('supplier_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['supplier_id']));
     } 
-    $vehicleGtModelId = NULL;
-    if (isset($_GET['vehicle_gt_models_id'])) {
-         $stripper->offsetSet('vehicle_gt_models_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vehicleGroupId = NULL;
+    if (isset($_GET['vehicle_group_id'])) {
+         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_gt_models_id']));
+                                                $_GET['vehicle_group_id']));
     } 
-    $accBodyDeffId = NULL;
-    if (isset($_GET['acc_body_deff_id'])) {
-         $stripper->offsetSet('acc_body_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $kpnumberId = NULL;
+    if (isset($_GET['kpnumber_id'])) {
+         $stripper->offsetSet('kpnumber_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_deff_id']));
+                                                $_GET['kpnumber_id']));
     } 
-    $accBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $accessoryOptionId = NULL;
+    if (isset($_GET['accessory_option_id'])) {
+         $stripper->offsetSet('accessory_option_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['accessory_option_id']));
     } 
-    $cost = NULL;
-    if (isset($_GET['cost'])) {
-         $stripper->offsetSet('cost',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $accDeffId = NULL;
+    if (isset($_GET['acc_deff_id'])) {
+         $stripper->offsetSet('acc_deff_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['cost']));
+                                                $_GET['acc_deff_id']));
     } 
+    $costLocal = NULL;
+    if (isset($_GET['cost_local'])) {
+         $stripper->offsetSet('cost_local',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost_local']));
+    } 
+    $costNational = NULL;
+    if (isset($_GET['cost_national'])) {
+         $stripper->offsetSet('cost_national',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['cost_national']));
+    }  
+    $partNumLocal = NULL;
+    if (isset($_GET['part_num_local'])) {
+         $stripper->offsetSet('part_num_local',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['part_num_local']));
+    } 
+    $partNumNat = NULL;
+    if (isset($_GET['part_num_nat'])) {
+         $stripper->offsetSet('part_num_nat',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['part_num_nat']));
+    } 
+              
      
     $stripper->strip(); 
     if($stripper->offsetExists('supplier_id')) $supplierId = $stripper->offsetGet('supplier_id')->getFilterValue();
-    if($stripper->offsetExists('vehicle_gt_models_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_models_id')->getFilterValue();
-    if($stripper->offsetExists('acc_body_deff_id')) $accBodyDeffId = $stripper->offsetGet('acc_body_deff_id')->getFilterValue();
-    if($stripper->offsetExists('acc_body_type_id')) $accBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
-    if($stripper->offsetExists('cost')) $cost = $stripper->offsetGet('cost')->getFilterValue(); 
+    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+    if($stripper->offsetExists('kpnumber_id')) $kpnumberId = $stripper->offsetGet('kpnumber_id')->getFilterValue();
+    if($stripper->offsetExists('acc_deff_id')) $accDeffId = $stripper->offsetGet('acc_deff_id')->getFilterValue();
+    if($stripper->offsetExists('accessory_option_id')) $accessoryOptionId = $stripper->offsetGet('accessory_option_id')->getFilterValue(); 
+    if($stripper->offsetExists('cost_local')) $costLocal = $stripper->offsetGet('cost_local')->getFilterValue();
+    if($stripper->offsetExists('cost_national')) $costNational = $stripper->offsetGet('cost_national')->getFilterValue();
+    if($stripper->offsetExists('part_num_local')) $partNumLocal = $stripper->offsetGet('part_num_local')->getFilterValue();
+    if($stripper->offsetExists('part_num_nat')) $partNumNat = $stripper->offsetGet('part_num_nat')->getFilterValue(); 
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'SupplierId' => $supplierId,   
-            'VehicleGtModelId' => $vehicleGtModelId,  
-            'AccBodyDeffId' => $accBodyDeffId, 
-            'AccBodyTypeId' => $accBodyTypeId, 
-            'Cost' => $cost,   
+            'VehicleGroupId' => $vehicleGroupId,  
+            'KpnumberId' => $kpnumberId, 
+            'AccDeffId' => $accDeffId, 
+            'AccessoryOptionId' => $accessoryOptionId,  
+            'CostLocal' => $costLocal, 
+            'CostNational' => $costNational,  
+            'PartNumLocal' => $partNumLocal, 
+            'PartNumNat' => $partNumNat,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
