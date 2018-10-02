@@ -85,9 +85,7 @@ class Dal {
     public function getPrivateKey($publicKey) {
         try {
             $pdo = $this->getPdo();
-            
-            $publicKey = 'GsZVzEYe50uGgNM'; 
-            
+             
             $sql = "    
                SELECT id,pkey,sf_private_key_value,role_id FROM (
                             SELECT id, 	

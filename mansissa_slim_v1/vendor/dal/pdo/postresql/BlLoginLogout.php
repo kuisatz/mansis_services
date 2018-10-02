@@ -249,14 +249,14 @@ class BlLoginLogout extends \DAL\DalSlim {
     public function pkControl($params = array()) {
         try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $pksis ='GsZVzEYe50uGgNM';
+           // $pksis ='GsZVzEYe50uGgNM';
             
             
             $sql = "              
                     SELECT id,pkey,sf_private_key_value,role_id FROM (
                             SELECT COALESCE(NULLIF(root_id, 0),id) AS id, 	
-                          /*      CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$params['pk']."','*','/'))) = CONCAT('_J9..',REPLACE('".$params['pk']."','*','/')) AS pkey,          */ 
-                               CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$pksis."','*','/'))) = CONCAT('_J9..',REPLACE('".$pksis."','*','/')) AS pkey,
+                              CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$params['pk']."','*','/'))) = CONCAT('_J9..',REPLACE('".$params['pk']."','*','/')) AS pkey,          
+                          /*     CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$pksis."','*','/'))) = CONCAT('_J9..',REPLACE('".$pksis."','*','/')) AS pkey,  */
                                 sf_private_key_value,role_id 
                             FROM info_users WHERE active=0 AND deleted=0) AS logintable
                         WHERE pkey = TRUE
