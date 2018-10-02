@@ -202,9 +202,9 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                null name ,
-                '" . $params['vehicle_group_id'] . "' AS value, 
-               true AS control,
+                '' name ,
+                '' AS value, 
+                true AS control,
                 CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_accessories_matrix  a                          
             WHERE 
@@ -1133,6 +1133,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);
               //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
+                    print_r($result) ;
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
