@@ -1552,7 +1552,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
              $params = $this->getRequestParams();
              if(substr(trim($params['url']),0,2) == 'pk' && 
                      substr(trim($params['url']),0,6) != 'pktemp') {
-                $this->isServicePkRequired = false;  //////////////////////////////////////////////////// Okii  sis içintest de  kapatıldı
+                $this->isServicePkRequired = true;
                 return $this->isServicePkRequired ;
              }
              $this->isServicePkRequired = false;

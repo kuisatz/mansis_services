@@ -86,15 +86,17 @@ class Dal {
         try {
             $pdo = $this->getPdo();
             
-            $sql = "              
-                    SELECT id,pkey,sf_private_key_value,role_id FROM (
+            $publicKey = 'GsZVzEYe50uGgNM'; 
+            
+            $sql = "    
+               SELECT id,pkey,sf_private_key_value,role_id FROM (
                             SELECT id, 	
                                 CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$publicKey."','*','/'))) = CONCAT('_J9..',REPLACE('".$publicKey."','*','/')) as pkey,	                                
                                 sf_private_key_value,
                                 role_id
                             FROM info_users WHERE active=0 AND deleted =0) AS logintable
                         WHERE pkey = TRUE
-
+          
                     "; 
             
             //print_r($sql);
