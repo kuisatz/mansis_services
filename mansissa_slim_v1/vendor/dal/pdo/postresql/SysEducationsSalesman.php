@@ -634,14 +634,14 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			a.address2,
 			a.address3,
 			a.postalcode,
+                        
 			a.city_id,
 			city.region_id, 
-			region.name as region_name, 
-			
+			region.name_eng as region_name,  
 			region.country_id , 
-			coun.name as country_name , 
-			
-		        c.name AS city_name,
+			coun.name_eng as country_name ,  
+		        c.name_eng AS city_name,
+                        
 			a.education_value,
 			a.edu_start_date,
 			a.edu_end_date,
@@ -665,18 +665,13 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                     /*----*/   
 		    INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
 	            INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
-		  
-			
- 
-		   
-                    
+		    
 		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
 		    
-		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 AND region.language_id= l.id
 
-		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 
-		    
-  
+		    LEFT JOIN sys_countrys coun ON (coun.act_parent_id =  region.country_id  OR coun.language_parent_id=  region.country_id) AND coun.show_it = 0 AND coun.language_id= l.id
+		  
 		    INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_education_definitions drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
                     /*----*/   
@@ -887,9 +882,8 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 		    
 		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 AND region.language_id= l.id
 
-		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 AND coun.language_id= l.id
-		    
-  
+		    LEFT JOIN sys_countrys coun ON (coun.act_parent_id =  region.country_id  OR coun.language_parent_id=  region.country_id) AND coun.show_it = 0 AND coun.language_id= l.id
+		 
 		    INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_education_definitions drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
                     /*----*/   
