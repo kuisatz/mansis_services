@@ -25,12 +25,22 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
           //**---- sysBuybackMatrixBLL -------------------  
             
-                                    'pkFillBuybackTradeBackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkFillBuybackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysbuybackmatrix' => 'restApiDefaultCall', 
         
-                                    'pkInsertAct_sysbuybackmatrix' => 'restApiDefaultCall', 
-                                    'pkUpdateAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkInsertBBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateBBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkDeletedAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+
+                                        //////////////////////
+        
+                                    'pkFillTradebackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
+        
+                                    'pkInsertTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
+            
+        
+            
             
          //** sysBuybackMatrixBLL ----------------------//   
         

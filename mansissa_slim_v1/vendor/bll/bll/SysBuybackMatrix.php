@@ -66,10 +66,20 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillGrid ($params = array()) {
-        
+    public function fillGrid ($params = array()) {  
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
         $resultSet = $DAL->fillGrid($params);  
+        return $resultSet['resultSet'];
+    }
+     
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillBuybackMatrixGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillBuybackMatrixGridx($params);  
         return $resultSet['resultSet'];
     }
     
@@ -78,24 +88,34 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillBuybackTradeBackMatrixGridxRtl($params = array()) {
+    public function fillBuybackMatrixGridxRtl($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        $resultSet = $DAL->fillBuybackTradeBackMatrixGridxRtl($params);  
+        $resultSet = $DAL->fillBuybackMatrixGridxRtl($params);  
         return $resultSet['resultSet'];
     }
-    
-    
-      /**
+      
+    /**
      * Function to fill datagrid on user interface layer
      * @param array | null $params
      * @return array
      */
-    public function fillBuybackTradeBackMatrixGridx ($params = array()) { 
+    public function fillTradebackMatrixGridx ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        $resultSet = $DAL->fillBuybackTradeBackMatrixGridx($params);  
+        $resultSet = $DAL->fillTradebackMatrixGridx($params);  
         return $resultSet['resultSet'];
     }
     
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillTradebackMatrixGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillTradebackMatrixGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+      
     /**
      * Function to get datagrid row count on user interface layer
      * @param array | null $params
@@ -106,15 +126,8 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-    
+     
     /**
-     * Function to get datagrid row count on user interface layer
-     * @param array | null $params
-     * @return array
-     */
-    
-    
-        /**
      * public key / private key and value update function
      * @param array | null $params
      * @return array
@@ -139,9 +152,19 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function insertAct($params = array()) {
+    public function insertBBAct($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        return $DAL->insertAct($params);
+        return $DAL->insertBBAct($params);
+    }
+    
+     /**
+     * Data insert action function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertTBAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        return $DAL->insertTBAct($params);
     }
     
     /**
@@ -149,9 +172,19 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function updateAct($params = array()) {
+    public function updateBBAct($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        return $DAL->updateAct($params);
+        return $DAL->updateBBAct($params);
+    }
+    
+     /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateTBAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        return $DAL->updateTBAct($params);
     }
     
      /**
