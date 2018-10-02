@@ -23,7 +23,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-          //**---- sysAccessoriesMatrixBLL -------------------  
+          //**---- sysBuybackMatrixBLL -------------------  
             
                                     'pkFillBuybackTradeBackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysbuybackmatrix' => 'restApiDefaultCall', 
@@ -32,7 +32,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkDeletedAct_sysbuybackmatrix' => 'restApiDefaultCall', 
             
-         //** sysAccessoriesMatrixBLL ----------------------//   
+         //** sysBuybackMatrixBLL ----------------------//   
         
         //**---- sysPriorityTypeBLL -------------------  
                                      'pkPriorityTypeDdList_sysprioritytype' => 'restApiDefaultCall',  
@@ -1552,7 +1552,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
              $params = $this->getRequestParams();
              if(substr(trim($params['url']),0,2) == 'pk' && 
                      substr(trim($params['url']),0,6) != 'pktemp') {
-                $this->isServicePkRequired = true;
+                $this->isServicePkRequired = false;  //////////////////////////////////////////////////// Okii  sis içintest de  kapatıldı
                 return $this->isServicePkRequired ;
              }
              $this->isServicePkRequired = false;
