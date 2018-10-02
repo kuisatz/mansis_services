@@ -39,9 +39,6 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkInsertTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
             
-        
-            
-            
          //** sysBuybackMatrixBLL ----------------------//   
         
         //**---- sysPriorityTypeBLL -------------------  
