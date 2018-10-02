@@ -1333,7 +1333,7 @@ $app->get("/pkSalesmanDdList_infoUsers/", function () use ($app ) {
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->accBodyDeffDdList(array(                                   
+    $resCombobox = $BLL->salesmanDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
                         ));    
