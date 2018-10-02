@@ -635,7 +635,13 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			a.address3,
 			a.postalcode,
 			a.city_id,
-		        COALESCE(NULLIF(cx.name, ''), c.name_eng) AS city_name,
+			city.region_id, 
+			region.name as region_name, 
+			
+			region.country_id , 
+			coun.name as country_name , 
+			
+		        c.name AS city_name,
 			a.education_value,
 			a.edu_start_date,
 			a.edu_end_date,
@@ -654,12 +660,22 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_educations_salesman a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
 	            INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
-		    LEFT JOIN sys_city cx ON (cx.act_parent_id = c.act_parent_id OR cx.language_parent_id= c.act_parent_id) AND cx.active= 0 AND cx.language_id =lx.id  
+		  
+			
+ 
+		   
+                    
+		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
+		    
+		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 
+
+		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 
+		    
   
 		    INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_education_definitions drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
@@ -826,39 +842,66 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
-                          /*  a.name_eng, */ 
-                            concat(concat(ud.name,' '),ud.surname)  name_surname,
-                            a.description,
-                            a.address1,
-                            a.address2,
-                            a.address3,
-                            a.postalcode, 
-                            COALESCE(NULLIF(cx.name, ''), c.name_eng) AS city_name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
-                        FROM sys_educations_salesman a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                        INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
-                        INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
-                        LEFT JOIN sys_city cx ON (cx.act_parent_id = c.act_parent_id OR cx.language_parent_id= c.act_parent_id) AND cx.active= 0 AND cx.language_id =lx.id  
+                        a.id, 
+                        a.act_parent_id as apid,  
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
+                      /*  a.name_eng, */
+			a.user_id,
+			concat(concat(ud.name,' '),ud.surname)  name_surname,
+			a.description,
+			a.address1,
+			a.address2,
+			a.address3,
+			a.postalcode,
+			a.city_id,
+			city.region_id, 
+			region.name as region_name,  
+			region.country_id , 
+			coun.name as country_name ,  
+		        c.name AS city_name,
+			a.education_value,
+			a.edu_start_date,
+			a.edu_end_date,
+                        a.act_parent_id,   
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified,
+                        /* a.priority, */ 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM sys_educations_salesman a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+		    INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
+	            INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
+		   
+		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
+		    
+		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 
 
-                        INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
-                        LEFT JOIN sys_education_definitions drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
-                        /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0   
+		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 
+		    
+  
+		    INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
+		    LEFT JOIN sys_education_definitions drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
+                    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.deleted =0 AND
+                        a.show_it =0   
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx

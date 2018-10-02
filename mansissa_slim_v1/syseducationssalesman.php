@@ -191,7 +191,11 @@ $app->get("/pkFillEducationsSalesmanGridx_syseducationssalesman/", function () u
                 "edu_start_date" => ($menu["edu_start_date"]),  
                 "edu_end_date" => ($menu["edu_end_date"]),  
           
-                    
+                "region_id" => intval($menu["region_id"]),  
+                "region_name" => html_entity_decode($menu["region_name"]), 
+                "country_id" => intval($menu["country_id"]),  
+                "country_name" => html_entity_decode($menu["country_name"]),  
+            
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
