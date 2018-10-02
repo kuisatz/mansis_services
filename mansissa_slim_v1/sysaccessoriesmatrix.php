@@ -299,7 +299,10 @@ $app->get("/pkInsertAct_sysaccessoriesmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['part_num_nat']));
     } 
-              
+          
+ //&vehicle_group_id=2,&kpnumber_id=2,&supplier_id=2,&acc_deff_id=1,&accessory_option_id=1,&cost_local=123,&cost_national=144,&part_num_local=fff,&part_num_nat=ddd,
+
+    
      
     $stripper->strip(); 
     if($stripper->offsetExists('supplier_id')) $supplierId = $stripper->offsetGet('supplier_id')->getFilterValue();
