@@ -3605,4 +3605,45 @@ class InfoUsers extends \DAL\DalSlim {
     }
   
     
+        /** 
+     * @author Okan CIRAN
+     * @ var yok gec dropdown ya da tree ye doldurmak için sys_acc_body_deff tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function salesmanDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+                             
+              
+            $statement = $pdo->prepare("    
+                  SELECT                    
+                    a.id AS id, 	
+                    concat(sd.name ,' ' ,sd.surname) AS name,  
+                    concat(sd.name ,' ' ,sd.surname) AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM info_users a    
+                LEFT JOIN info_users_detail sd ON (sd.root_id = a.id) AND sd.show_it =0  
+                WHERE                     
+                    a.role_id = 5   AND  
+                    a.deleted = 0 AND
+                    a.active =0  
+                ORDER BY  id 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+   
 }

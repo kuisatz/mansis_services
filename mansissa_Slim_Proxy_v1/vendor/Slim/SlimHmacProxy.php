@@ -840,6 +840,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedActTempSB_infoUsers' => 'restApiDefaultCall',
                                     'pkFillTempUserLists_infoUsers' => 'restApiDefaultCall',
                                     'fillTempUserListsx_infoUsers' => 'restApiDefaultCall',
+                                    'pkSalesmanDdList_infoUsers' => 'restApiDefaultCall',
+        
+        
+        
        
         
          //**---- infoUsers -------------------                                        

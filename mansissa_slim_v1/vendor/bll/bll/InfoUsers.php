@@ -288,6 +288,18 @@ class InfoUsers extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('infoUsersPostgrePDO');
         return $DAL->updateConsUserConfirmAct($params);
     }
+         
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function salesmanDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPostgrePDO');
+        $resultSet = $DAL->salesmanDdList($params);
+        return $resultSet['resultSet'];
+    }
     
 }
 
