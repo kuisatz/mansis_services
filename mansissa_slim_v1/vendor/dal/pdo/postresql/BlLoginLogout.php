@@ -249,7 +249,7 @@ class BlLoginLogout extends \DAL\DalSlim {
     public function pkControl($params = array()) {
         try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-           // $pksis ='GsZVzEYe50uGgNM';
+            $pksis ='GsZVzEYe50uGgNM';
             
             
             $sql = "              
