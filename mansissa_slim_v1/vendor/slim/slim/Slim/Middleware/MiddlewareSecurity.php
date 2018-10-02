@@ -260,7 +260,7 @@ use PhpAmqpLib\Message\AMQPMessage;
              //print_r($params);
              if(substr(trim($params['url']),0,2) == 'pk' && 
                      substr(trim($params['url']),0,6) != 'pktemp') {
-                $this->app->isServicePkRequired = true;
+                $this->app->isServicePkRequired = false;
                 return $this->app->isServicePkRequired ;
              }
              $this->app->isServicePkRequired = false;
