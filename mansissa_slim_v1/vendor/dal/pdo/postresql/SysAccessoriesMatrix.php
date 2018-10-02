@@ -217,7 +217,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                 AND a.deleted =0     
                                ";
             $statement = $pdo->prepare($sql);
-           echo debugPDO($sql, $params);
+          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

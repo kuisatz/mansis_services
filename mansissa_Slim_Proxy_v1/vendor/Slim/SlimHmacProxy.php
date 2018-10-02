@@ -21,8 +21,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
-         //**---- sysAccessoriesMatrixBLL ------------------- 
-            
+        
+        //**---- sysPriorityTypeBLL -------------------  
+                                     'pkPriorityTypeDdList_sysprioritytype' => 'restApiDefaultCall',  
+        //** sysPriorityTypeBLL ----------------------//   
+        
+        
+         //**---- sysAccessoriesMatrixBLL -------------------  
             
                                     'pkFillAccMatrixGridx_sysaccessoriesmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysaccessoriesmatrix' => 'restApiDefaultCall', 
@@ -1953,7 +1958,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-            
+             case "_sysprioritytype":  
+                $this->setRestApiEndPoint('sysprioritytype.php/');
+                break; 
             case "_sysaccessoriesmatrix":  
                 $this->setRestApiEndPoint('sysaccessoriesmatrix.php/');
                 break; 

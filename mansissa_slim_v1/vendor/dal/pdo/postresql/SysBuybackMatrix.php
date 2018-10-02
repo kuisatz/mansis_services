@@ -483,7 +483,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-    public function fillBuybackMatrixGridx($params = array()) {
+    public function fillBuybackTradeBackMatrixGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -545,12 +545,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                                 break; 
                              case 'month_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND frd.name" . $sorguExpression . ' ';
 
                                 break; 
                              case 'mileage_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
 
                                 break;  
                             case 'op_user_name':
@@ -628,12 +628,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
-                        COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS month_name,
+                        frd.name AS month_name,
                         a.mileage_id,
-                        COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS mileage_type_name,
+                        erd.name  AS mileage_type_name,
                         a.price,
-                        crd.vehicles_endgroup_id,  
-                        
+                         
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -648,7 +647,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_buyback_matrix a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0    
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                     INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
@@ -656,11 +655,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
                     LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
                        
-                    INNER JOIN sys_mileages erd ON erd.act_parent_id = a.mileage_id AND erd.show_it = 0 AND erd.language_id= l.id  
-                    LEFT JOIN sys_mileages erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it = 0 AND erdx.language_id =lx.id  
+                    INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
+                    LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
                     
-                    INNER JOIN sys_months frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0 AND frd.language_id= l.id  
-                    LEFT JOIN sys_months frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.show_it = 0 AND frdx.language_id =lx.id  
+                    INNER JOIN sys_monthsx frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0  
+                    LEFT JOIN sys_monthsx frdx ON (frdx.act_parent_id = frd.act_parent_id  ) AND frdx.show_it = 0 
                     
                     INNER JOIN sys_contract_types grd ON grd.act_parent_id = a.contract_type_id AND grd.show_it = 0 AND grd.language_id= l.id  
                     LEFT JOIN sys_contract_types grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.show_it = 0 AND grdx.language_id =lx.id  
@@ -677,7 +676,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     
                     WHERE  
                         a.deleted =0 AND
-                        a.show_it =0 
+                        a.show_it =0  
+                        
                 " . $addSql . "
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
@@ -717,7 +717,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-    public function fillBuybackMatrixGridxRtl($params = array()) {
+    public function fillBuybackTradeBackMatrixGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -751,12 +751,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                                 break; 
                              case 'month_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(frdx.name, ''), frd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND frd.name" . $sorguExpression . ' ';
 
                                 break; 
                              case 'mileage_type_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(erdx.name, ''), erd.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND erd.name" . $sorguExpression . ' ';
 
                                 break;  
                             case 'op_user_name':
@@ -823,53 +823,69 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
-                            a.id,  
-                            a.contract_type_id,
-                            COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
-                            a.model_id ,
-                            crd.description AS vahicle_description,
-                            a.buyback_type_id,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name, 
-                            a.terrain_id,
-                            COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
-                            a.month_id,
-                            COALESCE(NULLIF(frdx.name, ''), frd.name_eng) AS month_name,
-                            a.mileage_id,
-                            COALESCE(NULLIF(erdx.name, ''), erd.name_eng) AS mileage_type_name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
-                            u.username AS op_user_name 
-                        FROM sys_buyback_matrix a                    
-                        INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0   
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                        INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
-
-                        INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
-                        LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-
-                        INNER JOIN sys_mileages erd ON erd.act_parent_id = a.mileage_id AND erd.show_it = 0 AND erd.language_id= l.id  
-                        LEFT JOIN sys_mileages erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it = 0 AND erdx.language_id =lx.id  
-
-                        INNER JOIN sys_months frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0 AND frd.language_id= l.id  
-                        LEFT JOIN sys_months frdx ON (frdx.act_parent_id = frd.act_parent_id OR frdx.language_parent_id= frd.act_parent_id) AND frdx.show_it = 0 AND frdx.language_id =lx.id  
-
-                        INNER JOIN sys_contract_types grd ON grd.act_parent_id = a.contract_type_id AND grd.show_it = 0 AND grd.language_id= l.id  
-                        LEFT JOIN sys_contract_types grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.show_it = 0 AND grdx.language_id =lx.id  
-
-                        INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
-                        LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
-
-                        /*----*/   
-                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                        /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0   
+                        a.id, 
+                        a.act_parent_id as apid,  
+                        a.contract_type_id,
+                        COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
+                        a.model_id ,
+                        crd.description AS vahicle_description,
+                        a.buyback_type_id,
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                        
+                        a.terrain_id,
+                        COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
+                        a.month_id,
+                        frd.name AS month_name,
+                        a.mileage_id,
+                        erd.name  AS mileage_type_name,
+                        a.price,
+                        crd.vehicles_endgroup_id,  
+                        
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified,
+                        /* a.priority, */ 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM sys_buyback_matrix a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.deleted =0 AND l.active =0
+                    LEFT JOIN sys_language lx ON lx.id = 3" . intval($languageIdValue) . "  AND lx.deleted =0 AND lx.active =0    
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+                    INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
+                      
+                    INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
+                    LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
+                       
+                    INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
+                    LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
+                    
+                    INNER JOIN sys_monthsx frd ON frd.act_parent_id = a.month_id AND frd.show_it = 0  
+                    LEFT JOIN sys_monthsx frdx ON (frdx.act_parent_id = frd.act_parent_id  ) AND frdx.show_it = 0 
+                    
+                    INNER JOIN sys_contract_types grd ON grd.act_parent_id = a.contract_type_id AND grd.show_it = 0 AND grd.language_id= l.id  
+                    LEFT JOIN sys_contract_types grdx ON (grdx.act_parent_id = grd.act_parent_id OR grdx.language_parent_id= grd.act_parent_id) AND grdx.show_it = 0 AND grdx.language_id =lx.id  
+                   
+                    INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
+                    LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+                   
+                    /*----*/   
+                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                    /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.deleted =0 AND
+                        a.show_it =0  
+                        
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx

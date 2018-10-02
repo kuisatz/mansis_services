@@ -78,6 +78,29 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
+    public function fillBuybackTradeBackMatrixGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillBuybackTradeBackMatrixGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    
+      /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillBuybackTradeBackMatrixGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillBuybackTradeBackMatrixGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
     public function fillGridRowTotalCount($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
         $resultSet = $DAL->fillGridRowTotalCount($params);  
@@ -85,16 +108,11 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
     }
     
     /**
-     * Function to fill text on user interface layer
-     * @param array $params
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
      * @return array
-     *  örnek olarak  bırakıldı
-    */
-    public function fillLanguageDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        $resultSet = $DAL->fillLanguageDdList($params);
-        return $resultSet['resultSet'];
-    }
+     */
+    
     
         /**
      * public key / private key and value update function
