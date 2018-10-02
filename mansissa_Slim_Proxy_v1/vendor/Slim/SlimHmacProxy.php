@@ -23,13 +23,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
          //**---- sysAccessoriesMatrixBLL ------------------- 
             
-                                    'pkEducationDefinitionsDdList_syseducationssalesman' => 'restApiDefaultCall',             
-                                    'pkFillAccMatrixGridx_syseducationssalesman' => 'restApiDefaultCall', 
-                                    'pkUpdateMakeActiveOrPassive_syseducationssalesman' => 'restApiDefaultCall', 
+            
+                                    'pkFillAccMatrixGridx_sysaccessoriesmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_sysaccessoriesmatrix' => 'restApiDefaultCall', 
         
-                                    'pkInsertAct_syseducationssalesman' => 'restApiDefaultCall', 
-                                    'pkUpdateAct_syseducationssalesman' => 'restApiDefaultCall', 
-                                    'pkDeletedAct_syseducationssalesman' => 'restApiDefaultCall', 
+                                    'pkInsertAct_sysaccessoriesmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_sysaccessoriesmatrix' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_sysaccessoriesmatrix' => 'restApiDefaultCall', 
             
          //** sysAccessoriesMatrixBLL ----------------------//   
             

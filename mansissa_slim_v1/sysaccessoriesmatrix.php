@@ -45,13 +45,13 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillAccMatrixGridx_syseducationssalesman/", function () use ($app ) {
+$app->get("/pkFillAccMatrixGridx_sysaccessoriesmatrix/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysAccessoriesMatrixBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillAccMatrixGridx_syseducationssalesman" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillAccMatrixGridx_sysaccessoriesmatrix" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
