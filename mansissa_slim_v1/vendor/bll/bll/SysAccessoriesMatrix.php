@@ -98,6 +98,30 @@ class SysAccessoriesMatrix extends \BLL\BLLSlim{
     }
     
     /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccMatrixGridx ($params = array()) {
+        
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoriesMatrixPostgrePDO');
+        $resultSet = $DAL->fillAccMatrixGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillAccMatrixGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysAccessoriesMatrixPostgrePDO');
+        $resultSet = $DAL->fillAccMatrixGridxRtl($params);  
+        return $resultSet['resultSet'];
+    }
+   
+    
+    /**
      * public key / private key and value update function
      * @param array | null $params
      * @return array
