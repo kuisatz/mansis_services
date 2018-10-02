@@ -202,22 +202,22 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.vehicle_group_id name ,
+                null name ,
                 '" . $params['vehicle_group_id'] . "' AS value, 
                true AS control,
                 CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_accessories_matrix  a                          
             WHERE 
                 a.vehicle_group_id = " . intval($params['vehicle_group_id']) . " AND 
-                    a.kpnumber_id = " . intval($params['kpnumber_id']) . " AND 
-                    a.supplier_id = " . intval($params['supplier_id']) . " AND 
-                    a.acc_deff_id = " . intval($params['acc_deff_id']) . " AND 
-                    a.accessory_option_id = " . intval($params['accessory_option_id']) . "  
+                a.kpnumber_id = " . intval($params['kpnumber_id']) . " AND 
+                a.supplier_id = " . intval($params['supplier_id']) . " AND 
+                a.acc_deff_id = " . intval($params['acc_deff_id']) . " AND 
+                a.accessory_option_id = " . intval($params['accessory_option_id']) . "  
                   " . $addSql . " 
                 AND a.deleted =0     
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+           echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1131,7 +1131,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_accessories_matrix_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                 echo debugPDO($sql, $params);
+              //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
