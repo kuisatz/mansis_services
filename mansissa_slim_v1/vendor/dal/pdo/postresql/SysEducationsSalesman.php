@@ -885,9 +885,9 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 		   
 		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
 		    
-		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 AND region.language_id= l.id
 
-		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 
+		    LEFT JOIN sys_countrys coun ON coun.id = region.country_id AND coun.show_it = 0 AND coun.language_id= l.id
 		    
   
 		    INNER JOIN sys_education_definitions drd ON drd.act_parent_id = a.education_definition_id AND drd.show_it = 0 AND drd.language_id= l.id
