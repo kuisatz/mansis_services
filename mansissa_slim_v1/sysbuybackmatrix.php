@@ -106,6 +106,7 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
+    print_r($resDataGrid) ; 
    
     $resTotalRowCount = $BLL->fillBuybackMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
