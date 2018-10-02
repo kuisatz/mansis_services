@@ -3615,7 +3615,7 @@ class InfoUsers extends \DAL\DalSlim {
      */
     public function salesmanDdList($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('oracleConnectFactory');         
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
                              
               
             $statement = $pdo->prepare("    
