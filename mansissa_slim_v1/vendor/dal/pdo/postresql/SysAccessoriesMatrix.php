@@ -1121,6 +1121,7 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                             " . intval($kpnumberId) . ",
                             " . intval($supplierId) . ", 
                             " . intval($accDeffId) . ",
+                            " . intval($accessoryOptionId) . ",
                             " . floatval($costLocal) . ",
                             " . floatval($costNational) . ", 
                             '" . $partNumLocal . "',
@@ -1270,10 +1271,11 @@ class SysAccessoriesMatrix extends \DAL\DalSlim {
                             act_parent_id 
                         )  
                 SELECT  
-                  " . intval($vehicleGroupId) . ",
+                           " . intval($vehicleGroupId) . ",
                             " . intval($kpnumberId) . ",
                             " . intval($supplierId) . ", 
                             " . intval($accDeffId) . ",
+                            " . intval($accessoryOptionId) . ",
                             " . floatval($costLocal) . ",
                             " . floatval($costNational) . ", 
                             '" . $partNumLocal . "',
