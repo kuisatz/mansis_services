@@ -640,7 +640,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			region.name_eng as region_name,  
 			region.country_id , 
 			coun.name_eng as country_name ,  
-		        c.name_eng AS city_name,
+		        city.name_eng AS city_name,
                         
 			a.education_value,
 			a.edu_start_date,
@@ -664,8 +664,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
-	            INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
-		    
+	           
 		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
 		    
 		    LEFT JOIN sys_country_regions region ON region.id = city.region_id AND region.show_it = 0 AND region.language_id= l.id
@@ -853,7 +852,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			region.name_eng as region_name,  
 			region.country_id , 
 			coun.name_eng as country_name ,  
-		        c.name_eng AS city_name,
+		        city.name_eng AS city_name,
 			a.education_value,
 			a.edu_start_date,
 			a.edu_end_date,
@@ -876,7 +875,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    INNER JOIN info_users_detail ud ON ud.root_id = a.user_id and ud.show_it =0
-	            INNER JOIN sys_city c ON c.city_id = a.city_id AND  c.language_id= l.id
+	          
 		   
 		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
 		    
