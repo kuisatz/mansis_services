@@ -215,6 +215,7 @@ class InfoProject extends \DAL\DalSlim {
                  
                                ";
             $statement = $pdo->prepare($sql);
+            print_r($statement) ;
          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -1147,7 +1148,7 @@ class InfoProject extends \DAL\DalSlim {
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
-            } else {
+            } else {  
                 throw new \PDOException($errorInfo[0]);
             }
             
@@ -1157,14 +1158,13 @@ class InfoProject extends \DAL\DalSlim {
             $dealSisKey =null ;
              if ((isset($params['DealSisKey']) && $params['DealSisKey'] != "")) {
                 $dealSisKey = $params['DealSisKey'];
-            } else { print_r("111");
-                throw new \PDOException($errorInfo[0]);
-               
+            } else {  
+                throw new \PDOException($errorInfo[0]); 
             }   
             $customer = null;
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $customer = $params['CustomerId'];
-            } else { print_r("222");
+            } else {
                 throw new \PDOException($errorInfo[0]);
             }                            
             $isHouseDeal = null;
@@ -1182,11 +1182,11 @@ class InfoProject extends \DAL\DalSlim {
             $description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $description = $params['Description'];
-            }  
+            } 
             $discountRate = 0;
             if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
                 $discountRate = floatval($params['DiscountRate']);
-            }                 
+            }                     
                   
                             
             $opUserIdParams = array('pk' => $params['pk'],);
