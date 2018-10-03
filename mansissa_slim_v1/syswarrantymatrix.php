@@ -136,7 +136,10 @@ $app->get("/pkFillWarrantyMatrixGridx_syswarrantymatrix/", function () use ($app
                 
                 "months1_id" => intval($menu["months1_id"]),  
                 "month_value" => intval($menu["month_value"]),  
-                "mileages1_id" => intval($menu["mileages1_id"]),  
+                "mileages1_id" => intval($menu["mileages1_id"]), 
+                "mileages1" => intval($menu["mileages1"]), 
+                
+                
                 "ismaintenance" => intval($menu["ismaintenance"]),  
                 "maintenance" => html_entity_decode($menu["maintenance"]), 
               

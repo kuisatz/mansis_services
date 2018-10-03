@@ -22,6 +22,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+            //**---- sysBuybackMatrixBLL -------------------  
+            
+                                    'pkFillProjectGridx_infoproject' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoproject' => 'restApiDefaultCall', 
+        
+                                    'pkInsertBBAct_infoproject' => 'restApiDefaultCall', 
+                                    'pkUpdateBBAct_infoproject' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoproject' => 'restApiDefaultCall', 
+
+            
+         //** sysBuybackMatrixBLL ----------------------//   
         
           //**---- sysBuybackMatrixBLL -------------------  
             
@@ -1975,7 +1986,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-            
+             case "_infoproject":  
+                $this->setRestApiEndPoint('infoproject.php/');
+                break; 
             
              case "_sysbuybackmatrix":  
                 $this->setRestApiEndPoint('sysbuybackmatrix.php/');

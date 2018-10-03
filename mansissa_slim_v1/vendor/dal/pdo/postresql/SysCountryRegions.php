@@ -503,8 +503,7 @@ class SysCountryRegions extends \DAL\DalSlim {
                 $countryIdValue = $params['CountryId'];
             }  
               
-            $statement = $pdo->prepare("       
- 
+            $statement = $pdo->prepare("    
 
                 SELECT                    
                     a.act_parent_id AS id, 	

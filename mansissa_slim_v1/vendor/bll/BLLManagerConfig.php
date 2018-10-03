@@ -42,6 +42,10 @@ class BLLManagerConfig{
                  
                  
                    'infoCustomerBLL' => 'BLL\BLL\InfoCustomer',
+                    'infoProjectBLL' => 'BLL\BLL\InfoProject',
+                 
+                 
+                 
                      ////////////////////////////
                    'sysAccBodyDeffBLL' => 'BLL\BLL\SysAccBodyDeff',
                    'sysAccBodyMatrixBLL' => 'BLL\BLL\SysAccBodyMatrix',
