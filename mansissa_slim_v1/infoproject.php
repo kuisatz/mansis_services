@@ -278,162 +278,60 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infoproject" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $embraceCustomerNo = NULL;
-    if (isset($_GET['embrace_customer_no'])) {
-         $stripper->offsetSet('embrace_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $customer = NULL;
+    if (isset($_GET['customer_id'])) {
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['embrace_customer_no']));
+                                                $_GET['customer_id']));
     }  
-    $tuEmbCustomerNo = NULL;
-    if (isset($_GET['tu_emb_customer_no'])) {
-         $stripper->offsetSet('tu_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $isHouseDeal = NULL;
+    if (isset($_GET['is_house_deal'])) {
+         $stripper->offsetSet('is_house_deal',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['tu_emb_customer_no']));
+                                                $_GET['is_house_deal']));
     }  
-    $ceEmbCustomerNo = NULL;
-    if (isset($_GET['ce_emb_customer_no'])) {
-         $stripper->offsetSet('ce_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $probabilityId = NULL;
+    if (isset($_GET['probability_id'])) {
+         $stripper->offsetSet('probability_id',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['ce_emb_customer_no']));
+                                                $_GET['probability_id']));
     }  
-    $otherEmbCustomerNo = NULL;
-    if (isset($_GET['other_emb_customer_no'])) {
-         $stripper->offsetSet('other_emb_customer_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['other_emb_customer_no']));
-    }  
-    $registrationName = NULL;
-    if (isset($_GET['registration_name'])) {
-         $stripper->offsetSet('registration_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['registration_name']));
-    }  
-    $tradingName = NULL;
-    if (isset($_GET['trading_name'])) {
-         $stripper->offsetSet('trading_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['trading_name']));
+                                                $_GET['description']));
     }   
-    $nameShort = NULL;
-    if (isset($_GET['name_short'])) {
-         $stripper->offsetSet('name_short',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['name_short']));
-    }   
-    $www = NULL;
-    if (isset($_GET['www'])) {
-         $stripper->offsetSet('www',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['www']));
-    } 
-    $vatnumber = NULL;
-    if (isset($_GET['vatnumber'])) {
-         $stripper->offsetSet('vatnumber',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['vatnumber']));
-    } 
-    $registrationNumber = NULL;
-    if (isset($_GET['registration_number'])) {
-         $stripper->offsetSet('registration_number',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['registration_number']));
-    } 
-    $registrationDate = NULL;
-    if (isset($_GET['registration_date'])) {
-         $stripper->offsetSet('registration_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['registration_date']));
-    }  
-    
-    $neCountTypeId = NULL;
-    if (isset($_GET['ne_count_type_id'])) {
-         $stripper->offsetSet('ne_count_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['ne_count_type_id']));
-    } 
-    $nvCountTypeId = NULL;
-    if (isset($_GET['nv_count_type_id'])) {
-         $stripper->offsetSet('nv_count_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['nv_count_type_id']));
-    } 
-    $customerCategoryId = NULL;
-    if (isset($_GET['customer_category_id'])) {
-         $stripper->offsetSet('customer_category_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['customer_category_id']));
-    } 
     $reliabilityId = NULL;
     if (isset($_GET['reliability_id'])) {
          $stripper->offsetSet('reliability_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['reliability_id']));
     } 
-    $turnoverRateId = NULL;
-    if (isset($_GET['turnover_rate_id'])) {
-         $stripper->offsetSet('turnover_rate_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $discountRate = NULL;
+    if (isset($_GET['discount_rate'])) {
+         $stripper->offsetSet('discount_rate',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['turnover_rate_id']));
+                                                $_GET['discount_rate']));
     } 
-    $sectorTypeId = NULL;
-    if (isset($_GET['sector_type_id'])) {
-         $stripper->offsetSet('sector_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['sector_type_id']));
-    } 
-    $applicationTypeId = NULL;
-    if (isset($_GET['application_type_id'])) {
-         $stripper->offsetSet('application_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['application_type_id']));
-    } 
-    $segmentTypeId = NULL;
-    if (isset($_GET['segment_type_id'])) {
-         $stripper->offsetSet('segment_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['segment_type_id']));
-    } 
+   
      
     $stripper->strip();
-    if($stripper->offsetExists('embrace_customer_no')) $embraceCustomerNo = $stripper->offsetGet('embrace_customer_no')->getFilterValue(); 
-    if($stripper->offsetExists('tu_emb_customer_no')) $tuEmbCustomerNo = $stripper->offsetGet('tu_emb_customer_no')->getFilterValue();
-    if($stripper->offsetExists('ce_emb_customer_no')) $ceEmbCustomerNo = $stripper->offsetGet('ce_emb_customer_no')->getFilterValue();
-    if($stripper->offsetExists('other_emb_customer_no')) $otherEmbCustomerNo = $stripper->offsetGet('other_emb_customer_no')->getFilterValue();
-    if($stripper->offsetExists('registration_name')) $registrationName = $stripper->offsetGet('registration_name')->getFilterValue();
-    if($stripper->offsetExists('trading_name')) $tradingName = $stripper->offsetGet('trading_name')->getFilterValue();
-    if($stripper->offsetExists('name_short')) $nameShort = $stripper->offsetGet('name_short')->getFilterValue();
-    if($stripper->offsetExists('www')) $www = $stripper->offsetGet('www')->getFilterValue();
-    if($stripper->offsetExists('vatnumber')) $vatnumber = $stripper->offsetGet('vatnumber')->getFilterValue();
-    if($stripper->offsetExists('registration_number')) $registrationNumber = $stripper->offsetGet('registration_number')->getFilterValue();
-    if($stripper->offsetExists('registration_date')) $registrationDate = $stripper->offsetGet('registration_date')->getFilterValue();
-    if($stripper->offsetExists('ne_count_type_id')) $neCountTypeId = $stripper->offsetGet('ne_count_type_id')->getFilterValue();
-    if($stripper->offsetExists('nv_count_type_id')) $nvCountTypeId = $stripper->offsetGet('nv_count_type_id')->getFilterValue();     
-    if($stripper->offsetExists('customer_category_id')) $customerCategoryId= $stripper->offsetGet('customer_category_id')->getFilterValue();
+    if($stripper->offsetExists('customer_id')) $customer = $stripper->offsetGet('customer_id')->getFilterValue(); 
+    if($stripper->offsetExists('is_house_deal')) $isHouseDeal = $stripper->offsetGet('is_house_deal')->getFilterValue();
+    if($stripper->offsetExists('probability_id')) $probabilityId = $stripper->offsetGet('probability_id')->getFilterValue();
+    if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
+    if($stripper->offsetExists('discount_rate')) $discountRate = $stripper->offsetGet('discount_rate')->getFilterValue(); 
     if($stripper->offsetExists('reliability_id')) $reliabilityId = $stripper->offsetGet('reliability_id')->getFilterValue();
-    if($stripper->offsetExists('sector_type_id')) $sectorTypeId  = $stripper->offsetGet('sector_type_id')->getFilterValue();
-    if($stripper->offsetExists('application_type_id')) $applicationTypeId = $stripper->offsetGet('application_type_id')->getFilterValue();
-    if($stripper->offsetExists('segment_type_id')) $segmentTypeId = $stripper->offsetGet('segment_type_id')->getFilterValue();
+ 
   
     $resDataInsert = $BLL->insertAct(array(
-            'EmbraceCustomerNo' => $embraceCustomerNo,   
-            'TuEmbCustomerNo' => $tuEmbCustomerNo,  
-            'CeEmbCustomerNo' => $ceEmbCustomerNo,  
-            'OtherEmbCustomerNo' => $otherEmbCustomerNo,  
-            'RegistrationName' => $registrationName,  
-            'TradingName' => $tradingName,  
-            'NameShort' => $nameShort,  
-            'www' => $www,  
-            'Vatnumber' => $vatnumber,  
-            'RegistrationNumber' => $registrationNumber,  
-            'RegistrationDate' => $registrationDate,  
-            'NeCountTypeId' => $neCountTypeId,   
-            'NvCountTypeId' => $nvCountTypeId,  
-            'CustomerCategoryId' => $customerCategoryId,  
-            'ReliabilityId' => $reliabilityId,  
-            'SectorTypeId' => $sectorTypeId,   
-            'ApplicationTypeId' => $applicationTypeId,  
-            'SegmentTypeId' => $segmentTypeId,  
-          
+            'CustomerId' => $customer,   
+            'IsHouseDeal' => $isHouseDeal,  
+            'ProbabilityId' => $probabilityId,  
+            'Description' => $description,  
+            'DiscountRate' => $discountRate,  
+            'ReliabilityId' => $reliabilityId,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

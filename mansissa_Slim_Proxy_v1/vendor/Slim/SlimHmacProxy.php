@@ -27,8 +27,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkFillProjectGridx_infoproject' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_infoproject' => 'restApiDefaultCall', 
         
-                                    'pkInsertBBAct_infoproject' => 'restApiDefaultCall', 
-                                    'pkUpdateBBAct_infoproject' => 'restApiDefaultCall', 
+                                    'pkInsertAct_infoproject' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoproject' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoproject' => 'restApiDefaultCall', 
 
             
