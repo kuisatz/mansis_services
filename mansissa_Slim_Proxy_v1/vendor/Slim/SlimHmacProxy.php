@@ -1990,10 +1990,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-             case "_infoproject":  
+             case "_systonnage":  
+                $this->setRestApiEndPoint('systonnage.php/');
+                break; 
+            case "_infoproject":  
                 $this->setRestApiEndPoint('infoproject.php/');
                 break; 
-            
              case "_sysbuybackmatrix":  
                 $this->setRestApiEndPoint('sysbuybackmatrix.php/');
                 break; 
