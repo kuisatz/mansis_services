@@ -202,8 +202,8 @@ class InfoProject extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.customer_id ,
-                '" . $params['customer_id'] . "' AS value, 
+                a.customer_id AS name  ,
+                '' AS value, 
                true AS control,
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project  a                          
@@ -1097,7 +1097,7 @@ class InfoProject extends \DAL\DalSlim {
                             " .  intval($probabilityId). ",
                             " .  intval($reliabilityId) . ",
                             '" . $description . "',
-                            " . floatval($discountRate) . ", 
+                            " . intval($discountRate) . ", 
                              
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_project_id_seq)
