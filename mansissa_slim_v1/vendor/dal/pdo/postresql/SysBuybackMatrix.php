@@ -1100,7 +1100,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     WHERE  
                         a.deleted =0 AND
                         a.show_it =0 AND 
-                        a.contract_type_id =3                         
+                        a.contract_type_id =3                        
                 " . $addSql . "
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
