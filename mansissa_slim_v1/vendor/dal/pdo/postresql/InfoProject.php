@@ -202,14 +202,14 @@ class InfoProject extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.customer_id AS name  ,
+                '' AS name  ,
                 '' AS value, 
                true AS control,
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project  a                          
             WHERE 
                 a.customer_id = " . intval($params['customer_id']) . " AND 
-                a.deal_sis_key   '" .  ($params['deal_sis_key']) . "'              
+                a.deal_sis_key = '" .  ($params['deal_sis_key']) . "'              
                   " . $addSql . " 
                 AND a.deleted =0   
                  

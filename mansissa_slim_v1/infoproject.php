@@ -315,7 +315,7 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
                                                 $_GET['discount_rate']));
     } 
    
-    // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate1234
+    // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=1234
     
     
      
