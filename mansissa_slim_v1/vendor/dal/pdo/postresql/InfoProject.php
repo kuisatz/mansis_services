@@ -215,7 +215,7 @@ class InfoProject extends \DAL\DalSlim {
                  
                                ";
             $statement = $pdo->prepare($sql);
-         echo debugPDO($sql, $params);
+         // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1206,7 +1206,7 @@ class InfoProject extends \DAL\DalSlim {
 
                     $this->makePassive(array('id' => $params['Id']));
 
-                    $statementInsert = $pdo->prepare("
+                  $sql = "
                 INSERT INTO info_project (  
                         customer_id, 
                         is_house_deal, 
@@ -1231,7 +1231,8 @@ class InfoProject extends \DAL\DalSlim {
                 FROM info_project 
                 WHERE 
                     id  =" . intval($Id) . "                  
-                                                ");
+                                                " ;
+                    $statementInsert = $pdo->prepare($sql);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
