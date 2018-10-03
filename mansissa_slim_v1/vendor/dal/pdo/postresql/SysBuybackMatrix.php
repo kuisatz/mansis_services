@@ -880,7 +880,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
                         LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                     
-                      
+                      where
                             a.deleted =0 AND
                             a.show_it =0  AND 
                             a.contract_type_id = 2  
