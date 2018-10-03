@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoProjectFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $infoProject = new \DAL\PDO\Postresql\InfoProject() ;   
+        $infoProject = new \DAL\PDO\Postresql\InfoProject() ;     
         $slimapp = $serviceLocator->get('slimapp') ;            
         $infoProject -> setSlimApp($slimapp); 
         return $infoProject; 
