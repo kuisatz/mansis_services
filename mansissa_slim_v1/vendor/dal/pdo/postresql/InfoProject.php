@@ -1061,9 +1061,7 @@ class InfoProject extends \DAL\DalSlim {
             $description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $description = $params['Description'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            } 
             $discountRate = 0;
             if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
                 $discountRate = floatval($params['DiscountRate']);
@@ -1155,18 +1153,18 @@ class InfoProject extends \DAL\DalSlim {
             
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
-            $addSQL1 =null ;    
-            $addSQL2 =null ;  
+                            
             $dealSisKey =null ;
              if ((isset($params['DealSisKey']) && $params['DealSisKey'] != "")) {
                 $dealSisKey = $params['DealSisKey'];
-            } else {
+            } else { print_r("111");
                 throw new \PDOException($errorInfo[0]);
+               
             }   
             $customer = null;
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $customer = $params['CustomerId'];
-            } else {
+            } else { print_r("222");
                 throw new \PDOException($errorInfo[0]);
             }                            
             $isHouseDeal = null;
@@ -1184,9 +1182,7 @@ class InfoProject extends \DAL\DalSlim {
             $description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $description = $params['Description'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            }  
             $discountRate = 0;
             if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
                 $discountRate = floatval($params['DiscountRate']);

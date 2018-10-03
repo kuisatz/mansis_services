@@ -280,19 +280,19 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
       
     $customer = NULL;
     if (isset($_GET['customer_id'])) {
-         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['customer_id']));
     }  
     $isHouseDeal = NULL;
     if (isset($_GET['is_house_deal'])) {
-         $stripper->offsetSet('is_house_deal',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('is_house_deal',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['is_house_deal']));
     }  
     $probabilityId = NULL;
     if (isset($_GET['probability_id'])) {
-         $stripper->offsetSet('probability_id',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('probability_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['probability_id']));
     }  
@@ -361,29 +361,73 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $dealSisKey = NULL;
+    if (isset($_GET['deal_sis_key'])) {
+         $stripper->offsetSet('deal_sis_key',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['name']));
+                                                $_GET['deal_sis_key']));
     }  
-    $vehicleGroupId = NULL;
-    if (isset($_GET['vehicle_group_id'])) {
-         $stripper->offsetSet('vehicle_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $customer = NULL;
+    if (isset($_GET['customer_id'])) {
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_group_id']));
+                                                $_GET['customer_id']));
+    }  
+    $isHouseDeal = NULL;
+    if (isset($_GET['is_house_deal'])) {
+         $stripper->offsetSet('is_house_deal',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['is_house_deal']));
+    }  
+    $probabilityId = NULL;
+    if (isset($_GET['probability_id'])) {
+         $stripper->offsetSet('probability_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['probability_id']));
+    }  
+    $description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['description']));
+    }   
+    $reliabilityId = NULL;
+    if (isset($_GET['reliability_id'])) {
+         $stripper->offsetSet('reliability_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['reliability_id']));
     } 
+    $discountRate = NULL;
+    if (isset($_GET['discount_rate'])) {
+         $stripper->offsetSet('discount_rate',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['discount_rate']));
+    } 
+   
+    // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=1234
+    
+    
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('vehicle_group_id')) $vehicleGroupId = $stripper->offsetGet('vehicle_group_id')->getFilterValue();
+    if($stripper->offsetExists('deal_sis_key')) $dealSisKey = $stripper->offsetGet('deal_sis_key')->getFilterValue(); 
+    if($stripper->offsetExists('customer_id')) $customer = $stripper->offsetGet('customer_id')->getFilterValue(); 
+    if($stripper->offsetExists('is_house_deal')) $isHouseDeal = $stripper->offsetGet('is_house_deal')->getFilterValue();
+    if($stripper->offsetExists('probability_id')) $probabilityId = $stripper->offsetGet('probability_id')->getFilterValue();
+    if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
+    if($stripper->offsetExists('discount_rate')) $discountRate = $stripper->offsetGet('discount_rate')->getFilterValue(); 
+    if($stripper->offsetExists('reliability_id')) $reliabilityId = $stripper->offsetGet('reliability_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
-            'Id' => $vId,   
-            'Name' => $vName,   
-            'VehicleGroupId' => $vehicleGroupId,  
+            'Id' => $vId,    
+            'CustomerId' => $customer,   
+            'IsHouseDeal' => $isHouseDeal,  
+            'ProbabilityId' => $probabilityId,  
+            'Description' => $description,  
+            'DiscountRate' => $discountRate,  
+            'ReliabilityId' => $reliabilityId,   
+            'DealSisKey' => $dealSisKey,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
