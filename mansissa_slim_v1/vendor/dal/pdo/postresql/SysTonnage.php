@@ -493,7 +493,7 @@ class SysTonnage extends \DAL\DalSlim {
                     a.id AS id, 	
                     a.name  AS name,  
                     a.value AS name_eng,
-                    a.parent_id,
+                    0 as parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_tonnage a    
