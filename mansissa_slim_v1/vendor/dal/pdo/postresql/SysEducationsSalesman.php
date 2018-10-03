@@ -637,7 +637,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                         
 			a.city_id,
 			city.region_id, 
-			region.name_eng as region_name,  
+			COALESCE(NULLIF(region.name_eng, '' ), coun.name_eng)  as region_name , 
 			region.country_id , 
 			coun.name_eng as country_name ,  
 		        city.name_eng AS city_name,
@@ -849,7 +849,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
 			a.postalcode,
 			a.city_id,
 			city.region_id, 
-			region.name_eng as region_name,  
+			COALESCE(NULLIF(region.name_eng, '' ), coun.name_eng)  as region_name ,  
 			region.country_id , 
 			coun.name_eng as country_name ,  
 		        city.name_eng AS city_name,
