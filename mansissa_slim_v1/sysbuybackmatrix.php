@@ -136,6 +136,8 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
                 "mileage_id" => $menu["mileage_id"], 
                 "mileage_type_name" => html_entity_decode($menu["mileage_type_name"]), 
                 "price" => $menu["price"], 
+                "comfort_super_id" => $menu["comfort_super_id"], 
+                "comfort_super_name" => html_entity_decode($menu["comfort_super_name"]), 
                  
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
@@ -255,7 +257,8 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                 "mileage_id" => $menu["mileage_id"], 
                 "mileage_type_name" => html_entity_decode($menu["mileage_type_name"]), 
                 "price" => $menu["price"], 
-                 
+                "comfort_super_id" => $menu["comfort_super_id"], 
+                "comfort_super_name" => html_entity_decode($menu["comfort_super_name"]), 
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       

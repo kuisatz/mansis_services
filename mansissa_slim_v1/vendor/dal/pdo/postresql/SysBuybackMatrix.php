@@ -628,7 +628,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         crd.description AS vahicle_description,
                         a.buyback_type_id,
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
-                        
+                        a.comfort_super_id,
+                        COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
@@ -677,6 +678,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     /**/
                     /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
+                    LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                     
                     WHERE  
                         a.deleted =0 AND
@@ -835,7 +838,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             crd.description AS vahicle_description,
                             a.buyback_type_id,
                             COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
-
+                            a.comfort_super_id,
+                            COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                             a.terrain_id,
                             COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                             a.month_id,
@@ -872,8 +876,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         /**/
                         /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
+                    
+                        INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
+                        LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
+                    
+                      
                             a.deleted =0 AND
                             a.show_it =0  AND 
                             a.contract_type_id = 2  
@@ -1047,7 +1054,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         crd.description AS vahicle_description,
                         a.buyback_type_id,
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
-                        
+                        a.comfort_super_id,
+                        COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
@@ -1096,6 +1104,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     /**/
                     /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
+                    LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                     
                     WHERE  
                         a.deleted =0 AND
@@ -1254,7 +1264,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         crd.description AS vahicle_description,
                         a.buyback_type_id,
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
-                        
+                        a.comfort_super_id,
+                        COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
@@ -1291,6 +1302,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     /**/
                     /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
+                    LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                     
                     WHERE  
                         a.deleted =0 AND
