@@ -119,6 +119,7 @@ class BLLManagerConfig{
                    'sysStrategicImportancesBLL' => 'BLL\BLL\SysStrategicImportances',
                    'sysSupplierBLL' => 'BLL\BLL\SysSupplier',
                    'sysTerrainsBLL' => 'BLL\BLL\SysTerrains',
+                   'sysTonnageBLL' => 'BLL\BLL\SysTonnage', 
                    'sysTitlesBLL' => 'BLL\BLL\SysTitles', 
                    'sysTopusedProvisionsBLL' => 'BLL\BLL\SysTopusedProvisions', 
                    'sysTopusedBranchdealersBLL' => 'BLL\BLL\SysTopusedBranchdealers',

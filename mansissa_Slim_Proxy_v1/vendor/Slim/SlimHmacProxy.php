@@ -22,7 +22,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
-            //**---- sysBuybackMatrixBLL -------------------  
+        
+            //**---- sysTonnageBLL -------------------  
+                                         'pkTonnageDdList_systonnage' => 'restApiDefaultCall',  
+            //** sysTonnageBLL ----------------------//   
+            //**---- infoProjectBLL -------------------  
             
                                     'pkFillProjectGridx_infoproject' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_infoproject' => 'restApiDefaultCall', 
@@ -32,7 +36,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_infoproject' => 'restApiDefaultCall', 
 
             
-         //** sysBuybackMatrixBLL ----------------------//   
+         //** infoProjectBLL ----------------------//   
         
           //**---- sysBuybackMatrixBLL -------------------  
             

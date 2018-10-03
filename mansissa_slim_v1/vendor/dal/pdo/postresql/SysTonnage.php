@@ -13,14 +13,14 @@ namespace DAL\PDO\Postresql;
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager
  * @
- * @author Okan CIRAN        
- * @since 30.07.2018                         
+ * @author Okan CIRAN   
+ * @since 30.07.2018            
  */ 
-class InfoProject extends \DAL\DalSlim {
+class SysTonnage extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN    
-     * @ info_project tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ sys_tonnage tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  30.07.2018
      * @param array $params   
      * @return array  
@@ -34,7 +34,7 @@ class InfoProject extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE info_project
+                UPDATE sys_tonnage
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ info_project tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_tonnage tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class InfoProject extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM info_project a
+                FROM sys_tonnage a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class InfoProject extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN info_project ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_tonnage ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ info_project tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_tonnage tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class InfoProject extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO info_project(
+                INSERT INTO sys_tonnage(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class InfoProject extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('info_project_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_tonnage_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ info_project tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ sys_tonnage tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -202,20 +202,17 @@ class InfoProject extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                '' AS name  ,
-                '' AS value, 
-                true AS control,
-                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM info_project  a                          
+                a.name ,
+                '" . $params['name'] . "' AS value, 
+                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
+                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+            FROM sys_tonnage  a                          
             WHERE 
-                a.customer_id = " . intval($params['customer_id']) . " AND 
-                a.deal_sis_key = '" .  ($params['deal_sis_key']) . "'              
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
                   " . $addSql . " 
-                AND a.deleted =0   
-                 
+                AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-                            
          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -230,7 +227,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * info_project tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_tonnage tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -254,7 +251,7 @@ class InfoProject extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE info_project
+                    UPDATE sys_tonnage
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -293,7 +290,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için info_project tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_tonnage tablosundan kayıtları döndürür !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -354,7 +351,7 @@ class InfoProject extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM info_project a
+                FROM sys_tonnage a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -362,7 +359,7 @@ class InfoProject extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN info_project ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN sys_tonnage ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -391,7 +388,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için info_project tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_tonnage tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -404,7 +401,7 @@ class InfoProject extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM info_project a
+                FROM sys_tonnage a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -428,7 +425,7 @@ class InfoProject extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ info_project tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_tonnage tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  30.07.2018
      * @param type $params
@@ -445,13 +442,13 @@ class InfoProject extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE info_project
+                UPDATE sys_tonnage
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM info_project
+                                FROM sys_tonnage
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -477,16 +474,55 @@ class InfoProject extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
+    /** 
+     * @author Okan CIRAN
+     * @ ana tonaj tanımları dropdown ya da tree ye doldurmak için sys_tonnage tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function  tonnageDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+                            
+            $statement = $pdo->prepare("     
+
+                SELECT                    
+                    a.id AS id, 	
+                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.value AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_tonnage a    
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 
+                ORDER BY  a.priority 
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
                             
     /** 
      * @author Okan CIRAN
-     * @   garanti tanımlarını grid formatında döndürür !! ana tablo  info_project 
+     * @  terrains tanımlarını grid formatında döndürür !! ana tablo  sys_tonnage 
      * @version v 1.0  20.08.2018
-     * @param array | null $args 
+     * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillProjectGridx($params = array()) {
+    public function fillTonnageGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -526,27 +562,11 @@ class InfoProject extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'registration_name':
+                            case 'name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND cc.registration_name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                            case 'registration_number':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND cc.registration_number" . $sorguExpression . ' ';
-
-                                break;  
-                            case 'probability_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND scp.name" . $sorguExpression . ' ';
-
-                                break;  
-                            case 'reliability_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND scr.name" . $sorguExpression . ' ';
-
-                                break;  
-                            
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -583,85 +603,38 @@ class InfoProject extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-                            
-            $isboConfirm = -1 ; 
-            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
-                $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
-            }    
-                $sql = "    
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
+            }                 
 
+                $sql = " 
                     SELECT  
                         a.id, 
                         a.act_parent_id as apid,  
-                        a.customer_id, 
-                        a.deal_sis_key,
-                        cc.registration_name, 
-                        cc.registration_number, 
-			a.is_house_deal, 
-			a.probability_id, 
-			scp.name probability_name, 
-			a.reliability_id, 
-			scr.name reliability_name, 
-
-			a.deal_statu_type_id,
-			'' AS deal_statu,
-			
-			a.body_statu_type_id,
-			'' AS body_statu,
-			
-			a.accessory_statu_type_id,
-			'' AS accessory_statu,
-			
-			a.tradein_statu_type_id,
-			'' AS tradein_statu,
-			
-			a.buyback_statu_type_id,
-			'' AS buyback_statu,
-			
-			a.tradeback_statu_type_id,
-			'' AS tradeback_statu,
-		 
-			a.rm_statu_type_id,
-			'' AS rm_statu,
-			
-			a.waranty_statu_type_id,
-			'' AS waranty_statu,
-			
-			a.invoice_statu_type_id,
-			'' AS invoice_statu,
-			
-			a.delivery_statu_type_id,
-			'' AS delivery_statu,
-			
-			a.credit_statu_type_id,
-			'' AS credit_statu, 
-			
-			a.description,  
-			a.discount_rate,
-            
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                        a.value,  
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                     
+                       /* a.deleted,
+                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
                         a.op_user_id,
                         u.username AS op_user_name,  
                         a.s_date date_saved,
-                        a.c_date date_modified, 
+                        a.c_date date_modified,
+                        /* a.priority, */ 
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM info_project a                    
-                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "   AND lx.show_it =0      
+                    FROM sys_tonnage a                    
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
+                    LEFT JOIN sys_tonnage ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
+               
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
-		      
-                   left join info_customer cc ON cc.act_parent_id = a.customer_id 
-                    
-                   LEFT join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0  
-		   LEFT join sys_probabilities scp on scp.act_parent_id = a.probability_id and scp.show_it = 0 
-		  
-                    /*----*/   
+		    /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
@@ -671,6 +644,7 @@ class InfoProject extends \DAL\DalSlim {
                     WHERE  
                         a.deleted =0 AND
                         a.show_it =0  
+
                 " . $addSql . "
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
@@ -687,7 +661,7 @@ class InfoProject extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-              //  echo debugPDO($sql, $params);               
+                //  echo debugPDO($sql, $parameters);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -704,13 +678,13 @@ class InfoProject extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @  garanti tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo info_project
+     * @  terrains tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_tonnage 
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillProjectGridxRtl($params = array()) {
+    public function fillTonnageGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -722,27 +696,11 @@ class InfoProject extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'registration_name':
+                             case 'name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND cc.registration_name" . $sorguExpression . ' ';
+                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
                               
-                                break;
-                            case 'registration_number':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND cc.registration_number" . $sorguExpression . ' ';
-
-                                break;  
-                            case 'probability_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND scp.name" . $sorguExpression . ' ';
-
-                                break;  
-                            case 'reliability_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND scr.name" . $sorguExpression . ' ';
-
-                                break;  
-                            
+                                break; 
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -779,94 +737,36 @@ class InfoProject extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $isboConfirm = -1 ; 
-            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
-                $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
-            }      
-
+            $parentID =0 ;
+            if (isset($params['ParentID']) && $params['ParentID'] != "") {
+                $parentID = $params['ParentID'];
+                $addSql ="  a.parent_id = " . intval($parentID). "  AND  " ; 
+            }   
+                            
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                       SELECT  
-                        a.id, 
-                        a.act_parent_id as apid,  
-                        a.deal_sis_key,
-                        a.customer_id, 
-                        cc.registration_name, 
-                        cc.registration_number, 
-			a.is_house_deal, 
-			a.probability_id, 
-			scp.name probability_name, 
-			a.reliability_id, 
-			scr.name reliability_name, 
+                         SELECT  
+                            a.id, 
+                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                            u.username AS op_user_name 
+                        FROM sys_tonnage a                    
+                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0   
+                        LEFT JOIN sys_tonnage ax ON (ax.act_parent_id =a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id   
 
-			a.deal_statu_type_id,
-			'' AS deal_statu,
-			
-			a.body_statu_type_id,
-			'' AS body_statu,
-			
-			a.accessory_statu_type_id,
-			'' AS accessory_statu,
-			
-			a.tradein_statu_type_id,
-			'' AS tradein_statu,
-			
-			a.buyback_statu_type_id,
-			'' AS buyback_statu,
-			
-			a.tradeback_statu_type_id,
-			'' AS tradeback_statu,
-		 
-			a.rm_statu_type_id,
-			'' AS rm_statu,
-			
-			a.waranty_statu_type_id,
-			'' AS waranty_statu,
-			
-			a.invoice_statu_type_id,
-			'' AS invoice_statu,
-			
-			a.delivery_statu_type_id,
-			'' AS delivery_statu,
-			
-			a.credit_statu_type_id,
-			'' AS credit_statu, 
-			
-			a.description,  
-			a.discount_rate,
-            
-                        a.active,
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                     
-                        a.op_user_id,
-                        u.username AS op_user_name,  
-                        a.s_date date_saved,
-                        a.c_date date_modified, 
-                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                        lx.language_main_code language_code, 
-                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM info_project a                    
-                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "   AND lx.show_it =0      
-                    INNER JOIN info_users u ON u.id = a.op_user_id 
-                    /*----*/   
-		      
-                   left join info_customer cc ON cc.act_parent_id = a.customer_id 
-                    
-                   LEFT join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0  
-		   LEFT join sys_probabilities scp on scp.act_parent_id = a.probability_id and scp.show_it = 0 
-		  
-                    /*----*/   
-                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                    /**/
-                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-                    
-                    WHERE  
-                        a.deleted =0 AND
-                        a.show_it =0  
+                        INNER JOIN info_users u ON u.id = a.op_user_id 
+                        /*----*/   
+                        /*----*/   
+                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                        /**/
+                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+
+                        WHERE  
+                            a.deleted =0 AND
+                            a.show_it =0  
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -889,7 +789,7 @@ class InfoProject extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN
-     * @ info_project tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ sys_tonnage tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -899,12 +799,12 @@ class InfoProject extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE info_project
+                UPDATE sys_tonnage
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-               WHERE id = :id or language_parent_id = :id");
+                WHERE id = :id or language_parent_id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -919,7 +819,7 @@ class InfoProject extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ info_project tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ sys_tonnage tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
@@ -940,32 +840,10 @@ class InfoProject extends \DAL\DalSlim {
                 $this->makePassive(array('id' => $params['id']));
 
                 $statementInsert = $pdo->prepare(" 
-                    INSERT INTO info_project ( 
-                         deal_sis_key,  
-                        customer_id, 
-                        is_house_deal, 
-                        probability_id, 
-                        reliability_id,        
-                        is_strategic, 
-                        vehicle_brand_id, 
-                        cs_act_statutype_id, 
-                        customer_activation_id, 
-                        segment_type_id, 
-                        cause_of_losingwinning_id, 
-                        description, 
-                        why_lose_description, 
-                        deal_statu_type_id, 
-                        body_statu_type_id, 
-                        accessory_statu_type_id, 
-                        tradein_statu_type_id, 
-                        buyback_statu_type_id, 
-                        tradeback_statu_type_id, 
-                        rm_statu_type_id, 
-                        waranty_statu_type_id, 
-                        invoice_statu_type_id, 
-                        delivery_statu_type_id, 
-                        credit_statu_type_id, 
-                         
+                    INSERT INTO sys_tonnage (
+                        name, 
+                        value,  
+                        
                         active,
                         deleted,
                         op_user_id,
@@ -973,38 +851,16 @@ class InfoProject extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        deal_sis_key,  
-                        customer_id, 
-                        is_house_deal, 
-                        probability_id, 
-                        reliability_id,        
-                        is_strategic, 
-                        vehicle_brand_id, 
-                        cs_act_statutype_id, 
-                        customer_activation_id, 
-                        segment_type_id, 
-                        cause_of_losingwinning_id, 
-                        description, 
-                        why_lose_description, 
-                        deal_statu_type_id, 
-                        body_statu_type_id, 
-                        accessory_statu_type_id, 
-                        tradein_statu_type_id, 
-                        buyback_statu_type_id, 
-                        tradeback_statu_type_id, 
-                        rm_statu_type_id, 
-                        waranty_statu_type_id, 
-                        invoice_statu_type_id, 
-                        delivery_statu_type_id, 
-                        credit_statu_type_id, 
+                        name, 
+                        value,
                          
                         1 AS active,  
                         1 AS deleted, 
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM info_project 
-                    WHERE id  =" . intval($params['id']) . "   
+                    FROM sys_tonnage 
+                    WHERE id  =" . intval($params['id']) . "  
                     ");
 
                 $insertAct = $statementInsert->execute();
@@ -1027,7 +883,7 @@ class InfoProject extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ info_project tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ sys_tonnage tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1037,79 +893,56 @@ class InfoProject extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
-            $kontrol =0 ;                
-            $errorInfo[0] = "99999";
-            $addSQL1 =null ;    
-            $addSQL2 =null ;             
-            $customer = null;
-            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
-                $customer = $params['CustomerId'];
+                             
+            $errorInfo[0] = "99999"; 
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }                            
-            $isHouseDeal = null;
-            if ((isset($params['IsHouseDeal']) && $params['IsHouseDeal'] != "")) {
-                $isHouseDeal = $params['IsHouseDeal'];
-            }  
-            $probabilityId= 0;
-            if ((isset($params['ProbabilityId']) && $params['ProbabilityId'] != "")) {
-                $probabilityId = intval($params['ProbabilityId']);
-            }
-            $reliabilityId = 0;
-            if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
-                $reliabilityId = intval($params['ReliabilityId']);
-            }           
-            $description = null;
-            if ((isset($params['Description']) && $params['Description'] != "")) {
-                $description = $params['Description'];
-            } 
-            $discountRate = 0;
-            if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
-                $discountRate = floatval($params['DiscountRate']);
-            }               
-                            
+            }                
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }            
+                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'customer_id' => $customer,  
-                            'deal_sis_key' => '',  
+                            'name' => $name, 
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO info_project(
-                            customer_id, 
-                            is_house_deal, 
-                            probability_id, 
-                            reliability_id,  
-                            description,
-                            discount_rate,
- 
+                    INSERT INTO sys_tonnage(
+                            name,  
+                            value,  
+                            
                             op_user_id,
                             act_parent_id  
                             )
-                    VALUES ( 
-                            " .  intval($customer). ",
-                            " .  intval($isHouseDeal) . ",
-                            " .  intval($probabilityId). ",
-                            " .  intval($reliabilityId) . ",
-                            '" . $description . "',
-                            " . intval($discountRate) . ", 
-                             
+                    VALUES (
+                            '" . $name . "',
+                            '" . $nameEng . "',
+                            " . intval($value) . ",
+                            " . intval($leftRight) . ", 
+
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM info_project_id_seq)
+                           (SELECT last_value FROM sys_tonnage_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-            //    echo debugPDO($sql, $params);
+                    //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('info_project_id_seq');
+                    $insertID = $pdo->lastInsertId('sys_tonnage_id_seq');
 
-                            
+                             
 
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
@@ -1130,10 +963,10 @@ class InfoProject extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-                            
+                             
     /**
      * @author Okan CIRAN
-     * info_project tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_tonnage tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1142,108 +975,69 @@ class InfoProject extends \DAL\DalSlim {
     public function updateAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $pdo->beginTransaction(); 
+            $pdo->beginTransaction();
             $errorInfo[0] = "99999";
-            
+                             
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
-            } else {  
-                throw new \PDOException($errorInfo[0]);
-            }
-            
-            $kontrol =0 ;                
-            $errorInfo[0] = "99999";
-                            
-            $dealSisKey =null ;
-             if ((isset($params['DealSisKey']) && $params['DealSisKey'] != "")) {
-                $dealSisKey = $params['DealSisKey'];
-            } else {  
-                throw new \PDOException($errorInfo[0]); 
-            }   
-            $customer = null;
-            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
-                $customer = $params['CustomerId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }                            
-            $isHouseDeal = null;
-            if ((isset($params['IsHouseDeal']) && $params['IsHouseDeal'] != "")) {
-                $isHouseDeal = $params['IsHouseDeal'];
-            }  
-            $probabilityId= 0;
-            if ((isset($params['ProbabilityId']) && $params['ProbabilityId'] != "")) {
-                $probabilityId = intval($params['ProbabilityId']);
             }
-            $reliabilityId = 0;
-            if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
-                $reliabilityId = intval($params['ReliabilityId']);
-            }           
-            $description = null;
-            if ((isset($params['Description']) && $params['Description'] != "")) {
-                $description = $params['Description'];
-            } 
-            $discountRate = 0;
-            if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
-                $discountRate = floatval($params['DiscountRate']);
-            }                     
-                  
-                            
-            $opUserIdParams = array('pk' => $params['pk'],);
-            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
-            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+
+            $name = null;
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }              
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }               
+                             
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
-                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'customer_id' => $customer, 
-                            'deal_sis_key' => $dealSisKey,  
+                            'name' => $name, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['Id']));
+                    $this->makePassive(array('id' => $params['id']));
 
-                  $sql = "
-                INSERT INTO info_project (  
-                        customer_id, 
-                        is_house_deal, 
-                        probability_id, 
-                        reliability_id,  
-                        description,
-                        discount_rate,
-
+                    $statementInsert = $pdo->prepare("
+                INSERT INTO sys_tonnage (  
+                        name,  
+                        value,   
+                        
+                        priority, 
                         op_user_id,
-                        act_parent_id  
+                        act_parent_id 
                         )  
                 SELECT  
-                    " .  intval($customer). ",
-                    " .  intval($isHouseDeal) . ",
-                    " .  intval($probabilityId). ",
-                    " .  intval($reliabilityId) . ",
-                    '" . $description . "',
-                    " . intval($discountRate) . ", 
-                                 
+                    '" . $name . "', 
+                    " . intval($value) . ", 
+                     
+                    priority, 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
-                FROM info_project 
+                FROM sys_tonnage 
                 WHERE 
-                    id  =" . intval($Id) . "                  
-                                                " ;
-                    $statementInsert = $pdo->prepare($sql);
-                    $result = $statementInsert->execute();  
+                      id  =" . intval($Id) . "                  
+                                                ");
+                    $result = $statementInsert->execute();
+                    $insertID = $pdo->lastInsertId('sys_tonnage_id_seq');
+                    $affectedRows = $statementInsert->rowCount();
                     $errorInfo = $statementInsert->errorInfo();
-                    print_r($result) ; 
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                            
-                     $affectedRows = $statementInsert->rowCount();
-                    if ($affectedRows> 0 ){
-                    $insertID = $pdo->lastInsertId('info_project_id_seq');}
-                    else $insertID =0 ;   
-                            
+
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
@@ -1262,7 +1056,7 @@ class InfoProject extends \DAL\DalSlim {
             // $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
-    }    
-    
+    }
+
     
 }

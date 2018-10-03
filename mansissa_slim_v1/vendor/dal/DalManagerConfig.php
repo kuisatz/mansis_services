@@ -294,6 +294,7 @@ class DalManagerConfig {
                 'sysStrategicImportancesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysStrategicImportancesFactory',
                 'sysSupplierPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSupplierFactory',
                 'sysTerrainsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTerrainsFactory',
+                'sysTonnagePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTonnageFactory', 
                 'sysTitlesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTitlesFactory', 
                 'sysTopusedProvisionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTopusedProvisionsFactory',
                 'sysTopusedIntakesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysTopusedIntakesFactory',  

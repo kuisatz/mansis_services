@@ -1210,7 +1210,7 @@ class InfoCustomer extends \DAL\DalSlim {
                     LEFT JOIN sys_countrys coun ON coun.id = a.country2_id AND coun.show_it = 0 
                     LEFT JOIN sys_countrys coun2 ON coun2.id = a.country_id AND coun2.show_it = 0 
 		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
-		    LEFT JOIN sys_country_regions region ON region.id = a.city_id AND region.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = a.region_id AND region.show_it = 0 
                     
                     LEFT JOIN sys_numerical_ranges nre ON nre.act_parent_id = a.ne_count_type_id AND nre.show_it = 0 AND nre.parent_id = 13
                     LEFT JOIN sys_numerical_ranges nrv ON nrv.act_parent_id = a.nv_count_type_id AND nrv.show_it = 0 AND nrv.parent_id = 20
