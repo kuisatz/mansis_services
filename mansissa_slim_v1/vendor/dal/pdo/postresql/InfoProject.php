@@ -204,7 +204,7 @@ class InfoProject extends \DAL\DalSlim {
             SELECT  
                 '' AS name  ,
                 '' AS value, 
-               true AS control,
+                true AS control,
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project  a                          
             WHERE 
@@ -215,7 +215,7 @@ class InfoProject extends \DAL\DalSlim {
                  
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
