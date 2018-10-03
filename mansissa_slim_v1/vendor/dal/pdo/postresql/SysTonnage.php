@@ -491,7 +491,7 @@ class SysTonnage extends \DAL\DalSlim {
 
                 SELECT                    
                     a.id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
+                    a.name  AS name,  
                     a.value AS name_eng,
                     a.parent_id,
                     a.active,
