@@ -1224,7 +1224,7 @@ class InfoProject extends \DAL\DalSlim {
                     " .  intval($probabilityId). ",
                     " .  intval($reliabilityId) . ",
                     '" . $description . "',
-                    " . floatval($discountRate) . ", 
+                    " . intval($discountRate) . ", 
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
