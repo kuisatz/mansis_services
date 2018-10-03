@@ -632,9 +632,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
-                        frd.name AS month_name,
+                        frd.mvalue AS month_name,
                         a.mileage_id,
-                        erd.name  AS mileage_type_name,
+                        erd.mileages1  AS mileage_type_name,
                         a.price,
                          
                         a.active,
@@ -1051,9 +1051,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.month_id,
-                        frd.name AS month_name,
+                        frd.mvalue AS month_name,
                         a.mileage_id,
-                        erd.name  AS mileage_type_name,
+                        erd.mileages1  AS mileage_type_name,
                         a.price,
                          
                         a.active,
