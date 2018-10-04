@@ -208,7 +208,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project_vehicle_models  a                          
             WHERE 
-                a.customer_id = " . intval($params['customer_id']) . " AND 
+                a.project_id = " . intval($params['project_id']) . " AND 
                 a.deal_sis_key = '" .  ($params['deal_sis_key']) . "'              
                   " . $addSql . " 
                 AND a.deleted =0   
