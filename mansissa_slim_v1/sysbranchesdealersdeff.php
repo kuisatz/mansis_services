@@ -356,9 +356,7 @@ $app->get("/pkInsertAct_sysbranchesdealersdeff/", function () use ($app ) {
                                                 $_GET['sis_department_id']));
     } 
     
-     
-    
-     
+       // &name=asd&branch_no=e345fert&address1=213123 street&address2=no 11&address3=etlik&postalcode=06010&country_id=107&country_region_id=9&city_id=158&sis_department_id=45
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
     if($stripper->offsetExists('branch_no')) $branchNo = $stripper->offsetGet('branch_no')->getFilterValue();
