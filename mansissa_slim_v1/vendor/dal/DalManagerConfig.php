@@ -270,6 +270,7 @@ class DalManagerConfig {
                 'sysEmbraceBranchDealershipPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEmbraceBranchDealershipFactory',               
                 'sysFinanceTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysFinanceTypesFactory',
                 'sysFixedSalesCostsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysFixedSalesCostsFactory',
+                'sysHorsepowerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysHorsepowerFactory',                
                 'sysKpnumbersPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysKpnumbersFactory',
                 'sysMileagesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMileagesFactory',
                 'sysMonthsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMonthsFactory',

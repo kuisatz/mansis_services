@@ -21,6 +21,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+        
+        
+           //**---- sysHorsepowerBLL -------------------  
+                                    'pkHorsePowerDdList_syshorsepower' => 'restApiDefaultCall',  
+            //** sysHorsepowerBLL ----------------------//   
+        
            //**---- infoProjectVehicleModelsBLL -------------------   
 
                                     'pkProjectVehicleModelsDdList_infoprojectvehiclemodels' => 'restApiDefaultCall',  

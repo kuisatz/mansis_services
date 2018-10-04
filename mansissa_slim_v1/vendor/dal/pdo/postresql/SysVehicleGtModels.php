@@ -1058,11 +1058,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
              $modelDescription = null;
             if ((isset($params['ModelDescription']) && $params['ModelDescription'] != "")) {
                 $modelDescription = $params['ModelDescription'];
-            } 
-            $modelGrouping= null;
-            if ((isset($params['ModelGrouping']) && $params['ModelGrouping'] != "")) {
-                $modelGrouping = $params['ModelGrouping'];
-            } 
+            }              
             $vehicleGroupTypeId = -1111;
             if ((isset($params['VehicleGroupTypeId']) && $params['VehicleGroupTypeId'] != "")) {
                 $vehicleGroupTypeId = intval($params['VehicleGroupTypeId']);
@@ -1090,8 +1086,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_gt_models (  
                         name, 
-                        model_description,
-                        model_grouping,
+                        model_description, 
                         vehicle_group_types_id,
                          
                         op_user_id,
@@ -1099,8 +1094,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                         )  
                 SELECT  
                     '" . $name . "', 
-                    '" . $modelDescription . "', 
-                    '" . $modelGrouping . "', 
+                    '" . $modelDescription . "',  
                     " . intval($vehicleGroupTypeId) . ",
                     
                     " . intval($opUserIdValue) . " AS op_user_id,  

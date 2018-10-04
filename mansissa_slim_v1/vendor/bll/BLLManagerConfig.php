@@ -95,6 +95,7 @@ class BLLManagerConfig{
                    'sysEmbraceBranchDealershipBLL' => 'BLL\BLL\SysEmbraceBranchDealership', 
                    'sysFinanceTypesBLL' => 'BLL\BLL\SysFinanceTypes',
                    'sysFixedSalesCostsBLL' => 'BLL\BLL\SysFixedSalesCosts',
+                   'sysHorsepowerBLL' => 'BLL\BLL\SysHorsepower', 
                    'sysKpnumbersBLL' => 'BLL\BLL\SysKpnumbers',
                    'sysMileagesBLL' => 'BLL\BLL\SysMileagesx',
                    'sysMonthsBLL' => 'BLL\BLL\SysMonthsx',
