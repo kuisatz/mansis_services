@@ -141,7 +141,9 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
                  "hydraulics" => $menu["hydraulics"], 
                 "customer_type_id" => $menu["customer_type_id"], 
                 "customer_type_name" => html_entity_decode($menu["customer_type_name"]), 
+                "hydraulics_name" => html_entity_decode($menu["hydraulics_name"]), 
         
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -264,6 +266,7 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                 "hydraulics" => $menu["hydraulics"], 
                 "customer_type_id" => $menu["customer_type_id"], 
                 "customer_type_name" => html_entity_decode($menu["customer_type_name"]), 
+                 "hydraulics_name" => html_entity_decode($menu["hydraulics_name"]), 
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
