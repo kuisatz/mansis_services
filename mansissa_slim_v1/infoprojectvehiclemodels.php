@@ -142,10 +142,16 @@ $app->get("/pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels/", function
                                                 $app,
                                                 $_GET['lid']));
     }
+    $ProjectId = NULL;
+    if (isset($_GET['project_id'])) {
+         $stripper->offsetSet('project_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['project_id']));
+    } 
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
- 
+    if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue();
     if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
     if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
@@ -159,7 +165,7 @@ $app->get("/pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels/", function
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
- 
+        'ProjectId' => $ProjectId,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -167,7 +173,7 @@ $app->get("/pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels/", function
     $resTotalRowCount = $BLL->fillProjectVehicleModelsGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-  
+        'ProjectId' => $ProjectId,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -184,6 +190,8 @@ $app->get("/pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels/", function
                 "deal_sis_key" => html_entity_decode($menu["deal_sis_key"]),
                 "vehicle_gt_model_id" =>  ($menu["vehicle_gt_model_id"]),
                 "vehicle_gt_model_name" => html_entity_decode($menu["vehicle_gt_model_name"]),
+                "tag_name" => html_entity_decode($menu["tag_name"]),
+                  
                 "quantity" =>  ($menu["quantity"]),
                 "delivery_date" =>  ($menu["delivery_date"]),
                

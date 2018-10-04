@@ -625,7 +625,12 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
             }    
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            }               
+            }    
+            $ProjectId =-1 ;
+            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
+                $ProjectId = $params['ProjectId']; 
+            }  
+              $addSQL =   " a.project_id  = " . intval($ProjectId). "  AND  " ;
                             
                 $sql = "     
                     SELECT  
@@ -635,6 +640,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                         pp.deal_sis_key, 
 			a.vehicle_gt_model_id,
 			concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) vehicle_gt_model_name, 
+                        concat(sv.name,' - ' , svgt.name ,' - ' , gt.name , ' / ', cast(a.quantity as character varying(10)), ' Pieces' , ' /  Delivery Date =', cast(a.delivery_date as character varying(10))) tag_name, 
 			a.quantity,
 			a.delivery_date, 
                         a.active,
@@ -664,10 +670,10 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
+                     " . $addSql . "
                         a.deleted =0 AND
-                        a.show_it =0   
-                " . $addSql . "
-                " . $sorguStr . " 
+                        a.show_it =0  
+                     " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
                     . "LIMIT " . $pdo->quote($limit) . " "
@@ -778,6 +784,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                         pp.deal_sis_key, 
 			a.vehicle_gt_model_id,
 			concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) vehicle_gt_model_name, 
+                        concat(sv.name,' - ' , svgt.name ,' - ' , gt.name , ' / ', cast(a.quantity as character varying(10)), ' Pieces' , ' /  Delivery Date =', cast(a.delivery_date as character varying(10))) tag_name, 
 			a.quantity,
 			a.delivery_date, 
                         a.active,
