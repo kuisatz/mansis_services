@@ -980,7 +980,8 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'project_id' => $ProjectId,  
-                            'vehicle_gt_model_id' =>  $VehicleGtModelId,  
+                            'vehicle_gt_model_id' =>  $VehicleGtModelId, 
+                            'deal_sis_key' =>  '',   
                             'delivery_date' => $DeliveryDate,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
