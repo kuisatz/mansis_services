@@ -854,7 +854,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-               WHERE id = :id or language_parent_id = :id");
+               WHERE id = :id  ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -889,7 +889,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
 
                 $this->makePassive(array('id' => $params['id']));
 
-                $statementInsert = $pdo->prepare(" 
+                 $sql = "
                     INSERT INTO info_project_vehicle_models (  
                         project_id,
                         vehicle_gt_model_id,
@@ -915,8 +915,9 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM info_project_vehicle_models 
                     WHERE id  =" . intval($params['id']) . "   
-                    ");
-
+                    " ;
+                $statementInsert = $pdo->prepare($sql);
+                
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
