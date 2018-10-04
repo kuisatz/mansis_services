@@ -215,6 +215,7 @@ class DalManagerConfig {
                 
                 'infoCustomerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerFactory',
                 'infoProjectPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectFactory',
+                'infoProjectVehicleModelsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectVehicleModelsFactory',
                 
                 
                 

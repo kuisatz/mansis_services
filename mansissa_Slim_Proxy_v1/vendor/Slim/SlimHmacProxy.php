@@ -21,10 +21,20 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+           //**---- infoProjectVehicleModelsBLL -------------------   
+
+                                    'pkProjectVehicleModelsDdList_infoprojectvehiclemodels' => 'restApiDefaultCall',  
+                                    'pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoprojectvehiclemodels' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_infoprojectvehiclemodels' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojectvehiclemodels' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojectvehiclemodels' => 'restApiDefaultCall', 
+            
+          //** infoProjectVehicleModelsBLL ----------------------//  
         
             //**---- sysTonnageBLL -------------------  
-                                         'pkTonnageDdList_systonnage' => 'restApiDefaultCall',  
+                                    'pkTonnageDdList_systonnage' => 'restApiDefaultCall',  
             //** sysTonnageBLL ----------------------//   
             //**---- infoProjectBLL -------------------  
             
@@ -36,7 +46,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_infoproject' => 'restApiDefaultCall', 
 
             
-         //** infoProjectBLL ----------------------//   
+          //** infoProjectBLL ----------------------//   
         
           //**---- sysBuybackMatrixBLL -------------------  
             
