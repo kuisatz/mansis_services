@@ -68,12 +68,20 @@ $app->get("/pkProjectVehicleModelsDdList_infoprojectvehiclemodels/", function ()
                                                 $app,
                                                 $_GET['lid']));
     }
+    $ProjectId = NULL;
+    if (isset($_GET['project_id'])) {
+         $stripper->offsetSet('project_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['project_id']));
+    } 
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
     $resCombobox = $BLL->projectVehicleModelsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
+                                    'ProjectId' => $ProjectId,
                                     'LanguageID' => $lid,
                         ));    
 
