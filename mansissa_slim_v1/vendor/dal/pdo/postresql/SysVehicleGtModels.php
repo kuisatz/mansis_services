@@ -493,7 +493,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 $addSQL = " a.vehicle_group_types_id =  " . intval($VehicleGroupTypesId). "  AND  "; 
             }    
               
-            $statement = $pdo->prepare("    
+            $sql = "
                 SELECT                    
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
@@ -509,7 +509,9 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0 
                 ORDER BY  svgt.vehicle_groups_id , concat(sv.name,' - ' , svgt.name)  , a.name 
-                                 ");
+                                 "  ;
+            $statement = $pdo->prepare($sql);
+          echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
