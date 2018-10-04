@@ -1118,11 +1118,12 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                             )
                     VALUES (
                             '" . $name . "',
+                            '" . $branchNo . "',
                             '" . $address1 . "',
                             '" . $address2 . "',
                             '" . $address3 . "',
                             '" . $postalCode . "', 
-                            '" . $branchNo . "',
+                          
                             " . intval($countryId) . ",
                             " . intval($countryRegionId) . ",
                             " . intval($cityId) . ",
@@ -1275,11 +1276,11 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                         )  
                 SELECT  
                     '" . $name . "',
+                    '" . $branchNo . "',
                     '" . $address1 . "',
                     '" . $address2 . "',
                     '" . $address3 . "',
                     '" . $postalCode . "', 
-                    '" . $branchNo . "',
                     " . intval($countryId) . ",
                     " . intval($countryRegionId) . ",
                     " . intval($cityId) . ",
