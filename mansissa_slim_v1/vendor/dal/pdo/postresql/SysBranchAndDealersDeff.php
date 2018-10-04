@@ -1133,7 +1133,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_branch_and_dealers_deff_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                     echo debugPDO($sql, $params);
+                 //    echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -1249,8 +1249,8 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' =>$name,
-                            'acc_body_type_id' => $AccBodyTypeId,
+                             'name' => $name, 
+                            'branch_no' => $branchNo, 
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
