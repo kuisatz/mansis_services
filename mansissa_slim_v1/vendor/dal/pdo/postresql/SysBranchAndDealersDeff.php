@@ -936,7 +936,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                WHERE id = :id or language_parent_id = :id");
+                WHERE id = :id ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -1008,8 +1008,8 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_branch_and_dealers_deff 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                    WHERE id  =" . intval($params['id']) . "  
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1192,27 +1192,66 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
             } else {     
                 throw new \PDOException($errorInfo[0]);
             }
-
-            $name = "";
+            $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $nameEng = $name;
-        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
+            $branchNo = null;
+            if ((isset($params['BranchNo']) && $params['BranchNo'] != "")) {
+                $branchNo = $params['BranchNo'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-         * 
-         */
-            $AccBodyTypeId = -1111;
-            if ((isset($params['AccBodyTypeId']) && $params['AccBodyTypeId'] != "")) {
-                $AccBodyTypeId = intval($params['AccBodyTypeId']);
-            }else {
+            $address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $address1 = $params['Address1'];
+            } else {
                 throw new \PDOException($errorInfo[0]);
-            }   
+            }
+            $address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $address2 = $params['Address2'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $address3 = $params['Address3'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $postalCode = null;
+            if ((isset($params['PostalCode']) && $params['PostalCode'] != "")) {
+                $postalCode = $params['PostalCode'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $countryId = -1111;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $countryId = intval($params['CountryId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $countryRegionId = -1111;
+            if ((isset($params['CountryRegionId']) && $params['CountryRegionId'] != "")) {
+                $countryRegionId = intval($params['CountryRegionId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $cityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $cityId = intval($params['CityId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $sisDepartmentId = -1111;
+            if ((isset($params['SisDepartmentId']) && $params['SisDepartmentId'] != "")) {
+                $sisDepartmentId = intval($params['SisDepartmentId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
           
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1234,28 +1273,38 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                $sql = "
                 INSERT INTO sys_branch_and_dealers_deff (  
                         name,
-                        name_eng,
-                        acc_body_type_id,
-                        
-                        priority,
-                        language_id,
-                        language_parent_id,
+                        branch_no,
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        country_id,
+                        country_region_id,
+                        city_id,
+                        sis_department_id, 
+
+                        priority, 
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
-                    '" . ($name) . "' AS name,    
-                    '" . ($nameEng) . "' AS name_eng, 
-                    " . intval($AccBodyTypeId) . " AS AccBodyTypeId,   
+                    '" . $name . "',
+                    '" . $address1 . "',
+                    '" . $address2 . "',
+                    '" . $address3 . "',
+                    '" . $postalCode . "', 
+                    '" . $branchNo . "',
+                    " . intval($countryId) . ",
+                    " . intval($countryRegionId) . ",
+                    " . intval($cityId) . ",
+                    " . intval($sisDepartmentId) . ",
                      
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                    priority, 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
                 FROM sys_branch_and_dealers_deff 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 ";
                     $statementInsert = $pdo->prepare($sql);
                   //    echo debugPDO($sql, $params);

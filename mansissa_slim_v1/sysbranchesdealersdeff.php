@@ -416,23 +416,91 @@ $app->get("/pkUpdateAct_sysbranchesdealersdeff/", function () use ($app ) {
                                                 $app,
                                                 $_GET['name']));
     }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $branchNo = NULL;
+    if (isset($_GET['branch_no'])) {
+         $stripper->offsetSet('branch_no',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['branch_no']));
+    }  
+    $address1 = NULL;
+    if (isset($_GET['address1'])) {
+         $stripper->offsetSet('address1',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address1']));
+    }  
+    $address2 = NULL;
+    if (isset($_GET['address2'])) {
+         $stripper->offsetSet('address2',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address2']));
+    }  
+    $address3 = NULL;
+    if (isset($_GET['address3'])) {
+         $stripper->offsetSet('address3',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address3']));
+    }  
+    $postalcode = NULL;
+    if (isset($_GET['postalcode'])) {
+         $stripper->offsetSet('postalcode',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['postalcode']));
+    }    
+    $countryId = NULL;
+    if (isset($_GET['country_id'])) {
+         $stripper->offsetSet('country_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country_id']));
     } 
+    $countryregionId = NULL;
+    if (isset($_GET['country_region_id'])) {
+         $stripper->offsetSet('country_region_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country_region_id']));
+    } 
+    $cityId = NULL;
+    if (isset($_GET['city_id'])) {
+         $stripper->offsetSet('city_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['city_id']));
+    } 
+     $sisdepartmentId = NULL;
+    if (isset($_GET['sis_department_id'])) {
+         $stripper->offsetSet('sis_department_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['sis_department_id']));
+    } 
+    
+     
+    
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+    if($stripper->offsetExists('branch_no')) $branchNo = $stripper->offsetGet('branch_no')->getFilterValue();
+    if($stripper->offsetExists('address1')) $address1 = $stripper->offsetGet('address1')->getFilterValue();
+    if($stripper->offsetExists('address2')) $address2 = $stripper->offsetGet('address2')->getFilterValue();
+    if($stripper->offsetExists('address3')) $address3 = $stripper->offsetGet('address3')->getFilterValue();
+    if($stripper->offsetExists('postalcode')) $postalcode = $stripper->offsetGet('postalcode')->getFilterValue();
+    if($stripper->offsetExists('country_id')) $countryId = $stripper->offsetGet('country_id')->getFilterValue();
+    if($stripper->offsetExists('country_region_id')) $countryregionId = $stripper->offsetGet('country_region_id')->getFilterValue();
+    if($stripper->offsetExists('city_id')) $cityId = $stripper->offsetGet('city_id')->getFilterValue();
+    if($stripper->offsetExists('sis_department_id')) $sisdepartmentId = $stripper->offsetGet('sis_department_id')->getFilterValue();
+ 
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'BranchNo' => $branchNo,  
+            'Address1' => $address1,  
+            'Address2' => $address2,  
+            'Address3' => $address3,  
+            'PostalCode' => $postalcode,  
+            'CountryId' => $countryId,  
+            'CountryRegionId' => $countryregionId,  
+            'CityId' => $cityId,  
+            'SisDepartmentId' => $sisdepartmentId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
