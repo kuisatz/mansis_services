@@ -209,6 +209,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
             FROM info_project_vehicle_models  a                          
             WHERE 
                 a.project_id = " . intval($params['project_id']) . " AND  
+                a.vehicle_gt_model_id = '" .  ($params['vehicle_gt_model_id']) . "'  AND  
                 a.delivery_date = '" .  ($params['delivery_date']) . "'   
 
                 " . $addSql . " 
