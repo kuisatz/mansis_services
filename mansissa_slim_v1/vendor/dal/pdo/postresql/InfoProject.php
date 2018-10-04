@@ -208,8 +208,7 @@ class InfoProject extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project  a                          
             WHERE 
-                a.customer_id = " . intval($params['customer_id']) . " AND 
-                a.deal_sis_key = '" .  ($params['deal_sis_key']) . "'              
+                a.customer_id = " . intval($params['customer_id']) . "  
                   " . $addSql . " 
                 AND a.deleted =0   
                  
@@ -1155,12 +1154,6 @@ class InfoProject extends \DAL\DalSlim {
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
                             
-            $dealSisKey =null ;
-             if ((isset($params['DealSisKey']) && $params['DealSisKey'] != "")) {
-                $dealSisKey = $params['DealSisKey'];
-            } else {  
-                throw new \PDOException($errorInfo[0]); 
-            }   
             $customer = null;
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $customer = $params['CustomerId'];
@@ -1198,8 +1191,7 @@ class InfoProject extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'customer_id' => $customer, 
-                            'deal_sis_key' => $dealSisKey,  
+                            'customer_id' => $customer,  
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {

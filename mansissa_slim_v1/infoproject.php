@@ -361,12 +361,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $dealSisKey = NULL;
-    if (isset($_GET['deal_sis_key'])) {
-         $stripper->offsetSet('deal_sis_key',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['deal_sis_key']));
-    }  
+    
     $customer = NULL;
     if (isset($_GET['customer_id'])) {
          $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -404,7 +399,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
                                                 $_GET['discount_rate']));
     } 
    
-    // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=1234
+    // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=15
     
     
      
@@ -427,7 +422,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
             'Description' => $description,  
             'DiscountRate' => $discountRate,  
             'ReliabilityId' => $reliabilityId,   
-            'DealSisKey' => $dealSisKey,   
+            
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
