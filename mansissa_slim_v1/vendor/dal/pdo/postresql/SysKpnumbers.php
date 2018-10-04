@@ -499,8 +499,7 @@ class SysKpnumbers extends \DAL\DalSlim {
                 FROM sys_kpnumbers a   
                 WHERE   
                     a.deleted = 0 AND
-                    a.active =0  
-                    ) asd 
+                    a.active =0   
                 ORDER BY  id 
 
                                  ");
