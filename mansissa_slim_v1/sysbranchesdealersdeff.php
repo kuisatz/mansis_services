@@ -101,7 +101,7 @@ $app->get("/pkBranchesDealersDeffDdList_sysbranchesdealersdeff/", function () us
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkFillAccBodyDeffGridx_sysbranchesdealersdeff/", function () use ($app ) {
+$app->get("/pkFillBranchesDealersDeffGridx_sysbranchesdealersdeff/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysBranchesDealersDeffBLL');
