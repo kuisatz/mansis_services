@@ -638,6 +638,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.mileage_id,
                         erd.mileages1  AS mileage_type_name,
                         a.price,
+                        a.customer_type_id,
+                        COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS customer_type_name,
                          
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -672,7 +674,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                    
                     INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+                    
+                    INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
+
+
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -848,6 +855,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             frd.name AS month_name,
                             a.mileage_id,
                             erd.name  AS mileage_type_name, 
+                            a.customer_type_id,
+                            COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS customer_type_name,
                             COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                             u.username AS op_user_name 
                         FROM sys_buyback_matrix a                    
@@ -872,6 +881,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
                         LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
 
+                        INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
+                        LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
+                   
                         /*----*/   
                         /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -1066,6 +1078,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.mileage_id,
                         erd.mileages1  AS mileage_type_name,
                         a.price,
+                        a.customer_type_id,
+                        COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS customer_type_name,
                          
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -1100,6 +1114,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                    
                     INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+                   
+                    INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1276,6 +1293,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         frd.name AS month_name,
                         a.mileage_id,
                         erd.name  AS mileage_type_name, 
+                        a.customer_type_id,
+                        COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS customer_type_name,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         u.username AS op_user_name 
                     FROM sys_buyback_matrix a                    
@@ -1299,6 +1318,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                    
                     INNER JOIN sys_terrains hrd ON hrd.act_parent_id = a.terrain_id AND hrd.show_it = 0 AND hrd.language_id= l.id  
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
+                   
+                    INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
