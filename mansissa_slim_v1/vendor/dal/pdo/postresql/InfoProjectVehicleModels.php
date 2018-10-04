@@ -208,9 +208,10 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project_vehicle_models  a                          
             WHERE 
-                a.project_id = " . intval($params['project_id']) . " AND 
-                a.deal_sis_key = '" .  ($params['deal_sis_key']) . "'              
-                  " . $addSql . " 
+                a.project_id = " . intval($params['project_id']) . " AND  
+                a.delivery_date = '" .  ($params['delivery_date']) . "'   
+
+                " . $addSql . " 
                 AND a.deleted =0   
                  
                                ";
@@ -981,7 +982,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                         array(
                             'project_id' => $ProjectId,  
                             'vehicle_gt_model_id' =>  $VehicleGtModelId, 
-                            'deal_sis_key' =>  '',   
+                           
                             'delivery_date' => $DeliveryDate,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -999,7 +1000,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                             " .  intval($ProjectId). ",
                             " .  intval($VehicleGtModelId) . ",
                             " .  intval($Quantity). ",
-                            " .  intval($DeliveryDate) . ", 
+                            '" .   ($DeliveryDate) . "', 
                   
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_project_vehicle_models_id_seq)
@@ -1067,11 +1068,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
             $VehicleGtModelId = null;
             if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
                 $VehicleGtModelId = $params['VehicleGtModelId'];
-            }  
-            $probabilityId= 0;
-            if ((isset($params['ProbabilityId']) && $params['ProbabilityId'] != "")) {
-                $probabilityId = intval($params['ProbabilityId']);
-            }
+            }               
             $Quantity = 0;
             if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
                 $Quantity = intval($params['Quantity']);
@@ -1092,7 +1089,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                         array(
                             'project_id' => $ProjectId,  
                             'vehicle_gt_model_id' =>  $VehicleGtModelId,  
-                            'delivery_date' => $DeliveryDate,  
+                            'delivery_date' => $DeliveryDate,   
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1113,7 +1110,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     " .  intval($ProjectId). ",
                     " .  intval($VehicleGtModelId) . ",
                     " .  intval($Quantity). ",
-                    " .  intval($DeliveryDate) . ", 
+                     '" .   ($DeliveryDate) . "', 
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
