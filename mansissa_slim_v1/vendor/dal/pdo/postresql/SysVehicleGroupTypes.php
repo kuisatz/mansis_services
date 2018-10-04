@@ -486,11 +486,11 @@ class SysVehicleGroupTypes extends \DAL\DalSlim {
     public function  vehicleGroupTypesDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $addSQL=null;
-            $VehicleGroupTypesId = -1 ;
-            if (isset($params['VehicleGroupTypesId']) && $params['VehicleGroupTypesId'] != "") {
-               $VehicleGroupTypesId = $params['VehicleGroupTypesId'];            
-               $addSQL =  " a.vehicle_group_types_id = " . intval($VehicleGroupTypesId). " AND  " ;    
+            $addSQL='1=2';
+            $VehicleGroupId = -1 ;
+            if (isset($params['VehicleGroupsId']) && $params['VehicleGroupsId'] != "") {
+               $VehicleGroupId = $params['VehicleGroupsId'];            
+               $addSQL =  " a.vehicle_groups_id = " . intval($VehicleGroupId). " AND  " ;    
            }                  
               
              $sql = "       

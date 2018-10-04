@@ -486,7 +486,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
     public function vehicleGtModelsDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');     
-            $addSQL = NULL; 
+            $addSQL = '1=2'; 
             $VehicleGroupTypesId = null ; 
             if (isset($params['VehicleGroupTypesId']) && $params['VehicleGroupTypesId'] != "") {
                 $VehicleGroupTypesId = $params['VehicleGroupTypesId'];

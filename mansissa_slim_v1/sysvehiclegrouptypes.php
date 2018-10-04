@@ -64,11 +64,11 @@ $app->get("/pkVehicleGroupTypesDdList_sysvehiclegrouptypes/", function () use ($
                                                 $app,
                                                 $_GET['language_code']));
     }
-   $VehicleGroupTypesId = null;
-    if (isset($_GET['vehicle_group_types_id'])) {
-         $stripper->offsetSet('vehicle_group_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+   $VehicleGroupId = null;
+    if (isset($_GET['vehicle_groups_id'])) {
+         $stripper->offsetSet('vehicle_groups_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['vehicle_group_types_id']));
+                                                $_GET['vehicle_groups_id']));
     }
     $lid = null;
     if (isset($_GET['lid'])) {
@@ -79,11 +79,11 @@ $app->get("/pkVehicleGroupTypesDdList_sysvehiclegrouptypes/", function () use ($
     $stripper->strip(); 
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('vehicle_group_types_id')) $VehicleGroupTypesId = $stripper->offsetGet('vehicle_group_types_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_groups_id')) $VehicleGroupId = $stripper->offsetGet('vehicle_groups_id')->getFilterValue();
         
     $resCombobox = $BLL->vehicleGroupTypesDdList(array(                                   
                                     'language_code' => $vLanguageCode,
-                                    'VehicleGroupTypesId' => $VehicleGroupTypesId,
+                                    'VehicleGroupsId' => $VehicleGroupId,
                                     'LanguageID' => $lid,
                         ));    
 
