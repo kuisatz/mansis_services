@@ -1150,7 +1150,7 @@ class InfoProject extends \DAL\DalSlim {
             } else {  
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r('1111');
+                            
             
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
@@ -1161,7 +1161,7 @@ class InfoProject extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }    
-             print_r('2222');
+                            
             $isHouseDeal = null;
             if ((isset($params['IsHouseDeal']) && $params['IsHouseDeal'] != "")) {
                 $isHouseDeal = $params['IsHouseDeal'];
