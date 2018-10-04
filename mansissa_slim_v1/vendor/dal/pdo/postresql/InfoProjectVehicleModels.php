@@ -876,9 +876,9 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException
      */
-    public function deletedAct($params = array()) {
-        $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+    public function deletedAct($params = array()) { 
         try { 
+             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -930,7 +930,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
         } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+           // $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
