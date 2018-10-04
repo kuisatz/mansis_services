@@ -323,7 +323,7 @@ $app->get("/pkInsertAct_infoprojectvehiclemodels/", function () use ($app ) {
                                                 $_GET['delivery_date']));
     }   
     
-     
+    //  &project_id=1&vehicle_gt_model_id=3&quantity=8&delivery_date=10/10/2018
     $stripper->strip();
     if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue(); 
     if($stripper->offsetExists('vehicle_gt_model_id')) $VehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();
