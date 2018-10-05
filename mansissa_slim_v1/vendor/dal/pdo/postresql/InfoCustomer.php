@@ -1802,11 +1802,10 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
                 $countryId = intval($params['CountryId']);
             }  
-             $cityId= 0;
+            $cityId= 0;
             if ((isset($params['CityId']) && $params['CityId'] != "")) {
                 $cityId = intval($params['CityId']);
             }  
-                  
                             
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
