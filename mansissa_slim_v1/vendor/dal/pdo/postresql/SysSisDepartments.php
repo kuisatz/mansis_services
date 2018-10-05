@@ -912,7 +912,7 @@ class SysSisDepartments extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException
      */
-    public function fillDepartmentsTree($params = array()) {
+    public function fillDepartmentsTreex($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
               $languageIdValue = 385;

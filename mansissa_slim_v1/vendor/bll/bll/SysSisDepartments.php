@@ -106,7 +106,7 @@ class SysSisDepartments extends \BLL\BLLSlim{
     */
     public function fillDepartmentsTree($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('SysSisDepartmentsPostgrePDO');
-        $resultSet = $DAL->fillDepartmentsTree($params);
+        $resultSet = $DAL->fillDepartmentsTreex($params);
         return $resultSet['resultSet'];
     }
     
