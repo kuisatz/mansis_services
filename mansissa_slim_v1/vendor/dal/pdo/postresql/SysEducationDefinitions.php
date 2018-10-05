@@ -983,7 +983,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_education_definitions_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                      echo debugPDO($sql, $params);
+                    //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
