@@ -105,22 +105,27 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     } else {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
-
-    $flows = array();
-    foreach ($resCombobox as $flow) {
-        $flows[] = array(
-            "id" => $flow["id"], 
+    $counts=0;
+  
+    $menu = array();            
+    if (isset($resDataGrid[0]['id'])) {      
+        foreach ($resDataGrid as $menu) { 
+       $menus[] = array(
+            "id" => $menu["id"], 
             "text" => html_entity_decode($flow["name"]),
-            "state" => $flow["state_type"], //   'closed',
+            "state" => $menu["state_type"], //   'closed',
             "checked" => false,
-            "icon_class"=>$flow["icon_class"], 
-            "last_node" => $flow["last_node"],
-            "root" => $flow["root_type"], 
+            "icon_class"=>$menu["icon_class"], 
+            "last_node" => $menu["last_node"],
+            "root" => $menu["root_type"], 
         );
-    }
+      }
+       $counts = $resTotalRowCount[0]['count'];
+      } ELSE  $menus = array();       
+
 
     $app->response()->header("Content-Type", "application/json"); 
-    $app->response()->body(json_encode($flows));
+    $app->response()->body(json_encode($menus));
 });
 
 
