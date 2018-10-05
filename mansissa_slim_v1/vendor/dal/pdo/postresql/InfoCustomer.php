@@ -1705,7 +1705,7 @@ class InfoCustomer extends \DAL\DalSlim {
                  $kontrol=$kontrol+1 ;  
             }
                      
-            if ($kontrol> 1 ) {
+            if ($kontrol> 3 ) {
                 throw new \PDOException($errorInfo[0]);
             }
             $registrationName = null;
@@ -1743,7 +1743,7 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['RegistrationDate']) && $params['RegistrationDate'] != "")) {
                 $registrationDate = $params['RegistrationDate'];
                 $addSQL1 = 'registration_date,  ';
-                $addSQL2 = "'". $registrationDate."'";
+                $addSQL2 = "'". $registrationDate."',";
             }  
                             
             $neCountTypeId = 0;
@@ -1834,7 +1834,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         embrace_customer_no, 
                         tu_emb_customer_no, 
                         ce_emb_customer_no, 
-                        other_emb_customer_no
+                        other_emb_customer_no,
                         registration_name, 
                         trading_name, 
                         name_short, 
