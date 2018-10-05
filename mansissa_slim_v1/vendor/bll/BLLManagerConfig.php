@@ -137,6 +137,7 @@ class BLLManagerConfig{
                    'sysVehicleGroupsBLL' => 'BLL\BLL\SysVehicleGroups',
                    'sysVehicleGtModelsBLL' => 'BLL\BLL\SysVehicleGtModels',
                    'sysVehicleModelVariantsBLL' => 'BLL\BLL\SysVehicleModelVariants',
+                   'sysVehiclesTradeBLL' => 'BLL\BLL\SysVehiclesTrade',
                    'sysVehiclesBLL' => 'BLL\BLL\SysVehicles',
                    'sysVehicleBtobtsBLL' => 'BLL\BLL\SysVehicleBtobts', 
                    'sysWarrantiesBLL' => 'BLL\BLL\SysWarranties', 

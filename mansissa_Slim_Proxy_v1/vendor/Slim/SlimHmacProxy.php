@@ -22,7 +22,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+             //**---- sysVehiclesTradeBLL -------------------  
+            
+                                    'pkVehiclesTbDefDdList_sysvehiclestrade' => 'restApiDefaultCall', 
+                                    'pkVehiclesBbDefDdList_sysvehiclestrade' => 'restApiDefaultCall',  
+                                    'pkFillVehiclesTradeNamesGridx_sysvehiclestrade' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_sysvehiclestrade' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_sysvehiclestrade' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_sysvehiclestrade' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_sysvehiclestrade' => 'restApiDefaultCall', 
+            
+             //** sysVehiclesTradeBLL ----------------------//   
            //**---- sysHorsepowerBLL -------------------  
                                     'pkHorsePowerDdList_syshorsepower' => 'restApiDefaultCall',  
             //** sysHorsepowerBLL ----------------------//   
@@ -2008,6 +2019,11 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 echo "_test!";
                 break; 
             
+            
+            
+              case "_sysvehiclestrade":  
+                $this->setRestApiEndPoint('sysvehiclestrade.php/');
+                break; 
              case "_syshorsepower":  
                 $this->setRestApiEndPoint('syshorsepower.php/');
                 break; 

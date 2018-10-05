@@ -312,6 +312,7 @@ class DalManagerConfig {
                 'sysVehicleGroupsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleGroupsFactory',
                 'sysVehicleGtModelsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleGtModelsFactory',
                 'sysVehicleModelVariantsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleModelVariantsFactory',
+                'sysVehiclesTradePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesTradeFactory',  
                 'sysVehiclesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesFactory',
                 'sysVehicleBtobtsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleBtobtsFactory',                 
                 'sysWarrantiesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantiesFactory', 
