@@ -826,7 +826,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                 WHERE id = :id or language_parent_id = :id");
+                 WHERE id = :id ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -983,7 +983,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_education_definitions_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                      echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
