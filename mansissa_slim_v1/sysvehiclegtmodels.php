@@ -64,7 +64,7 @@ $app->get("/pkVehicleGtModelsDdList_sysvehiclegtmodels/", function () use ($app 
                                                 $app,
                                                 $_GET['language_code']));
     }
-   $VehicleGroupTypesId = null;
+    $VehicleGroupTypesId = null;
     if (isset($_GET['vehicle_group_types_id'])) {
          $stripper->offsetSet('vehicle_group_types_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,

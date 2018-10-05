@@ -512,8 +512,8 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     0 AS state_type   
                 FROM sys_vehicle_gt_models a  
                 inner join info_project_vehicle_models pvm on pvm.vehicle_gt_model_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
-                inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
-                inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
+                inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.show_it =0 
+                inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.show_it =0  
                 WHERE  
                     ".$addSQL."
                     a.deleted = 0 AND

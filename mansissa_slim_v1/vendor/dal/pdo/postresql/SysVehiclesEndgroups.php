@@ -607,8 +607,8 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
             $statement = $pdo->prepare("   
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    a.bbtb_description AS name,  
-                    a.bbtb_description AS name_eng,
+                    a.endgroup_description AS name,  
+                    a.endgroup_description AS name_eng,
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
@@ -1107,7 +1107,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_vehicles_endgroups 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1337,7 +1337,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicles_endgroups (  
