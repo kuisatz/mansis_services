@@ -1332,6 +1332,8 @@ class InfoCustomer extends \DAL\DalSlim {
 			address2,
 			address3,
 			postalcode,
+                        phonenumber,
+                        email,
 			
 			city_id, 
 			country_id,  
@@ -1370,6 +1372,8 @@ class InfoCustomer extends \DAL\DalSlim {
 			address2,
 			address3,
 			postalcode,
+                        phonenumber,
+                        email,
 			
 			city_id, 
 			country_id,  
@@ -1543,6 +1547,14 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['CityId']) && $params['CityId'] != "")) {
                 $cityId = intval($params['CityId']);
             }  
+            $phonenumber= null;
+            if ((isset($params['PhoneNumber']) && $params['PhoneNumber'] != "")) {
+                $phonenumber = $params['PhoneNumber'];
+            }  
+             $Email= null;
+            if ((isset($params['Email']) && $params['Email'] != "")) {
+                $Email = $params['Email'];
+            }  
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1586,6 +1598,8 @@ class InfoCustomer extends \DAL\DalSlim {
                             address2,
                             address3,
                             postalcode,
+                            phonenumber,
+                            email,
 
                             city_id, 
                             country_id,  
@@ -1617,7 +1631,9 @@ class InfoCustomer extends \DAL\DalSlim {
                             '" . $address1 . "',
                             '" . $address2 . "',
                             '" . $address3 . "',
-                            '" . $postalCode. "',
+                            '" . $postalCode. "', 
+                            '" . $phonenumber. "', 
+                            '" . $Email. "',  
                             " .  intval($cityId) . ",
                             " .  intval($countryId) . ",
                                 
@@ -1806,6 +1822,14 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['CityId']) && $params['CityId'] != "")) {
                 $cityId = intval($params['CityId']);
             }  
+             $phonenumber= null;
+            if ((isset($params['PhoneNumber']) && $params['PhoneNumber'] != "")) {
+                $phonenumber = $params['PhoneNumber'];
+            }  
+             $Email= null;
+            if ((isset($params['Email']) && $params['Email'] != "")) {
+                $Email = $params['Email'];
+            }  
                             
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1856,6 +1880,8 @@ class InfoCustomer extends \DAL\DalSlim {
                         address2,
                         address3,
                         postalcode,
+                        phonenumber,
+                        email,
 
                         city_id, 
                         country_id,  
@@ -1888,6 +1914,8 @@ class InfoCustomer extends \DAL\DalSlim {
                     '" . $address2 . "',
                     '" . $address3 . "',
                     '" . $postalCode. "',
+                    '" . $phonenumber. "', 
+                    '" . $Email. "',  
                     " .  intval($cityId) . ",
                     " .  intval($countryId) . ",
                                  
