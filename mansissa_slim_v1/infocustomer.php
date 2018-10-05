@@ -544,6 +544,10 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
                                                 $_GET['segment_type_id']));
     } 
      
+    
+    
+  //&embrace_customer_no=TYU5675&tu_emb_customer_no= &ce_emb_customer_no=&other_emb_customer_no=&registration_name=denemefirm&trading_name=denemefirm&name_short=denemefirm&www=denemefirm.com&vatnumber=1231231&registration_number=321321321&registration_date=2018-10-10&ne_count_type_id=1&nv_count_type_id= 2&customer_category_id=2&reliability_id=1&turnover_rate_id=2&sector_type_id=3&application_type_id=1&segment_type_id=1&country2_id=107&address1=asd cad&address2=11 str&address3=5&postalcode=1231&city_id=151&country_id=107
+    
     $stripper->strip();
     if($stripper->offsetExists('embrace_customer_no')) $embraceCustomerNo = $stripper->offsetGet('embrace_customer_no')->getFilterValue(); 
     if($stripper->offsetExists('tu_emb_customer_no')) $tuEmbCustomerNo = $stripper->offsetGet('tu_emb_customer_no')->getFilterValue();
