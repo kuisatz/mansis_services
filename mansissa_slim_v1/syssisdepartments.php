@@ -112,13 +112,14 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
         foreach ($resCombobox as $flow) { 
             $flows[] = array(
                 "id" => $flow["id"],
-                //"text" => strtolower($flow["name"]),
+                "apid" => $flow["apid"],
                 "text" => html_entity_decode($flow["name"]),
                 "state" => $flow["state_type"], //   'closed',
                 "checked" => false,
                 "icon_class"=>$flow["icon_class"], 
-                "attributes" => array("root" => $flow["root_type"], "active" => $flow["active"]
-                    ,"machine" => html_entity_decode($flow["machine"]),"last_node" => $flow["last_node"]),
+                "root" => $flow["root_type"],
+                "last_node" => $flow["last_node"],
+               
         );
       }
       
