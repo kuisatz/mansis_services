@@ -106,7 +106,7 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
      
-    print_r($resCombobox) ; 
+    print_r($resCombobox[0]['id']);
     $flows = array();            
     if (isset($resCombobox[0]['id'])) {      
         foreach ($resCombobox as $flow) { 
