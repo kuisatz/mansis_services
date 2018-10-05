@@ -13,18 +13,18 @@ namespace DAL\PDO\Postresql;
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager
  * @
- * @author Okan CIRAN
- * @since 30.07.2018   
+ * @author Okan CIRAN        
+ * @since 30.07.2018                         
  */ 
-class SysEducationDefinitions extends \DAL\DalSlim {
+class InfoProjectVehicleModels extends \DAL\DalSlim {
 
     /**
-     * @author Okan CIRAN
-     * @ sys_education_definitions tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @author Okan CIRAN    
+     * @ info_project_vehicle_models tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  30.07.2018
-     * @param array $params
-     * @return array
-     * @throws \PDOException
+     * @param array $params   
+     * @return array  
+     * @throws \PDOException  
      */
     public function delete($params = array()) {
      try {
@@ -34,7 +34,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];                
                 $statement = $pdo->prepare(" 
-                UPDATE sys_education_definitions
+                UPDATE info_project_vehicle_models
                 SET deleted= 1, active = 1,
                      op_user_id = " . intval($opUserIdValue) . "     
                 WHERE id = ".  intval($params['id'])  );            
@@ -58,7 +58,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosundaki tüm kayıtları getirir.  !!
+     * @ info_project_vehicle_models tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.07.2018  
      * @param array $params
      * @return array
@@ -90,7 +90,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_education_definitions a
+                FROM info_project_vehicle_models a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -98,7 +98,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_education_definitions ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN info_project_vehicle_models ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 ORDER BY menu_type_name
 
@@ -117,7 +117,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosuna yeni bir kayıt oluşturur.  !!
+     * @ info_project_vehicle_models tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -142,7 +142,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                 $sql = "
-                INSERT INTO sys_education_definitions(
+                INSERT INTO info_project_vehicle_models(
                         name, 
                         name_eng, 
                         description, 
@@ -161,7 +161,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     $statement = $pdo->prepare($sql);                            
                 //   echo debugPDO($sql, $params);
                     $result = $statement->execute();                  
-                    $insertID = $pdo->lastInsertId('sys_education_definitions_id_seq');
+                    $insertID = $pdo->lastInsertId('info_project_vehicle_models_id_seq');
                     $errorInfo = $statement->errorInfo();  
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
@@ -187,7 +187,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosunda property_name daha önce kaydedilmiş mi ?  
+     * @ info_project_vehicle_models tablosunda property_name daha önce kaydedilmiş mi ?  
      * @version v 1.0 13.03.2016
      * @param type $params
      * @return array
@@ -202,17 +202,22 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_education_definitions  a                          
+                '' AS name  ,
+                '' AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+            FROM info_project_vehicle_models  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
-                  " . $addSql . " 
-                AND a.deleted =0    
+                a.project_id = " . intval($params['project_id']) . " AND  
+                a.vehicle_gt_model_id = '" .  ($params['vehicle_gt_model_id']) . "'  AND  
+                a.delivery_date = '" .  ($params['delivery_date']) . "'   
+
+                " . $addSql . " 
+                AND a.deleted =0   
+                 
                                ";
             $statement = $pdo->prepare($sql);
+                            
          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -227,7 +232,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * sys_education_definitions tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * info_project_vehicle_models tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.07.2018
      * @param type $params
      * @return array
@@ -251,7 +256,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(array('id' => $params['id'], 'name' => $params['name']));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    UPDATE sys_education_definitions
+                    UPDATE info_project_vehicle_models
                     SET 
                         name= '".$params['name']."',  
                         name_eng=  '".$params['name_eng']."',  
@@ -290,7 +295,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_education_definitions tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için info_project_vehicle_models tablosundan kayıtları döndürür !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -351,7 +356,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 			COALESCE(NULLIF(lx.language, ''), l.language_eng) AS language_name,			 
                         a.op_user_id,
                         u.username AS op_user_name
-                FROM sys_education_definitions a
+                FROM info_project_vehicle_models a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0 
                 LEFT JOIN sys_language lx ON lx.id = ".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
@@ -359,7 +364,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id    
                 LEFT JOIN sys_specific_definitions sd15x ON (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.language_id =lx.id  AND sd15x.deleted =0 AND sd15x.active =0 
                 LEFT JOIN sys_specific_definitions sd16x ON (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id)AND sd16x.language_id = lx.id  AND sd16x.deleted = 0 AND sd16x.active = 0
-                LEFT JOIN sys_education_definitions ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
+                LEFT JOIN info_project_vehicle_models ax ON (ax.id = a.id OR ax.language_parent_id = a.id) AND ax.deleted =0 AND ax.active =0 AND lx.id = ax.language_id
                 
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                 ORDER BY    " . $sort . " "
@@ -388,7 +393,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_education_definitions tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için info_project_vehicle_models tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  30.07.2018
      * @param array | null $args
      * @return array
@@ -401,7 +406,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                      COUNT(a.id) AS COUNT 
-                FROM sys_education_definitions a
+                FROM info_project_vehicle_models a
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active = 0                 
                 INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.language_id = a.language_id AND sd15.deleted = 0 
                 INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.language_id = a.language_id AND sd16.deleted = 0
@@ -425,7 +430,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
     
     /*
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ info_project_vehicle_models tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
       * @version v 1.0  30.07.2018
      * @param type $params
@@ -442,13 +447,13 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_education_definitions
+                UPDATE info_project_vehicle_models
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_education_definitions
+                                FROM info_project_vehicle_models
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -474,49 +479,50 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
+         
     /** 
      * @author Okan CIRAN
-     * @ eğitim tanımları dropdown ya da tree ye doldurmak için sys_education_definitions tablosundan kayıtları döndürür !!
+     * @ deal a eklenen aracları dropdown ya da tree ye doldurmak için info_project_vehicle_models tablosundan kayıtları döndürür !!
      * @version v 1.0  11.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException 
      */
-    public function  educationDefinitionsDdList($params = array()) {
+    public function projectVehicleModelsDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
+            $errorInfo[0] = "99999";         
+            $addSQL =null;
+            $ProjectId=-1 ;
+            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
+                $ProjectId = $params['ProjectId'];
+                $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+                            
               
-            $statement = $pdo->prepare("     
+            $sql =  "    
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
+                    concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
+                    concat(sv.name,' - ' , svgt.name) AS name_eng,
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
-                FROM sys_education_definitions a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_education_definitions sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
-                WHERE   
+                FROM sys_vehicle_gt_models a  
+                inner join info_project_vehicle_models pvm on pvm.vehicle_gt_model_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
+                inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
+                inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
+                WHERE  
+                    ".$addSQL."
                     a.deleted = 0 AND
-                    a.active =0 AND
-                    a.language_parent_id =0  
-                ORDER BY  id  
-                                 ");
+                    a.active =0   
+                ORDER BY  svgt.vehicle_groups_id , concat(sv.name,' - ' , svgt.name)  , a.name  
+ 
+                                 " ;
+             $statement = $pdo->prepare($sql);
+         //    echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
@@ -527,16 +533,16 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
+    
     /** 
      * @author Okan CIRAN
-     * @ eğitim tanımlarını grid formatında döndürür !! ana tablo  sys_education_definitions 
+     * @   deal arac tanımlarını grid formatında döndürür !! ana tablo  info_project_vehicle_models 
      * @version v 1.0  20.08.2018
-     * @param array | null $args
+     * @param array | null $args 
      * @return array
-     * @throws \PDOException     
+     * @throws \PDOException  
      */  
-    public function fillEducationDefinitionsGridx($params = array()) {
+    public function fillProjectVehicleModelsGridx($params = array()) {
         try {
             if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
                 $offset = ((intval($params['page']) - 1) * intval($params['rows']));
@@ -576,16 +582,16 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                            case 'deal_sis_key':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND pp.deal_sis_key" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'vehicle_gt_model_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) " . $sorguExpression . ' ';
 
-                                break; 
+                                break;   
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -621,36 +627,43 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             }    
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
+            }    
+            $ProjectId =-1 ;
+            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
+                $ProjectId = $params['ProjectId']; 
             }  
-            $educationDefinitionID =0 ;
-            if (isset($params['EducationDefinitionID']) && $params['EducationDefinitionID'] != "") {
-                $educationDefinitionID = $params['EducationDefinitionID'];
-                $addSql ="  a.act_parent_id  = " . intval($educationDefinitionID). "  AND  " ; 
-            }  
-
-                $sql = "
-                    SELECT    
+              $addSQL =   " a.project_id  = " . intval($ProjectId). "  AND  " ;
+                            
+                $sql = "     
+                    SELECT  
                         a.id, 
-                        a.act_parent_id as apid,   
-                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                      /*  a.name_eng, */ 
+                        a.act_parent_id as apid,  
+			a.project_id,
+                        pp.deal_sis_key, 
+			a.vehicle_gt_model_id,
+			concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) vehicle_gt_model_name, 
+                        concat(sv.name,' - ' , svgt.name ,' - ' , gt.name , ' / ', cast(a.quantity as character varying(10)), ' Pieces' , ' /  Delivery Date =', cast(a.delivery_date as character varying(10))) tag_name, 
+			a.quantity,
+			a.delivery_date, 
                         a.active,
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
-                       /* a.deleted,
-                        COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,
                         u.username AS op_user_name,  
                         a.s_date date_saved,
-                        a.c_date date_modified,
-                        /* a.priority, */ 
+                        a.c_date date_modified, 
                         COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
                         lx.language_main_code language_code, 
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                    FROM sys_education_definitions a                    
-                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
-                    LEFT JOIN sys_education_definitions ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
+                    FROM info_project_vehicle_models a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
                     INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+		    inner join info_project pp on pp.act_parent_id = a.project_id 
+                    inner join sys_vehicle_gt_models gt on gt.act_parent_id = a.vehicle_gt_model_id 
+                    inner join sys_vehicle_group_types svgt ON svgt.id = gt.vehicle_group_types_id AND svgt.show_it =0 
+                    inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.show_it =0  
+		  
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -659,12 +672,10 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
+                     " . $addSql . "
                         a.deleted =0 AND
-                        a.show_it =0 AND                        
-                        a.language_parent_id =0  
-                     
-                " . $addSql . "
-                " . $sorguStr . " 
+                        a.show_it =0  
+                     " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
                     . "LIMIT " . $pdo->quote($limit) . " "
@@ -679,7 +690,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $parameters);                
+              //  echo debugPDO($sql, $params);               
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -696,13 +707,13 @@ class SysEducationDefinitions extends \DAL\DalSlim {
     
     /** 
      * @author Okan CIRAN
-     * @ eğitim tanımlarıını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo  sys_education_definitions 
+     * @  garanti tanımlarını grid formatında gösterilirken kaç kayıt olduğunu döndürür !! ana tablo info_project_vehicle_models
      * @version v 1.0  20.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException  
      */  
-    public function fillEducationDefinitionsGridxRtl($params = array()) {
+    public function fillProjectVehicleModelsGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
@@ -714,16 +725,16 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'name':
+                           case 'deal_sis_key':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND COALESCE(NULLIF(ax.name, ''), a.name_eng)" . $sorguExpression . ' ';
+                                $sorguStr.=" AND pp.deal_sis_key" . $sorguExpression . ' ';
                               
                                 break;
-                            case 'name_eng':
+                            case 'vehicle_gt_model_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND a.name_eng" . $sorguExpression . ' ';
+                                $sorguStr.=" AND concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) " . $sorguExpression . ' ';
 
-                                break; 
+                                break;   
                             case 'op_user_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND u.username" . $sorguExpression . ' ';
@@ -760,35 +771,53 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $educationDefinitionID =0 ;
-            if (isset($params['EducationDefinitionID']) && $params['EducationDefinitionID'] != "") {
-                $educationDefinitionID = $params['EducationDefinitionID'];
-                $addSql ="  a.act_parent_id  = " . intval($educationDefinitionID). "  AND  " ; 
-            }   
+            $isboConfirm = -1 ; 
+            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
+                $isboConfirm = $params['IsBoConfirm']; 
+                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+            }      
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                       SELECT    
-                            a.id, 
-                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
-                        FROM sys_education_definitions a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
-                        LEFT JOIN sys_education_definitions ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
-
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0 AND                        
-                            a.language_parent_id =0  
+                        SELECT  
+                        a.id, 
+                        a.act_parent_id as apid,  
+			a.project_id,
+                        pp.deal_sis_key, 
+			a.vehicle_gt_model_id,
+			concat(sv.name,' - ' , svgt.name ,' - ' , gt.name) vehicle_gt_model_name, 
+                        concat(sv.name,' - ' , svgt.name ,' - ' , gt.name , ' / ', cast(a.quantity as character varying(10)), ' Pieces' , ' /  Delivery Date =', cast(a.delivery_date as character varying(10))) tag_name, 
+			a.quantity,
+			a.delivery_date, 
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified, 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
+                    FROM info_project_vehicle_models a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+		    inner join info_project pp on pp.act_parent_id = a.project_id 
+                    inner join sys_vehicle_gt_models gt on gt.act_parent_id = a.vehicle_gt_model_id 
+                    inner join sys_vehicle_group_types svgt ON svgt.id = gt.vehicle_group_types_id AND svgt.show_it =0 
+                    inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.show_it =0  
+		  
+                    /*----*/   
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        a.deleted =0 AND
+                        a.show_it =0   
                          " . $addSql . "
                          " . $sorguStr . " 
                     ) asdx
@@ -811,7 +840,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
+     * @ info_project_vehicle_models tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
      * @param type $params
      * @return array
@@ -821,12 +850,12 @@ class SysEducationDefinitions extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
             $statement = $pdo->prepare(" 
-                UPDATE sys_education_definitions
+                UPDATE info_project_vehicle_models
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
                     show_it =1 
-                 WHERE id = :id or language_parent_id = :id");
+               WHERE id = :id  ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
@@ -841,16 +870,16 @@ class SysEducationDefinitions extends \DAL\DalSlim {
     
     /**
      * @author Okan CIRAN     
-     * @ sys_education_definitions tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
+     * @ info_project_vehicle_models tablosundan parametre olarak  gelen id kaydın active veshow_it  alanını 1 yapar ve 
      * yeni yeni kayıt oluşturarak deleted ve active = 1  show_it =0 olarak  yeni kayıt yapar. !  
      * @version v 1.0  24.08.2018
      * @param array | null $args
      * @return array
      * @throws \PDOException
      */
-    public function deletedAct($params = array()) {
-        $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+    public function deletedAct($params = array()) { 
         try { 
+             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -861,13 +890,13 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
                 $this->makePassive(array('id' => $params['id']));
 
-                $statementInsert = $pdo->prepare(" 
-                    INSERT INTO sys_education_definitions (
-                        name,
-                        name_eng,
+                 $sql = "
+                    INSERT INTO info_project_vehicle_models (  
+                        project_id,
+                        vehicle_gt_model_id,
+                        quantity,
+                        delivery_date,
                          
-                        language_id,
-                        language_parent_id,
                         active,
                         deleted,
                         op_user_id,
@@ -875,20 +904,21 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name,
-                        name_eng, 
-                        
-                        language_id,
-                        language_parent_id, 
+                        project_id,
+                        vehicle_gt_model_id,
+                        quantity,
+                        delivery_date,
+                         
                         1 AS active,  
                         1 AS deleted, 
                         " . intval($opUserIdValue) . " AS op_user_id, 
                         act_parent_id,
                         0 AS show_it 
-                    FROM sys_education_definitions 
-                    WHERE id  =" . intval($params['id']) . " 
-                    ");
-
+                    FROM info_project_vehicle_models 
+                    WHERE id  =" . intval($params['id']) . "   
+                    " ;
+                $statementInsert = $pdo->prepare($sql);
+                
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
@@ -902,14 +932,14 @@ class SysEducationDefinitions extends \DAL\DalSlim {
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
         } catch (\PDOException $e /* Exception $e */) {
-            $pdo->rollback();
+           // $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
 
     /**
      * @author Okan CIRAN
-     * @ sys_education_definitions tablosuna yeni bir kayıt oluşturur.  !! 
+     * @ info_project_vehicle_models tablosuna yeni bir kayıt oluşturur.  !! 
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -919,93 +949,74 @@ class SysEducationDefinitions extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
-            ////*********/////  1 
-            $languageIdValue = 385;
-           /* if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }  
-            * 
-            */
-            ////*********///// 1                  
+            $kontrol =0 ;                
             $errorInfo[0] = "99999";
-            $nameTemp = null;
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
+                            
+            $ProjectId = null;
+            if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
+                $ProjectId = $params['ProjectId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $nameEng = null;
-          /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
+            }                            
+            $VehicleGtModelId = null;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $VehicleGtModelId = $params['VehicleGtModelId'];
             } else {
-                if ($languageIdValue != 385 )  { throw new \PDOException($errorInfo[0]);}
-            }
-           * 
-           */
+                throw new \PDOException($errorInfo[0]);
+            }                 
+            $Quantity = 0;
+            if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
+                $Quantity = intval($params['Quantity']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }   
+            $DeliveryDate = null;
+            if ((isset($params['DeliveryDate']) && $params['DeliveryDate'] != "")) {
+                $DeliveryDate = $params['DeliveryDate'];
+            } 
                             
-                ////*********///// 2    
-            if ($languageIdValue != 385 )  
-                {$nameTemp = $name;  } else {$nameEng = $name;  } 
-                ////*********///// 2          
-
+                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name,
-                            'language_id' => $languageIdValue, 
+                            'project_id' => $ProjectId,  
+                            'vehicle_gt_model_id' =>  $VehicleGtModelId, 
+                           
+                            'delivery_date' => $DeliveryDate,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_education_definitions(
-                            name, 
-                            name_eng,  
-
+                    INSERT INTO info_project_vehicle_models(
+                            project_id,
+                            vehicle_gt_model_id,
+                            quantity,
+                            delivery_date,
+ 
                             op_user_id,
                             act_parent_id  
                             )
-                    VALUES (
-                            '" . $name . "',
-                            '" . $nameEng . "', 
-
+                    VALUES ( 
+                            " .  intval($ProjectId). ",
+                            " .  intval($VehicleGtModelId) . ",
+                            " .  intval($Quantity). ",
+                            '" .   ($DeliveryDate) . "', 
+                  
                             " . intval($opUserIdValue) . ",
-                           (SELECT last_value FROM sys_education_definitions_id_seq)
+                           (SELECT last_value FROM info_project_vehicle_models_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+            //    echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('sys_education_definitions_id_seq');
+                    $insertID = $pdo->lastInsertId('info_project_vehicle_models_id_seq');
 
-                   ////*********/////  3 
-              /*      $insertLanguageTemplateParams = array(
-                        'id' => intval($insertID),
-                        'language_id' => intval($languageIdValue),
-                        'nameTemp' =>  ($nameTemp),
-                    );
-                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
-                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
-                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
-                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
-                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
-                    } 
-               * 
-               */
-                    ////*********///// 3  
                             
+
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
@@ -1025,83 +1036,10 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    /**
-     * @author Okan CIRAN
-     * @ sys_education_definitions tablosuna aktif olan diller için ,tek bir kaydın tabloda olmayan diğer dillerdeki kayıtlarını oluşturur   !!
-     * @version v 1.0  26.08.2018
-     * @todo Su an için aktif değil SQl in değişmesi lazım. 
-     * @return array
-     * @throws \PDOException
-     */
-    public function insertLanguageTemplate($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            //  $pdo->beginTransaction();
-            /**
-             * table names and column names will be changed for specific use
-             */
-            $statement = $pdo->prepare(" 
-                
-                INSERT INTO sys_education_definitions(
-                    name, 
-                    name_eng,  
-                     
-                    language_id,
-                    language_parent_id, 
-                    act_parent_id,
-                    op_user_id)
-                    
-                  SELECT    
-                    name, 
-                    name_eng,  
-                     
-                    language_id,
-                    language_parent_id, 
-                     ROW_NUMBER () OVER (ORDER BY act_parent_id)+ act_parent_id act_parent_id, 
-                    op_user_id
-                FROM ( 
-                    SELECT  
-                        
-			case when l.id = 385 then c.name_eng   
-			     when " . intval($params['language_id']) . " = l.id  then '" .($params['nameTemp']). "'  
-                            else '' end as name,  
-                        COALESCE(NULLIF(c.name_eng,''), c.name) AS name_eng, 
-                        l.id as language_id,  
-			case l.id when 385 then 0 else c.id  end as language_parent_id ,   
-			case l.id when 385 then c.id else (SELECT last_value FROM sys_education_definitions_id_seq) end as act_parent_id,  
-                        c.op_user_id
-                    FROM sys_education_definitions c
-                    LEFT JOIN sys_language l ON l.deleted =0 AND l.active =0 
-                    WHERE c.id = " . intval($params['id']) . "  
-                    ) AS xy   
-                    WHERE xy.language_id NOT IN 
-                        (SELECT DISTINCT language_id 
-                        FROM sys_education_definitions cx 
-                        WHERE 
-                            (/* cx.language_parent_id = " . intval($params['id']) . " OR  */
-                            cx.id = " . intval($params['id']) . "  ) /* AND  
-                            cx.deleted =0 AND 
-                            cx.active =0 */ )
-                    ");
-
-            $result = $statement->execute();
-            $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            //   $pdo->commit();
-
-            return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
-        } catch (\PDOException $e /* Exception $e */) {
-            //  $pdo->rollback();
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
                             
     /**
      * @author Okan CIRAN
-     * sys_education_definitions tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * info_project_vehicle_models tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  26.08.2018
      * @param type $params
      * @return array
@@ -1110,29 +1048,38 @@ class SysEducationDefinitions extends \DAL\DalSlim {
     public function updateAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $pdo->beginTransaction();
+            $pdo->beginTransaction(); 
             $errorInfo[0] = "99999";
+            
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
-            } else {    
+            } else {  
                 throw new \PDOException($errorInfo[0]);
             }
-
-            $name = "";
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
+            
+            $kontrol =0 ;                
+            $errorInfo[0] = "99999";
+                            
+            $ProjectId = null;
+            if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
+                $ProjectId = $params['ProjectId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $nameEng = $name;
-        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
-                $nameEng = $params['NameEng'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-         * 
-         */ 
+            }                            
+            $VehicleGtModelId = null;
+            if ((isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "")) {
+                $VehicleGtModelId = $params['VehicleGtModelId'];
+            }               
+            $Quantity = 0;
+            if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
+                $Quantity = intval($params['Quantity']);
+            }           
+            $DeliveryDate = null;
+            if ((isset($params['DeliveryDate']) && $params['DeliveryDate'] != "")) {
+                $DeliveryDate = $params['DeliveryDate'];
+            } 
+                            
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
             $opUserId = $opUserIdArray->getUserId($opUserIdParams);
@@ -1142,50 +1089,49 @@ class SysEducationDefinitions extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' =>$name, 
+                            'project_id' => $ProjectId,  
+                            'vehicle_gt_model_id' =>  $VehicleGtModelId,  
+                            'delivery_date' => $DeliveryDate,   
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
                     $this->makePassive(array('id' => $params['Id']));
 
-               $sql = "
-                INSERT INTO sys_education_definitions (  
-                        name,
-                        name_eng, 
-                        
-                        priority,
-                        language_id,
-                        language_parent_id,
+                  $sql = "
+                INSERT INTO info_project_vehicle_models (  
+                        project_id,
+                        vehicle_gt_model_id,
+                        quantity,
+                        delivery_date,
+
                         op_user_id,
-                        act_parent_id 
+                        act_parent_id  
                         )  
                 SELECT  
-                    '" . ($name) . "' AS name,    
-                    '" . ($nameEng) . "' AS name_eng,  
-                     
-                    priority,
-                    language_id,
-                    language_parent_id ,
+                    " .  intval($ProjectId). ",
+                    " .  intval($VehicleGtModelId) . ",
+                    " .  intval($Quantity). ",
+                     '" .   ($DeliveryDate) . "', 
+                                 
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
-                FROM sys_education_definitions 
+                FROM info_project_vehicle_models 
                 WHERE 
-                   id  =" . intval($Id) . "                  
-                                                ";
+                    id  =" . intval($Id) . "                  
+                                                " ;
                     $statementInsert = $pdo->prepare($sql);
-                  //    echo debugPDO($sql, $params);
-                    $result = $statementInsert->execute();
-                            
+                    $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
+                    print_r($result) ; 
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-
+                            
                      $affectedRows = $statementInsert->rowCount();
                     if ($affectedRows> 0 ){
-                    $insertID = $pdo->lastInsertId('sys_education_definitions_id_seq');}
-                    else $insertID =0 ;  
-                    
+                    $insertID = $pdo->lastInsertId('info_project_vehicle_models_id_seq');}
+                    else $insertID =0 ;   
+                            
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
@@ -1204,7 +1150,7 @@ class SysEducationDefinitions extends \DAL\DalSlim {
             // $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
-    }
-
+    }    
+    
     
 }
