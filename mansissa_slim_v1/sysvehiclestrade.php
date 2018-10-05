@@ -175,7 +175,7 @@ $app->get("/pkFillVehiclesTradeNamesGridx_sysvehiclestrade/", function () use ($
     $BLL = $app->getBLLManager()->get('sysVehiclesTradeBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillAccBodyDeffGridx_sysvehiclestrade" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillVehiclesTradeNamesGridx_sysvehiclestrade" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
@@ -250,12 +250,11 @@ $app->get("/pkFillVehiclesTradeNamesGridx_sysvehiclestrade/", function () use ($
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
                "id" => $menu["id"],
-                "apid" => intval($menu["apid"]),  
-                "ckdcbu_type_id" => intval($menu["ckdcbu_type_id"]),  
-                "cbuckd_name" => html_entity_decode($menu["cbuckd_name"]), 
+                "apid" => intval($menu["apid"]),   
                 "vehicle_gt_model_id" => $menu["vehicle_gt_model_id"], 
                 "gt_model_name" => html_entity_decode($menu["gt_model_name"]),   
                 "trade_name" => html_entity_decode($menu["trade_name"]),   
+            
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
