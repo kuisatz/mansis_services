@@ -106,21 +106,28 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
       
-    
-    $flows = array();   
-    foreach ($resCombobox as $flow) { 
+
+    $flows = array();
+    foreach ($resCombobox as $flow) {
         $flows[] = array(
             "id" => $flow["id"],
-            "apid" => $flow["apid"],
+            //"text" => strtolower($flow["name"]),
             "text" => html_entity_decode($flow["name"]),
             "state" => $flow["state_type"], //   'closed',
             "checked" => false,
             "icon_class"=>$flow["icon_class"], 
-            "root" => $flow["root_type"],
-            "last_node" => $flow["last_node"],
-
+            "attributes" => array("root" => $flow["root_type"], "active" => $flow["active"]
+                ,"machine" => html_entity_decode($flow["machine"]),"last_node" => $flow["last_node"]),
         );
-    };
+    }
+
+    $app->response()->header("Content-Type", "application/json");
+
+    /* $app->contentType('application/json');
+      $app->halt(302, '{"error":"Something went wrong"}');
+      $app->stop(); */
+
+    $app->response()->body(json_encode($flows));
        
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($flows));
