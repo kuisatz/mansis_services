@@ -500,7 +500,7 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 SELECT                    
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
-                    c.name,  AS name_eng,
+                    c.name AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
