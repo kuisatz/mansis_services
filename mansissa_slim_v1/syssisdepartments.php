@@ -85,8 +85,7 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
                 $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                         $app,
                         $_GET['search']));
-    }
-    
+    } 
     
     $stripper->strip(); 
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
@@ -105,19 +104,18 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     } else {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
-      
-
+       
     $flows = array();
     foreach ($resCombobox as $flow) {
         $flows[] = array(
             "id" => $flow["id"],
-            //"text" => strtolower($flow["name"]),
+            "apid" => $flow["apid"],
             "text" => html_entity_decode($flow["name"]),
             "state" => $flow["state_type"], //   'closed',
             "checked" => false,
             "icon_class"=>$flow["icon_class"], 
-            "attributes" => array("root" => $flow["root_type"], "active" => $flow["active"]
-                ,"machine" => html_entity_decode($flow["machine"]),"last_node" => $flow["last_node"]),
+            "last_node" => $flow["last_node"],
+            "root" => $flow["root_type"], 
         );
     }
 
