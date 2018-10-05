@@ -105,27 +105,28 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     } else {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
-    $counts=0;
+     
   
-    $menu = array();            
-    if (isset($resDataGrid[0]['id'])) {      
-        foreach ($resDataGrid as $menu) { 
-       $menus[] = array(
-            "id" => $menu["id"], 
-            "text" => html_entity_decode($flow["name"]),
-            "state" => $menu["state_type"], //   'closed',
-            "checked" => false,
-            "icon_class"=>$menu["icon_class"], 
-            "last_node" => $menu["last_node"],
-            "root" => $menu["root_type"], 
+    $flows = array();            
+    if (isset($resCombobox[0]['id'])) {      
+        foreach ($resCombobox as $flow) { 
+            $flows[] = array(
+                "id" => $flow["id"],
+                //"text" => strtolower($flow["name"]),
+                "text" => html_entity_decode($flow["name"]),
+                "state" => $flow["state_type"], //   'closed',
+                "checked" => false,
+                "icon_class"=>$flow["icon_class"], 
+                "attributes" => array("root" => $flow["root_type"], "active" => $flow["active"]
+                    ,"machine" => html_entity_decode($flow["machine"]),"last_node" => $flow["last_node"]),
         );
       }
-       $counts = $resTotalRowCount[0]['count'];
-      } ELSE  $menus = array();       
+      
+      } ELSE  $flows = array();       
 
 
     $app->response()->header("Content-Type", "application/json"); 
-    $app->response()->body(json_encode($menus));
+    $app->response()->body(json_encode($flows));
 });
 
 
