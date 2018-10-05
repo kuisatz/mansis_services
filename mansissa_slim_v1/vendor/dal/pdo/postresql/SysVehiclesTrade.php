@@ -514,7 +514,7 @@ class SysVehiclesTrade extends \DAL\DalSlim {
                 $capTypeId = $params['CapTypeId'];
                 $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 
             }  
-            $statement = $pdo->prepare("     
+               $sql = "            
                 SELECT                    
                     a.act_parent_id AS id, 	
                     a.description AS name,  
@@ -528,7 +528,9 @@ class SysVehiclesTrade extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0   
                 ORDER BY  a.description
-                                 ");
+                                 ";
+            $statement = $pdo->prepare($sql);
+              echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
