@@ -88,6 +88,8 @@ class BLLManagerConfig{
                    'sysDemoAllocationTypesBLL' => 'BLL\BLL\SysDemoAllocationTypes',
                    'sysDemoQuotasBLL' => 'BLL\BLL\SysDemoQuotas',
                    'sysDepartmentsBLL' => 'BLL\BLL\SysDepartments',
+                   'sysSisDepartmentsBLL' => 'BLL\BLL\SysSisDepartments', 
+                  
                    'sysDiscountRatesDeffBLL' => 'BLL\BLL\SysDiscountRatesDeff',
                    'sysEducationDefinitionsBLL' => 'BLL\BLL\SysEducationDefinitions',
                    'sysEducationsSalesmanBLL' => 'BLL\BLL\SysEducationsSalesman',

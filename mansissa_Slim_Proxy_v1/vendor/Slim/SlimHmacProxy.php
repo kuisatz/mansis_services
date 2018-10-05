@@ -22,6 +22,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+            //**---- sysHorsepowerBLL -------------------  
+                                    'pkFillDepartmentsTree_syssisdepartments' => 'restApiDefaultCall',  
+            //** sysHorsepowerBLL ----------------------//   
+        
              //**---- sysVehiclesTradeBLL -------------------  
             
                                     'pkVehiclesTbDefDdList_sysvehiclestrade' => 'restApiDefaultCall', 
@@ -2021,6 +2025,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+              case "_syssisdepartments":  
+                $this->setRestApiEndPoint('syssisdepartments.php/');
+                break; 
               case "_sysvehiclestrade":  
                 $this->setRestApiEndPoint('sysvehiclestrade.php/');
                 break; 

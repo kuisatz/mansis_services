@@ -263,6 +263,8 @@ class DalManagerConfig {
                 'sysDemoAllocationTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoAllocationTypesFactory',
                 'sysDemoQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDemoQuotasFactory',
                 'sysDepartmentsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDepartmentsFactory',
+                'SysSisDepartmentsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisDepartmentsFactory',
+                
                 'sysDiscountRatesDeffPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysDiscountRatesDeffFactory',
                 'sysEducationDefinitionsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEducationDefinitionsFactory',
                 'sysEducationsSalesmanPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysEducationsSalesmanFactory',
