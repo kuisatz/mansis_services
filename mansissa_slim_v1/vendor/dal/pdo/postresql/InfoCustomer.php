@@ -1480,7 +1480,7 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['RegistrationDate']) && $params['RegistrationDate'] != "")) {
                 $registrationDate = $params['RegistrationDate'];
                 $addSQL1 = 'registration_date,  ';
-                $addSQL2 = "'". $registrationDate."'";
+                $addSQL2 = "'". $registrationDate."',";
             }  
                             
             $neCountTypeId = 0;
