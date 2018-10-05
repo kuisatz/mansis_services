@@ -121,16 +121,10 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
         );
     }
 
-    $app->response()->header("Content-Type", "application/json");
-
-    /* $app->contentType('application/json');
-      $app->halt(302, '{"error":"Something went wrong"}');
-      $app->stop(); */
-
-    $app->response()->body(json_encode($flows));
-       
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($flows));
+       
+   
 });
 
 

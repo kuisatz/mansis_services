@@ -96,15 +96,18 @@ class SysSisDepartments extends \BLL\BLLSlim{
         $resultSet = $DAL->fillLanguageDdList($params);
         return $resultSet['resultSet'];
     }
-     
+      
+        
     /**
      * Function to fill text on user interface layer
      * @param array $params
      * @return array
-     */
-      public function fillDepartmentsTree($params = array()) {        
-        $DAL = $this->slimApp->getDALManager()->get('SysSisDepartmentsPostgrePDO');     
-        return $DAL->fillDepartmentsTree($params);
+     *  örnek olarak  bırakıldı
+    */
+    public function fillDepartmentsTree($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('SysSisDepartmentsPostgrePDO');
+        $resultSet = $DAL->fillDepartmentsTree($params);
+        return $resultSet['resultSet'];
     }
     
 }
