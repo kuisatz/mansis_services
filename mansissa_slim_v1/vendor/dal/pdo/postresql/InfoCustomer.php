@@ -1308,7 +1308,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         embrace_customer_no, 
                         tu_emb_customer_no, 
                         ce_emb_customer_no, 
-                        other_emb_customer_no
+                        other_emb_customer_no,
                         registration_name, 
                         trading_name, 
                         name_short, 
@@ -1346,7 +1346,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         embrace_customer_no, 
                         tu_emb_customer_no, 
                         ce_emb_customer_no, 
-                        other_emb_customer_no
+                        other_emb_customer_no,
                         registration_name, 
                         trading_name, 
                         name_short, 
