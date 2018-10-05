@@ -105,27 +105,23 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     } else {
         $resCombobox = $BLL->FillDepartmentsTree(array('language_code' => $vLanguageCode,'parent_id' => 1,));
     }
-     
-    print_r($resCombobox[0]['id']);
-    $flows = array();            
-    if (isset($resCombobox[0]['id'])) {      
-        foreach ($resCombobox as $flow) { 
-            $flows[] = array(
-                "id" => $flow["id"],
-                "apid" => $flow["apid"],
-                "text" => html_entity_decode($flow["name"]),
-                "state" => $flow["state_type"], //   'closed',
-                "checked" => false,
-                "icon_class"=>$flow["icon_class"], 
-                "root" => $flow["root_type"],
-                "last_node" => $flow["last_node"],
-               
-        );
-      }
       
-      } ELSE  $flows = array();       
+    
+    $flows = array();   
+    foreach ($resCombobox as $flow) { 
+        $flows[] = array(
+            "id" => $flow["id"],
+            "apid" => $flow["apid"],
+            "text" => html_entity_decode($flow["name"]),
+            "state" => $flow["state_type"], //   'closed',
+            "checked" => false,
+            "icon_class"=>$flow["icon_class"], 
+            "root" => $flow["root_type"],
+            "last_node" => $flow["last_node"],
 
-
+        );
+    };
+       
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($flows));
 });
