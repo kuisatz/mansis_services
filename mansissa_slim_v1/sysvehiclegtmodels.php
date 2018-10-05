@@ -95,10 +95,7 @@ $app->get("/pkVehicleGtModelsDdList_sysvehiclegtmodels/", function () use ($app 
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
-                   
-                ),
+           
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -184,13 +181,18 @@ $app->get("/pkFillVehicleGtModelsGridx_sysvehiclegtmodels/", function () use ($a
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
-               "id" => $menu["id"],
+                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
                 "name" => html_entity_decode($menu["name"]), 
                 "model_description" => html_entity_decode($menu["model_description"]), 
                 "model_grouping" => html_entity_decode($menu["model_grouping"]),  
                 "vehicle_group_types_id" => $menu["vehicle_group_types_id"], 
                 "vehicle_group_type_name" => html_entity_decode($menu["vehicle_group_type_name"]),   
+                
+                
+                
+                
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],

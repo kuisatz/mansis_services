@@ -202,15 +202,18 @@ class SysVehicleGtModels extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' as name ,
+                '' AS value, 
+                true AS control,
+                CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_vehicle_gt_models  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.model_grouping_id = " . intval($params['model_grouping_id']) . "  AND 
+                a.tonnage_id = " . intval($params['tonnage_id']) . "  AND 
+                a.horsepower_id = " . intval($params['horsepower_id']) . "  AND  
+                a.vehicle_group_types_id = " . intval($params['vehicle_group_types_id']) . "    
                   " . $addSql . " 
-                AND a.deleted =0    
+                AND a.deleted =0  
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -497,13 +500,14 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 SELECT                    
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
-                    concat(sv.name,' - ' , svgt.name) AS name_eng,
-                     0 as parent_id,
+                    c.name,  AS name_eng,
+                    0 as parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_vehicle_gt_models a    
                 inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
                 inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
+                INNER JOIN sys_tonnage c ON c.act_parent_id = a.tonnage_id AND c.show_it = 0   
                 WHERE  
                    ".$addSQL."
                     a.deleted = 0 AND
@@ -637,17 +641,26 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 $addSql ="  a.vehicle_group_types_id  = " . intval($vehicleGroupTypeID). "  AND  " ; 
             }  
 
-                $sql = "
-                   SELECT 
+                $sql = "                    
+                    SELECT 
                        a.id, 
                         a.act_parent_id as apid, 
-                        a.name  AS name, 
+                 
                         a.model_description,
-                        a.model_grouping,
+                      --  a.model_grouping,
+                        b.vehicle_groups_id , 
+                        g.name vehicle_group_name,
 			a.vehicle_group_types_id,
 			b.name AS vehicle_group_type_name,  
-                      /*  a.name_eng, */ 
-                      /*  b.name_eng body_types_name_eng, */
+                    
+			a.tonnage_id,
+			c.name as tonnage_name, 
+			c.value tonnage_value,
+			a.horsepower_id,
+			e.name as horsepower, 
+			a.model_grouping_id,
+			f.name as model_grouping_name, 
+ 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -661,10 +674,15 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_vehicle_gt_models a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.show_it =0   
                     INNER JOIN info_users u ON u.id = a.op_user_id 
-                    /*----*/
-		    INNER JOIN sys_vehicle_group_types b ON b.act_parent_id = a.vehicle_group_types_id AND b.show_it = 0                   
+                    /*----*/                    
+		    INNER JOIN sys_vehicle_group_types b ON b.act_parent_id = a.vehicle_group_types_id AND b.show_it = 0   
+		    INNER JOIN sys_vehicle_groups g ON g.act_parent_id = b.vehicle_groups_id AND g.show_it = 0                    
+		    INNER JOIN sys_tonnage c ON c.act_parent_id = a.tonnage_id AND c.show_it = 0   
+		    INNER JOIN sys_horsepower e ON e.act_parent_id = a.horsepower_id AND e.show_it = 0    
+		    INNER JOIN sys_vehicle_model_grouping f ON f.act_parent_id = a.model_grouping_id AND f.show_it = 0                       
+		                 
                     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -795,21 +813,47 @@ class SysVehicleGtModels extends \DAL\DalSlim {
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                         SELECT 
+                        SELECT 
                             a.id, 
-                            a.name  AS name, 
+                            a.act_parent_id as apid, 
+
                             a.model_description,
-                            a.model_grouping,
+                          --  a.model_grouping,
+                            b.vehicle_groups_id , 
+                            g.name vehicle_group_name,
                             a.vehicle_group_types_id,
-                            b.name AS vehicle_group_type_name,   
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
+                            b.name AS vehicle_group_type_name,  
+
+                            a.tonnage_id,
+                            c.name as tonnage_name, 
+                            c.value tonnage_value,
+                            a.horsepower_id,
+                            e.name as horsepower, 
+                            a.model_grouping_id,
+                            f.name as model_grouping_name, 
+
+                            a.active,
+                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
+                           /* a.deleted,
+                            COALESCE(NULLIF(sd15x.description, ''), sd15.description_eng) AS state_deleted,*/
+                            a.op_user_id,
+                            u.username AS op_user_name,  
+                            a.s_date date_saved,
+                            a.c_date date_modified, 
+                            COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                            lx.language_main_code language_code, 
+                            COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                         FROM sys_vehicle_gt_models a                    
                         INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . " AND lx.show_it =0  
+                        LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "  AND lx.show_it =0   
                         INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/
-                        INNER JOIN sys_vehicle_group_types b ON b.act_parent_id = a.vehicle_group_types_id AND b.show_it = 0                   
+                        /*----*/                    
+                        INNER JOIN sys_vehicle_group_types b ON b.act_parent_id = a.vehicle_group_types_id AND b.show_it = 0   
+                        INNER JOIN sys_vehicle_groups g ON g.act_parent_id = b.vehicle_groups_id AND g.show_it = 0                    
+                        INNER JOIN sys_tonnage c ON c.act_parent_id = a.tonnage_id AND c.show_it = 0   
+                        INNER JOIN sys_horsepower e ON e.act_parent_id = a.horsepower_id AND e.show_it = 0    
+                        INNER JOIN sys_vehicle_model_grouping f ON f.act_parent_id = a.model_grouping_id AND f.show_it = 0                       
+
                         /*----*/                 
                        /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                         INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -894,10 +938,12 @@ class SysVehicleGtModels extends \DAL\DalSlim {
 
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO sys_vehicle_gt_models (
-                        name, 
-                        model_description,
-                        model_grouping,
                         vehicle_group_types_id,
+                      
+                        model_description,
+                        model_grouping_id,
+                        tonnage_id,
+                        horsepower_id,
                        
                         active,
                         deleted,
@@ -906,10 +952,12 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name, 
-                        model_description,
-                        model_grouping,
                         vehicle_group_types_id,
+                      
+                        model_description,
+                        model_grouping_id,
+                        tonnage_id,
+                        horsepower_id,
                         
                         1 AS active,  
                         1 AS deleted, 
@@ -952,25 +1000,35 @@ class SysVehicleGtModels extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
                             
-            $errorInfo[0] = "99999"; 
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }    
+            $errorInfo[0] = "99999";  
             $modelDescription = null;
             if ((isset($params['ModelDescription']) && $params['ModelDescription'] != "")) {
                 $modelDescription = $params['ModelDescription'];
-            } 
-            $modelGrouping= null;
-            if ((isset($params['ModelGrouping']) && $params['ModelGrouping'] != "")) {
-                $modelGrouping = $params['ModelGrouping'];
-            } 
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }             
             $vehicleGroupTypeId = -1111;
             if ((isset($params['VehicleGroupTypeId']) && $params['VehicleGroupTypeId'] != "")) {
                 $vehicleGroupTypeId = intval($params['VehicleGroupTypeId']);
             } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ModelGroupingId = -1111;
+            if ((isset($params['ModelGroupingId']) && $params['ModelGroupingId'] != "")) {
+                $ModelGroupingId = intval($params['ModelGroupingId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            } 
+            $TonnageId = -1111;
+            if ((isset($params['TonnageId']) && $params['TonnageId'] != "")) {
+                $TonnageId = intval($params['TonnageId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $HorsepowerId = -1111;
+            if ((isset($params['HorsepowerId']) && $params['HorsepowerId'] != "")) {
+                $HorsepowerId = intval($params['HorsepowerId']);
+            }  else {
                 throw new \PDOException($errorInfo[0]);
             }
                             
@@ -980,25 +1038,29 @@ class SysVehicleGtModels extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name, 
+                            'model_grouping_id' => $ModelGroupingId, 
+                            'tonnage_id' => $TonnageId,
+                            'horsepower_id' => $HorsepowerId,
                             'vehicle_group_types_id' => $vehicleGroupTypeId
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
-                    INSERT INTO sys_vehicle_gt_models(
-                            name, 
+                    INSERT INTO sys_vehicle_gt_models( 
+                            vehicle_group_types_id, 
                             model_description,
-                            model_grouping,
-                            vehicle_group_types_id,
+                            model_grouping_id,
+                            tonnage_id,
+                            horsepower_id,
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
-                            '" . $name . "', 
-                            '" . $modelDescription . "', 
-                            '" . $modelGrouping . "', 
                             " . intval($vehicleGroupTypeId) . ",
+                            '" . $modelDescription . "', 
+                            " . intval($ModelGroupingId) . ",
+                            " . intval($TonnageId) . ",
+                            " . intval($HorsepowerId) . ", 
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_vehicle_gt_models_id_seq)
@@ -1050,21 +1112,35 @@ class SysVehicleGtModels extends \DAL\DalSlim {
                 $Id = intval($params['Id']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $name = null;
-            if ((isset($params['Name']) && $params['Name'] != "")) {
-                $name = $params['Name'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }    
-             $modelDescription = null;
+            }              
+            $modelDescription = null;
             if ((isset($params['ModelDescription']) && $params['ModelDescription'] != "")) {
                 $modelDescription = $params['ModelDescription'];
-            }              
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }             
             $vehicleGroupTypeId = -1111;
             if ((isset($params['VehicleGroupTypeId']) && $params['VehicleGroupTypeId'] != "")) {
                 $vehicleGroupTypeId = intval($params['VehicleGroupTypeId']);
             } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ModelGroupingId = -1111;
+            if ((isset($params['ModelGroupingId']) && $params['ModelGroupingId'] != "")) {
+                $ModelGroupingId = intval($params['ModelGroupingId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            } 
+            $TonnageId = -1111;
+            if ((isset($params['TonnageId']) && $params['TonnageId'] != "")) {
+                $TonnageId = intval($params['TonnageId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $HorsepowerId = -1111;
+            if ((isset($params['HorsepowerId']) && $params['HorsepowerId'] != "")) {
+                $HorsepowerId = intval($params['HorsepowerId']);
+            }  else {
                 throw new \PDOException($errorInfo[0]);
             }
 
@@ -1077,7 +1153,9 @@ class SysVehicleGtModels extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'name' => $name, 
+                            'model_grouping_id' => $ModelGroupingId, 
+                            'tonnage_id' => $TonnageId,
+                            'horsepower_id' => $HorsepowerId,
                             'vehicle_group_types_id' => $vehicleGroupTypeId,
                             'id' => $Id
                 ));
@@ -1087,17 +1165,22 @@ class SysVehicleGtModels extends \DAL\DalSlim {
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_vehicle_gt_models (  
-                        name, 
-                        model_description, 
-                        vehicle_group_types_id,
+                        vehicle_group_types_id, 
+                        model_description,
+                        model_grouping_id,
+                        tonnage_id,
+                        horsepower_id,
                          
                         op_user_id,
                         act_parent_id 
                         )  
                 SELECT  
-                    '" . $name . "', 
-                    '" . $modelDescription . "',  
                     " . intval($vehicleGroupTypeId) . ",
+                    '" . $modelDescription . "', 
+                    " . intval($ModelGroupingId) . ",
+                    " . intval($TonnageId) . ",
+                    " . intval($HorsepowerId) . ", 
+
                     
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

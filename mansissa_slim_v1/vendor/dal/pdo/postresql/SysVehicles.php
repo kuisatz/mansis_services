@@ -1184,6 +1184,7 @@ class SysVehicles extends \DAL\DalSlim {
                         btsbto_type_id,
                         factorymodel_name,
                         roadtype_id,
+                        property, 
                          
                         active,
                         deleted,
