@@ -194,7 +194,7 @@ $app->get("/pkFillEducationDefinitionsGridx_syseducationdefinitions/", function 
        $counts = $resTotalRowCount[0]['count'];
       } ELSE  $menus = array();       
 
-print_r($menus) ;
+//print_r($menus) ;
       
     $app->response()->header("Content-Type", "application/json");
     $resultArray = array();
@@ -285,7 +285,7 @@ $app->get("/pkInsertAct_syseducationdefinitions/", function () use ($app ) {
       
     $vName = NULL;
     if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1,
                                                 $app,
                                                 $_GET['name']));
     }  
