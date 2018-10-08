@@ -21,7 +21,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+          //**---- infoCustomerActivationsBLL -------------------  
+            
+                                    'pkCustomeractivAtionsDdList_infocustomeractivations' => 'restApiDefaultCall', 
+                                    'pkFillCustomeractivationsGridx_infocustomeractivations' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_infocustomeractivations' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_infocustomeractivations' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infocustomeractivations' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infocustomeractivations' => 'restApiDefaultCall', 
+            
+             //** infoCustomerActivationsBLL ----------------------//   
             //**---- sysHorsepowerBLL -------------------  
                                     'pkFillDepartmentsTree_syssisdepartments' => 'restApiDefaultCall',  
             //** sysHorsepowerBLL ----------------------//   
@@ -2025,6 +2035,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+              case "_infocustomeractivations":  
+                $this->setRestApiEndPoint('infocustomeractivations.php/');
+                break; 
               case "_syssisdepartments":  
                 $this->setRestApiEndPoint('syssisdepartments.php/');
                 break; 

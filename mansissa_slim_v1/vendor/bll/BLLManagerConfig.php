@@ -44,6 +44,9 @@ class BLLManagerConfig{
                    'infoCustomerBLL' => 'BLL\BLL\InfoCustomer',
                     'infoProjectBLL' => 'BLL\BLL\InfoProject',
                     'infoProjectVehicleModelsBLL' => 'BLL\BLL\InfoProjectVehicleModels',
+                    'infoCustomerActivationsBLL' => 'BLL\BLL\InfoCustomerActivations',
+                 
+                 
                  
                  
                  

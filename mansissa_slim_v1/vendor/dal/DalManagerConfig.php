@@ -41,6 +41,10 @@ class DalManagerConfig {
                   'infoAfterSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoAfterSalesFactory',
                   'infoSalesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoSalesFactory',
                   'infoDealerOwnerOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoDealerOwnerFactory',
+                  'infoCustomerActivationsOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerActivationsFactory',
+                
+                
+                
                  
                    'sysAccBodyDeffOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyDeffFactory',
                    'sysAccBodyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyMatrixFactory',
@@ -216,6 +220,8 @@ class DalManagerConfig {
                 'infoCustomerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerFactory',
                 'infoProjectPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectFactory',
                 'infoProjectVehicleModelsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectVehicleModelsFactory',
+                'infoCustomerActivationsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerActivationsFactory',
+               
                 
                 
                 
