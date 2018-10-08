@@ -45,7 +45,7 @@ class FilterChainerFactory extends \Utill\Factories\AbstractFactory {
     protected function onlyParanoidLevel2($app, $value) {
         return new \Utill\Strip\Chain\StripChainer($app, $value, array(
                             \Services\Filter\FilterServiceNames::FILTER_DEFAULT,   
-                            \Services\Filter\FilterServiceNames::FILTER_HTML_TAGS_CUSTOM_ADVANCED,
+                            \Services\Filter\FilterServiceNames::FILTER_HTML_TAGS_CUSTOM_BASE,
                             \Services\Filter\FilterServiceNames::FILTER_SQL_RESERVEDWORDS,
         ));
     }
