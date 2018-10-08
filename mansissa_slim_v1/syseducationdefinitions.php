@@ -194,6 +194,8 @@ $app->get("/pkFillEducationDefinitionsGridx_syseducationdefinitions/", function 
        $counts = $resTotalRowCount[0]['count'];
       } ELSE  $menus = array();       
 
+print_r($menus) ;
+      
     $app->response()->header("Content-Type", "application/json");
     $resultArray = array();
     $resultArray['totalCount'] = $counts;

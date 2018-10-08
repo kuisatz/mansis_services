@@ -208,12 +208,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 CONCAT(a.registration_name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_customer_activations  a                          
             WHERE 
-                LOWER(REPLACE(registration_name,' ','')) = LOWER(REPLACE('" . $params['registration_name'] . "',' ','')) OR 
-               ( LOWER(REPLACE(tu_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['tu_emb_customer_no'] . "',' ','')) OR  
-                   LOWER(REPLACE(embrace_customer_no,' ','')) = LOWER(REPLACE('" . $params['embrace_customer_no'] . "',' ','')) OR  
-                        LOWER(REPLACE(ce_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['ce_emb_customer_no'] . "',' ','')) OR  
-                             LOWER(REPLACE(other_emb_customer_no,' ','')) = LOWER(REPLACE('" . $params['other_emb_customer_no'] . "',' ','')) )  
-                  " . $addSql . " 
+                a.customer_id = " . intval($params['id']) . " AND 
+                a.act_date = '" .  ($params['act_date']) . "' AND 
+                a.contact_person_id = " . intval($params['contact_person_id']) . "   
+                " . $addSql . " 
                 AND a.deleted =0    
                  
                                ";
