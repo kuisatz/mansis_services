@@ -208,8 +208,9 @@ class InfoProject extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project  a                          
             WHERE 
-                a.customer_id = " . intval($params['customer_id']) . "  
-                  " . $addSql . " 
+                a.customer_id = " . intval($params['customer_id']) . "  AND 
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) 
+                " . $addSql . " 
                 AND a.deleted =0   
                  
                                ";
