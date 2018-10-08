@@ -123,10 +123,11 @@ $app->get("/pkFillProjectGridx_infoproject/", function () use ($app ) {
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
                 "deal_sis_key" =>  ($menu["deal_sis_key"]),
-               "customer_id" =>  ($menu["customer_id"]),
+                "customer_id" =>  ($menu["customer_id"]),
+                "deal_name" => html_entity_decode($menu["deal_name"]),
                 "registration_name" => html_entity_decode($menu["registration_name"]),
                 "registration_number" => html_entity_decode($menu["registration_number"]),
-                  "is_house_deal" =>  ($menu["is_house_deal"]),
+                "is_house_deal" =>  ($menu["is_house_deal"]),
                 "probability_id" =>  ($menu["probability_id"]),
                 "reliability_id" =>  ($menu["reliability_id"]),
                 
@@ -169,10 +170,7 @@ $app->get("/pkFillProjectGridx_infoproject/", function () use ($app ) {
                 "credit_statu" => html_entity_decode($menu["credit_statu"]),
                 "discount_rate" => ($menu["discount_rate"]),
                 "description" => html_entity_decode($menu["description"]),
-           
-                
-             
-                 
+            
                 
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
@@ -404,7 +402,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
     
      
     $stripper->strip();
-    if($stripper->offsetExists('deal_sis_key')) $dealSisKey = $stripper->offsetGet('deal_sis_key')->getFilterValue(); 
+    
     if($stripper->offsetExists('customer_id')) $customer = $stripper->offsetGet('customer_id')->getFilterValue(); 
     if($stripper->offsetExists('is_house_deal')) $isHouseDeal = $stripper->offsetGet('is_house_deal')->getFilterValue();
     if($stripper->offsetExists('probability_id')) $probabilityId = $stripper->offsetGet('probability_id')->getFilterValue();

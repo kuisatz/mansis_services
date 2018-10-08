@@ -594,6 +594,7 @@ class InfoProject extends \DAL\DalSlim {
                         a.id, 
                         a.act_parent_id as apid,  
                         a.customer_id, 
+                        a.name as deal_name,
                         a.deal_sis_key,
                         cc.registration_name, 
                         cc.registration_number, 
@@ -726,6 +727,11 @@ class InfoProject extends \DAL\DalSlim {
                                 $sorguStr.=" AND cc.registration_name" . $sorguExpression . ' ';
                               
                                 break;
+                              case 'deal_name':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.name" . $sorguExpression . ' ';
+                              
+                                break;
                             case 'registration_number':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND cc.registration_number" . $sorguExpression . ' ';
@@ -789,6 +795,7 @@ class InfoProject extends \DAL\DalSlim {
                        SELECT  
                         a.id, 
                         a.act_parent_id as apid,  
+                        a.name as deal_name,
                         a.deal_sis_key,
                         a.customer_id, 
                         cc.registration_name, 
@@ -940,7 +947,8 @@ class InfoProject extends \DAL\DalSlim {
 
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO info_project ( 
-                         deal_sis_key,  
+                        deal_sis_key,  
+                        name, 
                         customer_id, 
                         is_house_deal, 
                         probability_id, 
@@ -973,6 +981,7 @@ class InfoProject extends \DAL\DalSlim {
                         )
                     SELECT
                         deal_sis_key,  
+                        name,
                         customer_id, 
                         is_house_deal, 
                         probability_id, 
@@ -1045,7 +1054,13 @@ class InfoProject extends \DAL\DalSlim {
                 $customer = $params['CustomerId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }                            
+            }      
+            $DealName = null;
+            if ((isset($params['DealName']) && $params['DealName'] != "")) {
+                $DealName = $params['DealName'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }    
             $isHouseDeal = null;
             if ((isset($params['IsHouseDeal']) && $params['IsHouseDeal'] != "")) {
                 $isHouseDeal = $params['IsHouseDeal'];
@@ -1073,13 +1088,14 @@ class InfoProject extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'customer_id' => $customer,  
-                            'deal_sis_key' => '',  
+                            'customer_id' => $customer,   
+                            'name' => $DealName,  
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO info_project(
                             customer_id, 
+                            name,
                             is_house_deal, 
                             probability_id, 
                             reliability_id,  
@@ -1091,6 +1107,7 @@ class InfoProject extends \DAL\DalSlim {
                             )
                     VALUES ( 
                             " .  intval($customer). ",
+                            '" . $DealName . "',
                             " .  intval($isHouseDeal) . ",
                             " .  intval($probabilityId). ",
                             " .  intval($reliabilityId) . ",
@@ -1107,9 +1124,7 @@ class InfoProject extends \DAL\DalSlim {
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('info_project_id_seq');
-
                             
-
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
@@ -1149,8 +1164,7 @@ class InfoProject extends \DAL\DalSlim {
                 $Id = intval($params['Id']);
             } else {  
                 throw new \PDOException($errorInfo[0]);
-            }
-                            
+            }        
             
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
@@ -1160,8 +1174,7 @@ class InfoProject extends \DAL\DalSlim {
                 $customer = $params['CustomerId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }    
-                            
+            }     
             $isHouseDeal = null;
             if ((isset($params['IsHouseDeal']) && $params['IsHouseDeal'] != "")) {
                 $isHouseDeal = $params['IsHouseDeal'];
@@ -1181,7 +1194,13 @@ class InfoProject extends \DAL\DalSlim {
             $discountRate = 0;
             if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
                 $discountRate = floatval($params['DiscountRate']);
-            }                     
+            }   
+            $DealName = null;
+            if ((isset($params['DealName']) && $params['DealName'] != "")) {
+                $DealName = $params['DealName'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }   
                   
                             
             $opUserIdParams = array('pk' => $params['pk'],);
@@ -1194,6 +1213,7 @@ class InfoProject extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'customer_id' => $customer,  
+                            'name' => $DealName,  
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1203,6 +1223,7 @@ class InfoProject extends \DAL\DalSlim {
                   $sql = "
                 INSERT INTO info_project (  
                         customer_id, 
+                        name,
                         is_house_deal, 
                         probability_id, 
                         reliability_id,  
@@ -1214,6 +1235,7 @@ class InfoProject extends \DAL\DalSlim {
                         )  
                 SELECT  
                     " .  intval($customer). ",
+                    '" . $DealName . "',
                     " .  intval($isHouseDeal) . ",
                     " .  intval($probabilityId). ",
                     " .  intval($reliabilityId) . ",
