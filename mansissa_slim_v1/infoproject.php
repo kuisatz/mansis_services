@@ -312,6 +312,12 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
                                                 $app,
                                                 $_GET['discount_rate']));
     } 
+    $dealName = NULL;
+    if (isset($_GET['deal_name'])) {
+         $stripper->offsetSet('deal_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['deal_name']));
+    }  
    
     // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=1234
     
@@ -323,6 +329,7 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
     if($stripper->offsetExists('probability_id')) $probabilityId = $stripper->offsetGet('probability_id')->getFilterValue();
     if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
     if($stripper->offsetExists('discount_rate')) $discountRate = $stripper->offsetGet('discount_rate')->getFilterValue(); 
+    if($stripper->offsetExists('deal_name')) $dealName = $stripper->offsetGet('deal_name')->getFilterValue(); 
     if($stripper->offsetExists('reliability_id')) $reliabilityId = $stripper->offsetGet('reliability_id')->getFilterValue();
  
   
@@ -333,6 +340,8 @@ $app->get("/pkInsertAct_infoproject/", function () use ($app ) {
             'Description' => $description,  
             'DiscountRate' => $discountRate,  
             'ReliabilityId' => $reliabilityId,   
+            'ReliabilityId' => $reliabilityId,   
+            'DealName' => $dealName,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -396,6 +405,12 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
                                                 $app,
                                                 $_GET['discount_rate']));
     } 
+     $dealName = NULL;
+    if (isset($_GET['deal_name'])) {
+         $stripper->offsetSet('deal_name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['deal_name']));
+    }  
    
     // &customer_id=1&is_house_deal=0&probability_id=2&reliability_id=2&description=denemeemememe&discount_rate=15
     
@@ -409,6 +424,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
     if($stripper->offsetExists('description')) $description = $stripper->offsetGet('description')->getFilterValue(); 
     if($stripper->offsetExists('discount_rate')) $discountRate = $stripper->offsetGet('discount_rate')->getFilterValue(); 
     if($stripper->offsetExists('reliability_id')) $reliabilityId = $stripper->offsetGet('reliability_id')->getFilterValue();
+    if($stripper->offsetExists('deal_name')) $dealName = $stripper->offsetGet('deal_name')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
@@ -420,7 +436,7 @@ $app->get("/pkUpdateAct_infoproject/", function () use ($app ) {
             'Description' => $description,  
             'DiscountRate' => $discountRate,  
             'ReliabilityId' => $reliabilityId,   
-            
+            'DealName' => $dealName,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
