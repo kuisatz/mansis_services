@@ -177,23 +177,14 @@ $app->get("/pkFillEducationDefinitionsGridx_syseducationdefinitions/", function 
     $menu = array();            
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
-            print_r(html_entity_decode($menu["name"])) ; 
-            $menus[] = array(
-               "id" => $menu["id"],
-                "apid" => intval($menu["apid"]),  
-                "name" => html_entity_decode($menu["name"]), 
-             
-                "op_username" => html_entity_decode($menu["op_user_name"]), 
-                "state_active" => html_entity_decode($menu["state_active"]),       
-                "date_saved" => $menu["date_saved"],
-                "date_modified" => $menu["date_modified"],  
-                "language_code" => $menu["language_code"],
-                "active" => $menu["active"], 
-                "op_user_id" => $menu["op_user_id"], 
-                "language_id" => $menu["language_id"],
-                "language_name" =>html_entity_decode( $menu["language_name"]),  
-               
-            );
+            print_r( '<<<<<') ; 
+                        print_r( ($menu["name"])) ; 
+                                    print_r( '>>>>>>>') ; 
+                                    
+                                     print_r( '<<<<<') ;     
+                                      print_r(  html_entity_decode($menu["name"])) ; 
+                                          print_r( '>>>>>>>') ; 
+       
         }
        $counts = $resTotalRowCount[0]['count'];
       } ELSE  $menus = array();       
