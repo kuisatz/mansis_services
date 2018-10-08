@@ -285,7 +285,7 @@ $app->get("/pkInsertAct_syseducationdefinitions/", function () use ($app ) {
       
     $vName = NULL;
     if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_TRIM,
+         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_JASON_LVL1,
                                                 $app,
                                                 $_GET['name']));
     }  
