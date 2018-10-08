@@ -171,9 +171,13 @@ $app->get("/pkFillEducationDefinitionsGridx_syseducationdefinitions/", function 
     ));
     $counts=0;
   
+    
+    
+    
     $menu = array();            
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
+            print_r(html_entity_decode($menu["name"])) ; 
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
