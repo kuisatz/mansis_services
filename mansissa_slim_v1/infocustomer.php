@@ -91,7 +91,7 @@ $app->get("/pkCustomerDdList_infocustomer/", function () use ($app ) {
     }
     $app->response()->header("Content-Type", "application/json");
    // $app->response()->body(json_encode($flows));
-     $app->response()->body(json_encode(""));
+     $app->response()->body(json_encode(NULL));
 });
  
 
