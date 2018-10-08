@@ -1081,7 +1081,7 @@ class InfoProject extends \DAL\DalSlim {
             $discountRate = 0;
             if ((isset($params['DiscountRate']) && $params['DiscountRate'] != "")) {
                 $discountRate = floatval($params['DiscountRate']);
-            }               
+            }    
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1095,6 +1095,7 @@ class InfoProject extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO info_project(
+                            deal_sis_key,
                             customer_id, 
                             name,
                             is_house_deal, 
@@ -1107,6 +1108,7 @@ class InfoProject extends \DAL\DalSlim {
                             act_parent_id  
                             )
                     VALUES ( 
+                            CONCAT('".$customer."','SIS',ostim_userid_generator()),
                             " .  intval($customer). ",
                             '" . $DealName . "',
                             " .  intval($isHouseDeal) . ",
