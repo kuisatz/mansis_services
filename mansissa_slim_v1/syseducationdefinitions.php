@@ -196,10 +196,7 @@ $app->get("/pkFillEducationDefinitionsGridx_syseducationdefinitions/", function 
                
             );
             
-                print_r( html_entity_decode($menu["name"])) ;  
-                  print_r( "------") ; 
-                      print_r(  ($menu["name"])) ;  
-                  print_r( "------") ; 
+          
             
         }
        $counts = $resTotalRowCount[0]['count'];
