@@ -284,16 +284,15 @@ $app->get("/pkInsertAct_syseducationdefinitions/", function () use ($app ) {
      $pk =  $headerParams['X-Public'];
       
     $vName = NULL;
-   $vName =  $_GET['name']  ; 
-   /* if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_SQL_RESERVEDWORDS,
+    if (isset($_GET['name'])) {
+         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_JASON_LVL1,
                                                 $app,
                                                 $_GET['name']));
     }  
    
-     */
+     
     $stripper->strip();
-  //  if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
+    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
  
           
     $resDataInsert = $BLL->insertAct(array(
