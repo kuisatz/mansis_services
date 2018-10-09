@@ -44,6 +44,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  * @since 05.08.2018
  */
 $app->get("/pkProjectVehicleBBDdList_infoprojectbuybacks/", function () use ($app ) {
+    print_r("qwe");
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoProjectBuybackBLL');
