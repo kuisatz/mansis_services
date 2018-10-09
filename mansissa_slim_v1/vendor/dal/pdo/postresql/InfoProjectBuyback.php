@@ -625,7 +625,8 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             $sorguStr = rtrim($sorguStr, "AND "); 
 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');       
-                            
+            $addSQL =null ;       
+            $errorInfo[0] = "99999";
             $languageIdValue = 385;
             if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
@@ -641,6 +642,9 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             $ProjectId =-1 ;
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId']; 
+            }  
+            else {
+                throw new \PDOException($errorInfo[0]);
             }  
               $addSQL .=   " a.project_id  = " . intval($ProjectId). "  AND  " ;
                             
