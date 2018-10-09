@@ -768,7 +768,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
     public function fillProjectVehicleBBGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
-            $addSql = null;
+            $addSQL = null;
             if (isset($params['filterRules'])) {
                 $filterRules = trim($params['filterRules']);
                 $jsonFilter = json_decode($filterRules, true);
