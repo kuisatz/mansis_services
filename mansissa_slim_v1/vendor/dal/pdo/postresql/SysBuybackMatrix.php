@@ -2070,7 +2070,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         (  select  COALESCE(NULLIF(cast(bb17.price as character varying(10)) , " "), " ")  from sys_buyback_matrix bb17 where bb17.month_id = a.act_parent_id AND bb17.show_it =0 AND bb17.terrain_id = bb1x.terrain_id AND bb17.mileage_id = 43 AND bb17.contract_type_id= bb1x.contract_type_id AND bb17.model_id =bb1x.model_id AND bb17.customer_type_id= bb1x.customer_type_id) as "43",                   
                         (  select  COALESCE(NULLIF(cast(bb18.price as character varying(10)) , " "), " ")  from sys_buyback_matrix bb18 where bb18.month_id = a.act_parent_id AND bb18.show_it =0 AND bb18.terrain_id = bb1x.terrain_id AND bb18.mileage_id = 44 AND bb18.contract_type_id= bb1x.contract_type_id AND bb18.model_id =bb1x.model_id AND bb18.customer_type_id= bb1x.customer_type_id) as "44",
                         (  select  COALESCE(NULLIF(cast(bb19.price as character varying(10)) , " "), " ")  from sys_buyback_matrix bb19 where bb19.month_id = a.act_parent_id AND bb19.show_it =0 AND bb19.terrain_id = bb1x.terrain_id AND bb19.mileage_id = 45 AND bb19.contract_type_id= bb1x.contract_type_id AND bb19.model_id =bb1x.model_id AND bb19.customer_type_id= bb1x.customer_type_id) as "45",                   
-                        (  select  COALESCE(NULLIF(cast(bb110.price as character varying(10)) , " "), "")  from sys_buyback_matrix bb110 where bb110.month_id = a.act_parent_id AND bb110.show_it =0 AND bb110.terrain_id = bb1x.terrain_id AND bb110.mileage_id = 46 AND bb110.contract_type_id= bb1x.contract_type_id AND bb110.model_id =bb1x.model_id AND bb110.customer_type_id= bb1x.customer_type_id) as "46"
+                        (  select  COALESCE(NULLIF(cast(bb110.price as character varying(10)) , " "), " ")  from sys_buyback_matrix bb110 where bb110.month_id = a.act_parent_id AND bb110.show_it =0 AND bb110.terrain_id = bb1x.terrain_id AND bb110.mileage_id = 46 AND bb110.contract_type_id= bb1x.contract_type_id AND bb110.model_id =bb1x.model_id AND bb110.customer_type_id= bb1x.customer_type_id) as "46"
        
                  FROM sys_monthsx a        
                  LEFT join sys_buyback_matrix bb1x on bb1x.month_id = a.act_parent_id AND bb1x.show_it =0 AND 
@@ -2086,7 +2086,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                   
                   '; 
             $statement = $pdo->prepare($sql);
-           echo debugPDO($sql, $params);               
+         //  echo debugPDO($sql, $params);               
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
