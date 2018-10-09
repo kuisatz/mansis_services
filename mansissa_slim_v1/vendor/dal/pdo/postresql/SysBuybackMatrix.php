@@ -1997,6 +1997,119 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-                           
+      
+        
+    /** 
+     * @author Okan CIRAN
+     * @ deal aracların buyback tanımlarını grid formatında döndürür !! ana tablo  info_project_buyback 
+     * @version v 1.0  20.08.2018
+     * @param array | null $args 
+     * @return array
+     * @throws \PDOException  
+     */  
+    public function fillBBSpecialGridx($params = array()) {
+        try {          
+            $sorguStr = null;
+            if (isset($params['filterRules'])) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+
+                            case 'state_active':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
+                                $sorguStr .= " AND COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng)" . $sorguExpression . ' ';
+
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $sorguStr = null;
+                $filterRules = "";
+            }
+            $sorguStr = rtrim($sorguStr, "AND ");
+
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $errorInfo[0] = "99999";
+            $TerrainId = -1;
+            if (isset($params['TerrainId']) && $params['TerrainId'] != "") {
+                $TerrainId = $params['TerrainId'];
+            }else {  
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ContractTypeId = -1;
+            if (isset($params['ContractTypeId']) && $params['ContractTypeId'] != "") {
+                $ContractTypeId = $params['ContractTypeId'];
+            }else {  
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ModelId = -1;
+            if (isset($params['ModelId']) && $params['ModelId'] != "") {
+                $ModelId = $params['ModelId'];
+            }else {  
+                throw new \PDOException($errorInfo[0]);
+            }
+            $CustomerTypeId = -1;
+            if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
+                $CustomerTypeId = $params['CustomerTypeId'];
+            }else {  
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $sql = '   
+                    SELECT 
+                        a.id, 
+                        a.act_parent_id as apid,  
+                        a.mvalue  AS mvalue,
+                        
+                        (  select bb11.price from sys_buyback_matrix bb11 where bb11.month_id = a.act_parent_id AND bb11.show_it =0 AND bb11.terrain_id = bb1x.terrain_id AND bb11.mileage_id = 37 AND bb11.contract_type_id= bb1x.contract_type_id AND bb11.model_id =bb1x.model_id AND bb11.customer_type_id= bb1x.customer_type_id) as "37",
+                        (  select bb12.price from sys_buyback_matrix bb12 where bb12.month_id = a.act_parent_id AND bb12.show_it =0 AND bb12.terrain_id = bb1x.terrain_id AND bb12.mileage_id = 38 AND bb12.contract_type_id= bb1x.contract_type_id AND bb12.model_id =bb1x.model_id AND bb12.customer_type_id= bb1x.customer_type_id) as "38",                   
+                        (  select bb13.price from sys_buyback_matrix bb13 where bb13.month_id = a.act_parent_id AND bb13.show_it =0 AND bb13.terrain_id = bb1x.terrain_id AND bb13.mileage_id = 39 AND bb13.contract_type_id= bb1x.contract_type_id AND bb13.model_id =bb1x.model_id AND bb13.customer_type_id= bb1x.customer_type_id) as "39",                   
+                        (  select bb14.price from sys_buyback_matrix bb14 where bb14.month_id = a.act_parent_id AND bb14.show_it =0 AND bb14.terrain_id = bb1x.terrain_id AND bb14.mileage_id = 40 AND bb14.contract_type_id= bb1x.contract_type_id AND bb14.model_id =bb1x.model_id AND bb14.customer_type_id= bb1x.customer_type_id) as "40",                   
+                        (  select bb15.price from sys_buyback_matrix bb15 where bb15.month_id = a.act_parent_id AND bb15.show_it =0 AND bb15.terrain_id = bb1x.terrain_id AND bb15.mileage_id = 41 AND bb15.contract_type_id= bb1x.contract_type_id AND bb15.model_id =bb1x.model_id AND bb15.customer_type_id= bb1x.customer_type_id) as "41",                   
+                        (  select bb16.price from sys_buyback_matrix bb16 where bb16.month_id = a.act_parent_id AND bb16.show_it =0 AND bb16.terrain_id = bb1x.terrain_id AND bb16.mileage_id = 42 AND bb16.contract_type_id= bb1x.contract_type_id AND bb16.model_id =bb1x.model_id AND bb16.customer_type_id= bb1x.customer_type_id) as "42",                   
+                        (  select bb17.price from sys_buyback_matrix bb17 where bb17.month_id = a.act_parent_id AND bb17.show_it =0 AND bb17.terrain_id = bb1x.terrain_id AND bb17.mileage_id = 43 AND bb17.contract_type_id= bb1x.contract_type_id AND bb17.model_id =bb1x.model_id AND bb17.customer_type_id= bb1x.customer_type_id) as "43",                   
+                        (  select bb18.price from sys_buyback_matrix bb18 where bb18.month_id = a.act_parent_id AND bb18.show_it =0 AND bb18.terrain_id = bb1x.terrain_id AND bb18.mileage_id = 44 AND bb18.contract_type_id= bb1x.contract_type_id AND bb18.model_id =bb1x.model_id AND bb18.customer_type_id= bb1x.customer_type_id) as "44",
+                        (  select bb19.price from sys_buyback_matrix bb19 where bb19.month_id = a.act_parent_id AND bb19.show_it =0 AND bb19.terrain_id = bb1x.terrain_id AND bb19.mileage_id = 45 AND bb19.contract_type_id= bb1x.contract_type_id AND bb19.model_id =bb1x.model_id AND bb19.customer_type_id= bb1x.customer_type_id) as "45",                   
+                        (  select bb110.price from sys_buyback_matrix bb110 where bb110.month_id = a.act_parent_id AND bb110.show_it =0 AND bb110.terrain_id = bb1x.terrain_id AND bb110.mileage_id = 46 AND bb110.contract_type_id= bb1x.contract_type_id AND bb110.model_id =bb1x.model_id AND bb110.customer_type_id= bb1x.customer_type_id) as "46"
+                          
+                 FROM sys_monthsx a        
+                 LEFT join sys_buyback_matrix bb1x on bb1x.month_id = a.act_parent_id AND bb1x.show_it =0 AND 
+                        bb1x.terrain_id = ' . intval($TerrainId) . ' AND 
+                        bb1x.contract_type_id= ' . intval($ContractTypeId) . '  AND 
+                        bb1x.model_id =' . intval($ModelId) . '  AND 
+                        bb1x.customer_type_id=  ' . intval($CustomerTypeId) . '     
+                WHERE  	
+                    a.parent_id  = 32  /* buyback */  
+                    a.deleted =0 AND
+                    a.show_it =0   
+                order by  a.mvalue 
+                  
+                  ';
+            $statement = $pdo->prepare($sql);
+
+            $statement = $pdo->prepare($sql);
+            //  echo debugPDO($sql, $params);               
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statement->errorInfo();
+            //  $ColumnCount = $statement->columnCount();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
+        }
+    }
+
+    
     
 }

@@ -196,6 +196,17 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
         return $DAL->updateActLng($params);
     }
+     
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillBBSpecialGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillBBSpecialGridx($params);  
+        return $resultSet['resultSet'];
+    }
    
     
 }

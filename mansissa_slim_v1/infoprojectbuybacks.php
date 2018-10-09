@@ -43,8 +43,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  *  * Okan CIRAN
  * @since 05.08.2018
  */
-$app->get("/pkProjectVehicleBBDdList_infoprojectbuybacks/", function () use ($app ) {
-    print_r("qwe");
+$app->get("/pkProjectVehicleBBDdList_infoprojectbuybacks/", function () use ($app ) { 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoProjectBuybackBLL');
@@ -743,7 +742,7 @@ $app->get("/pkFillProjectBBSpecialGridx_infoprojectbuybacks/", function () use (
                                                 $app,
                                                 $_GET['customer_type_id']));
     } 
-    
+   // &terrain_id=1&contract_type_id=2&model_id=1&customer_type_id=1 
     $stripper->strip();
     
     if($stripper->offsetExists('terrain_id')) $TerrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
