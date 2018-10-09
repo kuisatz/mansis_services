@@ -204,9 +204,11 @@ class SysBuybackMatrix extends \BLL\BLLSlim{
      */
     public function fillBBSpecialGridx ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
-        $resultSet = $DAL->fillBBSpecialGridx($params);  
+        $resultSet = $DAL->fillBBSpecialGridx($params);   
         return $resultSet['resultSet'];
     }
+    
+ 
    
     
 }
