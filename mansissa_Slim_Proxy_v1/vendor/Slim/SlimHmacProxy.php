@@ -477,6 +477,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //**---- sysAccBodyMatrixBLL ------------------- 
         
                                     'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
+                                    'pkFillBBSpecialGridx_sysaccbodymatrix' => 'restApiDefaultCall',
+        
                                     'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
         
                                     'pkInsertAct_sysaccbodymatrix' => 'restApiDefaultCall',
