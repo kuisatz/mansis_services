@@ -21,6 +21,21 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getDynamicForm_test' => 'restApiDefaultCall',
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
+        
+        
+          //**---- infoProjectBuybackBLL -------------------  
+            
+                                    'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall', 
+                                    'pkFillProjectBBSpecialGridx_infoprojectbuybacks' => 'restApiDefaultCall', 
+                                    'pkFillProjectVehicleBBGridx_infoprojectbuybacks' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_infoprojectbuybacks' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infoprojectbuybacks' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojectbuybacks' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojectbuybacks' => 'restApiDefaultCall', 
+            
+             //** infoProjectBuybackBLL ----------------------//   
+        
           //**---- infoCustomerActivationsBLL -------------------  
             
                                     'pkCustomeractivAtionsDdList_infocustomeractivations' => 'restApiDefaultCall', 
@@ -2035,6 +2050,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+              case "_infoprojectbuybacks":  
+                $this->setRestApiEndPoint('infoprojectbuybacks.php/');
+                break; 
               case "_infocustomeractivations":  
                 $this->setRestApiEndPoint('infocustomeractivations.php/');
                 break; 

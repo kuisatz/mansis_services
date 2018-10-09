@@ -633,7 +633,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.terrain_id,
                         COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng) AS terrain_name,
                         a.hydraulics,
-                          COALESCE(NULLIF(sd19xy.description, ''), sd19y.description_eng) AS hydraulics_name, 
+                        COALESCE(NULLIF(sd19xy.description, ''), sd19y.description_eng) AS hydraulics_name, 
                         a.month_id,
                         frd.mvalue AS month_name,
                         a.mileage_id,
@@ -678,9 +678,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     
                     INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
                     LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
-                   
-
-
+                    
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -690,7 +688,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INNER JOIN sys_specific_definitions sd19 ON sd19.main_group = 19 AND sd19.first_group= a.comfort_super_id AND sd19.deleted = 0 AND sd19.active = 0 AND sd19.language_id =l.id
                     LEFT JOIN sys_specific_definitions sd19x ON sd19x.language_id = lx.id AND (sd19x.id = sd19.id OR sd19x.language_parent_id = sd19.id) AND sd19x.deleted = 0 AND sd19x.active = 0
                     
-                    INNER JOIN sys_specific_definitions sd19y ON sd19y.main_group = 19 AND sd19y.first_group= a.comfort_super_id AND sd19y.deleted = 0 AND sd19y.active = 0 AND sd19y.language_id =l.id
+                    INNER JOIN sys_specific_definitions sd19y ON sd19y.main_group = 19 AND sd19y.first_group= a.hydraulics AND sd19y.deleted = 0 AND sd19y.active = 0 AND sd19y.language_id =l.id
                     LEFT JOIN sys_specific_definitions sd19xy ON sd19xy.language_id = lx.id AND (sd19xy.id = sd19y.id OR sd19xy.language_parent_id = sd19y.id) AND sd19xy.deleted = 0 AND sd19xy.active = 0
                     
                     WHERE  
