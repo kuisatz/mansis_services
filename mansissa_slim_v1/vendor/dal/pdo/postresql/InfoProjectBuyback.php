@@ -901,7 +901,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd19ay ON sd19ay.language_id = lx.id AND (sd19ay.id = sd19y.id OR sd19ay.language_parent_id = sd19y.id) AND sd19ay.deleted = 0 AND sd19ay.active = 0
                      
                     WHERE  
-                    " . $addSql . "
+                    " . $addSQL . "
                         a.deleted =0 AND
                         a.show_it =0   
                         " . $sorguStr . " 
