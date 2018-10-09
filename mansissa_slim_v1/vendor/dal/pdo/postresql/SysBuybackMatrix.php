@@ -2041,27 +2041,19 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             $TerrainId = -1;
             if (isset($params['TerrainId']) && $params['TerrainId'] != "") {
                 $TerrainId = $params['TerrainId'];
-            }else {  
-                throw new \PDOException($errorInfo[0]);
-            }
+            } 
             $ContractTypeId = -1;
             if (isset($params['ContractTypeId']) && $params['ContractTypeId'] != "") {
                 $ContractTypeId = $params['ContractTypeId'];
-            }else {  
-                throw new \PDOException($errorInfo[0]);
-            }
+            } 
             $ModelId = -1;
             if (isset($params['ModelId']) && $params['ModelId'] != "") {
                 $ModelId = $params['ModelId'];
-            }else {  
-                throw new \PDOException($errorInfo[0]);
-            }
+            } 
             $CustomerTypeId = -1;
             if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
                 $CustomerTypeId = $params['CustomerTypeId'];
-            }else {  
-                throw new \PDOException($errorInfo[0]);
-            }
+            } 
 
             $sql = '   
                     SELECT 
@@ -2092,11 +2084,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     a.show_it =0   
                 order by  a.mvalue 
                   
-                  ';
+                  '; 
             $statement = $pdo->prepare($sql);
-
-            $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);               
+            echo debugPDO($sql, $params);               
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
