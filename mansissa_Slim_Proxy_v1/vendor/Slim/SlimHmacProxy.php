@@ -98,6 +98,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
                                     'pkFillBuybackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysbuybackmatrix' => 'restApiDefaultCall', 
+                                    'pkFillBBSpecialGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
         
                                     'pkInsertBBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateBBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
@@ -476,9 +477,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
          //**---- sysAccBodyMatrixBLL ------------------- 
         
-                                    'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall',
-                                    'pkFillBBSpecialGridx_sysaccbodymatrix' => 'restApiDefaultCall',
-        
+                                    'pkFillBodyMatrixGridx_sysaccbodymatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysaccbodymatrix' => 'restApiDefaultCall',
         
                                     'pkInsertAct_sysaccbodymatrix' => 'restApiDefaultCall',
