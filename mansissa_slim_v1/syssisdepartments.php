@@ -101,7 +101,7 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     if($stripper->offsetExists('last_node')) $vLastNode = $stripper->offsetGet('last_node')->getFilterValue();
     if($stripper->offsetExists('search')) $vsearch = $stripper->offsetGet('search')->getFilterValue();
 
-    if (isset($_GET['parent_id'])) {
+    if (isset($_GET['id'])) {
         $resCombobox = $BLL->FillDepartmentsTree(array('parent_id' => $vParentId,
                                                          'language_code' => $vLanguageCode, 
                                                          'state' => $vState,
