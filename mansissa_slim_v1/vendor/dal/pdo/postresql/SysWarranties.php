@@ -208,9 +208,11 @@ class SysWarranties extends \DAL\DalSlim {
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_warranties  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND 
+                a.vehicle_group_id =  " . intval($params['vehicle_group_id']) . " 
                   " . $addSql . " 
                 AND a.deleted =0    
+                  
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -1092,27 +1094,13 @@ class SysWarranties extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_warranties_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                    echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('sys_warranties_id_seq');
-
-                    ////*********/////  3 
-                    $insertLanguageTemplateParams = array(
-                        'id' => intval($insertID),
-                        'language_id' => intval($languageIdValue),
-                        'nameTemp' =>  ($nameTemp),
-                    );
-                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
-                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
-                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
-                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
-                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
-                    }
-                    ////*********///// 3  
-
+                            
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
