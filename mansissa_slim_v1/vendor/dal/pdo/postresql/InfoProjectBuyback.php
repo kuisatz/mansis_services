@@ -517,11 +517,11 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
                     concat(sv.name,' - ' , svgt.name) AS name_eng,
-                     0 as parent_id,
+                    0 as parent_id,
                     a.active,
                     0 AS state_type   
                 FROM sys_vehicle_gt_models a  
-                inner join info_project_buyback pvm on pvm.vehicle_gt_model_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
+                inner join info_project_buyback pvm on pvm.model_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
                 inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
                 inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
                 WHERE  
@@ -532,7 +532,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
  
                                  " ;
              $statement = $pdo->prepare($sql);
-           echo debugPDO($sql, $params);
+          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
