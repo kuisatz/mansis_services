@@ -2079,14 +2079,14 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         bb1x.model_id =' . intval($ModelId) . '  AND 
                         bb1x.customer_type_id=  ' . intval($CustomerTypeId) . '     
                 WHERE  	
-                    a.parent_id  = 32  /* buyback */  
+                    a.parent_id  = 32 AND  /* buyback */  
                     a.deleted =0 AND
                     a.show_it =0   
                 order by  a.mvalue 
                   
                   '; 
             $statement = $pdo->prepare($sql);
-            echo debugPDO($sql, $params);               
+          //  echo debugPDO($sql, $params);               
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
