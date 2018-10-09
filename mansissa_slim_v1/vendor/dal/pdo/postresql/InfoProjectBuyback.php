@@ -626,7 +626,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');       
             $addSQL =null ;       
-            $errorInfo[0] = "99999";
+                            
             $languageIdValue = 385;
             if (isset($params['language_code']) && $params['language_code'] != "") { 
                 $languageCodeParams = array('language_code' => $params['language_code'],);
@@ -642,10 +642,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             $ProjectId =-1 ;
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId']; 
-            }  
-            else {
-                throw new \PDOException($errorInfo[0]);
-            }  
+            }   
               $addSQL .=   " a.project_id  = " . intval($ProjectId). "  AND  " ;
                             
                 $sql = "  
@@ -826,11 +823,11 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $isboConfirm = -1 ; 
-            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
-                $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
-            }      
+            $ProjectId =-1 ;
+            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
+                $ProjectId = $params['ProjectId']; 
+            }   
+              $addSQL .=   " a.project_id  = " . intval($ProjectId). "  AND  " ;  
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
