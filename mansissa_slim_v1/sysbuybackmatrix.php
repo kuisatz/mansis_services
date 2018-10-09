@@ -808,16 +808,16 @@ $app->get("/pkFillBBSpecialGridx_sysbuybackmatrix/", function () use ($app ) {
             $menus[] = array( 
                 "apid" => intval($menu["apid"]),  
                 "mvalue" =>  ($menu["mvalue"]), 
-                "37" => ($menu["deal_sis_key"]),
-                "38" => ($menu["vehicles_endgroup_id"]),
-                "39" => ($menu["vehicle_gt_model_name"]),
-                "40" => ($menu["tag_name"]),
-                "41" => ($menu["tag_name"]),
-                "42" => ($menu["tag_name"]),
-                "43" => ($menu["tag_name"]),
-                "44" => ($menu["tag_name"]),
-                "45" => ($menu["tag_name"]),
-                "46" => ($menu["tag_name"]),  
+                "37" => ($menu["37"]),
+                "38" => ($menu["38"]),
+                "39" => ($menu["39"]),
+                "40" => ($menu["40"]),
+                "41" => ($menu["41"]),
+                "42" => ($menu["42"]),
+                "43" => ($menu["43"]),
+                "44" => ($menu["44"]),
+                "45" => ($menu["45"]),
+                "46" => ($menu["46"]),  
             );
         }
        
