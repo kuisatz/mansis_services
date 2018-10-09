@@ -95,7 +95,7 @@ $app->get("/pkFillDepartmentsTree_syssisdepartments/", function () use ($app ) {
     
     $stripper->strip(); 
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    if($stripper->offsetExists('parent_id')) $vParentId = $stripper->offsetGet('parent_id')->getFilterValue();
+ //   if($stripper->offsetExists('parent_id')) $vParentId = $stripper->offsetGet('parent_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vParentId = $stripper->offsetGet('id')->getFilterValue();
     if($stripper->offsetExists('state')) $vState = $stripper->offsetGet('state')->getFilterValue();
     if($stripper->offsetExists('last_node')) $vLastNode = $stripper->offsetGet('last_node')->getFilterValue();
