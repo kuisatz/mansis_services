@@ -556,8 +556,10 @@ class SysWarranties extends \DAL\DalSlim {
             if (isset($params['VehicleGroupID']) && $params['VehicleGroupID'] != "") {
                 $vehicleGroupID = $params['VehicleGroupID']; 
                  $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;
-            }    
-                            
+            }   
+                $addSql =  " a.vehicle_group_id = " . intval($vehicleGroupID)." AND " ;                   
+            
+               
             $statement = $pdo->prepare("   
                 SELECT                    
                     a.act_parent_id AS id, 	
