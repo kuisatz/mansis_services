@@ -742,7 +742,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                echo debugPDO($sql, $params);               
+               // echo debugPDO($sql, $params);               
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -863,8 +863,8 @@ class InfoProjectBuyback extends \DAL\DalSlim {
 			a.end_date,  
 			a.deal_tb_value ,  
 			a.isbo_confirm,   
-			a.ishos_confirm,  
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+			a.ishos_confirm,   
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
                     FROM info_project_buyback a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
