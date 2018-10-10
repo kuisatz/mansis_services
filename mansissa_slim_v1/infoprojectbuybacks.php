@@ -379,7 +379,7 @@ $app->get("/pkInsertAct_infoprojectbuybacks/", function () use ($app ) {
                                                 $app,
                                                 $_GET['buyback_matrix_id']));
     } 
-    $quantity = NULL;
+    $Quantity = NULL;
     if (isset($_GET['quantity'])) {
          $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
@@ -433,14 +433,7 @@ $app->get("/pkInsertAct_infoprojectbuybacks/", function () use ($app ) {
                                                 $app,
                                                 $_GET['ishos_confirm']));
     } 
-    
-    $Quantity = NULL;
-    if (isset($_GET['quantity'])) {
-         $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['quantity']));
-    } 
-  
+     
     $stripper->strip();
     if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue(); 
     if($stripper->offsetExists('vehicles_endgroup_id')) $vehiclesEndgroupId = $stripper->offsetGet('vehicles_endgroup_id')->getFilterValue();
@@ -462,7 +455,13 @@ $app->get("/pkInsertAct_infoprojectbuybacks/", function () use ($app ) {
     if($stripper->offsetExists('isbo_confirm')) $isboConfirm = $stripper->offsetGet('isbo_confirm')->getFilterValue(); 
     if($stripper->offsetExists('ishos_confirm')) $ishosConfirm = $stripper->offsetGet('ishos_confirm')->getFilterValue(); 
       
+    /*
+ 
+      &project_id=1&vehicles_endgroup_id=1&vehicles_trade_id=1&customer_type_id=1&comfort_super_id=1&terrain_id=1&vehicle_group_id=1&hydraulics_id=1&buyback_matrix_id=1&quantity=1&is_other=1&other_month_value=1&other_milages_value=1&other_description=1&deal_tb_value=1&isbo_confirm=1&ishos_confirm=1                     
+    
      
+     */ 
+    
     
     $resDataInsert = $BLL->insertAct(array(
             'ProjectId' => $ProjectId,   
