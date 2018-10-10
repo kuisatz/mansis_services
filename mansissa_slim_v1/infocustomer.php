@@ -281,6 +281,8 @@ $app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
+                
+                "cust_sis_key" => html_entity_decode($menu["cust_sis_key"]),
                 "registration_name" => html_entity_decode($menu["registration_name"]),
                 "trading_name" => html_entity_decode($menu["trading_name"]),
                 "name_short" => html_entity_decode($menu["name_short"]),

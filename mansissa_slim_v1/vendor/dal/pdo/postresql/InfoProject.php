@@ -1108,7 +1108,7 @@ class InfoProject extends \DAL\DalSlim {
                             act_parent_id  
                             )
                     VALUES ( 
-                            CONCAT('".$customer."','SIS',ostim_userid_generator()),
+                            sis_id_generator_deal(),
                             " .  intval($customer). ",
                             '" . $DealName . "',
                             " .  intval($isHouseDeal) . ",

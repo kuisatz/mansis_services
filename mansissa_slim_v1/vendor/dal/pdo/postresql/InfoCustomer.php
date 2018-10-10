@@ -813,6 +813,7 @@ class InfoCustomer extends \DAL\DalSlim {
                     SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
+                        a.cust_sis_key,
                         a.registration_name, 
                         a.trading_name,
                         a.name_short, 
@@ -1134,6 +1135,7 @@ class InfoCustomer extends \DAL\DalSlim {
                         SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
+                        a.cust_sis_key,
                         a.registration_name, 
                         a.trading_name,
                         a.name_short, 
@@ -1337,6 +1339,7 @@ class InfoCustomer extends \DAL\DalSlim {
 			
 			city_id, 
 			country_id,  
+                        cust_sis_key,
                          
                         active,
                         deleted,
@@ -1377,6 +1380,7 @@ class InfoCustomer extends \DAL\DalSlim {
 			
 			city_id, 
 			country_id,  
+                        cust_sis_key,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1602,7 +1606,8 @@ class InfoCustomer extends \DAL\DalSlim {
                             email,
 
                             city_id, 
-                            country_id,  
+                            country_id, 
+                            cust_sis_key,
  
                             op_user_id,
                             act_parent_id  
@@ -1636,6 +1641,7 @@ class InfoCustomer extends \DAL\DalSlim {
                             '" . $Email. "',  
                             " .  intval($cityId) . ",
                             " .  intval($countryId) . ",
+                            sis_id_generator_deal(),
                                 
  
                             " . intval($opUserIdValue) . ",
