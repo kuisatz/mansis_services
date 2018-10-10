@@ -915,7 +915,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
         }
     }
     
-     /**
+    /**
      * @author Okan CIRAN
      * @ sys_educations_salesman tablosundan parametre olarak  gelen id kaydını active ve show_it alanlarını 1 yapar. !!
      * @version v 1.0  24.08.2018
@@ -1147,7 +1147,7 @@ class SysEducationsSalesman extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_educations_salesman_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                      echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
