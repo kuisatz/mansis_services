@@ -684,7 +684,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $parameters);                
+                 echo debugPDO($sql, $parameters);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -879,6 +879,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
+                    deleted = 1 ,
                     show_it =1 
                 WHERE id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
