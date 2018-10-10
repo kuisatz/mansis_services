@@ -566,7 +566,7 @@ $app->get("/pkUpdateAct_infoprojectbuybacks/", function () use ($app ) {
                                                 $app,
                                                 $_GET['buyback_matrix_id']));
     } 
-    $quantity = NULL;
+    $Quantity = NULL;
     if (isset($_GET['quantity'])) {
          $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
@@ -621,7 +621,6 @@ $app->get("/pkUpdateAct_infoprojectbuybacks/", function () use ($app ) {
                                                 $_GET['ishos_confirm']));
     } 
      
-  
     $stripper->strip();
     if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue(); 
     if($stripper->offsetExists('vehicles_endgroup_id')) $vehiclesEndgroupId = $stripper->offsetGet('vehicles_endgroup_id')->getFilterValue();
@@ -642,7 +641,6 @@ $app->get("/pkUpdateAct_infoprojectbuybacks/", function () use ($app ) {
     if($stripper->offsetExists('deal_tb_value')) $dealTbValue = $stripper->offsetGet('deal_tb_value')->getFilterValue(); 
     if($stripper->offsetExists('isbo_confirm')) $isboConfirm = $stripper->offsetGet('isbo_confirm')->getFilterValue(); 
     if($stripper->offsetExists('ishos_confirm')) $ishosConfirm = $stripper->offsetGet('ishos_confirm')->getFilterValue(); 
-      
      
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
@@ -660,15 +658,15 @@ $app->get("/pkUpdateAct_infoprojectbuybacks/", function () use ($app ) {
             'HydraulicsId' => $hydraulicsId,   
             'BuybackMatrixId' => $buybackMatrixId,   
             'Quantity' => $Quantity,   
-            'IsOther' => $CustomerTypeId,   
-            'OtherMonthValue' => $CustomerTypeId,   
-            'OtherMilagesValue' => $CustomerTypeId,   
+            'IsOther' => $isOther,
+            'OtherMonthValue' => $otherMonthValue,   
+            'OtherMilagesValue' => $otherMilagesValue,   
         
-            'OtherDescription' => $CustomerTypeId,   
-            'EndDate' => $CustomerTypeId,   
-            'DealTbValue' => $CustomerTypeId,   
-            'IsBoConfirm' => $CustomerTypeId,   
-            'IsHosConfirm' => $CustomerTypeId,   
+            'OtherDescription' => $otherDescription,   
+            'EndDate' => $endDate,   
+            'DealTbValue' => $dealTbValue,   
+            'IsBoConfirm' => $isboConfirm,   
+            'IsHosConfirm' => $ishosConfirm,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

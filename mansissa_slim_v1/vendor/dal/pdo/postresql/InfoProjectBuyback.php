@@ -1218,7 +1218,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                            (SELECT last_value FROM info_project_buyback_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-             echo debugPDO($sql, $params);
+          //   echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -1266,7 +1266,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
             
-             $addSQL1 =null ;    
+            $addSQL1 =null ;    
             $addSQL2 =null ;               
             $ProjectId = null;
             if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
@@ -1359,8 +1359,19 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'project_id' => $ProjectId,  
-                            'vehicle_gt_model_id' =>  $VehicleGtModelId,  
-                            'delivery_date' => $DeliveryDate,   
+                            'vehicles_endgroup_id' =>  $vehiclesEndgroupId,  
+                            'vehicles_trade_id' => $VehiclesTradeId,  
+                            'customer_type_id' => $ProjectId,  
+                            'comfort_super_id' =>  $ComfortSuperId,  
+                            'terrain_id' => $TerrainId, 
+                            'vehicle_group_id' => $VehicleGroupId,  
+                            'hydraulics_id' =>  $HydraulicsId,  
+                            'buyback_matrix_id' => $BuybackMatrixId, 
+                            'is_other' => $IsOther,  
+                            'other_month_value' =>  $OtherMonthValue,  
+                            'other_milages_value' => $OtherMilagesValue, 
+                            'isbo_confirm' => $IsBoConfirm,  
+                            'ishos_confirm' =>  $IsHosConfirm,   
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -1383,7 +1394,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                         other_month_value,
                         other_milages_value,
                         other_description,
-                        '" .   $addSQL1 . "', 
+                        " .   $addSQL1 . "
                         deal_tb_value,
                         isbo_confirm,
                         ishos_confirm,
@@ -1406,7 +1417,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     " .  intval($OtherMonthValue). ",
                     " .  intval($OtherMilagesValue). ",
                     " .  intval($OtherDescription). ",
-                    '" .   $addSQL2 . "', 
+                    " .   $addSQL2 . "
                     " .  intval($DealTbValue). ",
                     " .  intval($IsBoConfirm). ",
                     " .  intval($IsHosConfirm). ",
