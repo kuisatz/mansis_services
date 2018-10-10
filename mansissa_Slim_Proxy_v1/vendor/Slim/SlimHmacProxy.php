@@ -32,7 +32,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateMakeActiveOrPassive_infoprojecttradeback' => 'restApiDefaultCall', 
         
                                     'pkInsertAct_infoprojecttradeback' => 'restApiDefaultCall', 
-                                    'pkUpdateAct__infoprojecttradeback' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojecttradeback' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojecttradeback' => 'restApiDefaultCall', 
             
              //** infoProjectTradebackBLL ----------------------//   
