@@ -433,7 +433,13 @@ $app->get("/pkInsertAct_infoprojectbuybacks/", function () use ($app ) {
                                                 $app,
                                                 $_GET['ishos_confirm']));
     } 
-     
+    
+    $Quantity = NULL;
+    if (isset($_GET['quantity'])) {
+         $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['quantity']));
+    } 
   
     $stripper->strip();
     if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue(); 

@@ -1044,26 +1044,31 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $contractTypeID = $params['ContractTypeID'];
                 $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
             }  
+              $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
             $monthID =0 ;
             if (isset($params['MonthID']) && $params['MonthID'] != "") {
                 $monthID = $params['MonthID'];
                 $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
             }  
+              $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
             $mileageID =0 ;
             if (isset($params['MileageID']) && $params['MileageID'] != "") {
                 $mileageID = $params['MileageID'];
                 $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
             } 
+             $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
             $terrainID =0 ;
             if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
+             $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             $buybackTypeID =0 ;
             if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
                 $buybackTypeID = $params['BuybackTypeID'];
                 $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
             } 
+            $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
                 $sql = "
                     SELECT 
                         a.id, 
