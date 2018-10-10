@@ -199,7 +199,8 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
             $statement = $pdo->prepare(" 
                 UPDATE info_users_products_services
                 SET                         
-                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
+                    c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,      
+                    deleted = 1 ,
                     active = 1                    
                 WHERE id = :id");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
