@@ -1068,7 +1068,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                             " . intval($mileages1Id) . ", 
                             " . intval($warrantyTypesId) . ", 
                             " . intval($ismaintenance) . ", 
-                            " . intval($uniqueCode) . ",
+                            '" . ($uniqueCode) . "',
                             " . intval($priceInEuros) . ", 
                            
                                                         
@@ -1218,7 +1218,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
                     " . intval($mileages1Id) . ", 
                     " . intval($warrantyTypesId) . ", 
                     " . intval($ismaintenance) . ", 
-                    " . intval($uniqueCode) . ",
+                    '" . ($uniqueCode) . "',
                     " . intval($priceInEuros) . ", 
                                                               
                     " . intval($opUserIdValue) . " AS op_user_id,  
