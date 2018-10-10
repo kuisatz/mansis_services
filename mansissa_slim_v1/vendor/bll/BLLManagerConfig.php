@@ -46,6 +46,7 @@ class BLLManagerConfig{
                     'infoProjectVehicleModelsBLL' => 'BLL\BLL\InfoProjectVehicleModels',
                     'infoCustomerActivationsBLL' => 'BLL\BLL\InfoCustomerActivations',
                     'infoProjectBuybackBLL' => 'BLL\BLL\InfoProjectBuyback',
+                    'infoProjectTradebackBLL' => 'BLL\BLL\InfoProjectTradeback',
                  
                  
                  

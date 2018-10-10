@@ -23,10 +23,25 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+        
+        
+         //**---- infoProjectTradebackBLL -------------------  
+            
+                                    'pkProjectVehicleTBDdList_infoprojecttradeback' => 'restApiDefaultCall',  
+                                    'pkFillProjectVehicleTBGridx_infoprojecttradeback' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_infoprojecttradeback' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infoprojecttradeback' => 'restApiDefaultCall', 
+                                    'pkUpdateAct__infoprojecttradeback' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojecttradeback' => 'restApiDefaultCall', 
+            
+             //** infoProjectTradebackBLL ----------------------//   
+        
+        
+        
           //**---- infoProjectBuybackBLL -------------------  
             
-                                    'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall', 
-                                    'pkFillProjectBBSpecialGridx_infoprojectbuybacks' => 'restApiDefaultCall', 
+                                    'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall',  
                                     'pkFillProjectVehicleBBGridx_infoprojectbuybacks' => 'restApiDefaultCall',   
                                     'pkUpdateMakeActiveOrPassive_infoprojectbuybacks' => 'restApiDefaultCall', 
         
@@ -2051,34 +2066,37 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
-              case "_infoprojectbuybacks":  
+            case "_infoprojecttradeback":  
+                $this->setRestApiEndPoint('infoprojecttradeback.php/');
+                break; 
+            case "_infoprojectbuybacks":  
                 $this->setRestApiEndPoint('infoprojectbuybacks.php/');
                 break; 
-              case "_infocustomeractivations":  
+            case "_infocustomeractivations":  
                 $this->setRestApiEndPoint('infocustomeractivations.php/');
                 break; 
-              case "_syssisdepartments":  
+            case "_syssisdepartments":  
                 $this->setRestApiEndPoint('syssisdepartments.php/');
                 break; 
-              case "_sysvehiclestrade":  
+            case "_sysvehiclestrade":  
                 $this->setRestApiEndPoint('sysvehiclestrade.php/');
                 break; 
-             case "_syshorsepower":  
+            case "_syshorsepower":  
                 $this->setRestApiEndPoint('syshorsepower.php/');
                 break; 
-             case "_infoprojectvehiclemodels":  
+            case "_infoprojectvehiclemodels":  
                 $this->setRestApiEndPoint('infoprojectvehiclemodels.php/');
                 break; 
-             case "_systonnage":  
+            case "_systonnage":  
                 $this->setRestApiEndPoint('systonnage.php/');
                 break; 
             case "_infoproject":  
                 $this->setRestApiEndPoint('infoproject.php/');
                 break; 
-             case "_sysbuybackmatrix":  
+            case "_sysbuybackmatrix":  
                 $this->setRestApiEndPoint('sysbuybackmatrix.php/');
                 break; 
-             case "_sysprioritytype":  
+            case "_sysprioritytype":  
                 $this->setRestApiEndPoint('sysprioritytype.php/');
                 break; 
             case "_sysaccessoriesmatrix":  
@@ -2105,7 +2123,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_infocustomer":  
                 $this->setRestApiEndPoint('infocustomer.php/');
                 break; 
-             case "_syskpnumbers":  
+            case "_syskpnumbers":  
                 $this->setRestApiEndPoint('syskpnumbers.php/');
                 break; 
             case "_sysfinancetypes":  
@@ -2159,7 +2177,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_sysmileages": 
                 $this->setRestApiEndPoint('sysmileages.php/');
                 break; 
-             case "_sysmonths": 
+            case "_sysmonths": 
                 $this->setRestApiEndPoint('sysmonths.php/');
                 break; 
             case "_syswarrantymatrix": 

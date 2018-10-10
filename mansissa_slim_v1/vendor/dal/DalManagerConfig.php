@@ -43,6 +43,7 @@ class DalManagerConfig {
                   'infoDealerOwnerOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoDealerOwnerFactory',
                   'infoCustomerActivationsOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerActivationsFactory',
                   'infoProjectBuybackOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectBuybackFactory',
+                  'infoProjectTradebackOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectTradebackFactory',
                 
                 
                  
@@ -222,7 +223,7 @@ class DalManagerConfig {
                 'infoProjectVehicleModelsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectVehicleModelsFactory',
                 'infoCustomerActivationsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerActivationsFactory',
                 'infoProjectBuybackPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectBuybackFactory',
-               
+                'infoProjectTradebackPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectTradebackFactory',
                 
                 
                 
