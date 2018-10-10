@@ -644,7 +644,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
 
 		    INNER JOIN sys_vehicle_groups vgrd ON vgrd.act_parent_id = a.warranty_id AND vgrd.show_it = 0 
  
-		    INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_id AND erd.show_it = 0 AND erd.language_id= l.id
+		    INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_types_id AND erd.show_it = 0 AND erd.language_id= l.id
 		    LEFT JOIN sys_warranty_types erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it= 0 AND erdx.language_id =lx.id  
                  
 		    INNER JOIN sys_monthsx grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0   
@@ -820,7 +820,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
 
                         INNER JOIN sys_vehicle_groups vgrd ON vgrd.act_parent_id = a.warranty_id AND vgrd.show_it = 0 
 
-                        INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_id AND erd.show_it = 0 AND erd.language_id= l.id
+                        INNER JOIN sys_warranty_types erd ON erd.act_parent_id = a.warranty_types_id AND erd.show_it = 0 AND erd.language_id= l.id
                         LEFT JOIN sys_warranty_types erdx ON (erdx.act_parent_id = erd.act_parent_id OR erdx.language_parent_id= erd.act_parent_id) AND erdx.show_it= 0 AND erdx.language_id =lx.id  
 
                         INNER JOIN sys_monthsx grd ON grd.act_parent_id = a.months1_id AND grd.show_it = 0   
