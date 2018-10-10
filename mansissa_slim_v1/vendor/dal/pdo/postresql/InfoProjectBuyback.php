@@ -1186,7 +1186,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             other_month_value,
                             other_milages_value,
                             other_description,
-                            '" .   $addSQL1 . "'
+                            " .   $addSQL1 . "
                             deal_tb_value,
                             isbo_confirm,
                             ishos_confirm,
@@ -1209,7 +1209,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             " .  intval($OtherMonthValue). ",
                             " .  intval($OtherMilagesValue). ",
                             " .  intval($OtherDescription). ",
-                            '" .   $addSQL2 . "'
+                            " .   $addSQL2 . "
                             " .  intval($DealTbValue). ",
                             " .  intval($IsBoConfirm). ",
                             " .  intval($IsHosConfirm). ",
@@ -1218,7 +1218,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                            (SELECT last_value FROM info_project_buyback_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                echo debugPDO($sql, $params);
+              //  echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
