@@ -1186,7 +1186,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             other_month_value,
                             other_milages_value,
                             other_description,
-                            '" .   $addSQL1 . "', 
+                            '" .   $addSQL1 . "'
                             deal_tb_value,
                             isbo_confirm,
                             ishos_confirm,
@@ -1209,7 +1209,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             " .  intval($OtherMonthValue). ",
                             " .  intval($OtherMilagesValue). ",
                             " .  intval($OtherDescription). ",
-                            '" .   $addSQL2 . "', 
+                            '" .   $addSQL2 . "'
                             " .  intval($DealTbValue). ",
                             " .  intval($IsBoConfirm). ",
                             " .  intval($IsHosConfirm). ",
