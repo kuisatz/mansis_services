@@ -475,15 +475,15 @@ $app->get("/pkInsertAct_infoprojectbuybacks/", function () use ($app ) {
             'HydraulicsId' => $hydraulicsId,   
             'BuybackMatrixId' => $buybackMatrixId,   
             'Quantity' => $Quantity,   
-            'IsOther' => $CustomerTypeId,   
-            'OtherMonthValue' => $CustomerTypeId,   
-            'OtherMilagesValue' => $CustomerTypeId,   
+            'IsOther' => $isOther,
+            'OtherMonthValue' => $otherMonthValue,   
+            'OtherMilagesValue' => $otherMilagesValue,   
         
-            'OtherDescription' => $CustomerTypeId,   
-            'EndDate' => $CustomerTypeId,   
-            'DealTbValue' => $CustomerTypeId,   
-            'IsBoConfirm' => $CustomerTypeId,   
-            'IsHosConfirm' => $CustomerTypeId,   
+            'OtherDescription' => $otherDescription,   
+            'EndDate' => $endDate,   
+            'DealTbValue' => $dealTbValue,   
+            'IsBoConfirm' => $isboConfirm,   
+            'IsHosConfirm' => $ishosConfirm,   
          
             'pk' => $pk));
         
