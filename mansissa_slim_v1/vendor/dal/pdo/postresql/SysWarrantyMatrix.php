@@ -1022,7 +1022,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             }                            
             $uniqueCode = -1111;
             if ((isset($params['UniqueCode']) && $params['UniqueCode'] != "")) {
-                $uniqueCode = intval($params['UniqueCode']);
+                $uniqueCode =  ($params['UniqueCode']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }                            
@@ -1161,7 +1161,7 @@ class SysWarrantyMatrix extends \DAL\DalSlim {
             }
             $uniqueCode = -1111;
             if ((isset($params['UniqueCode']) && $params['UniqueCode'] != "")) {
-                $uniqueCode = intval($params['UniqueCode']);
+                $uniqueCode =  ($params['UniqueCode']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
