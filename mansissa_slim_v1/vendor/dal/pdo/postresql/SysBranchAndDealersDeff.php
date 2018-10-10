@@ -208,8 +208,9 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_branch_and_dealers_deff  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
-                  " . $addSql . " 
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND 
+                LOWER(REPLACE(branch_no,' ','')) = LOWER(REPLACE('" . $params['branch_no'] . "',' ',''))  
+                " . $addSql . " 
                 AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
@@ -935,6 +936,7 @@ class SysBranchAndDealersDeff extends \DAL\DalSlim {
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
+                    deleted = 1 ,
                     show_it =1 
                 WHERE id = :id ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
