@@ -1431,7 +1431,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     $statementInsert = $pdo->prepare($sql);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
-                    print_r($result) ; 
+                           
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                             
