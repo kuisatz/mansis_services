@@ -1319,7 +1319,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 
                     $this->makePassive(array('id' => $params['Id']));
 
-                    $statementInsert = $pdo->prepare("
+                  $sql = "
                 INSERT INTO info_customer_activations (  
                         customer_id,
                         contact_person_id,
@@ -1354,7 +1354,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 FROM info_customer_activations 
                 WHERE 
                     id  =" . intval($Id) . "                  
-                                                ");
+                                                " ;
+                       $statement = $pdo->prepare($sql);
+                 echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
