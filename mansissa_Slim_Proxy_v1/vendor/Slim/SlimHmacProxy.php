@@ -2073,7 +2073,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 $this->setRestApiEndPoint('infoprojectbuybacks.php/');
                 break; 
             case "_infocustomeractivations":  
-                print_r("dddd");
+              //  print_r("dddd");
                 $this->setRestApiEndPoint('infocustomeractivations.php/');
                 break; 
             case "_syssisdepartments":  

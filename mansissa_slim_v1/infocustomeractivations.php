@@ -423,7 +423,7 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
+$app->get("/pkUpdateAct1_infocustomeractivations/", function () use ($app ) {
     print_r("wwwww");
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
@@ -523,6 +523,118 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
             'VehicleModelId' => $VehicleModelId,  
             'Description' => $Description,  
             'ManagerDescription' => $ManagerDescription,   
+            'pk' => $pk));
+        
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resDataInsert));
+    
+}
+);
+
+/**
+ *  * Okan CIRAN
+ * @since 15-08-2018
+ */ 
+$app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) { 
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('infoCustomerActivationsBLL');  
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomeractivations" end point, X-Public variable not found');    
+     $pk =  $headerParams['X-Public'];
+      
+     $vId = NULL;
+    if (isset($_GET['id'])) {
+         $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['id']));
+    } 
+    $ActDate = NULL;
+    if (isset($_GET['act_date'])) {
+         $stripper->offsetSet('act_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['act_date']));
+    }  
+    $CustomerId= NULL;
+    if (isset($_GET['customer_id'])) {
+        $stripper->offsetSet('customer_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_id']));
+    }
+    $ContactPersonId= NULL;
+    if (isset($_GET['contact_person_id'])) {
+        $stripper->offsetSet('contact_person_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['contact_person_id']));
+    }
+    $CsActivationTypeId= NULL;
+    if (isset($_GET['cs_activation_type_id'])) {
+        $stripper->offsetSet('cs_activation_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['cs_activation_type_id']));
+    }
+    $CsStatuTypesId= NULL;
+    if (isset($_GET['cs_statu_types_id'])) {
+        $stripper->offsetSet('cs_statu_types_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['cs_statu_types_id']));
+    }
+    $CsActStatutypeId= NULL;
+    if (isset($_GET['cs_act_statutype_id'])) {
+        $stripper->offsetSet('cs_act_statutype_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['cs_act_statutype_id']));
+    }
+    $ProjectId= NULL;
+    if (isset($_GET['project_id'])) {
+        $stripper->offsetSet('project_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['project_id']));
+    }
+    $CustomerSegmentTypeId= NULL;
+    if (isset($_GET['customer_segment_type_id'])) {
+        $stripper->offsetSet('customer_segment_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_segment_type_id']));
+    }
+    $VehicleModelId= NULL;
+    if (isset($_GET['vehicle_model_id'])) {
+        $stripper->offsetSet('vehicle_model_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['vehicle_model_id']));
+    }
+    $Description = NULL;
+    if (isset($_GET['description'])) {
+         $stripper->offsetSet('description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['description']));
+    }   
+    $ManagerDescription = NULL;
+    if (isset($_GET['manager_description'])) {
+         $stripper->offsetSet('manager_description',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['manager_description']));
+    }  
+    
+    
+    
+    // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
+    
+    
+     
+    $stripper->strip();
+    
+    
+    if($stripper->offsetExists('act_date')) $ActDate = $stripper->offsetGet('act_date')->getFilterValue();
+    if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
+    if($stripper->offsetExists('contact_person_id')) $ContactPersonId = $stripper->offsetGet('contact_person_id')->getFilterValue();
+    if($stripper->offsetExists('cs_activation_type_id')) $CsActivationTypeId = $stripper->offsetGet('cs_activation_type_id')->getFilterValue();
+    if($stripper->offsetExists('cs_statu_types_id')) $CsStatuTypesId = $stripper->offsetGet('cs_statu_types_id')->getFilterValue();
+    if($stripper->offsetExists('cs_act_statutype_id')) $CsActStatutypeId = $stripper->offsetGet('cs_act_statutype_id')->getFilterValue();
+    if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue();
+    if($stripper->offsetExists('customer_segment_type_id')) $CustomerSegmentTypeId = $stripper->offsetGet('customer_segment_type_id')->getFilterValue();     
+    if($stripper->offsetExists('vehicle_model_id')) $VehicleModelId= $stripper->offsetGet('vehicle_model_id')->getFilterValue();
+    if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
+    if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
+    if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
+  
+    $resDataInsert = $BLL->updateAct(array( 
+            'CustomerId' => $CustomerId,  
+            'ContactPersonId' => $ContactPersonId,  
+            'CsActivationTypeId' => $CsActivationTypeId,   
+            'ActDate' => $ActDate,  
+            'CsStatuTypesId' => $CsStatuTypesId,  
+            'CsActStatutypeId' => $CsActStatutypeId,  
+            'ProjectId' => $ProjectId,    
+            'CustomerSegmentTypeId' => $CustomerSegmentTypeId,     
+            'VehicleModelId' => $VehicleModelId,   
+            'Description' => $Description,  
+            'ManagerDescription' => $ManagerDescription,   
+          
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
