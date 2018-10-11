@@ -317,6 +317,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_infocustomeractivations/", function () u
  * @since 15-08-2018
  */ 
 $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
+    print_r("zzzzz");
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerActivationsBLL');  
