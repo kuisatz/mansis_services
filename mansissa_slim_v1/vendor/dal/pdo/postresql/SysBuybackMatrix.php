@@ -1077,8 +1077,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
                         a.model_id ,
                         crd.description AS vahicle_description,
-                        a.buyback_type_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                       
                         a.comfort_super_id,
                         COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
@@ -1112,8 +1111,6 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     /*----*/   
                     INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
                       
-                    INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
-                    LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
                        
                     INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
                     LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
@@ -1207,11 +1204,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                                 $sorguStr.=" AND crd.description" . $sorguExpression . ' ';
 
                                 break; 
-                             case 'buyback_type_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                           
                              case 'terrain_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
@@ -1282,12 +1275,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
-            $buybackTypeID =0 ;
-            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
-                $buybackTypeID = $params['BuybackTypeID'];
-                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
-            } 
-
+                           
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
@@ -1296,9 +1284,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.contract_type_id,
                         COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
                         a.model_id ,
-                        crd.description AS vahicle_description,
-                        a.buyback_type_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                        crd.description AS vahicle_description, 
                         a.comfort_super_id,
                         COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
@@ -1320,9 +1306,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     /*----*/   
                     INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
                       
-                    INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
-                    LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-                       
+                        
                     INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
                     LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
                     
@@ -1508,10 +1492,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $buybackTypeId = -1111;
-            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
-                $buybackTypeId = intval($params['BuybackTypeId']);
-            }  
+                           
             $terrainId = -1111;
             if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
                 $terrainId = intval($params['TerrainId']);
@@ -1545,7 +1526,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         array(
                             'contract_type_id' => $contractTypeId,
                             'model_id' => $modelId,
-                            'buyback_type_id' => $buybackTypeId,
+                           
                             'terrain_id' => $terrainId,
                             'month_id' => $monthId,
                             'mileage_id' => $mileageId, 
@@ -1555,7 +1536,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INSERT INTO sys_buyback_matrix(
                             contract_type_id,
                             model_id,
-                            buyback_type_id,
+                         
                             terrain_id,
                             month_id,
                             mileage_id,
@@ -1567,7 +1548,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     VALUES (                         
                             " . intval($contractTypeId) . ",
                             " . intval($modelId) . ",
-                            " . intval($buybackTypeId) . ",
+                           
                             " . intval($terrainId) . ",
                             " . intval($monthId) . ", 
                             " . intval($mileageId) . ",
@@ -1632,12 +1613,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $buybackTypeId = -1111;
-            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
-                $buybackTypeId = intval($params['BuybackTypeId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                           
             $terrainId = -1111;
             if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
                 $terrainId = intval($params['TerrainId']);
@@ -1671,7 +1647,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         array(
                             'contract_type_id' => $contractTypeId,
                             'model_id' => $modelId,
-                            'buyback_type_id' => $buybackTypeId,
+                           
                             'terrain_id' => $terrainId,
                             'month_id' => $monthId,
                             'mileage_id' => $mileageId, 
@@ -1681,7 +1657,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INSERT INTO sys_buyback_matrix(
                             contract_type_id,
                             model_id,
-                            buyback_type_id,
+                          
                             terrain_id,
                             month_id,
                             mileage_id,
@@ -1693,7 +1669,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     VALUES (                         
                             " . intval($contractTypeId) . ",
                             " . intval($modelId) . ",
-                            " . intval($buybackTypeId) . ",
+                        
                             " . intval($terrainId) . ",
                             " . intval($monthId) . ", 
                             " . intval($mileageId) . ",
@@ -1763,12 +1739,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $buybackTypeId = -1111;
-            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
-                $buybackTypeId = intval($params['BuybackTypeId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                           
             $terrainId = -1111;
             if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
                 $terrainId = intval($params['TerrainId']);
@@ -1815,7 +1786,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 INSERT INTO sys_buyback_matrix (  
                         contract_type_id,
                         model_id,
-                        buyback_type_id,
+                       
                         terrain_id,
                         month_id,
                         mileage_id,
@@ -1827,7 +1798,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 SELECT  
                     " . intval($contractTypeId) . ",
                     " . intval($modelId) . ",
-                    " . intval($buybackTypeId) . ",
+                   
                     " . intval($terrainId) . ",
                     " . intval($monthId) . ", 
                     " . intval($mileageId) . ",
@@ -1899,12 +1870,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $buybackTypeId = -1111;
-            if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
-                $buybackTypeId = intval($params['BuybackTypeId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                           
             $terrainId = -1111;
             if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
                 $terrainId = intval($params['TerrainId']);
@@ -1951,7 +1917,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 INSERT INTO sys_buyback_matrix (  
                         contract_type_id,
                         model_id,
-                        buyback_type_id,
+                       
                         terrain_id,
                         month_id,
                         mileage_id,
@@ -1963,7 +1929,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 SELECT  
                     " . intval($contractTypeId) . ",
                     " . intval($modelId) . ",
-                    " . intval($buybackTypeId) . ",
+                    
                     " . intval($terrainId) . ",
                     " . intval($monthId) . ", 
                     " . intval($mileageId) . ",
