@@ -1355,7 +1355,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 WHERE 
                     id  =" . intval($Id) . "                  
                                                 " ;
-                       $statement = $pdo->prepare($sql);
+                    $statementInsert = $pdo->prepare($sql);
                 // echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
