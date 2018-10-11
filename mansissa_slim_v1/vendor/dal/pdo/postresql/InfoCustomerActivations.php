@@ -208,7 +208,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_customer_activations  a                          
             WHERE 
-                a.customer_id = " . intval($params['id']) . " AND 
+                a.customer_id = " . intval($params['customer_id']) . " AND 
                 a.act_date = '" .  ($params['act_date']) . "' AND 
                 a.contact_person_id = " . intval($params['contact_person_id']) . "   
                 " . $addSql . " 
