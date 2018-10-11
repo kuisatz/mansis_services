@@ -424,6 +424,7 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
  * @since 15-08-2018
  */ 
 $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
+    print_r("wwwww");
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerActivationsBLL');  
@@ -508,7 +509,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
    
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
-          
+      print_r("ssss");     
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
             'ActDate' => $ActDate,  
