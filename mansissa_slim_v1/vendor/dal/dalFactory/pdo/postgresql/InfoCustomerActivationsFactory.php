@@ -17,7 +17,7 @@ namespace DAL\Factory\PDO\Postgresql;
 class InfoCustomerActivationsFactory  implements \Zend\ServiceManager\FactoryInterface{
     
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
-        $namespc = new \DAL\PDO\Postresql\InfoCustomer() ;   
+        $namespc = new \DAL\PDO\Postresql\InfoCustomerActivations() ;   
         $slimapp = $serviceLocator->get('slimapp') ;            
         $namespc -> setSlimApp($slimapp); 
         return $namespc; 
