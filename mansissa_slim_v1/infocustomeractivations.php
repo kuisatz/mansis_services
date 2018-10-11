@@ -377,6 +377,10 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     }  
     
     
+    
+    // &customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
+    
+    
      
     $stripper->strip();
     
@@ -394,17 +398,16 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
  
   
-    $resDataInsert = $BLL->insertAct(array(
-           
-            'ActDate' => $ActDate,  
+    $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
             'ContactPersonId' => $ContactPersonId,  
-            'CsActivationTypeId' => $CsActivationTypeId,  
+            'CsActivationTypeId' => $CsActivationTypeId,   
+            'ActDate' => $ActDate,  
             'CsStatuTypesId' => $CsStatuTypesId,  
             'CsActStatutypeId' => $CsActStatutypeId,  
-            'ProjectId' => $ProjectId,  
-            'CustomerSegmentTypeId' => $CustomerSegmentTypeId,   
-            'VehicleModelId' => $VehicleModelId,  
+            'ProjectId' => $ProjectId,    
+            'CustomerSegmentTypeId' => $CustomerSegmentTypeId,     
+            'VehicleModelId' => $VehicleModelId,   
             'Description' => $Description,  
             'ManagerDescription' => $ManagerDescription,   
           
