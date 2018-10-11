@@ -194,6 +194,10 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "cs_statu_types_id" =>  ($menu["cs_statu_types_id"]),
                 "statu_types_name" => html_entity_decode($menu["statu_types_name"]),
                 
+                "cs_act_statutype_id" =>  ($menu["cs_act_statutype_id"]),
+                "cs_act_statutype_name" => html_entity_decode($menu["cs_act_statutype_name"]),
+                
+                
                  "project_id" => intval($menu["project_id"]),  
                 
                  "vehicle_model_id" =>  ($menu["vehicle_model_id"]),

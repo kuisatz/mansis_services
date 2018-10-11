@@ -668,7 +668,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 			cat.name activation_type_name, 
 			a.act_date,
 			a.cs_statu_types_id,
+                        acs.name as statu_types_name,
 			a.cs_act_statutype_id,
+                        cas.name as cs_act_statutype_name,
 			a.project_id,
 			a.customer_segment_type_id, 
                         cst.name segment_type_name, 
@@ -713,6 +715,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
+                    left join sys_cs_statu_types acs on acs.act_parent_id = a.cs_statu_types_id and acs.show_it = 0 
+                    left join sys_cs_act_statutypes  cas on cas.act_parent_id = a.cs_statu_types_id and cas.show_it = 0 
                      
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -868,7 +872,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                        SELECT  
+                       SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
                         cs.registration_name, 
@@ -877,7 +881,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 			cat.name activation_type_name, 
 			a.act_date,
 			a.cs_statu_types_id,
+                        acs.name as statu_types_name,
 			a.cs_act_statutype_id,
+                        cas.name as cs_act_statutype_name,
 			a.project_id,
 			a.customer_segment_type_id, 
                         cst.name segment_type_name, 
@@ -899,9 +905,16 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         cs.vatnumber, 
                         cs.registration_number, 
                         cs.registration_date,  
-                        cs.is_bo_confirm,   
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
-                        u.username AS op_user_name 
+                        cs.is_bo_confirm,  
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                        a.op_user_id,
+                        u.username AS op_user_name,  
+                        a.s_date date_saved,
+                        a.c_date date_modified, 
+                        COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
+                        lx.language_main_code language_code, 
+                        COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer_activations a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
                     LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "   AND lx.show_it =0  
@@ -915,7 +928,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
-                      
+                    left join sys_cs_statu_types acs on acs.act_parent_id = a.cs_statu_types_id and acs.show_it = 0 
+                    left join sys_cs_act_statutypes  cas on cas.act_parent_id = a.cs_statu_types_id and cas.show_it = 0 
+                     
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
