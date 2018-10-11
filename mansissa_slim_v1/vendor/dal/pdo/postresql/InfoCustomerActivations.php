@@ -202,10 +202,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.registration_name ,
-                '" . $params['registration_name'] . "' AS value, 
-                LOWER(a.registration_name) = LOWER(TRIM('" . $params['registration_name'] . "')) AS control,
-                CONCAT(a.registration_name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' as name ,
+                '' AS value, 
+               true AS control,
+                CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_customer_activations  a                          
             WHERE 
                 a.customer_id = " . intval($params['id']) . " AND 
