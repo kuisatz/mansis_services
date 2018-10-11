@@ -1296,6 +1296,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.mileage_id,
                         erd.name  AS mileage_type_name, 
                         a.customer_type_id,
+                        a.comfort_super_id,
+                        a.hydraulics,
+                        a.customer_type_id, 
+
+
                         COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS customer_type_name,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         u.username AS op_user_name 
@@ -1421,6 +1426,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         month_id,
                         mileage_id,
                         price,
+                        comfort_super_id,
+                        hydraulics,
+                        customer_type_id, 
                          
                         active,
                         deleted,
@@ -1436,6 +1444,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         month_id,
                         mileage_id,
                         price,
+                        comfort_super_id,
+                        hydraulics,
+                        customer_type_id, 
                        
                         1 AS active,  
                         1 AS deleted, 
@@ -1517,6 +1528,25 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            $ComfortSuperId = -1111;
+            if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
+                $ComfortSuperId = intval($params['ComfortSuperId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $Hydraulics= -1111;
+            if ((isset($params['Hydraulics']) && $params['Hydraulics'] != "")) {
+                $Hydraulics = intval($params['Hydraulics']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $CustomerTypeId = -1111;
+            if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
+                $CustomerTypeId = intval($params['CustomerTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            
                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1541,6 +1571,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             month_id,
                             mileage_id,
                             price,
+                            comfort_super_id,
+                            hydraulics,
+                            customer_type_id, 
 
                             op_user_id,
                             act_parent_id  
@@ -1553,6 +1586,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             " . intval($monthId) . ", 
                             " . intval($mileageId) . ",
                             " . floatval($price) . ",
+                            " . intval($ComfortSuperId) . ",
+                            " . intval($Hydraulics) . ", 
+                            " . intval($CustomerTypeId) . ",
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_buyback_matrix_id_seq)
@@ -1638,6 +1674,24 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+              $ComfortSuperId = -1111;
+            if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
+                $ComfortSuperId = intval($params['ComfortSuperId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $Hydraulics= -1111;
+            if ((isset($params['Hydraulics']) && $params['Hydraulics'] != "")) {
+                $Hydraulics = intval($params['Hydraulics']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $CustomerTypeId = -1111;
+            if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
+                $CustomerTypeId = intval($params['CustomerTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1662,6 +1716,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             month_id,
                             mileage_id,
                             price,
+                            comfort_super_id,
+                            hydraulics,
+                            customer_type_id, 
 
                             op_user_id,
                             act_parent_id  
@@ -1674,6 +1731,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             " . intval($monthId) . ", 
                             " . intval($mileageId) . ",
                             " . floatval($price) . ",
+                            " . intval($ComfortSuperId) . ",
+                            " . intval($Hydraulics) . ", 
+                            " . intval($CustomerTypeId) . ",
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_buyback_matrix_id_seq)
@@ -1763,7 +1823,25 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $price = floatval($params['Price']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }               
+            }      
+              $ComfortSuperId = -1111;
+            if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
+                $ComfortSuperId = intval($params['ComfortSuperId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $Hydraulics= -1111;
+            if ((isset($params['Hydraulics']) && $params['Hydraulics'] != "")) {
+                $Hydraulics = intval($params['Hydraulics']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $CustomerTypeId = -1111;
+            if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
+                $CustomerTypeId = intval($params['CustomerTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
            
 
             $opUserIdParams = array('pk' => $params['pk'],);
@@ -1791,6 +1869,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         month_id,
                         mileage_id,
                         price,
+                        comfort_super_id,
+                        hydraulics,
+                        customer_type_id, 
                          
                         op_user_id,
                         act_parent_id 
@@ -1803,6 +1884,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     " . intval($monthId) . ", 
                     " . intval($mileageId) . ",
                     " . floatval($price) . ", 
+                    " . intval($ComfortSuperId) . ",
+                    " . intval($Hydraulics) . ", 
+                    " . intval($CustomerTypeId) . ",
                
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
@@ -1894,7 +1978,25 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $price = floatval($params['Price']);
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }               
+            } 
+            $ComfortSuperId = -1111;
+            if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
+                $ComfortSuperId = intval($params['ComfortSuperId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $Hydraulics= -1111;
+            if ((isset($params['Hydraulics']) && $params['Hydraulics'] != "")) {
+                $Hydraulics = intval($params['Hydraulics']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $CustomerTypeId = -1111;
+            if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
+                $CustomerTypeId = intval($params['CustomerTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }  
            
 
             $opUserIdParams = array('pk' => $params['pk'],);
@@ -1922,6 +2024,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         month_id,
                         mileage_id,
                         price,
+                        comfort_super_id,
+                        hydraulics,
+                        customer_type_id, 
                          
                         op_user_id,
                         act_parent_id 
@@ -1934,6 +2039,9 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     " . intval($monthId) . ", 
                     " . intval($mileageId) . ",
                     " . floatval($price) . ", 
+                    " . intval($ComfortSuperId) . ",
+                    " . intval($Hydraulics) . ", 
+                    " . intval($CustomerTypeId) . ",
                
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

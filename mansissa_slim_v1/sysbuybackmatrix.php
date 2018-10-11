@@ -411,6 +411,24 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['price']));
     } 
+    $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
+    $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
      
   
     //  &contract_type_id=1,&model_id=2,&buyback_type_id=2,&terrain_id=2,&month_id=23,&mileage_id=23,&price=123      
@@ -423,6 +441,10 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
+    
+    if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
           
      
     $resDataInsert = $BLL->InsertBBAct(array(
@@ -433,6 +455,9 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
             'Price' => $price, 
+            'ComfortSuperId' => $ComfortSuperId, 
+            'Hydraulics' => $Hydraulics, 
+            'CustomerTypeId' => $CustomerTypeId, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -495,6 +520,24 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['price']));
     } 
+     $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
+    $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
      
   
     //  &contract_type_id=1,&model_id=2,&buyback_type_id=2,&terrain_id=2,&month_id=23,&mileage_id=23,&price=123      
@@ -508,6 +551,10 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
           
+    if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
+          
      
     $resDataInsert = $BLL->InsertTBAct(array(
             'ContractTypeId' => $contractTypeId,   
@@ -517,6 +564,9 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
             'Price' => $price, 
+            'ComfortSuperId' => $ComfortSuperId, 
+            'Hydraulics' => $Hydraulics, 
+            'CustomerTypeId' => $CustomerTypeId, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -585,6 +635,24 @@ $app->get("/pkUpdateBBAct_sysbuybackmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['price']));
     } 
+     $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
+    $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
      
   
             
@@ -597,6 +665,9 @@ $app->get("/pkUpdateBBAct_sysbuybackmatrix/", function () use ($app ) {
     if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
+    if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
@@ -609,6 +680,9 @@ $app->get("/pkUpdateBBAct_sysbuybackmatrix/", function () use ($app ) {
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
             'Price' => $price, 
+            'ComfortSuperId' => $ComfortSuperId, 
+            'Hydraulics' => $Hydraulics, 
+            'CustomerTypeId' => $CustomerTypeId, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -677,6 +751,24 @@ $app->get("/pkUpdateTBAct_sysbuybackmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['price']));
     } 
+     $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
+    $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
      
   
             
@@ -689,6 +781,9 @@ $app->get("/pkUpdateTBAct_sysbuybackmatrix/", function () use ($app ) {
     if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('price')) $price = $stripper->offsetGet('price')->getFilterValue();
+     if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
@@ -701,6 +796,9 @@ $app->get("/pkUpdateTBAct_sysbuybackmatrix/", function () use ($app ) {
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
             'Price' => $price, 
+            'ComfortSuperId' => $ComfortSuperId, 
+            'Hydraulics' => $Hydraulics, 
+            'CustomerTypeId' => $CustomerTypeId, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
