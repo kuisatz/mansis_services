@@ -1432,7 +1432,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INSERT INTO sys_buyback_matrix (
                         contract_type_id,
                         model_id,
-                        buyback_type_id,
+                      
                         terrain_id,
                         month_id,
                         mileage_id,
@@ -1447,7 +1447,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     SELECT
                         contract_type_id,
                         model_id,
-                        buyback_type_id,
+                      
                         terrain_id,
                         month_id,
                         mileage_id,
@@ -1511,9 +1511,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             $buybackTypeId = -1111;
             if ((isset($params['BuybackTypeId']) && $params['BuybackTypeId'] != "")) {
                 $buybackTypeId = intval($params['BuybackTypeId']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+            }  
             $terrainId = -1111;
             if ((isset($params['TerrainId']) && $params['TerrainId'] != "")) {
                 $terrainId = intval($params['TerrainId']);
