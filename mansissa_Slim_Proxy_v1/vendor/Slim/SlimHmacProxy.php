@@ -2058,7 +2058,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         $endPointFunctionPos = strrpos($endPointFunction, "_");
         $endPointFunctionStart = $endPointFunctionLen - $endPointFunctionPos;
         $endPoint = substr($endPointFunction, - $endPointFunctionStart);
-       //  print_r($endPoint); 
+         print_r($endPoint); 
         switch ($endPoint) {
             case "_test":
                 echo "_test!";
@@ -2073,6 +2073,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 $this->setRestApiEndPoint('infoprojectbuybacks.php/');
                 break; 
             case "_infocustomeractivations":  
+                print_r("dddd");
                 $this->setRestApiEndPoint('infocustomeractivations.php/');
                 break; 
             case "_syssisdepartments":  
