@@ -127,8 +127,7 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
                 "contract_name" => html_entity_decode($menu["contract_name"]), 
                 "model_id" => $menu["model_id"], 
                 "vahicle_description" => html_entity_decode($menu["vahicle_description"]),   
-                "buyback_type_id" => $menu["buyback_type_id"], 
-                "buyback_type_name" => html_entity_decode($menu["buyback_type_name"]), 
+               
                 "terrain_id" => $menu["terrain_id"], 
                 "terrain_name" => html_entity_decode($menu["terrain_name"]), 
                 "month_id" => $menu["month_id"], 
@@ -252,8 +251,7 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                 "contract_name" => html_entity_decode($menu["contract_name"]), 
                 "model_id" => $menu["model_id"], 
                 "vahicle_description" => html_entity_decode($menu["vahicle_description"]),   
-                "buyback_type_id" => $menu["buyback_type_id"], 
-                "buyback_type_name" => html_entity_decode($menu["buyback_type_name"]), 
+                
                 "terrain_id" => $menu["terrain_id"], 
                 "terrain_name" => html_entity_decode($menu["terrain_name"]), 
                 "month_id" => $menu["month_id"], 
