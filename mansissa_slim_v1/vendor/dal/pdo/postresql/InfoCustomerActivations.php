@@ -1324,7 +1324,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         customer_id,
                         contact_person_id,
                         cs_activation_type_id,
-                        ".$addSQL2."  
+                        ".$addSQL1."  
                         cs_statu_types_id,
                         cs_act_statutype_id,
                         project_id,
