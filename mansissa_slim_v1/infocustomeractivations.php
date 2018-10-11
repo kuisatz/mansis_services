@@ -316,8 +316,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_infocustomeractivations/", function () u
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
-    print_r("zzzzz");
+$app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) { 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerActivationsBLL');  
@@ -379,7 +378,7 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     
     
     
-    // &customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
+    // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
     
     
      

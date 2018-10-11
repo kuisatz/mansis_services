@@ -1095,21 +1095,18 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }  
-            print_r("1111");
             $ContactPersonId=-1111 ;  
             if ((isset($params['ContactPersonId']) && $params['ContactPersonId'] != "")) {
                 $ContactPersonId = intval($params['ContactPersonId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("222");
             $CsActivationTypeId=-1111 ;  
             if ((isset($params['CsActivationTypeId']) && $params['CsActivationTypeId'] != "")) {
                 $CsActivationTypeId = intval($params['CsActivationTypeId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("3333");
             $ActDate= null;
             if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
                 $ActDate = $params['ActDate'];
@@ -1122,14 +1119,12 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("4444");
             $CsActStatutypeId =-1111 ;  
             if ((isset($params['CsActStatutypeId']) && $params['CsActStatutypeId'] != "")) {
                 $CsActStatutypeId = intval($params['CsActStatutypeId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("5555");
             $ProjectId =-1111 ;  
             if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
                 $ProjectId = intval($params['ProjectId']);
