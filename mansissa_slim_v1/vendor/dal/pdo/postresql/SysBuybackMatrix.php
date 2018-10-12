@@ -593,31 +593,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $contractTypeID =0 ;
-            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
-                $contractTypeID = $params['ContractTypeID'];
-                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
-            }  
+            $ModelId =0 ;
+            if (isset($params['ModelId']) && $params['ModelId'] != "") {
+                $ModelId = $params['ModelId'];
+                $addSql .="  a.model_id  = " . intval($ModelId). "  AND  " ; 
+            }                              
             $monthID =0 ;
             if (isset($params['MonthID']) && $params['MonthID'] != "") {
                 $monthID = $params['MonthID'];
                 $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
-            }  
+            }                              
             $mileageID =0 ;
             if (isset($params['MileageID']) && $params['MileageID'] != "") {
                 $mileageID = $params['MileageID'];
                 $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
-            } 
+            }                             
             $terrainID =0 ;
             if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
-            $buybackTypeID =0 ;
-            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
-                $buybackTypeID = $params['BuybackTypeID'];
-                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
-            } 
+            $ComfortSuperId =0 ;
+            if (isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "") {
+                $ComfortSuperId = $params['ComfortSuperId'];
+                $addSql .="  a.comfort_super_id  = " . intval($ComfortSuperId). "  AND  " ; 
+            }  
+            $Hydraulics =0 ;
+            if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
+                $Hydraulics = $params['Hydraulics'];
+                $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
+            }              
                 $sql = "
                     SELECT 
                         a.id, 
@@ -806,26 +811,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-             $contractTypeID =0 ;
-            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
-                $contractTypeID = $params['ContractTypeID'];
-                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
-            }  
+            $ModelId =0 ;
+            if (isset($params['ModelId']) && $params['ModelId'] != "") {
+                $ModelId = $params['ModelId'];
+                $addSql .="  a.model_id  = " . intval($ModelId). "  AND  " ; 
+            }                              
             $monthID =0 ;
             if (isset($params['MonthID']) && $params['MonthID'] != "") {
                 $monthID = $params['MonthID'];
                 $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
-            }  
+            }                              
             $mileageID =0 ;
             if (isset($params['MileageID']) && $params['MileageID'] != "") {
                 $mileageID = $params['MileageID'];
                 $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
-            } 
+            }                             
             $terrainID =0 ;
             if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
+            $ComfortSuperId =0 ;
+            if (isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "") {
+                $ComfortSuperId = $params['ComfortSuperId'];
+                $addSql .="  a.comfort_super_id  = " . intval($ComfortSuperId). "  AND  " ; 
+            }  
+            $Hydraulics =0 ;
+            if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
+                $Hydraulics = $params['Hydraulics'];
+                $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
+            }              
                            
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
@@ -1019,31 +1034,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $contractTypeID =0 ;
-            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
-                $contractTypeID = $params['ContractTypeID'];
-                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
-            }  
-                            
+              $ModelId =0 ;
+            if (isset($params['ModelId']) && $params['ModelId'] != "") {
+                $ModelId = $params['ModelId'];
+                $addSql .="  a.model_id  = " . intval($ModelId). "  AND  " ; 
+            }                              
             $monthID =0 ;
             if (isset($params['MonthID']) && $params['MonthID'] != "") {
                 $monthID = $params['MonthID'];
                 $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
-            }  
-                            
+            }                              
             $mileageID =0 ;
             if (isset($params['MileageID']) && $params['MileageID'] != "") {
                 $mileageID = $params['MileageID'];
                 $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
-            } 
-                            
+            }                             
             $terrainID =0 ;
             if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
-                            
-                            
+            $ComfortSuperId =0 ;
+            if (isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "") {
+                $ComfortSuperId = $params['ComfortSuperId'];
+                $addSql .="  a.comfort_super_id  = " . intval($ComfortSuperId). "  AND  " ; 
+            }  
+            $Hydraulics =0 ;
+            if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
+                $Hydraulics = $params['Hydraulics'];
+                $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
+            }              
                             
                 $sql = "
                     SELECT 
@@ -1231,26 +1251,36 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-             $contractTypeID =0 ;
-            if (isset($params['ContractTypeID']) && $params['ContractTypeID'] != "") {
-                $contractTypeID = $params['ContractTypeID'];
-                $addSql .="  a.contract_type_id  = " . intval($contractTypeID). "  AND  " ; 
-            }  
+            $ModelId =0 ;
+            if (isset($params['ModelId']) && $params['ModelId'] != "") {
+                $ModelId = $params['ModelId'];
+                $addSql .="  a.model_id  = " . intval($ModelId). "  AND  " ; 
+            }                              
             $monthID =0 ;
             if (isset($params['MonthID']) && $params['MonthID'] != "") {
                 $monthID = $params['MonthID'];
                 $addSql .="  a.month_id  = " . intval($monthID). "  AND  " ; 
-            }  
+            }                              
             $mileageID =0 ;
             if (isset($params['MileageID']) && $params['MileageID'] != "") {
                 $mileageID = $params['MileageID'];
                 $addSql .="  a.mileage_id  = " . intval($mileageID). "  AND  " ; 
-            } 
+            }                             
             $terrainID =0 ;
             if (isset($params['TerrainID']) && $params['TerrainID'] != "") {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
+            $ComfortSuperId =0 ;
+            if (isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "") {
+                $ComfortSuperId = $params['ComfortSuperId'];
+                $addSql .="  a.comfort_super_id  = " . intval($ComfortSuperId). "  AND  " ; 
+            }  
+            $Hydraulics =0 ;
+            if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
+                $Hydraulics = $params['Hydraulics'];
+                $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
+            }              
                            
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 

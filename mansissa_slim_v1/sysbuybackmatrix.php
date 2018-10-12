@@ -85,6 +85,45 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
                                                 $app,
                                                 $_GET['lid']));
     }
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_id']));
+    }  
+    $terrainId = NULL;
+    if (isset($_GET['terrain_id'])) {
+         $stripper->offsetSet('terrain_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['terrain_id']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+    $mileageId = NULL;
+    if (isset($_GET['mileage_id'])) {
+         $stripper->offsetSet('mileage_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileage_id']));
+    } 
+     $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
+    
+    // &model_id=1&terrain_id=2&month_id=37&mileage_id=44&comfort_super_id=1&hydraulics=2
+    
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
@@ -94,6 +133,14 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
+    
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();    
+    if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
+    if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+
 
     $resDataGrid = $BLL->fillBuybackMatrixGridx(array(
         'language_code' => $vLanguageCode,
@@ -102,7 +149,12 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-  
+        'ModelId' => $modelId,
+        'MonthID' => $terrainId,
+        'MonthID' => $monthId,
+        'MileageID' => $mileageId,
+        'ComfortSuperId' => $ComfortSuperId,
+        'Hydraulics' => $Hydraulics,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -111,7 +163,12 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
     $resTotalRowCount = $BLL->fillBuybackMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
- 
+        'ModelId' => $modelId,
+        'MonthID' => $terrainId,
+        'MonthID' => $monthId,
+        'MileageID' => $mileageId,
+        'ComfortSuperId' => $ComfortSuperId,
+        'Hydraulics' => $Hydraulics,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -235,6 +292,18 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                                                 $app,
                                                 $_GET['mileage_id']));
     } 
+     $ComfortSuperId = NULL;
+    if (isset($_GET['comfort_super_id'])) {
+         $stripper->offsetSet('comfort_super_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['comfort_super_id']));
+    } 
+    $Hydraulics = NULL;
+    if (isset($_GET['hydraulics'])) {
+         $stripper->offsetSet('hydraulics',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['hydraulics']));
+    } 
     
     
     $stripper->strip();
@@ -261,7 +330,14 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-  
+            
+        'ModelId' => $modelId,
+        'MonthID' => $terrainId,
+        'MonthID' => $monthId,
+        'MileageID' => $mileageId,
+        'ComfortSuperId' => $ComfortSuperId,
+        'Hydraulics' => $Hydraulics,
+     
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -269,6 +345,12 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
     $resTotalRowCount = $BLL->fillTradebackMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
+        'ModelId' => $modelId,
+        'MonthID' => $terrainId,
+        'MonthID' => $monthId,
+        'MileageID' => $mileageId,
+        'ComfortSuperId' => $ComfortSuperId,
+        'Hydraulics' => $Hydraulics,
  
         'filterRules' => $filterRules,
         'pk' => $pk,
