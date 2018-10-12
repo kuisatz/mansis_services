@@ -1044,7 +1044,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             }  
              $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
                             
-            $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
+                            
                 $sql = "
                     SELECT 
                         a.id, 
