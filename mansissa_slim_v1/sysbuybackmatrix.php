@@ -368,6 +368,8 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');  
     $headerParams = $app->request()->headers();
+    
+    print_r($headerParams) ; 
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertBBAct_sysbuybackmatrix" end point, X-Public variable not found');    
      $pk =  $_GET['pk'];
  
