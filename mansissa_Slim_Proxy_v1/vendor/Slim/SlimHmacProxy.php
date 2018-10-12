@@ -24,6 +24,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+          //**---- infoProjectTradebackBLL -------------------  
+            
+                                    'pkCustomerContactPersonDdList_infocustomercontactpersons' => 'restApiDefaultCall',  
+                                    'pkCustomerContactPersonGridx_infocustomercontactpersons' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_infocustomercontactpersons' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infocustomercontactpersons' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infocustomercontactpersons' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infocustomercontactpersons' => 'restApiDefaultCall', 
+            
+             //** infoProjectTradebackBLL ----------------------//   
         
          //**---- infoProjectTradebackBLL -------------------  
             
@@ -35,10 +46,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infoprojecttradeback' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojecttradeback' => 'restApiDefaultCall', 
             
-             //** infoProjectTradebackBLL ----------------------//   
-        
-        
-        
+        //** infoProjectTradebackBLL ----------------------//   
+            
           //**---- infoProjectBuybackBLL -------------------  
             
                                     'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall',  
@@ -421,6 +430,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         //**---- sysVehiclesEndgroupsBLL ------------------- 
         
                                     'pkVehiclesEndgroupsCostDdList_sysvehiclesendgroups' => 'restApiDefaultCall',
+                                    'pkVehiclesEndgroupsFixCostDdList_sysvehiclesendgroups' => 'restApiDefaultCall', 
+        
+        
                                   /*  'pkVehiclesEndgroupsBbDdList_sysvehiclesendgroups' => 'restApiDefaultCall',*/
                                     'pkUpdateMakeActiveOrPassive_sysvehiclesendgroups' => 'restApiDefaultCall',
                                     'pkFillVehiclesEndgroupsGridx_sysvehiclesendgroups' => 'restApiDefaultCall',
@@ -2066,6 +2078,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_infocustomercontactpersons":  
+                $this->setRestApiEndPoint('infocustomercontactpersons.php/');
+                break; 
             case "_infoprojecttradeback":  
                 $this->setRestApiEndPoint('infoprojecttradeback.php/');
                 break; 
