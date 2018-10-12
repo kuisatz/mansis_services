@@ -696,7 +696,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INNER JOIN sys_specific_definitions sd19y ON sd19y.main_group = 19 AND sd19y.first_group= a.hydraulics AND sd19y.deleted = 0 AND sd19y.active = 0 AND sd19y.language_id =l.id
                     LEFT JOIN sys_specific_definitions sd19xy ON sd19xy.language_id = lx.id AND (sd19xy.id = sd19y.id OR sd19xy.language_parent_id = sd19y.id) AND sd19xy.deleted = 0 AND sd19xy.active = 0
                     
-                    WHERE  
+                    WHERE 
+                        " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0 AND 
                         a.contract_type_id = 2                         
@@ -911,11 +912,10 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd19xy ON sd19xy.language_id = lx.id AND (sd19xy.id = sd19y.id OR sd19xy.language_parent_id = sd19y.id) AND sd19xy.deleted = 0 AND sd19xy.active = 0
                    
                       where
+                            " . $addSql . "
                             a.deleted =0 AND
                             a.show_it =0  AND 
-                            a.contract_type_id = 2  
-                        
-                         " . $addSql . "
+                            a.contract_type_id = 2   
                          " . $sorguStr . " 
                     ) asdx
                         
@@ -1080,9 +1080,6 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $addSql .="  a.customer_type_id  = " . intval($CustomerTypeId). "  AND  " ; 
             }     
             
-            
-            
-            
                             
                 $sql = "
                     SELECT 
@@ -1155,10 +1152,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd19xy ON sd19xy.language_id = lx.id AND (sd19xy.id = sd19y.id OR sd19xy.language_parent_id = sd19y.id) AND sd19xy.deleted = 0 AND sd19xy.active = 0
                    
                     WHERE  
+                        " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0 AND 
                         a.contract_type_id =3                        
-                " . $addSql . "
+                
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
@@ -1370,11 +1368,11 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd19xy ON sd19xy.language_id = lx.id AND (sd19xy.id = sd19y.id OR sd19xy.language_parent_id = sd19y.id) AND sd19xy.deleted = 0 AND sd19xy.active = 0
                    
                     WHERE  
+                        " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0  AND 
-                        a.contract_type_id = 3 
-                        
-                         " . $addSql . "
+                        a.contract_type_id = 3  
+                         
                          " . $sorguStr . " 
                     ) asdx
                         
