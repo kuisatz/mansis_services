@@ -533,7 +533,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 $VehicleGroupsId = $params['VehicleGroupsId'];
                 $addSQL .= " vgt.vehicle_groups_id  ="  . intval($capTypeId). " AND " ; 
             }  
-            $statement = $pdo->prepare("     
+            $sql = "     
                 SELECT                    
                     a.act_parent_id AS id, 	
                     a.endgroup_description AS name,  
@@ -550,7 +550,9 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0   
                 ORDER BY  id  
-                                 ");
+                                 " ;
+            $statement = $pdo->prepare($sql);
+            echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
