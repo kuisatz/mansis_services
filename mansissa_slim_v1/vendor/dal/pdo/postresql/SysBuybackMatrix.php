@@ -1686,11 +1686,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }  
                             
-            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
-                           
-         //   print_r($opUserId) ;  
-            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
-                print_r("asdasd");
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk'])); 
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) { 
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
                 $kontrol = $this->haveRecords(
@@ -1702,6 +1699,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             'month_id' => $monthId,
                             'mileage_id' => $mileageId, 
                 ));
+                 print_r("11111");
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                      $sql = "
                     INSERT INTO sys_buyback_matrix(
@@ -1735,7 +1733,8 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_buyback_matrix_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                      print_r("222");
+                        echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
