@@ -368,7 +368,7 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertBBAct_sysbuybackmatrix" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
-     print_r($pk) ; 
+   //  print_r($pk) ; 
     $contractTypeId = NULL;
     if (isset($_GET['contract_type_id'])) {
          $stripper->offsetSet('contract_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
