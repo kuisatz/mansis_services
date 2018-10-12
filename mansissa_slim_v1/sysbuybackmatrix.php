@@ -52,7 +52,7 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
         throw new Exception('rest api "pkFillBuybackMatrixGridx_sysbuybackmatrix" end point, X-Public variable not found');
-    $pk =  $_GET['pk'];
+    $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
@@ -177,8 +177,7 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
         throw new Exception('rest api "pkFillTradebackMatrixGridx_sysbuybackmatrix" end point, X-Public variable not found');
-  //  $pk = $headerParams['X-Public'];
-        $pk =  $_GET['pk'];
+    $pk = $headerParams['X-Public'];
 
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
@@ -335,8 +334,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysbuybackmatrix/", function () use ($ap
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
       
     $headerParams = $app->request()->headers();
-   // $Pk = $headerParams['X-Public'];
-        $Pk =  $_GET['pk'];
+    $Pk = $headerParams['X-Public'];
  //   $user = $RedisConnect->hGetAll($Pk);
 
     $vId = NULL;
@@ -368,11 +366,9 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');  
     $headerParams = $app->request()->headers();
-    
-    print_r($headerParams) ; 
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertBBAct_sysbuybackmatrix" end point, X-Public variable not found');    
-     $pk =  $_GET['pk'];
- 
+     $pk =  $headerParams['X-Public'];
+     print_r($pk) ; 
     $contractTypeId = NULL;
     if (isset($_GET['contract_type_id'])) {
          $stripper->offsetSet('contract_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -480,7 +476,7 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');  
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_sysbuybackmatrix" end point, X-Public variable not found');    
-     $pk =  $_GET['pk'];
+     $pk =  $headerParams['X-Public'];
       
     $contractTypeId = NULL;
     if (isset($_GET['contract_type_id'])) {
@@ -589,7 +585,7 @@ $app->get("/pkUpdateBBAct_sysbuybackmatrix/", function () use ($app ) {
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');  
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysbuybackmatrix" end point, X-Public variable not found');    
-      $pk =  $_GET['pk'];
+    $pk = $headerParams['X-Public'];
     
     $vId = NULL;
     if (isset($_GET['id'])) {
@@ -705,7 +701,7 @@ $app->get("/pkUpdateTBAct_sysbuybackmatrix/", function () use ($app ) {
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');  
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_sysbuybackmatrix" end point, X-Public variable not found');    
-     $pk =  $_GET['pk'];
+    $pk = $headerParams['X-Public'];
     
     $vId = NULL;
     if (isset($_GET['id'])) {
@@ -820,7 +816,7 @@ $app->get("/pkDeletedAct_sysbuybackmatrix/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('sysBuybackMatrixBLL');   
     $headerParams = $app->request()->headers();
-     $pk =  $_GET['pk'];
+    $Pk = $headerParams['X-Public'];  
     $vId = NULL;
     if (isset($_GET['id'])) {
         $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -831,7 +827,7 @@ $app->get("/pkDeletedAct_sysbuybackmatrix/", function () use ($app ) {
     if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }  
     $resDataDeleted = $BLL->deletedAct(array(                  
             'id' => $vId ,    
-            'pk' => $pk,        
+            'pk' => $Pk,        
             ));
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($resDataDeleted));
@@ -850,7 +846,7 @@ $app->get("/pkFillBBSpecialGridx_sysbuybackmatrix/", function () use ($app ) {
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
         throw new Exception('rest api "pkFillBBSpecialGridx_sysbuybackmatrix" end point, X-Public variable not found');
-     $pk =  $_GET['pk'];
+    $pk = $headerParams['X-Public'];
  
     $filterRules = null;
     if (isset($_GET['filterRules'])) {
