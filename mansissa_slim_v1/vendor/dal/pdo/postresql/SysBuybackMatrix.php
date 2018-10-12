@@ -625,9 +625,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.contract_type_id,
                         COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
                         a.model_id ,
-                        crd.description AS vahicle_description,
-                        a.buyback_type_id,
-                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                        crd.description AS vahicle_description, 
                         a.comfort_super_id,
                         COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                         a.terrain_id,
@@ -660,10 +658,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
                     INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
-                      
-                    INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
-                    LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-                       
+                        
                     INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
                     LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
                     
@@ -711,7 +706,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                  echo debugPDO($sql, $parameters);                
+                //  echo debugPDO($sql, $parameters);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -845,9 +840,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             a.contract_type_id,
                             COALESCE(NULLIF(grdx.name, ''), grd.name_eng) AS contract_name,
                             a.model_id ,
-                            crd.description AS vahicle_description,
-                            a.buyback_type_id,
-                            COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS buyback_type_name,
+                            crd.description AS vahicle_description, 
                             a.comfort_super_id,
                             COALESCE(NULLIF(sd19x.description, ''), sd19.description_eng) AS comfort_super_name, 
                             a.terrain_id,
@@ -868,10 +861,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         INNER JOIN info_users u ON u.id = a.op_user_id 
                         /*----*/   
                         INNER JOIN sys_vehicles_trade crd ON crd.act_parent_id = a.model_id AND crd.show_it = 0 AND crd.language_id= l.id
-
-                        INNER JOIN sys_buyback_types drd ON drd.act_parent_id = a.buyback_type_id AND drd.show_it = 0 AND drd.language_id= l.id  
-                        LEFT JOIN sys_buyback_types drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it = 0 AND drdx.language_id =lx.id  
-
+ 
                         INNER JOIN sys_mileagesx erd ON erd.act_parent_id = a.mileage_id AND erd.show_it =  0
                         LEFT JOIN sys_mileagesx erdx ON (erdx.act_parent_id = erd.act_parent_id) AND erdx.show_it = 0 
 
