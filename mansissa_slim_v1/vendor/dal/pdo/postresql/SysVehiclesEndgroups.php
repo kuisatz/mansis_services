@@ -531,7 +531,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
              $VehicleGroupsId=0 ;
             if (isset($params['VehicleGroupsId']) && $params['VehicleGroupsId'] != "") {
                 $VehicleGroupsId = $params['VehicleGroupsId'];
-                $addSQL .= " vg.vehicle_groups_id  ="  . intval($VehicleGroupsId). " AND " ; 
+                $addSQL .= " vgt.vehicle_groups_id  ="  . intval($VehicleGroupsId). " AND " ; 
             }  
             $sql = "     
                 SELECT                    
@@ -552,7 +552,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 ORDER BY  id  
                                  " ;
             $statement = $pdo->prepare($sql);
-            echo debugPDO($sql, $params);
+          //  echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
