@@ -210,6 +210,33 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                                                 $app,
                                                 $_GET['lid']));
     }
+    
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['model_id']));
+    }  
+    $terrainId = NULL;
+    if (isset($_GET['terrain_id'])) {
+         $stripper->offsetSet('terrain_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['terrain_id']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+    $mileageId = NULL;
+    if (isset($_GET['mileage_id'])) {
+         $stripper->offsetSet('mileage_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['mileage_id']));
+    } 
+    
+    
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
@@ -219,6 +246,13 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
+     
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();    
+    if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
+    if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
+    if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
 
     $resDataGrid = $BLL->fillTradebackMatrixGridx(array(
         'language_code' => $vLanguageCode,
@@ -436,7 +470,7 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('contract_type_id')) $contractTypeId = $stripper->offsetGet('contract_type_id')->getFilterValue(); 
     if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
-    if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
+  //  if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
     if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
     if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
@@ -450,7 +484,7 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
     $resDataInsert = $BLL->InsertBBAct(array(
             'ContractTypeId' => $contractTypeId,   
             'ModelId' => $modelId,  
-            'BuybackTypeId' => $buybackTypeId, 
+          //  'BuybackTypeId' => $buybackTypeId, 
             'TerrainId' => $terrainId, 
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
@@ -545,7 +579,7 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
     $stripper->strip();
     if($stripper->offsetExists('contract_type_id')) $contractTypeId = $stripper->offsetGet('contract_type_id')->getFilterValue(); 
     if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
-    if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
+ //   if($stripper->offsetExists('buyback_type_id')) $buybackTypeId = $stripper->offsetGet('buyback_type_id')->getFilterValue();
     if($stripper->offsetExists('terrain_id')) $terrainId = $stripper->offsetGet('terrain_id')->getFilterValue();
     if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
@@ -559,7 +593,7 @@ $app->get("/pkInsertTBAct_sysbuybackmatrix/", function () use ($app ) {
     $resDataInsert = $BLL->InsertTBAct(array(
             'ContractTypeId' => $contractTypeId,   
             'ModelId' => $modelId,  
-            'BuybackTypeId' => $buybackTypeId, 
+       //     'BuybackTypeId' => $buybackTypeId, 
             'TerrainId' => $terrainId, 
             'MonthId' => $monthId, 
             'MileageId' => $mileageId, 
