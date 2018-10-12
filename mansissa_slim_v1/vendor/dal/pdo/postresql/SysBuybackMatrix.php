@@ -1549,7 +1549,6 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             
                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
-            print_r($opUserId);
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
 
