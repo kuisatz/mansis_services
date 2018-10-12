@@ -319,8 +319,7 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                                                 $app,
                                                 $_GET['customer_type_id']));
     } 
-    
-    
+     
     
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();

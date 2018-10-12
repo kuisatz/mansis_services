@@ -276,6 +276,11 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
                 
                 "road_type_name" => html_entity_decode($menu["description"]),   
                 
+                 "horsepower_id" => intval($menu["horsepower_id"]),  
+                "horse_power" => html_entity_decode($menu["horse_power"]),  
+                
+           
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
