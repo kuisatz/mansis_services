@@ -1172,7 +1172,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-            echo debugPDO($sql, $params);            
+           // echo debugPDO($sql, $params);            
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -1510,8 +1510,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
      * @param type $params
      * @return array
      * @throws \PDOException
-     */
-    
+     */ 
     public function insertBBAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
@@ -1643,7 +1642,15 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-   
+    
+   /**
+     * @author Okan CIRAN
+     * @ sys_buyback_matrix tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */ 
     public function insertTBAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
@@ -2090,8 +2097,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-      
-        
+                           
     /** 
      * @author Okan CIRAN
      * @ deal aracların buyback tanımlarını grid formatında döndürür !! ana tablo  info_project_buyback 
