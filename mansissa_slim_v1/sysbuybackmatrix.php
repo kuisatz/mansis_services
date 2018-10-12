@@ -121,6 +121,12 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
                                                 $app,
                                                 $_GET['hydraulics']));
     } 
+    $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
     
     // &model_id=1&terrain_id=2&month_id=37&mileage_id=44&comfort_super_id=1&hydraulics=2
     
@@ -140,6 +146,7 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
     if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
 
 
     $resDataGrid = $BLL->fillBuybackMatrixGridx(array(
@@ -150,10 +157,11 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
         'sort' => $vSort,
         'order' => $vOrder,
         'ModelId' => $modelId,
-        'MonthID' => $terrainId,
+        'TerrainID' => $terrainId,
         'MonthID' => $monthId,
         'MileageID' => $mileageId,
         'ComfortSuperId' => $ComfortSuperId,
+        'CustomerTypeId' => $CustomerTypeId,
         'Hydraulics' => $Hydraulics,
         'filterRules' => $filterRules,
         'pk' => $pk,
@@ -164,10 +172,11 @@ $app->get("/pkFillBuybackMatrixGridx_sysbuybackmatrix/", function () use ($app )
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
         'ModelId' => $modelId,
-        'MonthID' => $terrainId,
+        'TerrainID' => $terrainId,
         'MonthID' => $monthId,
         'MileageID' => $mileageId,
         'ComfortSuperId' => $ComfortSuperId,
+        'CustomerTypeId' => $CustomerTypeId,
         'Hydraulics' => $Hydraulics,
         'filterRules' => $filterRules,
         'pk' => $pk,
@@ -304,6 +313,13 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
                                                 $app,
                                                 $_GET['hydraulics']));
     } 
+     $CustomerTypeId = NULL;
+    if (isset($_GET['customer_type_id'])) {
+         $stripper->offsetSet('customer_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_type_id']));
+    } 
+    
     
     
     $stripper->strip();
@@ -322,7 +338,8 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
     if($stripper->offsetExists('mileage_id')) $mileageId = $stripper->offsetGet('mileage_id')->getFilterValue();
     if($stripper->offsetExists('comfort_super_id')) $ComfortSuperId = $stripper->offsetGet('comfort_super_id')->getFilterValue();
     if($stripper->offsetExists('hydraulics')) $Hydraulics = $stripper->offsetGet('hydraulics')->getFilterValue();
-
+    if($stripper->offsetExists('customer_type_id')) $CustomerTypeId = $stripper->offsetGet('customer_type_id')->getFilterValue();
+    
     $resDataGrid = $BLL->fillTradebackMatrixGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
@@ -332,10 +349,11 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
         'order' => $vOrder,
             
         'ModelId' => $modelId,
-        'MonthID' => $terrainId,
+        'TerrainID' => $terrainId,
         'MonthID' => $monthId,
         'MileageID' => $mileageId,
         'ComfortSuperId' => $ComfortSuperId,
+        'CustomerTypeId' => $CustomerTypeId,
         'Hydraulics' => $Hydraulics,
      
         'filterRules' => $filterRules,
@@ -345,11 +363,12 @@ $app->get("/pkFillTradebackMatrixGridx_sysbuybackmatrix/", function () use ($app
     $resTotalRowCount = $BLL->fillTradebackMatrixGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-        'ModelId' => $modelId,
-        'MonthID' => $terrainId,
+         'ModelId' => $modelId,
+        'TerrainID' => $terrainId,
         'MonthID' => $monthId,
         'MileageID' => $mileageId,
         'ComfortSuperId' => $ComfortSuperId,
+        'CustomerTypeId' => $CustomerTypeId,
         'Hydraulics' => $Hydraulics,
  
         'filterRules' => $filterRules,

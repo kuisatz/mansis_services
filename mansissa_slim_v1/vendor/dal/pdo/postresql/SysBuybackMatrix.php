@@ -622,7 +622,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
                 $Hydraulics = $params['Hydraulics'];
                 $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
-            }              
+            }    
+            $CustomerTypeId =0 ;
+            if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
+                $CustomerTypeId = $params['CustomerTypeId'];
+                $addSql .="  a.customer_type_id  = " . intval($CustomerTypeId). "  AND  " ; 
+            }   
                 $sql = "
                     SELECT 
                         a.id, 
@@ -840,7 +845,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
                 $Hydraulics = $params['Hydraulics'];
                 $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
-            }              
+            }    
+            $CustomerTypeId =0 ;
+            if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
+                $CustomerTypeId = $params['CustomerTypeId'];
+                $addSql .="  a.customer_type_id  = " . intval($CustomerTypeId). "  AND  " ; 
+            }   
                            
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
@@ -1063,7 +1073,16 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
                 $Hydraulics = $params['Hydraulics'];
                 $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
-            }              
+            }   
+            $CustomerTypeId =0 ;
+            if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
+                $CustomerTypeId = $params['CustomerTypeId'];
+                $addSql .="  a.customer_type_id  = " . intval($CustomerTypeId). "  AND  " ; 
+            }     
+            
+            
+            
+            
                             
                 $sql = "
                     SELECT 
@@ -1280,7 +1299,12 @@ class SysBuybackMatrix extends \DAL\DalSlim {
             if (isset($params['Hydraulics']) && $params['Hydraulics'] != "") {
                 $Hydraulics = $params['Hydraulics'];
                 $addSql .="  a.hydraulics  = " . intval($Hydraulics). "  AND  " ; 
-            }              
+            }   
+            $CustomerTypeId =0 ;
+            if (isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "") {
+                $CustomerTypeId = $params['CustomerTypeId'];
+                $addSql .="  a.customer_type_id  = " . intval($CustomerTypeId). "  AND  " ; 
+            }   
                            
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
