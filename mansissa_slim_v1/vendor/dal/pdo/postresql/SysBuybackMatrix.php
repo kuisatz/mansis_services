@@ -1733,14 +1733,16 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_buyback_matrix_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                      print_r("222");
-                        echo debugPDO($sql, $params);
+                           
+                    //    echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
+                    print_r($result);
+                      print_r($errorInfo);
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('sys_buyback_matrix_id_seq');
-                            
+                        print_r($insertID);       
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
