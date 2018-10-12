@@ -672,7 +672,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
                     
                     INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
-                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                     
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -870,7 +870,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
 
                         INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
-                        LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
+                        LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
                         /*----*/   
                         /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1101,7 +1101,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
                    
                     INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
-                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1301,7 +1301,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_terrains hrdx ON (hrdx.act_parent_id = hrd.act_parent_id OR hrdx.language_parent_id= hrd.act_parent_id) AND hrdx.show_it = 0 AND hrdx.language_id =lx.id  
                    
                     INNER JOIN sys_customer_types ct ON ct.act_parent_id = a.customer_type_id AND ct.show_it = 0 AND ct.language_id= l.id  
-                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = hrd.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
+                    LEFT JOIN sys_customer_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it = 0 AND ctx.language_id =lx.id  
                    
                     /*----*/   
                     /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
