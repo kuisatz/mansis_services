@@ -531,7 +531,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
              $VehicleGroupsId=0 ;
             if (isset($params['VehicleGroupsId']) && $params['VehicleGroupsId'] != "") {
                 $VehicleGroupsId = $params['VehicleGroupsId'];
-                $addSQL .= " vg.vehicle_groups_id  ="  . intval($capTypeId). " AND " ; 
+                $addSQL .= " vg.vehicle_groups_id  ="  . intval($VehicleGroupsId). " AND " ; 
             }  
             $sql = "     
                 SELECT                    
