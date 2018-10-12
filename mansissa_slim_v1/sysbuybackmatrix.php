@@ -414,13 +414,7 @@ $app->get("/pkInsertBBAct_sysbuybackmatrix/", function () use ($app ) {
          $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['model_id']));
-    } 
-    $buybackTypeId = NULL;
-    if (isset($_GET['buyback_type_id'])) {
-         $stripper->offsetSet('buyback_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['buyback_type_id']));
-    } 
+    }  
     $terrainId = NULL;
     if (isset($_GET['terrain_id'])) {
          $stripper->offsetSet('terrain_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
