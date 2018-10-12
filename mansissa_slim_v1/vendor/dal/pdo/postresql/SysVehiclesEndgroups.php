@@ -546,8 +546,7 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 inner join sys_vehicle_group_types vgt on vgt.act_parent_id = vgtm.vehicle_group_types_id and vgt.show_it=0 
 	        inner join sys_vehicle_groups vg on vg.act_parent_id = vgt.vehicle_groups_id and vg.show_it=0 
                 WHERE     
-                   ".$addSQL."
-                    vgt.vehicle_groups_id = 1 and 
+                   ".$addSQL." 
                     a.deleted = 0 AND
                     a.active =0   
                 ORDER BY  id  
