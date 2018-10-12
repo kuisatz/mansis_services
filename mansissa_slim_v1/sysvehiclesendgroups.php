@@ -51,7 +51,7 @@ $app->get("/pkVehiclesEndgroupsFixCostDdList_sysvehiclesendgroups/", function ()
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
-        $componentType = strtolower(trim($_GET['component_type']));
+        $componentType = strtolower(trim($_GET['component_type'])); 
     }
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkVehiclesEndgroupsFixCostDdList_sysvehiclesendgroups" end point, X-Public variable not found');
