@@ -479,6 +479,90 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
         }
     }
     
+     /** 
+     * @author Okan CIRAN
+     * @ araç gruplarının en alt seviyesininde cost tanımlarını dropdown ya da tree ye doldurmak için sys_vehicles_endgroups tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args     
+     * @return array
+     * @throws \PDOException 
+     */
+    public function vehiclesEndgroupsFixCostDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $addSQL = null ; 
+            $ckdCbuTypeId =0 ;
+            if (isset($params['CkdCbuTypeId']) && $params['CkdCbuTypeId'] != "") {
+                $ckdCbuTypeId = $params['CkdCbuTypeId'];
+                $addSQL .= " a.ckdcbu_type_id ="  . intval($ckdCbuTypeId). " AND " ; 
+            }        
+            $vehicleGtModelId =0 ;
+            if (isset($params['VehicleGtModelId']) && $params['VehicleGtModelId'] != "") {
+                $vehicleGtModelId = $params['VehicleGtModelId'];
+                $addSQL .= " a.vehicle_gt_model_id ="  . intval($vehicleGtModelId). " AND " ; 
+            }  
+            $modelVariantId =0 ;
+            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
+                $modelVariantId = $params['ModelVariantId'];
+                $addSQL .= " a.model_variant_id ="  . intval($modelVariantId). " AND " ; 
+            }  
+            $configTypeId =0 ;
+            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
+                $configTypeId = $params['ConfigTypeId'];
+                $addSQL .= " a.config_type_id ="  . intval($configTypeId). " AND " ; 
+            } 
+            $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 
+            }  
+             $VehicleGroupsId=0 ;
+            if (isset($params['VehicleGroupsId']) && $params['VehicleGroupsId'] != "") {
+                $VehicleGroupsId = $params['VehicleGroupsId'];
+                $addSQL .= " vgt.vehicle_groups_id  ="  . intval($capTypeId). " AND " ; 
+            }  
+            $statement = $pdo->prepare("     
+                SELECT                    
+                    a.act_parent_id AS id, 	
+                    a.endgroup_description AS name,  
+                    a.endgroup_description AS name_eng,
+                     0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicles_endgroups a    
+                inner join sys_vehicle_gt_models vgtm on vgtm.act_parent_id = a.vehicle_gt_model_id and vgtm.show_it=0 
+                inner join sys_vehicle_group_types vgt on vgt.act_parent_id = vgtm.vehicle_group_types_id and vgt.show_it=0 
+	        inner join sys_vehicle_groups vg on vg.act_parent_id = vgt.vehicle_groups_id and vg.show_it=0 
+                WHERE     
+                   ".$addSQL."
+                    vgt.vehicle_groups_id = 1 and 
+                    a.deleted = 0 AND
+                    a.active =0   
+                ORDER BY  id  
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
     /** 
      * @author Okan CIRAN
      * @ araç gruplarının en alt seviyesininde cost tanımlarını dropdown ya da tree ye doldurmak için sys_vehicles_endgroups tablosundan kayıtları döndürür !!
@@ -524,6 +608,11 @@ class SysVehiclesEndgroups extends \DAL\DalSlim {
                 $addSQL .= " a.config_type_id ="  . intval($configTypeId). " AND " ; 
             } 
             $capTypeId =0 ;
+            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
+                $capTypeId = $params['CapTypeId'];
+                $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 
+            }  
+             $capTypeId =0 ;
             if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
                 $capTypeId = $params['CapTypeId'];
                 $addSQL .= " a.cap_type_id ="  . intval($capTypeId). " AND " ; 

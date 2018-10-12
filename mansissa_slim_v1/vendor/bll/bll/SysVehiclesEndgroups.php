@@ -83,8 +83,18 @@ class SysVehiclesEndgroups extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function vehiclesEndgroupsFixCostDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysVehiclesEndgroupsPostgrePDO');
+        $resultSet = $DAL->vehiclesEndgroupsFixCostDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
