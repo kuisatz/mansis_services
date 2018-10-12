@@ -45,7 +45,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
  * @since 11.08.2018
  */
 $app->get("/pkVehiclesEndgroupsFixCostDdList_sysvehiclesendgroups/", function () use ($app ) {
-    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripper = $app->getServiceManager()->get('filterChainerCustom'); 
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('sysVehiclesEndgroupsBLL');
     
