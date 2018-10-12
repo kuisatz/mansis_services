@@ -1699,7 +1699,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                             'month_id' => $monthId,
                             'mileage_id' => $mileageId, 
                 ));
-                 print_r("11111");
+                           
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                      $sql = "
                     INSERT INTO sys_buyback_matrix(
