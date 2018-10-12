@@ -8,8 +8,7 @@
  */
 namespace Utill\Dal;
 
-final class Helper {
-    
+final class Helper { 
     
     public static function haveRecord($result = null) {  
         if(isset($result['resultSet'][0]['control'])) return true;
