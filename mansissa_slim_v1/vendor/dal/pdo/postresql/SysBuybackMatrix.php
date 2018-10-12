@@ -826,12 +826,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $terrainID = $params['TerrainID'];
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
-            $buybackTypeID =0 ;
-            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
-                $buybackTypeID = $params['BuybackTypeID'];
-                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
-            } 
-
+                           
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT 
@@ -972,12 +967,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND crd.description" . $sorguExpression . ' ';
 
-                                break; 
-                             case 'buyback_type_name':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
-                                $sorguStr.=" AND COALESCE(NULLIF(drdx.name, ''), drd.name_eng)" . $sorguExpression . ' ';
-
-                                break; 
+                                break;  
                              case 'terrain_name':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\'  ';
                                 $sorguStr.=" AND COALESCE(NULLIF(hrdx.name, ''), hrd.name_eng)" . $sorguExpression . ' ';
@@ -1053,11 +1043,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
             }  
              $addSql .="  a.terrain_id  = " . intval($terrainID). "  AND  " ; 
-            $buybackTypeID =0 ;
-            if (isset($params['BuybackTypeID']) && $params['BuybackTypeID'] != "") {
-                $buybackTypeID = $params['BuybackTypeID'];
-                $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
-            } 
+                            
             $addSql .="  a.buyback_type_id  = " . intval($buybackTypeID). "  AND  " ; 
                 $sql = "
                     SELECT 
