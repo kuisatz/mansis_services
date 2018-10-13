@@ -702,7 +702,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer_contact_persons a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = 385  AND lx.show_it =0  -- " . intval($languageIdValue) . "  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "   AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
@@ -734,7 +734,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $parameters);                
+                 echo debugPDO($sql, $params);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -885,7 +885,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         u.username AS op_user_name 
                     FROM info_customer_contact_persons a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = 385  AND lx.show_it =0  -- " . intval($languageIdValue) . "  
+                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "    AND lx.show_it =0   
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
