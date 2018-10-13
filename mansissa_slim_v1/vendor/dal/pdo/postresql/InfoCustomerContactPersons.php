@@ -664,11 +664,13 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                 $isboConfirm = $params['IsBoConfirm']; 
                  $addSql .=  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
             }    
-             $CustomerId= -1 ; 
+            $addSql =  " 1=2" ;
+           $CustomerId= -1 ; 
             if (isset($params['CustomerId']) && $params['CustomerId'] != "") {
                 $CustomerId = $params['CustomerId']; 
-                 $addSql.=  " a.CustomerId = " . intval($CustomerId)." AND " ;
-            }   
+                 $addSql =  " a.customer_id  = " . intval($CustomerId)." AND " ;
+            }      
+
                 $sql = "    
                     SELECT  
                         a.id, 
@@ -854,10 +856,11 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $isboConfirm = -1 ; 
-            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
-                $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+           $addSql =  " 1=2" ;
+           $CustomerId= -1 ; 
+            if (isset($params['CustomerId']) && $params['CustomerId'] != "") {
+                $CustomerId = $params['CustomerId']; 
+                 $addSql =  " a.customer_id  = " . intval($CustomerId)." AND " ;
             }      
 
                 $sql = "
