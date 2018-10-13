@@ -322,6 +322,7 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $app,
                                                 $_GET['surname']));
     }  
+    print_r($surname);
     $email = NULL;
     if (isset($_GET['email'])) {
          $stripper->offsetSet('email',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
@@ -362,7 +363,7 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
     if($stripper->offsetExists('cep')) $cep = $stripper->offsetGet('cep')->getFilterValue();
     if($stripper->offsetExists('tel')) $tel = $stripper->offsetGet('tel')->getFilterValue();
     if($stripper->offsetExists('fax')) $fax = $stripper->offsetGet('fax')->getFilterValue(); 
-  
+    print_r($surname);
     $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
             'Name' => $name,  

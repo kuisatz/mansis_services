@@ -1060,7 +1060,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             print_r("22222");
             $Surname = null;
             if ((isset($params['Surname']) && $params['Surname'] != "")) {
-                $Surname = $params['Surname'];
+                $Surname = $params['Surname']; 
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
