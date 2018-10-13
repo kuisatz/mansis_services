@@ -22,16 +22,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+            
         
-         //**---- infoProjectTradebackBLL -------------------  
+            //**---- sysCurrencyTypesBLL -------------------  
             
                                     'pkCurrencyTypesDdList_syscurrencytypes' => 'restApiDefaultCall',  
                                     'pkCurrencyCodeTypesDdList_syscurrencytypes' => 'restApiDefaultCall',   
             
             
-             //** infoProjectTradebackBLL ----------------------//   
+            //** sysCurrencyTypesBLL ----------------------//   
         
-          //**---- infoProjectTradebackBLL -------------------  
+            //**---- infoCustomerContactPersonsBLL -------------------  
             
                                     'pkCustomerContactPersonDdList_infocustomercontactpersons' => 'restApiDefaultCall',  
                                     'pkCustomerContactPersonGridx_infocustomercontactpersons' => 'restApiDefaultCall',   
@@ -41,9 +42,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infocustomercontactpersons' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infocustomercontactpersons' => 'restApiDefaultCall', 
             
-             //** infoProjectTradebackBLL ----------------------//   
+            //** infoCustomerContactPersonsBLL ----------------------//   
         
-         //**---- infoProjectTradebackBLL -------------------  
+            //**---- infoProjectTradebackBLL -------------------  
             
                                     'pkProjectVehicleTBDdList_infoprojecttradeback' => 'restApiDefaultCall',  
                                     'pkFillProjectVehicleTBGridx_infoprojecttradeback' => 'restApiDefaultCall',   
@@ -53,9 +54,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infoprojecttradeback' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojecttradeback' => 'restApiDefaultCall', 
             
-        //** infoProjectTradebackBLL ----------------------//   
+            //** infoProjectTradebackBLL ----------------------//   
             
-          //**---- infoProjectBuybackBLL -------------------  
+            //**---- infoProjectBuybackBLL -------------------  
             
                                     'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall',  
                                     'pkFillProjectVehicleBBGridx_infoprojectbuybacks' => 'restApiDefaultCall',   
@@ -65,9 +66,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infoprojectbuybacks' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojectbuybacks' => 'restApiDefaultCall', 
             
-             //** infoProjectBuybackBLL ----------------------//   
+            //** infoProjectBuybackBLL ----------------------//   
         
-          //**---- infoCustomerActivationsBLL -------------------  
+            //**---- infoCustomerActivationsBLL -------------------  
             
                                     'pkCustomeractivAtionsDdList_infocustomeractivations' => 'restApiDefaultCall', 
                                     'pkFillCustomeractivationsGridx_infocustomeractivations' => 'restApiDefaultCall',   
@@ -77,12 +78,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infocustomeractivations' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infocustomeractivations' => 'restApiDefaultCall', 
             
-             //** infoCustomerActivationsBLL ----------------------//   
+            //** infoCustomerActivationsBLL ----------------------//   
+            
             //**---- sysHorsepowerBLL -------------------  
                                     'pkFillDepartmentsTree_syssisdepartments' => 'restApiDefaultCall',  
             //** sysHorsepowerBLL ----------------------//   
         
-             //**---- sysVehiclesTradeBLL -------------------  
+            //**---- sysVehiclesTradeBLL -------------------  
             
                                     'pkVehiclesTbDefDdList_sysvehiclestrade' => 'restApiDefaultCall', 
                                     'pkVehiclesBbDefDdList_sysvehiclestrade' => 'restApiDefaultCall',  
@@ -93,12 +95,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_sysvehiclestrade' => 'restApiDefaultCall', 
                                     'pkDeletedAct_sysvehiclestrade' => 'restApiDefaultCall', 
             
-             //** sysVehiclesTradeBLL ----------------------//   
-           //**---- sysHorsepowerBLL -------------------  
+            //** sysVehiclesTradeBLL ----------------------//   
+            //**---- sysHorsepowerBLL -------------------  
                                     'pkHorsePowerDdList_syshorsepower' => 'restApiDefaultCall',  
             //** sysHorsepowerBLL ----------------------//   
         
-           //**---- infoProjectVehicleModelsBLL -------------------   
+            //**---- infoProjectVehicleModelsBLL -------------------   
 
                                     'pkProjectVehicleModelsDdList_infoprojectvehiclemodels' => 'restApiDefaultCall',  
                                     'pkFillProjectVehicleModelsGridx_infoprojectvehiclemodels' => 'restApiDefaultCall', 
@@ -108,7 +110,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_infoprojectvehiclemodels' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojectvehiclemodels' => 'restApiDefaultCall', 
             
-          //** infoProjectVehicleModelsBLL ----------------------//  
+            //** infoProjectVehicleModelsBLL ----------------------//  
         
             //**---- sysTonnageBLL -------------------  
                                     'pkTonnageDdList_systonnage' => 'restApiDefaultCall',  
@@ -123,9 +125,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkDeletedAct_infoproject' => 'restApiDefaultCall', 
 
             
-          //** infoProjectBLL ----------------------//   
+            //** infoProjectBLL ----------------------//   
         
-          //**---- sysBuybackMatrixBLL -------------------  
+            //**---- sysBuybackMatrixBLL -------------------  
             
                                     'pkFillBuybackMatrixGridx_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysbuybackmatrix' => 'restApiDefaultCall', 
@@ -142,14 +144,14 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkInsertTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateTBAct_sysbuybackmatrix' => 'restApiDefaultCall', 
             
-         //** sysBuybackMatrixBLL ----------------------//   
+            //** sysBuybackMatrixBLL ----------------------//   
         
-        //**---- sysPriorityTypeBLL -------------------  
+            //**---- sysPriorityTypeBLL -------------------  
                                      'pkPriorityTypeDdList_sysprioritytype' => 'restApiDefaultCall',  
-        //** sysPriorityTypeBLL ----------------------//   
+            //** sysPriorityTypeBLL ----------------------//   
         
         
-         //**---- sysAccessoriesMatrixBLL -------------------  
+            //**---- sysAccessoriesMatrixBLL -------------------  
             
                                     'pkFillAccMatrixGridx_sysaccessoriesmatrix' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_sysaccessoriesmatrix' => 'restApiDefaultCall', 
@@ -158,9 +160,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_sysaccessoriesmatrix' => 'restApiDefaultCall', 
                                     'pkDeletedAct_sysaccessoriesmatrix' => 'restApiDefaultCall', 
             
-         //** sysAccessoriesMatrixBLL ----------------------//   
+            //** sysAccessoriesMatrixBLL ----------------------//   
             
-        //**---- sysEducationsSalesmanBLL ------------------- 
+            //**---- sysEducationsSalesmanBLL ------------------- 
             
                                     'pkEducationDefinitionsDdList_syseducationssalesman' => 'restApiDefaultCall',             
                                     'pkFillEducationsSalesmanGridx_syseducationssalesman' => 'restApiDefaultCall', 
@@ -170,9 +172,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_syseducationssalesman' => 'restApiDefaultCall', 
                                     'pkDeletedAct_syseducationssalesman' => 'restApiDefaultCall', 
             
-         //** sysEducationsSalesmanBLL ----------------------//  
+            //** sysEducationsSalesmanBLL ----------------------//  
         
-        //**---- sysEducationDefinitionsBLL ------------------- 
+            //**---- sysEducationDefinitionsBLL ------------------- 
             
                                     'pkEducationDefinitionsDdList_syseducationdefinitions' => 'restApiDefaultCall',             
                                     'pkFillEducationDefinitionsGridx_syseducationdefinitions' => 'restApiDefaultCall', 
@@ -182,9 +184,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_syseducationdefinitions' => 'restApiDefaultCall', 
                                     'pkDeletedAct_syseducationdefinitions' => 'restApiDefaultCall', 
             
-         //** sysEducationDefinitionsBLL ----------------------//  
+            //** sysEducationDefinitionsBLL ----------------------//  
         
-         //**---- sysVehiclesBLL ------------------- 
+            //**---- sysVehiclesBLL ------------------- 
                                     'pkVehicleDescriptionsDdList_sysvehicles' => 'restApiDefaultCall', 
                                     'pkVehicleFactoryNamesDdList_sysvehicles' => 'restApiDefaultCall', 
             
@@ -198,23 +200,23 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkUpdateAct_sysvehicles' => 'restApiDefaultCall', 
                                     'pkDeletedAct_sysvehicles' => 'restApiDefaultCall', 
             
-         //** sysVehiclesBLL ----------------------//  
+            //** sysVehiclesBLL ----------------------//  
         
         
-        //**---- sysContractTypesBLL -------------------  
+            //**---- sysContractTypesBLL -------------------  
                                      'pkContractTypesBTdList_syscontracttypes' => 'restApiDefaultCall', 
             
-        //** sysContractTypesBLL ----------------------//    
+            //** sysContractTypesBLL ----------------------//    
         
-        //**---- sysCustomerTypesBLL ------------------- 
+            //**---- sysCustomerTypesBLL ------------------- 
                                     'pkCustomerTypesDdList_syscustomertypes' => 'restApiDefaultCall', 
             
-        //** sysCustomerTypesBLL ----------------------//   
-        //**---- sysCustomerReliabilityBLL ------------------- 
+            //** sysCustomerTypesBLL ----------------------//   
+            //**---- sysCustomerReliabilityBLL ------------------- 
                                     'pkCustomerReliabilityDdList_syscustomerreliability' => 'restApiDefaultCall', 
             
-        //** sysCustomerReliabilityBLL ----------------------//  
-        //**---- infoCustomerBLL ------------------- 
+            //** sysCustomerReliabilityBLL ----------------------//  
+            //**---- infoCustomerBLL ------------------- 
                                     'pkCustomerConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerNoConfirmDdList_infocustomer' => 'restApiDefaultCall', 
                                     'pkCustomerDdList_infocustomer' => 'restApiDefaultCall', 

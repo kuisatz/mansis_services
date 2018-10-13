@@ -47,6 +47,7 @@ class BLLManagerConfig{
                     'infoCustomerActivationsBLL' => 'BLL\BLL\InfoCustomerActivations',
                     'infoProjectBuybackBLL' => 'BLL\BLL\InfoProjectBuyback',
                     'infoProjectTradebackBLL' => 'BLL\BLL\InfoProjectTradeback',
+                    'infoCustomerContactPersonsBLL' => 'BLL\BLL\InfoCustomerContactPersons',
                  
                  
                  
