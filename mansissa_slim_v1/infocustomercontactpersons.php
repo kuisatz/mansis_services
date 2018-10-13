@@ -299,12 +299,12 @@ $app->get("/pkUpdateMakeActiveOrPassive_infocustomeractivations/", function () u
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) { 
+$app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) { 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerContactPersonsBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomeractivations" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomercontactpersons" end point, X-Public variable not found');    
     $pk =  $headerParams['X-Public'];
        
     $CustomerId= NULL;
@@ -330,19 +330,19 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     }  
     $cep = NULL;
     if (isset($_GET['cep'])) {
-         $stripper->offsetSet('cep',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('cep',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['cep']));
     }  
     $tel = NULL;
     if (isset($_GET['tel'])) {
-         $stripper->offsetSet('tel',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('tel',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['tel']));
     }  
     $fax = NULL;
     if (isset($_GET['fax'])) {
-         $stripper->offsetSet('fax',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('fax',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['fax']));
     }  
@@ -350,7 +350,11 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     
     $stripper->strip();
     
-    
+    /*
+     
+      &customer_id= 1&name= Asterix&surname =Idefix&email= AsterixIdefix@gmail.com&cep =01234567898&tel =&fax =9 
+      
+     */
     if($stripper->offsetExists('name')) $name = $stripper->offsetGet('name')->getFilterValue();
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('surname')) $surname = $stripper->offsetGet('surname')->getFilterValue();
