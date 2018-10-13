@@ -23,6 +23,13 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+         //**---- infoProjectTradebackBLL -------------------  
+            
+                                    'pkCurrencyTypesDdList_syscurrencytypes' => 'restApiDefaultCall',  
+                                    'pkCurrencyCodeTypesDdList_syscurrencytypes' => 'restApiDefaultCall',   
+            
+            
+             //** infoProjectTradebackBLL ----------------------//   
         
           //**---- infoProjectTradebackBLL -------------------  
             
@@ -2080,6 +2087,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             case "_infocustomercontactpersons":  
                 $this->setRestApiEndPoint('infocustomercontactpersons.php/');
+                break; 
+            case "_syscurrencytypes":  
+                $this->setRestApiEndPoint('syscurrencytypes.php/');
                 break; 
             case "_infoprojecttradeback":  
                 $this->setRestApiEndPoint('infoprojecttradeback.php/');

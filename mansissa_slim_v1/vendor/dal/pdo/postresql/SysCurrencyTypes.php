@@ -485,14 +485,12 @@ class SysCurrencyTypes extends \DAL\DalSlim {
      */
     public function  currencyTypesDdList($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-                            
-            $statement = $pdo->prepare("       
-  
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("   
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
+                    a.name  AS name,  
+                    a.abbrevation AS name_eng,
                      0 as parent_id,
                     a.active,
                     0 AS state_type   
@@ -501,8 +499,7 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0 AND
                     a.language_parent_id =0  
-                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng)
-
+                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng) 
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
@@ -529,8 +526,8 @@ class SysCurrencyTypes extends \DAL\DalSlim {
             $statement = $pdo->prepare("     
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    a.currency_code AS name,  
-                    a.name_eng AS name_eng,
+                    concat(a.currency_code ,' -- ', a.symbol)  AS name,  
+                    a.name AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
