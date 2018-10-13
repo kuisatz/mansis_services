@@ -1050,19 +1050,21 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }  
+            print_r("11111");
             $Name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $Name = $params['Name'];
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-            
+            print_r("22222");
             $Surname = null;
             if ((isset($params['Surname']) && $params['Surname'] != "")) {
                 $Surname = $params['Surname'];
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
+            print_r("3333");
             $Email = null;
             if ((isset($params['Email']) && $params['Email'] != "")) {
                 $Email = $params['Email'];
@@ -1070,7 +1072,10 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $Cep = null;
             if ((isset($params['Cep']) && $params['Cep'] != "")) {
                 $Cep = $params['Cep'];
-            } 
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            print_r("4444");
             $Tel = null;
             if ((isset($params['Tel']) && $params['Tel'] != "")) {
                 $Tel = $params['Tel'];
