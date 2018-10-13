@@ -385,7 +385,7 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */ 
-$app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) { 
+$app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) { 
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerContactPersonsBLL');  
@@ -474,7 +474,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkDeletedAct_infocustomeractivations/", function () use ($app ) {
+$app->get("/pkDeletedAct_infocustomercontactpersons/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('infoCustomerContactPersonsBLL');   
