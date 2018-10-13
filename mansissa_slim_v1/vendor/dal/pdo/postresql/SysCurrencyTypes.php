@@ -499,7 +499,7 @@ class SysCurrencyTypes extends \DAL\DalSlim {
                     a.deleted = 0 AND
                     a.active =0 AND
                     a.language_parent_id =0  
-                ORDER BY  COALESCE(NULLIF(sd.name, ''), a.name_eng) 
+                ORDER BY  a.name
                                  ");
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
