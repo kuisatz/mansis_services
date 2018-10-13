@@ -70,13 +70,21 @@ $app->get("/pkCustomerContactPersonDdList_infocustomercontactpersons/", function
                                                 $app,
                                                 $_GET['lid']));
     }
+    $customerId = NULL;
+    if (isset($_GET['customer_id'])) {
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_id']));
+    } 
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('customer_id')) $customerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
     $resCombobox = $BLL->customerContactPersonDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
+                                    'CustomerId' => $customerId,
                         ));    
 
     $flows = array(); 
