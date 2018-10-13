@@ -1213,6 +1213,7 @@ class SysVehicles extends \DAL\DalSlim {
                         btsbto_type_id,
                         factorymodel_name,
                         roadtype_id,
+                        property, 
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1220,7 +1221,7 @@ class SysVehicles extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_vehicles 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
+                    WHERE id  =" . intval($params['id']) . "  
                      ");
 
                 $insertAct = $statementInsert->execute();

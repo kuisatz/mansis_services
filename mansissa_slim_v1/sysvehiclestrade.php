@@ -369,6 +369,7 @@ $app->get("/pkInsertAct_sysvehiclestrade/", function () use ($app ) {
                                                 $app,
                                                 $_GET['description']));
     }  
+    // &vehicle_gt_model_id=1&description=asd
       
     $stripper->strip();  
     if($stripper->offsetExists('vehicle_gt_model_id')) $vehicleGtModelId = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue();

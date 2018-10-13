@@ -266,8 +266,8 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
                 "btsbto_type_id" => intval($menu["btsbto_type_id"]),  
                 "btobts_name" => html_entity_decode($menu["btobts_name"]),  
                 
-                "roadtype_id" => intval($menu["roadtype_id"]),  
-                "road_type_name" => html_entity_decode($menu["road_type_name"]),  
+             //   "roadtype_id" => intval($menu["roadtype_id"]),  
+             //   "road_type_name" => html_entity_decode($menu["road_type_name"]),  
                 
               
                 "gfz" => html_entity_decode($menu["gfz"]),  
