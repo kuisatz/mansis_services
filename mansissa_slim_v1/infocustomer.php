@@ -292,6 +292,9 @@ $app->get("/pkFillCustomerGridx_infocustomer/", function () use ($app ) {
                 "other_emb_customer_no" => html_entity_decode($menu["other_emb_customer_no"]),
                 "www" => html_entity_decode($menu["www"]),
                 "email" => html_entity_decode($menu["email"]),
+                "phonenumber" => html_entity_decode($menu["phonenumber"]),
+                
+                
                 "vatnumber" => html_entity_decode($menu["vatnumber"]),
                 "registration_number" => html_entity_decode($menu["registration_number"]),
                 "registration_date" =>  ($menu["registration_date"]),
