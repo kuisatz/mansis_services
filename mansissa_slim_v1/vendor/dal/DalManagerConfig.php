@@ -45,8 +45,9 @@ class DalManagerConfig {
                   'infoProjectBuybackOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectBuybackFactory',
                   'infoProjectTradebackOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectTradebackFactory',
                   'infoCustomerContactPersonsOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerContactPersonsFactory',
-                
-                
+                  'infoCustomerPurchasePlanOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerPurchasePlanFactory',
+               
+                 
                  
                    'sysAccBodyDeffOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyDeffFactory',
                    'sysAccBodyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysAccBodyMatrixFactory',
@@ -226,7 +227,7 @@ class DalManagerConfig {
                 'infoProjectBuybackPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectBuybackFactory',
                 'infoProjectTradebackPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectTradebackFactory',
                 'infoCustomerContactPersonsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerContactPersonsFactory',
-                
+                'infoCustomerPurchasePlanPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerPurchasePlanFactory',
                 
                 'infoAfterSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoAfterSalesFactory',
                 'infoSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoSalesFactory',

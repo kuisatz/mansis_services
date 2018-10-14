@@ -48,6 +48,7 @@ class BLLManagerConfig{
                     'infoProjectBuybackBLL' => 'BLL\BLL\InfoProjectBuyback',
                     'infoProjectTradebackBLL' => 'BLL\BLL\InfoProjectTradeback',
                     'infoCustomerContactPersonsBLL' => 'BLL\BLL\InfoCustomerContactPersons',
+                    'infoCustomerPurchasePlanBLL' => 'BLL\BLL\InfoCustomerPurchasePlan',
                  
                  
                  

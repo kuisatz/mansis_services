@@ -22,8 +22,16 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
-            
         
+        
+        
+            
+           //**---- infoCustomerPurchasePlanBLL -------------------  
+            
+                                    'pkFillCustomerPurchaseGridx_infocustomerpurchaseplan' => 'restApiDefaultCall',  
+                                    'pkInsertAct_infocustomerpurchaseplan' => 'restApiDefaultCall', 
+            
+            //** infoCustomerPurchasePlanBLL ----------------------//   
             //**---- sysCurrencyTypesBLL -------------------  
             
                                     'pkCurrencyTypesDdList_syscurrencytypes' => 'restApiDefaultCall',  
