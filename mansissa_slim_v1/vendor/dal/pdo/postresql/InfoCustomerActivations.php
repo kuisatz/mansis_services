@@ -717,7 +717,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     
-                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.customer_id AND cp.show_it = 0 
+                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.act_parent_id AND cp.show_it = 0 
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
@@ -930,7 +930,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     
-                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.customer_id AND cp.show_it = 0 
+                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.act_parent_id AND cp.show_it = 0 
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
