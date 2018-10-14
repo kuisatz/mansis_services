@@ -437,11 +437,9 @@ $app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) {
          $stripper->offsetSet('fax',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['fax']));
-    }  
+    }   
     
-    
-    $stripper->strip();
-    
+    $stripper->strip(); 
     
     if($stripper->offsetExists('name')) $name = $stripper->offsetGet('name')->getFilterValue();
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
