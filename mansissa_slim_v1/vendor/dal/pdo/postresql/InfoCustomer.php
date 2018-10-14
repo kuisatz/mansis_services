@@ -822,6 +822,7 @@ class InfoCustomer extends \DAL\DalSlim {
 			a.ce_emb_customer_no,
 			a.other_emb_customer_no,
                         a.www, 
+                        a.email,
                         a.vatnumber, 
                         a.registration_number, 
                         a.registration_date, 
