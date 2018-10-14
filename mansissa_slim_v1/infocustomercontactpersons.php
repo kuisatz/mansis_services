@@ -231,7 +231,7 @@ $app->get("/pkCustomerContactPersonGridx_infocustomercontactpersons/", function 
  *  * Okan CIRAN
  * @since 15-08-2018
  */
-$app->get("/pkUpdateMakeActiveOrPassive_infocustomeractivations/", function () use ($app ) {
+$app->get("/pkUpdateMakeActiveOrPassive_infocustomercontactpersons/", function () use ($app ) {
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
