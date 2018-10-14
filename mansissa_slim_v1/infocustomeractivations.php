@@ -70,13 +70,21 @@ $app->get("/pkCustomeractivAtionsDdList_infocustomeractivations/", function () u
                                                 $app,
                                                 $_GET['lid']));
     }
+      $customerId = NULL;
+    if (isset($_GET['customer_id'])) {
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_id']));
+    } 
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('customer_id')) $customerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
     $resCombobox = $BLL->customeractivAtionsDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'LanguageID' => $lid,
+                                    'CustomerId' => $customerId,
                         ));    
 
     $flows = array(); 
@@ -198,12 +206,12 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "cs_act_statutype_name" => html_entity_decode($menu["cs_act_statutype_name"]),
                 
                 
-                 "project_id" => intval($menu["project_id"]),  
-                
-                 "vehicle_model_id" =>  ($menu["vehicle_model_id"]),
+                "project_id" => intval($menu["project_id"]),  
+
+                "vehicle_model_id" =>  ($menu["vehicle_model_id"]),
                 "vehicle_model_name" => html_entity_decode($menu["vehicle_model_name"]),
-                 "description" => html_entity_decode($menu["description"]),
-                 "manager_description" => html_entity_decode($menu["manager_description"]),
+                "description" => html_entity_decode($menu["description"]),
+                "manager_description" => html_entity_decode($menu["manager_description"]),
                
                 "name" => html_entity_decode($menu["name"]),
                 "surname" => html_entity_decode($menu["surname"]),
@@ -211,15 +219,8 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "cep" => html_entity_decode($menu["cep"]),
                 "tel" => html_entity_decode($menu["tel"]),
                 "fax" => html_entity_decode($menu["fax"]),
-                "embrace_customer_no" => html_entity_decode($menu["embrace_customer_no"]),
-                "tu_emb_customer_no" => html_entity_decode($menu["tu_emb_customer_no"]),
-                "ce_emb_customer_no" => html_entity_decode($menu["ce_emb_customer_no"]),
-                "other_emb_customer_no" => html_entity_decode($menu["other_emb_customer_no"]),
-                "www" => html_entity_decode($menu["www"]),
-                "vatnumber" => html_entity_decode($menu["vatnumber"]),
-                "vatnumber" => html_entity_decode($menu["vatnumber"]),
-                "vatnumber" => html_entity_decode($menu["vatnumber"]),
-                 
+                
+                
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       

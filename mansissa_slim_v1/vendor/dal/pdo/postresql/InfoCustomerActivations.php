@@ -489,7 +489,12 @@ class InfoCustomerActivations extends \DAL\DalSlim {
     public function  customeractivAtionsDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-                            
+            $addSQL = " 1=2  AND";
+            $CustomerId=-1111 ;               
+            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
+                $CustomerId = intval($params['CustomerId']);
+                $addSQL = " a.customer_id = ". intval($CustomerId) . " AND ";
+            }                 
             $statement = $pdo->prepare("    
               SELECT      
                     a.act_parent_id AS id, 	
@@ -501,6 +506,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 FROM info_customer_activations a    
                 inner join info_customer b on b.act_parent_id = a.customer_id AND b.show_it =0 
                 WHERE   
+                    ".$addSQL."
                     a.deleted = 0 AND
                     a.active =0  
                 ORDER BY  a.id   
@@ -518,7 +524,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             
     /** 
      * @author Okan CIRAN
-     * @   garanti tanımlarını grid formatında döndürür !! ana tablo  info_customer_activations 
+     * @   musteri aktivasyon tanımlarını grid formatında döndürür !! ana tablo  info_customer_activations 
      * @version v 1.0  20.08.2018
      * @param array | null $args 
      * @return array
@@ -711,7 +717,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     
-                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.ne_count_type_id AND cp.show_it = 0 
+                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.customer_id AND cp.show_it = 0 
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
@@ -924,7 +930,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     
-                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.ne_count_type_id AND cp.show_it = 0 
+                    LEFT JOIN info_customer_contact_persons cp ON cp.act_parent_id = cs.customer_id AND cp.show_it = 0 
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_groups vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
@@ -977,6 +983,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 SET                         
                     c_date =  timezone('Europe/Istanbul'::text, ('now'::text)::timestamp(0) with time zone) ,                     
                     active = 1 ,
+                    deleted= 1,
                     show_it =1 
                WHERE id = :id  ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);

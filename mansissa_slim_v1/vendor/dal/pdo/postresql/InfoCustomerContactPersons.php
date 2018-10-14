@@ -1258,7 +1258,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                     id  =" . intval($Id) . "                  
                                                 " ;
                     $statementInsert = $pdo->prepare($sql);
-              echo debugPDO($sql, $params);
+             // echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
