@@ -390,7 +390,7 @@ $app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerContactPersonsBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomeractivations" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_infocustomercontactpersons" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
      $vId = NULL;
