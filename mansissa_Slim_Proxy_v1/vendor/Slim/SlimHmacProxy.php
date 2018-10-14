@@ -2096,6 +2096,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_infocustomerpurchaseplan":  
+                $this->setRestApiEndPoint('infocustomerpurchaseplan.php/');
+                break; 
             case "_infocustomercontactpersons":  
                 $this->setRestApiEndPoint('infocustomercontactpersons.php/');
                 break; 
