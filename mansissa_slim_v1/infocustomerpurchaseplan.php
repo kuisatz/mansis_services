@@ -255,7 +255,7 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $_GET['last_brand']));
     }  
       
-    // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
+    //  &customer_id=1&last_purchase_date=2016-04-10&date_of_purchase=2018-10-10&quantity=22&description=asdasd&last_brand=VW
      
     $stripper->strip(); 
     

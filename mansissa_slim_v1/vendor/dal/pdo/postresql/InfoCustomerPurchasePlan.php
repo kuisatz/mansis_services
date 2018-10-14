@@ -792,7 +792,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
-                    $this->makePassive(array('id' => $params['customer_id']));       
+                    $this->makePassive(array('id' => $params['CustomerId']));       
                     $sql = "
                     INSERT INTO info_customer_purchase_plan(
                             customer_id, 
