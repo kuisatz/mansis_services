@@ -260,7 +260,11 @@ $app->get("/pkInsertAct_syssisquotasmatrix/", function () use ($app ) {
                                                 $app,
                                                 $_GET['value']));
     } 
-    
+    /*
+  
+      &sis_quota_id=1%year=2017&value=150
+     
+     */
     
    
     $stripper->strip();

@@ -543,6 +543,58 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+                            
+    /** 
+     * @author Okan CIRAN
+     * @ deal a eklenen aracları dropdown ya da tree ye doldurmak için info_project_vehicle_models tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function projectVehicleModelsTradeDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+            $errorInfo[0] = "99999";         
+            $addSQL =null;
+            $ProjectId=-1 ;
+            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
+                $ProjectId = $params['ProjectId'];
+                $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }              
+              
+            $sql =  "    
+              SELECT                    
+                    vt.act_parent_id AS id, 	
+                    vt.description  AS name, 
+                    vt.description AS name_eng,
+                    0 as parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_vehicle_gt_models a  
+                inner join info_project_buyback pvm on pvm.vehicles_endgroup_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0             
+                inner join sys_vehicles_trade vt on vt.vehicle_gt_model_id = a.act_parent_id AND vt.show_it =0   
+                WHERE  
+                   ".$addSQL." 
+                    a.deleted = 0 AND
+                    a.active =0   
+                ORDER BY   vt.description  
+ 
+                                 " ;
+             $statement = $pdo->prepare($sql);
+         //    echo debugPDO($sql, $params);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     /** 
      * @author Okan CIRAN

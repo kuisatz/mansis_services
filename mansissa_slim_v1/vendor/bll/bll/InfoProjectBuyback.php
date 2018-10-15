@@ -95,7 +95,19 @@ class InfoProjectBuyback  extends \BLL\BLLSlim{
         $resultSet = $DAL->projectVehicleBBDdList($params);
         return $resultSet['resultSet'];
     }
-      
+        
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+     * ornek için bırakıldı
+    */
+    public function projectVehicleModelsTradeDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoProjectBuybackPostgrePDO');
+        $resultSet = $DAL->projectVehicleModelsTradeDdList($params);
+        return $resultSet['resultSet'];
+    }
+     
     /**
      * Function to fill datagrid on user interface layer
      * @param array | null $params

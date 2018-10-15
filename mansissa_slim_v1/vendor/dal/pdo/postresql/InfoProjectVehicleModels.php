@@ -534,6 +534,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
         }
     }
     
+                            
     /** 
      * @author Okan CIRAN
      * @   deal arac tanımlarını grid formatında döndürür !! ana tablo  info_project_vehicle_models 

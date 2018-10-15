@@ -26,7 +26,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
            //**---- sysSisMonthlyQuotasBLL -------------------  
             
-                                    'pkSisQuotasDdList_syssisquotasmatrix' => 'restApiDefaultCall', 
+            
                                     'pkFillQuotasMatrixGridx_syssisquotasmatrix' => 'restApiDefaultCall',   
                                     'pkUpdateMakeActiveOrPassive_syssisquotasmatrix' => 'restApiDefaultCall', 
         
@@ -96,6 +96,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             //**---- infoProjectTradebackBLL -------------------  
             
                                     'pkProjectVehicleTBDdList_infoprojecttradeback' => 'restApiDefaultCall',  
+                                    'pkProjectVehicleModelsTradeDdList_infoprojecttradeback' => 'restApiDefaultCall',  
                                     'pkFillProjectVehicleTBGridx_infoprojecttradeback' => 'restApiDefaultCall',   
                                     'pkUpdateMakeActiveOrPassive_infoprojecttradeback' => 'restApiDefaultCall', 
         
@@ -108,6 +109,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
             //**---- infoProjectBuybackBLL -------------------  
             
                                     'pkProjectVehicleBBDdList_infoprojectbuybacks' => 'restApiDefaultCall',  
+                                    'pkProjectVehicleModelsTradeDdList_infoprojectbuybacks' => 'restApiDefaultCall',  
+        
                                     'pkFillProjectVehicleBBGridx_infoprojectbuybacks' => 'restApiDefaultCall',   
                                     'pkUpdateMakeActiveOrPassive_infoprojectbuybacks' => 'restApiDefaultCall', 
         
