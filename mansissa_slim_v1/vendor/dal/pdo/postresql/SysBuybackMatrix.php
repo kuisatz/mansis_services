@@ -701,7 +701,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                         a.deleted =0 AND
                         a.show_it =0 AND 
                         a.contract_type_id = 2                         
-                " . $addSql . "
+               
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
