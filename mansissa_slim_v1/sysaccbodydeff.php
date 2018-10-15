@@ -325,12 +325,15 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
     $BLLUser = $app->getBLLManager()->get('infoUsersBLL');
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
+    $headerParams = $app->request()->headers();
+    
+    print_r($headerParams) ; 
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $RedisConnect->hGetAll($rid);
     //   echo "Server is running: ".$RedisConnect->ping(); 
 
-    print_r($user);
+ //   print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
         $user = trim($user['data']);
 
@@ -369,7 +372,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
       
-    $headerParams = $app->request()->headers();
+  
     $Pk = $headerParams['X-Public'];
  //   $user = $RedisConnect->hGetAll($Pk);
 
