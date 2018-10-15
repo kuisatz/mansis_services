@@ -376,11 +376,8 @@ $app->get("/pkInsertAct_sysfixedsalescosts/", function () use ($app ) {
             'VehicleGruopId' => $VehicleGruopId,  
             'StartDate' => $StartDate,  
             'WarrantyMatrixId' => $warrantyMatrixId,  
-            'IsAllVehicle' => $isAllVehicle,  
-        
-        
-            'Value' => $warrantyMatrixId,  
-       
+            'IsAllVehicle' => $isAllVehicle,   
+            
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

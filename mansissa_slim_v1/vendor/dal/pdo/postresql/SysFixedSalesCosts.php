@@ -1053,6 +1053,8 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+            print_r("111");
+                    
             $nameEng = null;
           /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
@@ -1067,12 +1069,14 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+             print_r("22222");
             $value = -1111;
             if ((isset($params['Value']) && $params['Value'] != "")) {
                 $value = intval($params['Value']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
+             print_r("3333");
             $VehicleGruopId = -1111;
             if ((isset($params['VehicleGruopId']) && $params['VehicleGruopId'] != "")) {
                 $VehicleGruopId = intval($params['VehicleGruopId']);
@@ -1150,7 +1154,6 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                     $insertID = $pdo->lastInsertId('sys_fixed_sales_costs_id_seq');
 
                            
-
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
