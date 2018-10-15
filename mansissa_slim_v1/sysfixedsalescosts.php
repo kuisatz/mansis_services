@@ -185,7 +185,20 @@ $app->get("/pkFixedSalesCostsGridx_sysfixedsalescosts/", function () use ($app )
                 "vvalue" => $menu["vvalue"], 
                 "currency_type_id" => html_entity_decode($menu["currency_type_id"]),   
                 "currency_name" => html_entity_decode($menu["currency_name"]), 
+                
+                 "vehicle_gruop_id" =>  ($menu["vehicle_gruop_id"]),   
+                "vehicle_gruop_name" => html_entity_decode($menu["vehicle_gruop_name"]), 
+                
+                "vehicle_second_group_id" =>  ($menu["vehicle_second_group_id"]),   
+                "model_description" => html_entity_decode($menu["model_description"]), 
                   
+                "start_date" =>  ($menu["start_date"]),   
+                "is_all_vehicle" =>  ($menu["is_all_vehicle"]), 
+                
+                "warranty_matrix_id" =>  ($menu["warranty_matrix_id"]),   
+                "warranty_matrix_name" => html_entity_decode($menu["warranty_matrix_name"]), 
+            
+                      
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -307,18 +320,60 @@ $app->get("/pkInsertAct_sysfixedsalescosts/", function () use ($app ) {
                                                 $app,
                                                 $_GET['vvalue']));
     }  
+    $VehicleSecondGruopId = NULL;
+    if (isset($_GET['vehicle_second_group_id'])) {
+         $stripper->offsetSet('vehicle_second_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_second_group_id']));
+    } 
+    $VehicleGruopId = NULL;
+    if (isset($_GET['vehicle_gruop_id'])) {
+         $stripper->offsetSet('vehicle_gruop_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gruop_id']));
+    } 
+    $StartDate = NULL;
+    if (isset($_GET['start_date'])) {
+         $stripper->offsetSet('start_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['start_date']));
+    } 
+    $isAllVehicle = NULL;
+    if (isset($_GET['is_all_vehicle'])) {
+         $stripper->offsetSet('is_all_vehicle',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['is_all_vehicle']));
+    } 
+    $warrantyMatrixId = NULL;
+    if (isset($_GET['warranty_matrix_id'])) {
+         $stripper->offsetSet('warranty_matrix_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['warranty_matrix_id']));
+    } 
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
     if($stripper->offsetExists('currency_type_id')) $CurrencyTypeId = $stripper->offsetGet('currency_type_id')->getFilterValue();
     if($stripper->offsetExists('vvalue')) $vvalue = $stripper->offsetGet('vvalue')->getFilterValue();
-          
-      
     
+    if($stripper->offsetExists('vehicle_second_group_id')) $VehicleSecondGruopId = $stripper->offsetGet('vehicle_second_group_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gruop_id')) $VehicleGruopId = $stripper->offsetGet('vehicle_gruop_id')->getFilterValue();
+    if($stripper->offsetExists('start_date')) $StartDate = $stripper->offsetGet('start_date')->getFilterValue();
+    if($stripper->offsetExists('is_all_vehicle')) $isAllVehicle = $stripper->offsetGet('is_all_vehicle')->getFilterValue();
+    if($stripper->offsetExists('warranty_matrix_id')) $warrantyMatrixId = $stripper->offsetGet('warranty_matrix_id')->getFilterValue();
+      
+          
+       
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
             'CurrencyTypeId' => $CurrencyTypeId,   
             'Value' => $vvalue,  
+            'VehicleSecondGroupId' => $VehicleSecondGruopId,  
+            'VehicleGruopId' => $VehicleGruopId,  
+            'StartDate' => $StartDate,  
+            'WarrantyMatrixId' => $isAllVehicle,  
+            'Value' => $warrantyMatrixId,  
+       
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -345,7 +400,7 @@ $app->get("/pkUpdateAct_sysfixedsalescosts/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-   $vName = NULL;
+    $vName = NULL;
     if (isset($_GET['name'])) {
          $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
@@ -363,19 +418,60 @@ $app->get("/pkUpdateAct_sysfixedsalescosts/", function () use ($app ) {
                                                 $app,
                                                 $_GET['vvalue']));
     }  
+    $VehicleSecondGruopId = NULL;
+    if (isset($_GET['vehicle_second_group_id'])) {
+         $stripper->offsetSet('vehicle_second_group_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_second_group_id']));
+    } 
+    $VehicleGruopId = NULL;
+    if (isset($_GET['vehicle_gruop_id'])) {
+         $stripper->offsetSet('vehicle_gruop_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gruop_id']));
+    } 
+    $StartDate = NULL;
+    if (isset($_GET['start_date'])) {
+         $stripper->offsetSet('start_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['start_date']));
+    } 
+    $isAllVehicle = NULL;
+    if (isset($_GET['is_all_vehicle'])) {
+         $stripper->offsetSet('is_all_vehicle',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['is_all_vehicle']));
+    } 
+    $warrantyMatrixId = NULL;
+    if (isset($_GET['warranty_matrix_id'])) {
+         $stripper->offsetSet('warranty_matrix_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['warranty_matrix_id']));
+    } 
      
     $stripper->strip();
     if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
     if($stripper->offsetExists('currency_type_id')) $CurrencyTypeId = $stripper->offsetGet('currency_type_id')->getFilterValue();
     if($stripper->offsetExists('vvalue')) $vvalue = $stripper->offsetGet('vvalue')->getFilterValue();
+    
+    if($stripper->offsetExists('vehicle_second_group_id')) $VehicleSecondGruopId = $stripper->offsetGet('vehicle_second_group_id')->getFilterValue();
+    if($stripper->offsetExists('vehicle_gruop_id')) $VehicleGruopId = $stripper->offsetGet('vehicle_gruop_id')->getFilterValue();
+    if($stripper->offsetExists('start_date')) $StartDate = $stripper->offsetGet('start_date')->getFilterValue();
+    if($stripper->offsetExists('is_all_vehicle')) $isAllVehicle = $stripper->offsetGet('is_all_vehicle')->getFilterValue();
+    if($stripper->offsetExists('warranty_matrix_id')) $warrantyMatrixId = $stripper->offsetGet('warranty_matrix_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-             'Name' => $vName,   
+           'Name' => $vName,   
             'CurrencyTypeId' => $CurrencyTypeId,   
             'Value' => $vvalue,  
+            'VehicleSecondGroupId' => $VehicleSecondGruopId,  
+            'VehicleGruopId' => $VehicleGruopId,  
+            'StartDate' => $StartDate,  
+            'WarrantyMatrixId' => $isAllVehicle,  
+            'Value' => $warrantyMatrixId,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

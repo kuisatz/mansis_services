@@ -668,7 +668,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
 			COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name,
  
                         a.vehicle_gruop_id,
-                        vg.name , 
+                        vg.name AS vehicle_gruop_name  , 
                         a.vehicle_second_group_id,
                         vge.model_description,
                         a.vvalue,
@@ -676,7 +676,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         a.start_date,
                         a.is_all_vehicle ,
                         a.warranty_matrix_id,
-                        wm.unique_code, 
+                        wm.unique_code AS warranty_matrix_name, 
                        
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -837,8 +837,8 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
 			a.currency_type_id,
 			COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name,
  
-                        a.vehicle_gruop_id,
-                        vg.name , 
+                         a.vehicle_gruop_id,
+                        vg.name AS vehicle_gruop_name  , 
                         a.vehicle_second_group_id,
                         vge.model_description,
                         a.vvalue,
@@ -846,7 +846,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         a.start_date,
                         a.is_all_vehicle ,
                         a.warranty_matrix_id,
-                        wm.unique_code,  
+                        wm.unique_code AS warranty_matrix_name, 
                        
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
