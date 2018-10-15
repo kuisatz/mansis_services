@@ -202,7 +202,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
+                '' as name ,
                 '' AS value, 
                 true AS control,
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
@@ -218,7 +218,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 
                                ";
             $statement = $pdo->prepare($sql);
-        echo debugPDO($sql, $params);
+     //   echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
