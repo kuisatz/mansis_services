@@ -323,13 +323,14 @@ $app->get("/fillAccBodyDeffGridx_sysaccbodydeff/", function () use ($app ) {
  * @since 15-08-2018
  */
 $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app ) {
+    $BLLUser = $app->getBLLManager()->get('infoUsersBLL');
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $RedisConnect->hGetAll($rid);
     //   echo "Server is running: ".$RedisConnect->ping(); 
 
- //   print_r($user);
+    print_r($user);
     if (isset($user['data']) && $user['data'] != "") {
         $user = trim($user['data']);
 
@@ -338,6 +339,12 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysaccbodydeff/", function () use ($app 
     //        print_r("<<<<<<<<<<<<<<<<<<<<");
             if (isset($jsonFilter['Id'])) {
            //     print_r($jsonFilter ["Id"]);
+                $rid = $jsonFilter ["Id"];
+                $resDatacontrol = $BLLUser->getUserId(array(
+                    'pk' => $rid, 
+                )); 
+                
+                
             }
     ///        print_r(">>>>>>>>><<<<<<<<<<<");
             if (isset($jsonFilter['RootId'])) {
