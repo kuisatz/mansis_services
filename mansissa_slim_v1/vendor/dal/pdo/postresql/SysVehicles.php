@@ -831,9 +831,9 @@ class SysVehicles extends \DAL\DalSlim {
 		    INNER JOIN sys_vehicle_app_types h ON h.act_parent_id = a.cap_type_id AND h.show_it = 0  
 		    INNER JOIN sys_kpnumbers g ON g.act_parent_id = a.kpnumber_id AND g.show_it = 0  
 		    INNER JOIN sys_vehicle_btobts i ON i.act_parent_id = a.kpnumber_id AND i.show_it = 0   
-		    INNER JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
+		    LEFT JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
                     LEFT JOIN sys_roadtypes kx ON (kx.act_parent_id = k.act_parent_id OR kx.language_parent_id= k.act_parent_id) AND kx.show_it = 0 AND kx.language_id =lx.id  
-                    inner join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
+                    LEFT join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
                     
                     /*----*/                 
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1090,9 +1090,9 @@ class SysVehicles extends \DAL\DalSlim {
                             INNER JOIN sys_vehicle_app_types h ON h.act_parent_id = a.cap_type_id AND h.show_it = 0  
                             INNER JOIN sys_kpnumbers g ON g.act_parent_id = a.kpnumber_id AND g.show_it = 0  
                             INNER JOIN sys_vehicle_btobts i ON i.act_parent_id = a.kpnumber_id AND i.show_it = 0   
-                            INNER JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
+                            LEFT JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
                             LEFT JOIN sys_roadtypes kx ON (kx.act_parent_id = k.act_parent_id OR kx.language_parent_id= k.act_parent_id) AND kx.show_it = 0 AND kx.language_id =lx.id  
-                            inner join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
+                            LEFT join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
 
                             /*----*/                 
                            /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
