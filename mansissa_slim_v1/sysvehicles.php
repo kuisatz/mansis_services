@@ -202,11 +202,19 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
                                                 $app,
                                                 $_GET['lid']));
     }
+    $VehicleGtModelID = null;
+    if (isset($_GET['vehicle_gt_model_id'])) {
+         $stripper->offsetSet('vehicle_gt_model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['vehicle_gt_model_id']));
+    }
+    
+    
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
- 
     if ($stripper->offsetExists('page')) { $vPage = $stripper->offsetGet('page')->getFilterValue(); }
+    if ($stripper->offsetExists('vehicle_gt_model_id')) { $VehicleGtModelID = $stripper->offsetGet('vehicle_gt_model_id')->getFilterValue(); }
     if ($stripper->offsetExists('rows')) { $vRows = $stripper->offsetGet('rows')->getFilterValue(); }
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
@@ -219,7 +227,7 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
- 
+        'VehicleGtModelID' => $VehicleGtModelID,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -227,7 +235,7 @@ $app->get("/pkFillVehiclesGridx_sysvehicles/", function () use ($app ) {
     $resTotalRowCount = $BLL->fillVehiclesGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
- 
+       'VehicleGtModelID' => $VehicleGtModelID,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
