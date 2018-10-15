@@ -24,7 +24,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+         //**---- sysFixedSalesCostsBLL -------------------  
+            
+                                    'pkFixedSalesCostsDdList_sysfixedsalescosts' => 'restApiDefaultCall',  
+                                    'pkFixedSalesCostsGridx_sysfixedsalescosts' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_sysfixedsalescosts' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_sysfixedsalescosts' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_sysfixedsalescosts' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_sysfixedsalescosts' => 'restApiDefaultCall', 
+            
+            //** sysFixedSalesCostsBLL ----------------------//   
             
            //**---- infoCustomerPurchasePlanBLL -------------------  
             
@@ -2096,6 +2106,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_sysfixedsalescosts":  
+                $this->setRestApiEndPoint('sysfixedsalescosts.php/');
+                break; 
             case "_infocustomerpurchaseplan":  
                 $this->setRestApiEndPoint('infocustomerpurchaseplan.php/');
                 break; 

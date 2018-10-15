@@ -917,7 +917,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         abbrevation,
                         symbol,
                         vvalue,
-                        currency_type_id,vvvvvv
+                        currency_type_id, 
                         
                         language_id,
                         language_parent_id,
