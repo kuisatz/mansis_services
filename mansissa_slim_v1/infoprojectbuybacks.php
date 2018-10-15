@@ -146,6 +146,7 @@ $app->get("/pkProjectVehicleModelsTradeDdList_infoprojectbuybacks/", function ()
                         ));    
 
     $flows = array(); 
+      if (isset($resCombobox[0]['id'])) {     
     foreach ($resCombobox as $flow) {
         $flows[] = array(            
             "text" => $flow["name"],
@@ -155,6 +156,7 @@ $app->get("/pkProjectVehicleModelsTradeDdList_infoprojectbuybacks/", function ()
             "imageSrc"=>"",   
         );
     }
+      }
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($flows));
 });
