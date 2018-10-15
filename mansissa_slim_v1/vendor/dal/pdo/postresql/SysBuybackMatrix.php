@@ -1172,7 +1172,7 @@ class SysBuybackMatrix extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-         //  echo debugPDO($sql, $params);            
+        echo debugPDO($sql, $params);            
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
