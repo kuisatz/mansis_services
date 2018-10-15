@@ -2129,6 +2129,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
             
             
             
+            case "_syssisquotas":  
+                $this->setRestApiEndPoint('syssisquotas.php/');
+                break; 
             case "_syssismonthlyquotas":  
                 $this->setRestApiEndPoint('syssismonthlyquotas.php/');
                 break; 
