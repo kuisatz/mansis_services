@@ -174,7 +174,7 @@ $app->get("/pkUpdateMakeActiveOrPassive_syssismonthlyquotas/", function () use (
     $RedisConnect = $app->getServiceManager()->get('redisConnectFactory');
     $headerParams = $app->request()->headers();
     
-    print_r($headerParams) ; 
+  //  print_r($headerParams) ; 
  
     $rid = 'testInstance7794f89a-59a3-44f8-b2f8-1e44dc8a6f34';
     $user = $RedisConnect->hGetAll($rid);
@@ -190,9 +190,9 @@ $app->get("/pkUpdateMakeActiveOrPassive_syssismonthlyquotas/", function () use (
             if (isset($jsonFilter['Id'])) {
            //     print_r($jsonFilter ["Id"]);
                 $rid = $jsonFilter ["Id"];
-                $resDatacontrol = $BLLUser->getUserId(array(
-                    'pk' => $rid, 
-                )); 
+         //       $resDatacontrol = $BLLUser->getUserId(array(
+             //       'pk' => $rid, 
+        //        )); 
                 
                 
             }
