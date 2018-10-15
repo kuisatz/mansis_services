@@ -474,8 +474,7 @@ class SysSisQuotas extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
+                            
     /** 
      * @author Okan CIRAN
      * @ kota tanımları dropdown ya da tree ye doldurmak için sys_sis_quotas tablosundan kayıtları döndürür !!

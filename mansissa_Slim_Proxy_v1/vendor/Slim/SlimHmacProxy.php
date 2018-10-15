@@ -23,6 +23,18 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+          //**---- sysSisMonthlyQuotasBLL -------------------  
+            
+                                    'pkSisQuotasDdList_syssisquotas' => 'restApiDefaultCall', 
+                                    'pkFillSisQuotasGridx_syssisquotas' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_syssisquotas' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_syssisquotas' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_syssisquotas' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_syssisquotas' => 'restApiDefaultCall', 
+            
+        //** sysSisMonthlyQuotasBLL ----------------------//   
+        
         //**---- sysSisMonthlyQuotasBLL -------------------  
             
             
