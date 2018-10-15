@@ -208,9 +208,10 @@ class SysSupplier extends \DAL\DalSlim {
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_supplier  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND
+                country_id =   " . intval($params['country_id']) . " 
                   " . $addSql . " 
-                AND a.deleted =0    
+                AND a.deleted =0 
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -711,14 +712,27 @@ class SysSupplier extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             }  
                             
-                $sql = "
-                     SELECT  
+                $sql = " 
+                    SELECT  
                         a.id, 
                         a.act_parent_id as apid,  
                         COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
-                      /*  a.name_eng, */ 
+                        a.city_id,
+			city.name as city_name, 
+			city.region_id, 
+			region.name as region, 
+			a.country_id, 			
+			coun.name country_name,
+
+			a.address1,
+			a.address2,
+			a.address3,
+			a.postalcode,
+			a.tel,
+			a.fax,
+			a.email, 
                         COALESCE(NULLIF(ax.name_short, ''), a.name_short_eng) AS name_short,
-                        abbrevation,
+                        a.abbrevation,
                         COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
@@ -734,22 +748,29 @@ class SysSupplier extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_supplier a                    
                     INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "    AND lx.show_it =0   
                     LEFT JOIN sys_supplier ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+
+		    LEFT JOIN sys_countrys coun ON coun.id = a.country_id AND coun.show_it = 0  
+		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = a.city_id AND region.show_it = 0 
+		    
+		   /*----*/   
+
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
                     /**/
                   /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
-                    WHERE  
+                    WHERE 
+                        " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0 AND 
-                        a.language_parent_id =0   
-                     
-                " . $addSql . "
+                        a.language_parent_id =0    
+               
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
@@ -855,30 +876,53 @@ class SysSupplier extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                         SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
-                            COALESCE(NULLIF(ax.name_short, ''), a.name_short_eng) AS name_short,
-                            abbrevation,
-                            COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description,  
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
-                        FROM sys_supplier a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it=0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0  
-                        LEFT JOIN sys_supplier ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted = 0 AND ax.active = 0 AND ax.language_id = lx.id
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                        a.id, 
+                        a.act_parent_id as apid,  
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,
+                        a.city_id,
+			city.name as city_name, 
+			city.region_id, 
+			region.name as region, 
+			a.country_id, 			
+			coun.name country_name,
 
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0 AND 
-                            a.language_parent_id =0 
-                         " . $addSql . "
+			a.address1,
+			a.address2,
+			a.address3,
+			a.postalcode,
+			a.tel,
+			a.fax,
+			a.email, 
+                        COALESCE(NULLIF(ax.name_short, ''), a.name_short_eng) AS name_short,
+                        a.abbrevation,
+                        COALESCE(NULLIF(ax.description, ''), a.description_eng) AS description, 
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
+                        u.username AS op_user_name 
+                    FROM sys_supplier a                    
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "    AND lx.show_it =0   
+                    LEFT JOIN sys_supplier ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
+
+		    LEFT JOIN sys_countrys coun ON coun.id = a.country_id AND coun.show_it = 0  
+		    LEFT JOIN sys_city city ON city.id = a.city_id AND city.show_it = 0 
+		    LEFT JOIN sys_country_regions region ON region.id = a.city_id AND region.show_it = 0 
+		    
+		   /*----*/   
+
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        " . $addSql . "
+                        a.deleted =0 AND
+                        a.show_it =0 AND 
+                        a.language_parent_id =0    
                          " . $sorguStr . " 
                     ) asdx
                         
@@ -960,7 +1004,15 @@ class SysSupplier extends \DAL\DalSlim {
                         abbrevation,
                         description,
                         description_eng,
-                        country_id,
+                        country_id, 
+                        city_id,
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        tel,
+                        fax,
+                        email, 
                         
                         language_id,
                         language_parent_id,
@@ -971,14 +1023,22 @@ class SysSupplier extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        name,
+                         name,
                         name_eng,
                         name_short,
                         name_short_eng,
                         abbrevation,
                         description,
                         description_eng,
-                        country_id,
+                        country_id, 
+                        city_id,
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        tel,
+                        fax,
+                        email, 
                         
                         language_id,
                         language_parent_id, 
@@ -988,8 +1048,8 @@ class SysSupplier extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_supplier 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                    WHERE id  =" . intval($params['id']) . " 
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1024,23 +1084,59 @@ class SysSupplier extends \DAL\DalSlim {
                              
             $errorInfo[0] = "99999"; 
             $name = null;
+            $nameeng=null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
+                $nameeng =$name;
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameShort = null;
+            $nameShortEng = null;
             if ((isset($params['NameShort']) && $params['NameShort'] != "")) {
                 $nameShort = $params['NameShort'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                $nameShortEng=$nameShort ;
+            } 
             $abbrevation = null;
             if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
                 $abbrevation = $params['Abbrevation'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
+            }  
+            $CountryId = -1111;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $CountryId = intval($params['CountryId']);
+            }
+            $CityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $CityId = intval($params['CityId']);
+            }
+            $Address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $Address1 = $params['Address1'];
+            }   
+            $Address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $Address2 = $params['Address2'];
+            }
+            $Address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $Address3 = $params['Address3'];
+            }
+            $Postalcode = null;
+            if ((isset($params['Postalcode']) && $params['Postalcode'] != "")) {
+                $Postalcode = $params['Postalcode'];
+            }
+             $Tel = null;
+            if ((isset($params['Tel']) && $params['Tel'] != "")) {
+                $Tel = $params['Tel'];
+            }
+            $Fax = null;
+            if ((isset($params['Fax']) && $params['Fax'] != "")) {
+                $Fax = $params['Fax'];
+            }
+            $Email = null;
+            if ((isset($params['Email']) && $params['Email'] != "")) {
+                $Email = $params['Email'];
+            }
              
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1049,24 +1145,47 @@ class SysSupplier extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'name' => $name,
-                            'name_short' => $nameShort,
-                            'abbrevation' => $abbrevation
+                            'country_id' => $CountryId,
+                             
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO sys_supplier(
-                            name, 
-                            name_short, 
+                            name,
+                            name_eng,
+                            name_short,
+                            name_short_eng,
                             abbrevation, 
+                            country_id, 
+                            city_id,
+                            address1,
+                            address2,
+                            address3,
+                            postalcode,
+                            tel,
+                            fax,
+                            email, 
 
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES (
                             '" . $name . "',
+                            '" . $nameeng . "',
                             '" . $nameShort . "',
+                            '" . $nameShortEng . "',
                             '" . $abbrevation . "',
-
+                            " . intval($CountryId) . ",
+                            " . intval($CityId) . ",
+                                
+                            '" . $Address1 . "',
+                            '" . $Address2 . "',
+                            '" . $Address3 . "',
+                            '" . $Postalcode . "',
+                            '" . $Tel . "',
+                            '" . $Fax . "',
+                            '" . $Email . "', 
+                                
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_supplier_id_seq)
                                                  )   ";
@@ -1118,24 +1237,60 @@ class SysSupplier extends \DAL\DalSlim {
                 throw new \PDOException($errorInfo[0]);
             }
 
-            $name = null;
+              $name = null;
+            $nameeng=null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
+                $nameeng =$name;
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
             $nameShort = null;
+            $nameShortEng = null;
             if ((isset($params['NameShort']) && $params['NameShort'] != "")) {
                 $nameShort = $params['NameShort'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
+                $nameShortEng=$nameShort ;
+            } 
             $abbrevation = null;
             if ((isset($params['Abbrevation']) && $params['Abbrevation'] != "")) {
                 $abbrevation = $params['Abbrevation'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
+            }  
+            $CountryId = -1111;
+            if ((isset($params['CountryId']) && $params['CountryId'] != "")) {
+                $CountryId = intval($params['CountryId']);
+            }
+            $CityId = -1111;
+            if ((isset($params['CityId']) && $params['CityId'] != "")) {
+                $CityId = intval($params['CityId']);
+            }
+            $Address1 = null;
+            if ((isset($params['Address1']) && $params['Address1'] != "")) {
+                $Address1 = $params['Address1'];
+            }   
+            $Address2 = null;
+            if ((isset($params['Address2']) && $params['Address2'] != "")) {
+                $Address2 = $params['Address2'];
+            }
+            $Address3 = null;
+            if ((isset($params['Address3']) && $params['Address3'] != "")) {
+                $Address3 = $params['Address3'];
+            }
+            $Postalcode = null;
+            if ((isset($params['Postalcode']) && $params['Postalcode'] != "")) {
+                $Postalcode = $params['Postalcode'];
+            }
+             $Tel = null;
+            if ((isset($params['Tel']) && $params['Tel'] != "")) {
+                $Tel = $params['Tel'];
+            }
+            $Fax = null;
+            if ((isset($params['Fax']) && $params['Fax'] != "")) {
+                $Fax = $params['Fax'];
+            }
+            $Email = null;
+            if ((isset($params['Email']) && $params['Email'] != "")) {
+                $Email = $params['Email'];
+            }          
              
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1144,19 +1299,31 @@ class SysSupplier extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'name' => $name,
-                            'name_short' => $nameShort,
-                            'abbrevation' => $abbrevation,
+                            'country_id' => $CountryId,
                             'id' => $Id
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_supplier (  
-                        name, 
-                        name_short, 
-                        abbrevation,  
+                        name,
+                        name_eng,
+                        name_short,
+                        name_short_eng,
+                        abbrevation,
+                        description,
+                        description_eng,
+                        country_id, 
+                        city_id,
+                        address1,
+                        address2,
+                        address3,
+                        postalcode,
+                        tel,
+                        fax,
+                        email,   
                         
                         language_id,
                         language_parent_id,
@@ -1165,8 +1332,20 @@ class SysSupplier extends \DAL\DalSlim {
                         )  
                 SELECT  
                     '" . $name . "',
+                    '" . $nameeng . "',
                     '" . $nameShort . "',
-                    '" . $abbrevation . "', 
+                    '" . $nameShortEng . "',
+                    '" . $abbrevation . "',
+                    " . intval($CountryId) . ",
+                    " . intval($CityId) . ",
+
+                    '" . $Address1 . "',
+                    '" . $Address2 . "',
+                    '" . $Address3 . "',
+                    '" . $Postalcode . "',
+                    '" . $Tel . "',
+                    '" . $Fax . "',
+                    '" . $Email . "', 
                    
                     language_id,
                     language_parent_id ,
