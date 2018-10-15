@@ -843,10 +843,9 @@ class SysVehicles extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
+                        " . $addSql . "
                         a.deleted =0 AND  
                         a.show_it =0  
-                     
-                " . $addSql . "
                 " . $sorguStr . " 
                /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
