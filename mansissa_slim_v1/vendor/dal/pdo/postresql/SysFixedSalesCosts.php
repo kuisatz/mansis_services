@@ -986,7 +986,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         currency_type_id,
                         start_date,
                         is_all_vehicle, 
-                         warranty_matrix_id,
+                        warranty_matrix_id,
                         
                         language_id,
                         language_parent_id, 
@@ -996,8 +996,8 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         act_parent_id,
                         0 AS show_it 
                     FROM sys_fixed_sales_costs 
-                    WHERE id  =" . intval($params['id']) . " OR language_parent_id = " . intval($params['id']) . "  
-                    )");
+                    WHERE id  =" . intval($params['id']) . "  
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
