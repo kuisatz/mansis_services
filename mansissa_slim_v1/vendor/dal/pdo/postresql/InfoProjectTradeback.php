@@ -556,13 +556,12 @@ class InfoProjectTradeback extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
             $errorInfo[0] = "99999";         
-            $addSQL =null;
+                            
+            $addSQL = "1=2";
             $ProjectId=-1 ;
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId'];
-                $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
-            }  else {
-                throw new \PDOException($errorInfo[0]);
+                $addSQL =   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
             }              
               
             $sql =  "    
