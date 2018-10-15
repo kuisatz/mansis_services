@@ -113,9 +113,9 @@ class SysFixedSalesCosts extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillBuybackTypessGridxRtl($params = array()) {
+    public function fixedSalesCostsGridxRtl($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysFixedSalesCostsPostgrePDO');
-        $resultSet = $DAL->fillBuybackTypessGridxRtl($params);  
+        $resultSet = $DAL->fixedSalesCostsGridxRtl($params);  
         return $resultSet['resultSet'];
     }
     

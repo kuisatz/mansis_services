@@ -739,7 +739,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException  
      */  
-    public function fillBuybackTypessGridxRtl($params = array()) {
+    public function fixedSalesCostsGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
             $addSql = null;
