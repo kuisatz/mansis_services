@@ -666,7 +666,18 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
 			a.vvalue,
 			a.currency_type_id,
 			COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name,
-                      /*  a.name_eng, */ 
+ 
+                        a.vehicle_gruop_id,
+                        vg.name , 
+                        a.vehicle_second_group_id,
+                        vge.model_description,
+                        a.vvalue,
+                        a.currency_type_id,
+                        a.start_date,
+                        a.is_all_vehicle ,
+                        a.warranty_matrix_id,
+                        wm.unique_code, 
+                       
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,
                        /* a.deleted,
@@ -681,10 +692,18 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_fixed_sales_costs a                    
                     INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "   AND lx.show_it =0   
                     LEFT JOIN sys_fixed_sales_costs ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+
+		   LEFT JOIN sys_vehicle_groups vg ON vg.act_parent_id = a.vehicle_gruop_id  AND vg.show_it =0 
+		   LEFT JOIN sys_vehicle_gt_models vge ON vge.act_parent_id = a.vehicle_second_group_id  AND vge.show_it =0 
+		   LEFT JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = vge.vehicle_group_types_id  AND vgt.show_it =0 
+
+		   LEFT JOIN sys_warranty_matrix wm ON wm.act_parent_id = a.warranty_matrix_id  AND wm.show_it =0 
+
+		    
 		    INNER JOIN sys_currency_types ct ON ct.act_parent_id = a.currency_type_id AND ct.show_it = 0 AND ct.language_id= l.id
 		    LEFT JOIN sys_currency_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it= 0 AND ctx.language_id =lx.id  
                     /*----*/   
@@ -696,11 +715,12 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
+                      " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0 AND                        
                         a.language_parent_id =0  
                      
-                " . $addSql . "
+              
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
@@ -809,35 +829,58 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                        SELECT  
-                            a.id, 
-                            COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name,  
-                            a.vvalue,
-                            a.currency_type_id,
-                            COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name, 
-                            COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                            u.username AS op_user_name 
-                        FROM sys_fixed_sales_costs a                    
-                        INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
-                        LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0   
-                        LEFT JOIN sys_fixed_sales_costs ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
-                        INNER JOIN info_users u ON u.id = a.op_user_id 
-                        /*----*/   
-                        INNER JOIN sys_currency_types ct ON ct.act_parent_id = a.currency_type_id AND ct.show_it = 0 AND ct.language_id= l.id
-                        LEFT JOIN sys_currency_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it= 0 AND ctx.language_id =lx.id  
-                        /*----*/   
+                         SELECT  
+                        a.id, 
+                        a.act_parent_id as apid,  
+                        COALESCE(NULLIF(ax.name, ''), a.name_eng) AS name, 
+			a.vvalue,
+			a.currency_type_id,
+			COALESCE(NULLIF(ctx.name, ''), ct.name_eng) AS currency_name,
+ 
+                        a.vehicle_gruop_id,
+                        vg.name , 
+                        a.vehicle_second_group_id,
+                        vge.model_description,
+                        a.vvalue,
+                        a.currency_type_id,
+                        a.start_date,
+                        a.is_all_vehicle ,
+                        a.warranty_matrix_id,
+                        wm.unique_code,  
+                       
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                        u.username AS op_user_name 
+                    FROM sys_fixed_sales_costs a                    
+                    INNER JOIN sys_language l ON l.id = a.language_id AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "   AND lx.show_it =0   
+                    LEFT JOIN sys_fixed_sales_costs ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.deleted =0 AND ax.active = 0 AND ax.language_id = lx.id
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/   
 
-                       /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                        INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                        /**/
-                      /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                        LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+		   LEFT JOIN sys_vehicle_groups vg ON vg.act_parent_id = a.vehicle_gruop_id  AND vg.show_it =0 
+		   LEFT JOIN sys_vehicle_gt_models vge ON vge.act_parent_id = a.vehicle_second_group_id  AND vge.show_it =0 
+		   LEFT JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = vge.vehicle_group_types_id  AND vgt.show_it =0 
 
-                        WHERE  
-                            a.deleted =0 AND
-                            a.show_it =0 AND                         
-                            a.language_parent_id =0   
-                         " . $addSql . "
+		   LEFT JOIN sys_warranty_matrix wm ON wm.act_parent_id = a.warranty_matrix_id  AND wm.show_it =0 
+
+		   
+                    
+		    INNER JOIN sys_currency_types ct ON ct.act_parent_id = a.currency_type_id AND ct.show_it = 0 AND ct.language_id= l.id
+		    LEFT JOIN sys_currency_types ctx ON (ctx.act_parent_id = ct.act_parent_id OR ctx.language_parent_id= ct.act_parent_id) AND ctx.show_it= 0 AND ctx.language_id =lx.id  
+                    /*----*/   
+			 
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                        " . $addSql . "
+                        a.deleted =0 AND
+                        a.show_it =0  AND 
+                        a.language_parent_id =0  
+                       
                          " . $sorguStr . " 
                     ) asdx
                         
@@ -915,9 +958,13 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         name,
                         name_eng,
                         abbrevation,
-                        symbol,
+                        vehicle_gruop_id,
+                        vehicle_second_group_id,
                         vvalue,
-                        currency_type_id, 
+                        currency_type_id,
+                        start_date,
+                        is_all_vehicle, 
+                         warranty_matrix_id,
                         
                         language_id,
                         language_parent_id,
@@ -931,9 +978,13 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         name,
                         name_eng,
                         abbrevation,
-                        symbol,
+                        vehicle_gruop_id,
+                        vehicle_second_group_id,
                         vvalue,
                         currency_type_id,
+                        start_date,
+                        is_all_vehicle, 
+                         warranty_matrix_id,
                         
                         language_id,
                         language_parent_id, 
@@ -993,6 +1044,8 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             */
             ////*********///// 1                  
             $errorInfo[0] = "99999";
+            $addSQL1 =NULL;
+            $addSQL2 =NULL;
             $nameTemp = null;
             $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
@@ -1020,7 +1073,28 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
+            $VehicleGruopId = -1111;
+            if ((isset($params['VehicleGruopId']) && $params['VehicleGruopId'] != "")) {
+                $VehicleGruopId = intval($params['VehicleGruopId']);
+            }    
+            $VehicleSecondGroupId = -1111;
+            if ((isset($params['VehicleSecondGroupId']) && $params['VehicleSecondGroupId'] != "")) {
+                $VehicleSecondGroupId = intval($params['VehicleSecondGroupId']);
+            }    
+             $StartDate= null;
+            if ((isset($params['StartDate']) && $params['StartDate'] != "")) {
+                $StartDate = $params['StartDate'];
+                $addSQL1 .= 'start_date,  ';
+                $addSQL2 .= "'". $StartDate."',";
+            } 
+             $IsAllVehicle = -1111;
+            if ((isset($params['IsAllVehicle']) && $params['IsAllVehicle'] != "")) {
+                $IsAllVehicle = intval($params['IsAllVehicle']);
+            }   
+            $WarrantyMatrixId = -1111;
+            if ((isset($params['WarrantyMatrixId']) && $params['WarrantyMatrixId'] != "")) {
+                $WarrantyMatrixId = intval($params['WarrantyMatrixId']);
+            }    
                 ////*********///// 2    
             if ($languageIdValue != 385 )  
                 {$nameTemp = $name;  }   else  {$nameEng = $name; } 
@@ -1042,8 +1116,13 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                     INSERT INTO sys_fixed_sales_costs(
                             name,
                             name_eng, 
+                            vehicle_gruop_id,
+                            vehicle_second_group_id,
                             vvalue,
                             currency_type_id,
+                            start_date,
+                            is_all_vehicle, 
+                            warranty_matrix_id,
 
                             op_user_id,
                             act_parent_id  
@@ -1051,8 +1130,13 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                     VALUES (
                             '" . $name . "',
                             '" . $nameEng . "',
-                            " . intval($currencyTypeId) . ", 
+                            " . intval($VehicleGruopId) . ", 
+                            " . intval($VehicleSecondGroupId) . ", 
                             " . intval($value) . ", 
+                            " . intval($currencyTypeId) . ", 
+                            ".$addSQL1."
+                            " . intval($IsAllVehicle) . ",  
+                            " . intval($WarrantyMatrixId) . ",  
 
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM sys_fixed_sales_costs_id_seq)
@@ -1065,19 +1149,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('sys_fixed_sales_costs_id_seq');
 
-                    ////*********/////  3 
-                    $insertLanguageTemplateParams = array(
-                        'id' => intval($insertID),
-                        'language_id' => intval($languageIdValue),
-                        'nameTemp' =>  ($nameTemp),
-                    );
-                    $setInsertLanguageTemplate = $this->insertLanguageTemplate($insertLanguageTemplateParams);
-                    if ($setInsertLanguageTemplate['errorInfo'][0] != "00000" &&
-                            $setInsertLanguageTemplate['errorInfo'][1] != NULL &&
-                            $setInsertLanguageTemplate['errorInfo'][2] != NULL) {
-                        throw new \PDOException($setInsertLanguageTemplate['errorInfo']);
-                    }
-                    ////*********///// 3  
+                           
 
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
@@ -1178,6 +1250,165 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
         }
     }
          
-    
+    /**
+     * @author Okan CIRAN
+     * sys_fixed_sales_costs tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $addSQL1 =NULL;
+            $addSQL2 =NULL;
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {    
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $name = "";
+            if ((isset($params['Name']) && $params['Name'] != "")) {
+                $name = $params['Name'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $nameEng = $name;
+        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+                $nameEng = $params['NameEng'];
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+         * 
+         */
+            $currencyTypeId = -1111;
+            if ((isset($params['CurrencyTypeId']) && $params['CurrencyTypeId'] != "")) {
+                $currencyTypeId = intval($params['CurrencyTypeId']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $value = -1111;
+            if ((isset($params['Value']) && $params['Value'] != "")) {
+                $value = intval($params['Value']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $VehicleGruopId = -1111;
+            if ((isset($params['VehicleGruopId']) && $params['VehicleGruopId'] != "")) {
+                $VehicleGruopId = intval($params['VehicleGruopId']);
+            }    
+            $VehicleSecondGroupId = -1111;
+            if ((isset($params['VehicleSecondGroupId']) && $params['VehicleSecondGroupId'] != "")) {
+                $VehicleSecondGroupId = intval($params['VehicleSecondGroupId']);
+            }    
+             $StartDate= null;
+            if ((isset($params['StartDate']) && $params['StartDate'] != "")) {
+                $StartDate = $params['StartDate'];
+                $addSQL1 .= 'start_date,  ';
+                $addSQL2 .= "'". $StartDate."',";
+            } 
+             $IsAllVehicle = -1111;
+            if ((isset($params['IsAllVehicle']) && $params['IsAllVehicle'] != "")) {
+                $IsAllVehicle = intval($params['IsAllVehicle']);
+            }   
+            $WarrantyMatrixId = -1111;
+            if ((isset($params['WarrantyMatrixId']) && $params['WarrantyMatrixId'] != "")) {
+                $WarrantyMatrixId = intval($params['WarrantyMatrixId']);
+            }    
+          
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'name' => $name, 
+                            'currency_type_id' => $currencyTypeId,
+                            'language_id' => $languageIdValue ,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['Id']));
+
+               $sql = "
+                INSERT INTO sys_acc_body_deff (  
+                        name,
+                        name_eng, 
+                        vehicle_gruop_id,
+                        vehicle_second_group_id,
+                        vvalue,
+                        currency_type_id,
+                        start_date,
+                        is_all_vehicle, 
+                        warranty_matrix_id,
+                        
+                        priority,
+                        language_id,
+                        language_parent_id,
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    '" . $name . "',
+                    '" . $nameEng . "',
+                    " . intval($VehicleGruopId) . ", 
+                    " . intval($VehicleSecondGroupId) . ", 
+                    " . intval($value) . ", 
+                    " . intval($currencyTypeId) . ", 
+                    ".$addSQL1."
+                    " . intval($IsAllVehicle) . ",  
+                    " . intval($WarrantyMatrixId) . ",  
+                     
+                    priority,
+                    language_id,
+                    language_parent_id ,
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM sys_acc_body_deff 
+                WHERE 
+                    language_id = 385 AND id  =" . intval($Id) . "                  
+                                                ";
+                    $statementInsert = $pdo->prepare($sql);
+                  //    echo debugPDO($sql, $params);
+                    $result = $statementInsert->execute(); 
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                     
+                    $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');}
+                    else $insertID =0 ;  
+                    
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
     
 }
