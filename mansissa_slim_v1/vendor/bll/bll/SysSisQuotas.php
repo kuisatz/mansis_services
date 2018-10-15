@@ -100,9 +100,9 @@ class SysSisQuotas extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillSisMonthlyQuotasGridx ($params = array()) { 
+    public function fillSisQuotasGridx ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('sysSisQuotasPostgrePDO');
-        $resultSet = $DAL->fillSisMonthlyQuotasGridx($params);  
+        $resultSet = $DAL->fillSisQuotasGridx($params);  
         return $resultSet['resultSet'];
     }
     
@@ -111,9 +111,9 @@ class SysSisQuotas extends \BLL\BLLSlim{
      * @param array | null $params
      * @return array
      */
-    public function fillSisMonthlyQuotasGridxRtl($params = array()) {
+    public function fillSisQuotasGridxRtl($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysSisQuotasPostgrePDO');
-        $resultSet = $DAL->fillSisMonthlyQuotasGridxRtl($params);  
+        $resultSet = $DAL->fillSisQuotasGridxRtl($params);  
         return $resultSet['resultSet'];
     }
     
