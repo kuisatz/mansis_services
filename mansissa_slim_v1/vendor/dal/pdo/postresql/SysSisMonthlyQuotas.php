@@ -208,7 +208,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_sis_monthly_quotas  a                          
             WHERE 
-                a.sis_quota_id =  " . intval($params['id']) . " AND 
+                a.sis_quota_id =  " . intval($params['sis_quota_id']) . " AND 
                 a.model_id =  " . intval($params['model_id']) . " AND 
                 a.year =  " . intval($params['year']) . " AND 
                 a.month_id =  " . intval($params['month_id']) . "   
