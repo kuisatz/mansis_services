@@ -362,7 +362,11 @@ $app->get("/pkInsertAct_sysfixedsalescosts/", function () use ($app ) {
     if($stripper->offsetExists('is_all_vehicle')) $isAllVehicle = $stripper->offsetGet('is_all_vehicle')->getFilterValue();
     if($stripper->offsetExists('warranty_matrix_id')) $warrantyMatrixId = $stripper->offsetGet('warranty_matrix_id')->getFilterValue();
       
-          
+    /*
+      &name=gitgel cost&vehicle_gruop_id=1&vehicle_second_group_id=&vvalue=1111=&currency_type_id=16&start_date=2018-10-10&is_all_vehicle=1=warranty_matrix_id=
+
+     
+     */      
        
     $resDataInsert = $BLL->insertAct(array(
             'Name' => $vName,   
@@ -371,7 +375,10 @@ $app->get("/pkInsertAct_sysfixedsalescosts/", function () use ($app ) {
             'VehicleSecondGroupId' => $VehicleSecondGruopId,  
             'VehicleGruopId' => $VehicleGruopId,  
             'StartDate' => $StartDate,  
-            'WarrantyMatrixId' => $isAllVehicle,  
+            'WarrantyMatrixId' => $warrantyMatrixId,  
+            'IsAllVehicle' => $isAllVehicle,  
+        
+        
             'Value' => $warrantyMatrixId,  
        
             'pk' => $pk));
