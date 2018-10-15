@@ -788,7 +788,7 @@ class SysVehicles extends \DAL\DalSlim {
 			a.ckdcbu_type_id,
 			c.name cbuckd_name,
 			a.vehicle_gt_model_id,
-			b.name gt_model_name,
+			b.model_description gt_model_name,
 
 			b.vehicle_group_types_id ,
 			vgt.name vehicle_group_types_name, 
@@ -1055,7 +1055,7 @@ class SysVehicles extends \DAL\DalSlim {
 			a.ckdcbu_type_id,
 			c.name cbuckd_name,
 			a.vehicle_gt_model_id,
-			b.name gt_model_name,
+			b.model_description gt_model_name,
 
 			b.vehicle_group_types_id ,
 			vgt.name vehicle_group_types_name, 
