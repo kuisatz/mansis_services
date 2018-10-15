@@ -23,17 +23,24 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-          //**---- sysSisMonthlyQuotasBLL -------------------  
-            
-                                    'pkSisQuotasDdList_syssisquotas' => 'restApiDefaultCall', 
-                                    'pkFillSisQuotasGridx_syssisquotas' => 'restApiDefaultCall',   
-                                    'pkUpdateMakeActiveOrPassive_syssisquotas' => 'restApiDefaultCall', 
         
-                                    'pkInsertAct_syssisquotas' => 'restApiDefaultCall', 
-                                    'pkUpdateAct_syssisquotas' => 'restApiDefaultCall', 
-                                    'pkDeletedAct_syssisquotas' => 'restApiDefaultCall', 
+           //**---- sysSisMonthlyQuotasBLL -------------------  
+            
+                                    'pkSisQuotasDdList_syssisquotasmatrix' => 'restApiDefaultCall', 
+                                    'pkFillQuotasMatrixGridx_syssisquotasmatrix' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_syssisquotasmatrix' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_syssisquotasmatrix' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_syssisquotasmatrix' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_syssisquotasmatrix' => 'restApiDefaultCall', 
             
         //** sysSisMonthlyQuotasBLL ----------------------//   
+          //**---- sysSisQuotasBLL -------------------  
+            
+                                    'pkSisQuotasDdList_syssisquotas' => 'restApiDefaultCall', 
+            
+            
+        //** sysSisQuotasBLL ----------------------//   
         
         //**---- sysSisMonthlyQuotasBLL -------------------  
             
@@ -2128,6 +2135,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
+             case "_syssisquotasmatrix":  
+                $this->setRestApiEndPoint('syssisquotasmatrix.php/');
+                break; 
             
             case "_syssisquotas":  
                 $this->setRestApiEndPoint('syssisquotas.php/');

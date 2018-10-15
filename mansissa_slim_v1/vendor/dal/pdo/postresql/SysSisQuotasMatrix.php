@@ -202,15 +202,17 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
             }
             $sql = "  
             SELECT  
-                a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' AS name ,
+                '' AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_sis_quotas_matrix  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                a.sis_quota_id =  " . intval($params['sis_quota_id']) . " AND 
+                a.year =  " . intval($params['year']) . "  
                   " . $addSql . " 
                 AND a.deleted =0    
+                  
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -609,9 +611,10 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
+                      " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0 
-                " . $addSql . "
+              
                 " . $sorguStr . " 
                /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
@@ -738,9 +741,10 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
 
                         WHERE  
+                           " . $addSql . "
                             a.deleted =0 AND
                             a.show_it =0  
-                         " . $addSql . "
+                      
                          " . $sorguStr . " 
                     ) asdx
                         
@@ -835,7 +839,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_sis_quotas_matrix 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                     ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -997,7 +1001,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_sis_quotas_matrix (  
@@ -1017,7 +1021,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_sis_quotas_matrix 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_sis_quotas_matrix_id_seq');
