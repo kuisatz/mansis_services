@@ -231,7 +231,7 @@ $app->get("/pkFillVehiclesTradeNamesGridx_sysvehiclestrade/", function () use ($
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
-        'VehicleGtModelId' => $VehicleGroupTypesId,
+        'VehicleGtModelID' => $VehicleGroupTypesId,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
@@ -239,7 +239,7 @@ $app->get("/pkFillVehiclesTradeNamesGridx_sysvehiclestrade/", function () use ($
     $resTotalRowCount = $BLL->fillVehiclesTradeNamesGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
-        'VehicleGtModelId' => $VehicleGroupTypesId,
+        'VehicleGtModelID' => $VehicleGroupTypesId,
         'filterRules' => $filterRules,
         'pk' => $pk,
     ));
