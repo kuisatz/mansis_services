@@ -208,9 +208,15 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_sis_monthly_quotas  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
-                  " . $addSql . " 
+                a.sis_quota_id =  " . intval($params['id']) . " AND 
+                a.model_id =  " . intval($params['model_id']) . " AND 
+                a.year =  " . intval($params['year']) . " AND 
+                a.month_id =  " . intval($params['month_id']) . "   
+                " . $addSql . " 
                 AND a.deleted =0    
+                
+   
+
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -964,7 +970,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM sys_sis_monthly_quotas 
                     WHERE id  =" . intval($params['id']) . "    
-                    )");
+                    ");
 
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
@@ -1156,7 +1162,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['id']));
+                    $this->makePassive(array('id' => $params['Id']));
 
                     $statementInsert = $pdo->prepare("
                 INSERT INTO sys_sis_monthly_quotas (  
@@ -1182,7 +1188,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_sis_monthly_quotas 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                    id  =" . intval($Id) . "                  
                                                 ");
                     $result = $statementInsert->execute();
                     $insertID = $pdo->lastInsertId('sys_sis_monthly_quotas_id_seq');

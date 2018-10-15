@@ -126,6 +126,9 @@ class BLLManagerConfig{
                    'sysSisHierarchyBLL' => 'BLL\BLL\SysSisHierarchy',
                    'sysSisQuotasBLL' => 'BLL\BLL\SysSisQuotas',
                    'sysSisQuotasMatrixBLL' => 'BLL\BLL\SysSisQuotasMatrix',
+                   'sysSisMonthlyQuotasBLL' => 'BLL\BLL\SysSisMonthlyQuotas',
+                 
+                 
                    'sysSisStatusBLL' => 'BLL\BLL\SysSisStatus',
                    'sysStrategicImportancesBLL' => 'BLL\BLL\SysStrategicImportances',
                    'sysSupplierBLL' => 'BLL\BLL\SysSupplier',

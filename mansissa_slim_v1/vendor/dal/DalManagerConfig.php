@@ -117,6 +117,10 @@ class DalManagerConfig {
                    'sysSisHierarchyOraPDO' => 'DAL\Factory\PDO\Oracle\SysSisHierarchyFactory',
                    'sysSisQuotasOraPDO' => 'DAL\Factory\PDO\Oracle\SysSisQuotasFactory',
                    'sysSisQuotasMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysSisQuotasMatrixFactory',
+                   'sysSisMonthlyQuotasOraPDO' => 'DAL\Factory\PDO\Oracle\SysSisMonthlyQuotasFactory',
+                
+                
+                
                    'sysSisStatusOraPDO' => 'DAL\Factory\PDO\Oracle\SysSisStatusFactory',
                    'sysStrategicImportancesOraPDO' => 'DAL\Factory\PDO\Oracle\SysStrategicImportancesFactory',
                    'sysSupplierOraPDO' => 'DAL\Factory\PDO\Oracle\SysSupplierFactory',
@@ -304,6 +308,7 @@ class DalManagerConfig {
                 'sysSisHierarchyPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisHierarchyFactory',
                 'sysSisQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisQuotasFactory',
                 'sysSisQuotasMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisQuotasMatrixFactory',
+                'sysSisMonthlyQuotasPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisMonthlyQuotasFactory',
                 'sysSisStatusPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSisStatusFactory',
                 'sysStrategicImportancesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysStrategicImportancesFactory',
                 'sysSupplierPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSupplierFactory',
