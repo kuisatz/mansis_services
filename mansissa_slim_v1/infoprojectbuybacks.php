@@ -99,6 +99,67 @@ $app->get("/pkProjectVehicleBBDdList_infoprojectbuybacks/", function () use ($ap
     $app->response()->body(json_encode($flows));
 });
  
+ /**
+ *  * Okan CIRAN
+ * @since 05.08.2018
+ */
+$app->get("/pkProjectVehicleModelsTradeDdList_infoprojectbuybacks/", function () use ($app ) { 
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('infoProjectBuybackBLL');
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkProjectVehicleModelsTradeDdList_infoprojectbuybacks" end point, X-Public variable not found');
+   // $pk = $headerParams['X-Public'];
+    
+    $vLanguageCode = 'en';
+    if (isset($_GET['language_code'])) {
+         $stripper->offsetSet('language_code',$stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE,
+                                                $app,
+                                                $_GET['language_code']));
+    }
+    $lid = null;
+    if (isset($_GET['lid'])) {
+         $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['lid']));
+    }
+    $ProjectId = NULL;
+    if (isset($_GET['project_id'])) {
+         $stripper->offsetSet('project_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['project_id']));
+    } 
+    $stripper->strip();
+    if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
+    if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue();
+    if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+        
+    $resCombobox = $BLL->projectVehicleBBDdList(array(                                   
+                                    'language_code' => $vLanguageCode,
+                                    'ProjectId' => $ProjectId,
+                                    'LanguageID' => $lid,
+                        ));    
+
+    $flows = array(); 
+    foreach ($resCombobox as $flow) {
+        $flows[] = array(            
+            "text" => $flow["name"],
+            "value" =>  intval($flow["id"]),
+            "selected" => false,
+            "description" => $flow["name_eng"],
+            "imageSrc"=>"",   
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+});
+
+
 /**
  *  * Okan CIRAN
  * @since 15-08-2018
