@@ -255,26 +255,58 @@ $app->get("/pkInsertAct_syssismonthlyquotas/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_syssismonthlyquotas" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    
+    $sisQuotaId = NULL;
+    if (isset($_GET['sis_quota_id'])) {
+         $stripper->offsetSet('sis_quota_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['sis_quota_id']));
+    } 
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['model_id']));
+    } 
+    $year = NULL;
+    if (isset($_GET['year'])) {
+         $stripper->offsetSet('year',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['year']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+     $quantity = NULL;
+    if (isset($_GET['quantity'])) {
+         $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['quantity']));
     } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
-          
-    $resDataInsert = $BLL->insertAct(array(
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+     
+    if($stripper->offsetExists('sis_quota_id')) $sisQuotaId = $stripper->offsetGet('sis_quota_id')->getFilterValue();
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
+    if($stripper->offsetExists('year')) $year = $stripper->offsetGet('year')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
+ 
+ /* 
+   &sis_quota_id=1&model_id=2&year=2018&month_id=12&quantity=12
+    
+  */
+    
+    $resDataInsert = $BLL->insertAct(array( 
+            'SisQuotaId' => $sisQuotaId,  
+            'ModelId' => $modelId,  
+            'Year' => $year,  
+            'MonthId' => $monthId,  
+            'Quantity' => $quantity,  
+         
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -301,29 +333,55 @@ $app->get("/pkUpdateAct_syssismonthlyquotas/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $vName = NULL;
-    if (isset($_GET['name'])) {
-         $stripper->offsetSet('name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+     $sisQuotaId = NULL;
+    if (isset($_GET['sis_quota_id'])) {
+         $stripper->offsetSet('sis_quota_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['name']));
-    }  
-    $AccBodyTypeId = NULL;
-    if (isset($_GET['acc_body_type_id'])) {
-         $stripper->offsetSet('acc_body_type_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $_GET['sis_quota_id']));
+    } 
+    $modelId = NULL;
+    if (isset($_GET['model_id'])) {
+         $stripper->offsetSet('model_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['acc_body_type_id']));
+                                                $_GET['model_id']));
+    } 
+    $year = NULL;
+    if (isset($_GET['year'])) {
+         $stripper->offsetSet('year',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['year']));
+    } 
+    $monthId = NULL;
+    if (isset($_GET['month_id'])) {
+         $stripper->offsetSet('month_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['month_id']));
+    } 
+     $quantity = NULL;
+    if (isset($_GET['quantity'])) {
+         $stripper->offsetSet('quantity',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['quantity']));
     } 
      
     $stripper->strip();
-    if($stripper->offsetExists('name')) $vName = $stripper->offsetGet('name')->getFilterValue(); 
-    if($stripper->offsetExists('acc_body_type_id')) $AccBodyTypeId = $stripper->offsetGet('acc_body_type_id')->getFilterValue();
+     
+    if($stripper->offsetExists('sis_quota_id')) $sisQuotaId = $stripper->offsetGet('sis_quota_id')->getFilterValue();
+    if($stripper->offsetExists('model_id')) $modelId = $stripper->offsetGet('model_id')->getFilterValue();
+    if($stripper->offsetExists('year')) $year = $stripper->offsetGet('year')->getFilterValue();
+    if($stripper->offsetExists('month_id')) $monthId = $stripper->offsetGet('month_id')->getFilterValue();
+    if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
+ 
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
      
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-            'Name' => $vName,   
-            'AccBodyTypeId' => $AccBodyTypeId,  
+            'SisQuotaId' => $sisQuotaId,  
+            'ModelId' => $modelId,  
+            'Year' => $year,  
+            'MonthId' => $monthId,  
+            'Quantity' => $quantity,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
