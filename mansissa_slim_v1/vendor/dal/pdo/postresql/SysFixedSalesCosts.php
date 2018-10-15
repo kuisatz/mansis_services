@@ -1122,8 +1122,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                             vehicle_second_group_id,
                             vvalue,
                             currency_type_id,
-                            ".$addSQL1."
-                            start_date,
+                            ".$addSQL1." 
                             is_all_vehicle, 
                             warranty_matrix_id,
 
@@ -1145,7 +1144,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                            (SELECT last_value FROM sys_fixed_sales_costs_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-                       echo debugPDO($sql, $params);
+                     //  echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -1267,6 +1266,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             $errorInfo[0] = "99999";
             $addSQL1 =NULL;
             $addSQL2 =NULL;
+            $languageIdValue = 385;
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
@@ -1349,8 +1349,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                         vehicle_second_group_id,
                         vvalue,
                         currency_type_id,
-                        ".$addSQL1."
-                        start_date,
+                        ".$addSQL1." 
                         is_all_vehicle, 
                         warranty_matrix_id,
 
