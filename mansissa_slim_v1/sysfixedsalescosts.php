@@ -364,8 +364,7 @@ $app->get("/pkInsertAct_sysfixedsalescosts/", function () use ($app ) {
       
     /*
       &name=gitgel cost&vehicle_gruop_id=1&vehicle_second_group_id=&vvalue=1111=&currency_type_id=16&start_date=2018-10-10&is_all_vehicle=1=warranty_matrix_id=
-
-     
+ 
      */      
        
     $resDataInsert = $BLL->insertAct(array(
@@ -463,19 +462,24 @@ $app->get("/pkUpdateAct_sysfixedsalescosts/", function () use ($app ) {
     if($stripper->offsetExists('start_date')) $StartDate = $stripper->offsetGet('start_date')->getFilterValue();
     if($stripper->offsetExists('is_all_vehicle')) $isAllVehicle = $stripper->offsetGet('is_all_vehicle')->getFilterValue();
     if($stripper->offsetExists('warranty_matrix_id')) $warrantyMatrixId = $stripper->offsetGet('warranty_matrix_id')->getFilterValue();
+   
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
+      /*
+      &name=gitgel cost&vehicle_gruop_id=1&vehicle_second_group_id=&vvalue=1111=&currency_type_id=16&start_date=2018-10-10&is_all_vehicle=1=warranty_matrix_id=
+
      
+     */  
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,   
-           'Name' => $vName,   
+            'Name' => $vName,   
             'CurrencyTypeId' => $CurrencyTypeId,   
             'Value' => $vvalue,  
             'VehicleSecondGroupId' => $VehicleSecondGruopId,  
             'VehicleGruopId' => $VehicleGruopId,  
             'StartDate' => $StartDate,  
-            'WarrantyMatrixId' => $isAllVehicle,  
-            'Value' => $warrantyMatrixId,  
+            'WarrantyMatrixId' => $warrantyMatrixId,  
+            'IsAllVehicle' => $isAllVehicle,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
