@@ -203,9 +203,9 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
             $sql = "  
             SELECT  
                 a.name ,
-                '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
-                CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                '' AS value, 
+                true AS control,
+                CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_sis_monthly_quotas  a                          
             WHERE 
                 a.sis_quota_id =  " . intval($params['id']) . " AND 
@@ -214,8 +214,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                 a.month_id =  " . intval($params['month_id']) . "   
                 " . $addSql . " 
                 AND a.deleted =0    
-                
-   
+                 
 
                                ";
             $statement = $pdo->prepare($sql);
