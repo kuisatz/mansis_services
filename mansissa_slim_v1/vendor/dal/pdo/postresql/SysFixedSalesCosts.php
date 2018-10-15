@@ -1272,22 +1272,21 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                 $Id = intval($params['Id']);
             } else {    
                 throw new \PDOException($errorInfo[0]);
-            }
-
-            $name = "";
+            }            
+            $name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $name = $params['Name'];
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            $nameEng = $name;
-        /*    if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
+            $nameEng = null;
+          /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
             } else {
-                throw new \PDOException($errorInfo[0]);
+                  if ($languageIdValue != 385 )   {  throw new \PDOException($errorInfo[0]);}
             }
-         * 
-         */
+           * 
+           */
             $currencyTypeId = -1111;
             if ((isset($params['CurrencyTypeId']) && $params['CurrencyTypeId'] != "")) {
                 $currencyTypeId = intval($params['CurrencyTypeId']);
@@ -1322,7 +1321,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             if ((isset($params['WarrantyMatrixId']) && $params['WarrantyMatrixId'] != "")) {
                 $WarrantyMatrixId = intval($params['WarrantyMatrixId']);
             }    
-          
+            
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
             $opUserId = $opUserIdArray->getUserId($opUserIdParams);
