@@ -208,9 +208,11 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_fixed_sales_costs  a                          
             WHERE 
-                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))
+                LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) AND 
+               a.currency_type_id      = " . intval($params['currency_type_id']) . " 
                   " . $addSql . " 
                 AND a.deleted =0    
+ 
                                ";
             $statement = $pdo->prepare($sql);
          // echo debugPDO($sql, $params);
@@ -1053,8 +1055,6 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-            print_r("111");
-                    
             $nameEng = null;
           /*  if ((isset($params['NameEng']) && $params['NameEng'] != "")) {
                 $nameEng = $params['NameEng'];
@@ -1069,14 +1069,12 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-             print_r("22222");
             $value = -1111;
             if ((isset($params['Value']) && $params['Value'] != "")) {
                 $value = intval($params['Value']);
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
-             print_r("3333");
             $VehicleGruopId = -1111;
             if ((isset($params['VehicleGruopId']) && $params['VehicleGruopId'] != "")) {
                 $VehicleGruopId = intval($params['VehicleGruopId']);
@@ -1124,6 +1122,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                             vehicle_second_group_id,
                             vvalue,
                             currency_type_id,
+                            ".$addSQL1."
                             start_date,
                             is_all_vehicle, 
                             warranty_matrix_id,
@@ -1138,7 +1137,7 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                             " . intval($VehicleSecondGroupId) . ", 
                             " . intval($value) . ", 
                             " . intval($currencyTypeId) . ", 
-                            ".$addSQL1."
+                            ".$addSQL2."
                             " . intval($IsAllVehicle) . ",  
                             " . intval($WarrantyMatrixId) . ",  
 
@@ -1344,15 +1343,17 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
 
                $sql = "
                 INSERT INTO sys_acc_body_deff (  
-                        name,
+                         name,
                         name_eng, 
                         vehicle_gruop_id,
                         vehicle_second_group_id,
                         vvalue,
                         currency_type_id,
+                        ".$addSQL1."
                         start_date,
                         is_all_vehicle, 
                         warranty_matrix_id,
+
                         
                         priority,
                         language_id,
@@ -1367,9 +1368,10 @@ class SysFixedSalesCosts extends \DAL\DalSlim {
                     " . intval($VehicleSecondGroupId) . ", 
                     " . intval($value) . ", 
                     " . intval($currencyTypeId) . ", 
-                    ".$addSQL1."
+                    ".$addSQL2."
                     " . intval($IsAllVehicle) . ",  
                     " . intval($WarrantyMatrixId) . ",  
+
                      
                     priority,
                     language_id,
