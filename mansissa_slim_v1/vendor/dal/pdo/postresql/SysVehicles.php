@@ -789,6 +789,12 @@ class SysVehicles extends \DAL\DalSlim {
 			c.name cbuckd_name,
 			a.vehicle_gt_model_id,
 			b.name gt_model_name,
+
+			b.vehicle_group_types_id ,
+			vgt.name vehicle_group_types_name, 
+			vgt.vehicle_groups_id,
+			vgm.name vehicle_groups_name,
+			
 			b.horsepower_id,
 			b.name as horse_power, 
 			a.model_variant_id,
@@ -819,11 +825,14 @@ class SysVehicles extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_vehicles a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
                     LEFT JOIN sys_vehicles ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/ 
 		    INNER JOIN sys_vehicle_gt_models b ON b.act_parent_id = a.vehicle_gt_model_id AND b.show_it = 0 
+                    INNER JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = b.vehicle_group_types_id AND vgt.show_it = 0 
+                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = vgt.vehicle_groups_id AND vgm.show_it = 0 
+
 		    INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
 		    INNER JOIN sys_vehicle_model_variants d ON d.act_parent_id = a.ckdcbu_type_id AND d.show_it = 0  
 		    INNER JOIN sys_vehicle_config_types e ON e.act_parent_id = a.config_type_id AND e.show_it = 0  
@@ -843,7 +852,7 @@ class SysVehicles extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        " . $addSql . "
+                      " . $addSql . "
                         a.deleted =0 AND  
                         a.show_it =0  
                 " . $sorguStr . " 
@@ -1041,69 +1050,71 @@ class SysVehicles extends \DAL\DalSlim {
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
                            SELECT 
-                                a.id, 
-                                a.act_parent_id as apid,  
-                                a.ckdcbu_type_id,
-                                c.name cbuckd_name,
-                                a.vehicle_gt_model_id,
-                                b.name gt_model_name,
-                                b.horsepower_id,
-                                b.name as horse_power, 
-                                a.model_variant_id,
-                                d.name as variant_name, 
-                                a.config_type_id,
-                                e.name AS config_type_name,
-                                a.cap_type_id,
-                                f.name AS cap_type_name,
-                                a.vehicle_app_type_id,
-                                h.name app_type_name, 
-                                a.kpnumber_id,
-                                g.name as kp_name,
-                                a.btsbto_type_id, 
-                                i.name as btobts_name,
-                                a.roadtype_id,
-                                COALESCE(NULLIF(kx.name, ''), k.name_eng) AS road_type_name, 
-                                a.gfz,
-                                a.factorymodel_name,
-                                a.description, 
-                                a.active,
-                                COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                                a.op_user_id,
-                                u.username AS op_user_name,  
-                                a.s_date date_saved,
-                                a.c_date date_modified, 
-                                COALESCE(NULLIF(lx.id, NULL), 385) AS language_id, 
-                                lx.language_main_code language_code, 
-                                COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
-                            FROM sys_vehicles a                    
-                            INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                            LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0  
-                            LEFT JOIN sys_vehicles ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
-                            INNER JOIN info_users u ON u.id = a.op_user_id 
-                            /*----*/ 
-                            INNER JOIN sys_vehicle_gt_models b ON b.act_parent_id = a.vehicle_gt_model_id AND b.show_it = 0 
-                            INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
-                            INNER JOIN sys_vehicle_model_variants d ON d.act_parent_id = a.ckdcbu_type_id AND d.show_it = 0  
-                            INNER JOIN sys_vehicle_config_types e ON e.act_parent_id = a.config_type_id AND e.show_it = 0  
-                            INNER JOIN sys_vehicle_cap_types f ON f.act_parent_id = a.cap_type_id AND f.show_it = 0  
-                            INNER JOIN sys_vehicle_app_types h ON h.act_parent_id = a.cap_type_id AND h.show_it = 0  
-                            INNER JOIN sys_kpnumbers g ON g.act_parent_id = a.kpnumber_id AND g.show_it = 0  
-                            INNER JOIN sys_vehicle_btobts i ON i.act_parent_id = a.kpnumber_id AND i.show_it = 0   
-                            LEFT JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
-                            LEFT JOIN sys_roadtypes kx ON (kx.act_parent_id = k.act_parent_id OR kx.language_parent_id= k.act_parent_id) AND kx.show_it = 0 AND kx.language_id =lx.id  
-                            LEFT join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
+                        a.id, 
+                        a.act_parent_id as apid,  
+			a.ckdcbu_type_id,
+			c.name cbuckd_name,
+			a.vehicle_gt_model_id,
+			b.name gt_model_name,
 
-                            /*----*/                 
-                           /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
-                            INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
-                            /**/
-                          /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
-                            LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+			b.vehicle_group_types_id ,
+			vgt.name vehicle_group_types_name, 
+			vgt.vehicle_groups_id,
+			vgm.name vehicle_groups_name,
+			
+			b.horsepower_id,
+			b.name as horse_power, 
+			a.model_variant_id,
+			d.name as variant_name, 
+			a.config_type_id,
+			e.name AS config_type_name,
+			a.cap_type_id,
+			f.name AS cap_type_name,
+			a.vehicle_app_type_id,
+			h.name app_type_name, 
+			a.kpnumber_id,
+			g.name as kp_name,
+			a.btsbto_type_id, 
+			i.name as btobts_name,
+			a.roadtype_id,
+			COALESCE(NULLIF(kx.name, ''), k.name_eng) AS road_type_name, 
+			a.gfz,
+			a.factorymodel_name,
+			a.description,  
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
+                        u.username AS op_user_name 
+                    FROM sys_vehicles a                    
+                    INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0  
+                    LEFT JOIN sys_vehicles ax ON (ax.act_parent_id = a.act_parent_id OR ax.language_parent_id = a.act_parent_id) AND ax.show_it = 0 AND ax.language_id = lx.id
+                    INNER JOIN info_users u ON u.id = a.op_user_id 
+                    /*----*/ 
+		    INNER JOIN sys_vehicle_gt_models b ON b.act_parent_id = a.vehicle_gt_model_id AND b.show_it = 0 
+                    INNER JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = b.vehicle_group_types_id AND vgt.show_it = 0 
+                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = vgt.vehicle_groups_id AND vgm.show_it = 0 
 
-                            WHERE  
-                            " . $addSql . "
-                            a.deleted =0 AND  
-                            a.show_it =0  
+		    INNER JOIN sys_vehicle_ckdcbu c ON c.act_parent_id = a.ckdcbu_type_id AND c.show_it = 0   
+		    INNER JOIN sys_vehicle_model_variants d ON d.act_parent_id = a.ckdcbu_type_id AND d.show_it = 0  
+		    INNER JOIN sys_vehicle_config_types e ON e.act_parent_id = a.config_type_id AND e.show_it = 0  
+		    INNER JOIN sys_vehicle_cap_types f ON f.act_parent_id = a.cap_type_id AND f.show_it = 0  
+		    INNER JOIN sys_vehicle_app_types h ON h.act_parent_id = a.cap_type_id AND h.show_it = 0  
+		    INNER JOIN sys_kpnumbers g ON g.act_parent_id = a.kpnumber_id AND g.show_it = 0  
+		    INNER JOIN sys_vehicle_btobts i ON i.act_parent_id = a.kpnumber_id AND i.show_it = 0   
+		    LEFT JOIN sys_roadtypes k ON k.act_parent_id = a.roadtype_id AND k.show_it = 0 AND k.language_id= l.id
+                    LEFT JOIN sys_roadtypes kx ON (kx.act_parent_id = k.act_parent_id OR kx.language_parent_id= k.act_parent_id) AND kx.show_it = 0 AND kx.language_id =lx.id  
+                    LEFT join sys_horsepower hh on hh.act_parent_id = b.horsepower_id and hh.show_it =0
+                    
+                    /*----*/                 
+                   /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
+                    INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
+                    /**/
+                  /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
+                    LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
+                    
+                    WHERE  
+                      " . $addSql . "
+                        a.deleted =0 AND  
+                        a.show_it =0  
                         
                             " . $sorguStr . " 
                     ) asdx
