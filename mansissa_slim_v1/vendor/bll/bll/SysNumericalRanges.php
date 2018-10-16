@@ -161,6 +161,7 @@ class SysNumericalRanges extends \BLL\BLLSlim{
         $resultSet = $DAL->numericalRangesVeichlesDdList($params);
         return $resultSet['resultSet'];
     }
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -170,9 +171,20 @@ class SysNumericalRanges extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->numericalRangesEmployeesDdList($params);
         return $resultSet['resultSet'];
+    } 
+    
+     /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function numericalRangesQuartersDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
+        $resultSet = $DAL->numericalRangesQuartersDdList($params);
+        return $resultSet['resultSet'];
     }
     
-        /**
+    /**
      * Function to fill datagrid on user interface layer
      * @param array | null $params
      * @return array
@@ -181,8 +193,8 @@ class SysNumericalRanges extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('sysNumericalRangesPostgrePDO');
         $resultSet = $DAL->fillNumericalRangesGridx($params);  
         return $resultSet['resultSet'];
-    }
-    
+    } 
+     
     /**
      * Function to get datagrid row count on user interface layer
      * @param array | null $params
