@@ -577,7 +577,7 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
 
                 $this->makePassive(array('id' => $params['id']));
 
-                $statementInsert = $pdo->prepare(" 
+                 $sql = "
                     INSERT INTO info_customer_cperson_vehicle ( 
                         customer_contact_persons_id,
                         vehicle_group_id,
@@ -599,8 +599,9 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
                         0 AS show_it 
                     FROM info_customer_cperson_vehicle 
                     WHERE id  =" . intval($params['id']) . "   
-                    ");
-
+                     ";
+                $statementInsert = $pdo->prepare($sql); 
+               echo debugPDO($sql, $params);
                 $insertAct = $statementInsert->execute();
                 $affectedRows = $statementInsert->rowCount(); 
                 $errorInfo = $statementInsert->errorInfo();
