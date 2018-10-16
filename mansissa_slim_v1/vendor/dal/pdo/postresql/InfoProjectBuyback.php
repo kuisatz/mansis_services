@@ -214,7 +214,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 a.customer_type_id = " . intval($params['customer_type_id']) . " AND  
                 a.comfort_super_id = " . intval($params['comfort_super_id']) . " AND  
                 a.terrain_id = " . intval($params['terrain_id']) . " AND  
-                a.vehicle_group_id = " . intval($params['vehicle_group_id']) . " AND  
+             
                 a.hydraulics_id = " . intval($params['hydraulics_id']) . " AND  
                 a.buyback_matrix_id = " . intval($params['buyback_matrix_id']) . " AND  
                 a.is_other = " . intval($params['is_other']) . " AND  
@@ -750,7 +750,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_project pp on pp.act_parent_id = a.project_id 
-                    inner join sys_vehicle_gt_models gt on gt.act_parent_id = a.vehicles_endgroup_id 
+                    LEFT join sys_vehicle_gt_models gt on gt.act_parent_id = a.vehicles_endgroup_id 
                     inner join sys_vehicle_group_types svgt ON svgt.act_parent_id = gt.vehicle_group_types_id AND svgt.show_it =0 
                     inner join sys_vehicle_groups sv ON sv.act_parent_id =svgt.vehicle_groups_id AND sv.show_it =0  
 		    inner join sys_vehicles_trade svt ON svt.act_parent_id =a.vehicles_trade_id AND svt.show_it =0  
@@ -1209,7 +1209,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
                             'terrain_id' => $TerrainId, 
-                            'vehicle_group_id' => $VehicleGroupId,  
+                           
                             'hydraulics_id' =>  $HydraulicsId,  
                             'buyback_matrix_id' => $BuybackMatrixId, 
                             'is_other' => $IsOther,  
@@ -1228,7 +1228,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             customer_type_id,
                             comfort_super_id,
                             terrain_id,
-                            vehicle_group_id,
+                         
                             hydraulics_id,
                             buyback_matrix_id,
                             quantity,
@@ -1251,7 +1251,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             " .  intval($CustomerTypeId). ",
                             " .  intval($ComfortSuperId) . ",
                             " .  intval($TerrainId). ",
-                            " .  intval($VehicleGroupId). ",
+                          
                             " .  intval($HydraulicsId). ",
                             " .  intval($BuybackMatrixId) . ",
                             " .  intval($Quantity). ",
@@ -1409,7 +1409,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
                             'terrain_id' => $TerrainId, 
-                            'vehicle_group_id' => $VehicleGroupId,  
+                           
                             'hydraulics_id' =>  $HydraulicsId,  
                             'buyback_matrix_id' => $BuybackMatrixId, 
                             'is_other' => $IsOther,  
@@ -1431,7 +1431,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                         customer_type_id,
                         comfort_super_id,
                         terrain_id,
-                        vehicle_group_id,
+                      
                         hydraulics_id,
                         buyback_matrix_id,
                         quantity,
@@ -1454,7 +1454,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     " .  intval($CustomerTypeId). ",
                     " .  intval($ComfortSuperId) . ",
                     " .  intval($TerrainId). ",
-                    " .  intval($VehicleGroupId). ",
+                 
                     " .  intval($HydraulicsId). ",
                     " .  intval($BuybackMatrixId) . ",
                     " .  intval($Quantity). ",
