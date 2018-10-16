@@ -564,8 +564,9 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function deletedAct($params = array()) {
-        $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+      
         try { 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');

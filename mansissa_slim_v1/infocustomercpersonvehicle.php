@@ -177,7 +177,7 @@ $app->get("/pkInsertAct_infocustomercpersonvehicle/", function () use ($app ) {
     } 
     
     $stripper->strip(); 
-    
+   //  &customer_contact_persons_id=1&vehicle_group_id=3
     
     if($stripper->offsetExists('customer_contact_persons_id')) $CustomerId = $stripper->offsetGet('customer_contact_persons_id')->getFilterValue(); 
     if($stripper->offsetExists('vehicle_group_id')) $vehiclegroup = $stripper->offsetGet('vehicle_group_id')->getFilterValue(); 
