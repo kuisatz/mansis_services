@@ -127,25 +127,10 @@ $app->get("/pkFillSisMonthlyQuotasGridx_syssismonthlyquotas/", function () use (
                 "month_id" => $menu["month_id"], 
                 "month_value" => html_entity_decode($menu["month_value"]),   
                 "quantity" => $menu["quantity"],  
-                "ckdcbu_type_id" => $menu["ckdcbu_type_id"], 
-                "cbuckd_name" => html_entity_decode($menu["cbuckd_name"]),   
-                "model_id" => $menu["model_id"],  
-                "gt_model_name" => html_entity_decode($menu["gt_model_name"]), 
-
-                "model_variant_id" => $menu["model_variant_id"],  
-                "variant_name" => html_entity_decode($menu["variant_name"]),     
-                "config_type_id" => $menu["config_type_id"],  
-                "config_type_name" => html_entity_decode($menu["config_type_name"]),  
-                "cap_type_id" => $menu["cap_type_id"],  
-                "cap_name" => html_entity_decode($menu["cap_name"]),  
-                "endgroup_description" => html_entity_decode($menu["endgroup_description"]),  
-		      
-		  "vehicle_group_types_id" => $menu["vehicle_group_types_id"],  
-                "vehicle_group_types_name" => html_entity_decode($menu["vehicle_group_types_name"]), 
-                  "vehicle_groups_id" => $menu["vehicle_groups_id"],  
-                "vehicle_groups_name" => html_entity_decode($menu["vehicle_groups_name"]), 
-                  
                 
+                "model_id" => $menu["model_id"],  
+                "vehicle_groups_name" => html_entity_decode($menu["vehicle_groups_name"]), 
+ 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],

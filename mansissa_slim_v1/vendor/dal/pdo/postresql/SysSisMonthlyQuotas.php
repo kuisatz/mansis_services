@@ -596,67 +596,24 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                      $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
                 }    
             }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }  
-            $vehicleGtModelId =0 ;
-            if (isset($params['VehicleGtModelID']) && $params['VehicleGtModelID'] != "") {
-                $vehicleGtModelId = $params['VehicleGtModelID'];
-                $addSql .="  a.vehicle_gt_model_id  = " . intval($vehicleGtModelId). "  AND  " ; 
-            }  
-            $modelVariantId =0 ;
-            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
-                $modelVariantId = $params['ModelVariantId'];
-                $addSql .="  a.model_variant_id  = " . intval($modelVariantId). "  AND  " ; 
-            }  
-            $configTypeId =0 ;
-            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
-                $configTypeId = $params['ConfigTypeId'];
-                $addSql .="  a.config_type_id  = " . intval($configTypeId). "  AND  " ; 
-            }  
-            $capTypeId =0 ;
-            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
-                $capTypeId = $params['CapTypeId'];
-                $addSql .="  a.cap_type_id  = " . intval($capTypeId). "  AND  " ; 
-            } 
+                           
             $monthId =0 ;
             if (isset($params['MonthId']) && $params['MonthId'] != "") {
                 $monthId = $params['MonthId'];
                 $addSql .="  m.mvalue  = " . intval($monthId). "  AND  " ; 
             } 
-            $ckdCbuTypeId =0 ;
-            if (isset($params['CkdCbuTypeId']) && $params['CkdCbuTypeId'] != "") {
-                $ckdCbuTypeId = $params['CkdCbuTypeId'];
-                $addSql .="  ve.ckdcbu_type_id = " . intval($ckdCbuTypeId). "  AND  " ; 
-            }
+                           
 
                 $sql = "
-                    SELECT    
+                   SELECT    
                         a.id, 
                         a.act_parent_id as apid,  
 			a.year, 
 			a.month_id,
 			m.mvalue month_value, 
-			a.quantity , 
-                        
-                        vgtm.vehicle_group_types_id ,
-			vgt.name vehicle_group_types_name, 
-			vgt.vehicle_groups_id,
-			vgm.name vehicle_groups_name,
-                        
-
- 
-			ve.ckdcbu_type_id,
-		        vcc.name as cbuckd_name, 
-                        a.model_id,
-			vgtm.name  gt_model_name,
-                        ve.model_variant_id,
-			vmv.name variant_name ,
-                        ve.config_type_id,
-			vct.name config_type_name ,
-                        ve.cap_type_id,
-			vcat.name cap_name , 
-			ve.endgroup_description,   
+			a.quantity ,                          
+			vgm.name vehicle_groups_name,                         
+                        a.model_id, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,
@@ -668,21 +625,13 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_sis_monthly_quotas a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
-		    INNER JOIN sys_vehicles_endgroups ve ON  ve.act_parent_id = a.model_id  AND ve.show_it = 0  
+                    LEFT JOIN sys_language lx ON lx.id =385  AND lx.show_it =0 
+		 
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.show_it = 0  
-		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.show_it = 0  
-		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.show_it= 0  
-		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.show_it = 0  
-		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
-                    INNER JOIN sys_vehicle_ckdcbu vcc ON vcc.id = ve.ckdcbu_type_id  AND vcc.show_it= 0  
                     
- 
-                    INNER JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = vgtm.vehicle_group_types_id AND vgt.show_it = 0 
-                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = vgt.vehicle_groups_id AND vgm.show_it = 0 
-
+                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
+		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
 		    
                     /*----*/   
                    /***/
@@ -693,9 +642,9 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     /***/ 
                     WHERE  
-                     " . $addSql . "
+                        " . $addSql . "
                         a.deleted =0 AND
-                        a.show_it =0  
+                        a.show_it =0   
                
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
@@ -818,26 +767,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-           $vehicleGtModelId =0 ;
-            if (isset($params['VehicleGtModelID']) && $params['VehicleGtModelID'] != "") {
-                $vehicleGtModelId = $params['VehicleGtModelID'];
-                $addSql ="  a.vehicle_gt_model_id  = " . intval($vehicleGtModelId). "  AND  " ; 
-            }  
-            $modelVariantId =0 ;
-            if (isset($params['ModelVariantId']) && $params['ModelVariantId'] != "") {
-                $modelVariantId = $params['ModelVariantId'];
-                $addSql ="  a.model_variant_id  = " . intval($modelVariantId). "  AND  " ; 
-            }  
-            $configTypeId =0 ;
-            if (isset($params['ConfigTypeId']) && $params['ConfigTypeId'] != "") {
-                $configTypeId = $params['ConfigTypeId'];
-                $addSql ="  a.config_type_id  = " . intval($configTypeId). "  AND  " ; 
-            }  
-            $capTypeId =0 ;
-            if (isset($params['CapTypeId']) && $params['CapTypeId'] != "") {
-                $capTypeId = $params['CapTypeId'];
-                $addSql ="  a.cap_type_id  = " . intval($capTypeId). "  AND  " ; 
-            } 
+                            
             $monthId =0 ;
             if (isset($params['MonthId']) && $params['MonthId'] != "") {
                 $monthId = $params['MonthId'];
@@ -852,45 +782,21 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 			a.year, 
 			a.month_id,
 			m.mvalue month_value, 
-			a.quantity , 
-                        
-                        vgtm.vehicle_group_types_id ,
-			vgt.name vehicle_group_types_name, 
-			vgt.vehicle_groups_id,
-			vgm.name vehicle_groups_name,
-                         
-			ve.ckdcbu_type_id,
-		        vcc.name as cbuckd_name, 
-                        a.model_id,
-			vgtm.name  gt_model_name,
-                        ve.model_variant_id,
-			vmv.name variant_name ,
-                        ve.config_type_id,
-			vct.name config_type_name ,
-                        ve.cap_type_id,
-			vcat.name cap_name , 
-			ve.endgroup_description,   
-                        
-                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
-                        
+			a.quantity ,                          
+			vgm.name vehicle_groups_name,                         
+                        a.model_id, 
+                        a.active,
+                        COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
                     FROM sys_sis_monthly_quotas a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
-		    INNER JOIN sys_vehicles_endgroups ve ON  ve.act_parent_id = a.model_id  AND ve.show_it = 0  
+                    LEFT JOIN sys_language lx ON lx.id =385  AND lx.show_it =0 
+		 
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
-		    INNER JOIN sys_vehicle_gt_models vgtm ON vgtm.act_parent_id = ve.vehicle_gt_model_id AND vgtm.show_it = 0  
-		    INNER JOIN sys_vehicle_model_variants vmv ON vmv.act_parent_id = ve.model_variant_id AND vmv.show_it = 0  
-		    INNER JOIN sys_vehicle_config_types vct ON vct.act_parent_id = ve.config_type_id AND vct.show_it= 0  
-		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.show_it = 0  
-		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
-                    INNER JOIN sys_vehicle_ckdcbu vcc ON vcc.id = ve.ckdcbu_type_id  AND vcc.show_it= 0  
                     
- 
-                    INNER JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = vgtm.vehicle_group_types_id AND vgt.show_it = 0 
-                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = vgt.vehicle_groups_id AND vgm.show_it = 0 
-
+                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
+		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
 		    
                     /*----*/   
                    /***/
@@ -901,10 +807,9 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     /***/ 
                     WHERE  
-                     " . $addSql . "
+                        " . $addSql . "
                         a.deleted =0 AND
-                        a.show_it =0 
-                        
+                        a.show_it =0   
                          " . $sorguStr . " 
                     ) asdx
                         
