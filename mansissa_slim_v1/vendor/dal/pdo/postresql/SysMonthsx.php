@@ -627,7 +627,7 @@ class SysMonthsx extends \DAL\DalSlim {
                 SELECT                    
                     a.act_parent_id AS id, 	
                     name  AS name,  
-                    '' AS name_eng,
+                    cast(mvalue as character varying(2)) AS name_eng,
                     a.parent_id,
                     a.type_id,
                     a.active,
