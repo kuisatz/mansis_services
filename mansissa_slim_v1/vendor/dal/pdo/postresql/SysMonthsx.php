@@ -566,6 +566,47 @@ class SysMonthsx extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
+    public function  justYearsDdList($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+                            
+            $statement = $pdo->prepare("    
+                SELECT                    
+                    a.act_parent_id AS id,  
+                   cast( ( SELECT date_part('year', CURRENT_DATE) -mvalue +9  )  as  character varying(10)) as name,
+                    '' AS name_eng,
+                    a.parent_id,
+                    a.type_id,
+                    a.active,
+                    0 AS state_type 
+                FROM sys_monthsx a 
+                WHERE   
+                    a.deleted = 0 AND
+                    a.active =0 AND
+                    a.parent_id = 9   
+                ORDER BY  a.priority
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    
+        /** 
+     * @author Okan CIRAN
+     * @ sadece ay tipleri alt grupları dropdown ya da tree ye doldurmak için sys_monthsx tablosundan kayıtları döndürür !!
+     * @version v 1.0  11.08.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
     public function  justMonthsDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         

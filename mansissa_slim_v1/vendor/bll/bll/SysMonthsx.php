@@ -95,6 +95,17 @@ class SysMonthsx extends \BLL\BLLSlim{
         $resultSet = $DAL->monthsMainGroupDdList($params);
         return $resultSet['resultSet'];
     }
+    
+       /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array 
+    */
+    public function justYearsDdList($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysMonthsPostgrePDO');
+        $resultSet = $DAL->justYearsDdList($params);
+        return $resultSet['resultSet'];
+    }
      
     /**
      * Function to fill text on user interface layer

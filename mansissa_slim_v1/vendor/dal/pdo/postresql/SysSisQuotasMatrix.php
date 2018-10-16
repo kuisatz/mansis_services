@@ -821,6 +821,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                     INSERT INTO sys_sis_quotas_matrix (
                         sis_quota_id,
                         value, 
+                        year,
                         
                         active,
                         deleted,
@@ -831,6 +832,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                     SELECT
                         sis_quota_id,
                         value, 
+                        year,
                         
                         1 AS active,  
                         1 AS deleted, 
