@@ -626,7 +626,7 @@ class SysMonthsx extends \DAL\DalSlim {
             $statement = $pdo->prepare("    
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    cast(mvalue as  character varying(10)) AS name,  
+                    name  AS name,  
                     '' AS name_eng,
                     a.parent_id,
                     a.type_id,
