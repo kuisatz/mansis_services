@@ -209,7 +209,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             FROM info_project_buyback  a                          
             WHERE 
                 a.project_id = " . intval($params['project_id']) . " AND  
-                a.vehicles_endgroup_id = " . intval($params['vehicles_endgroup_id']) . " AND  
+              
                 a.vehicles_trade_id = " . intval($params['vehicles_trade_id']) . " AND  
                 a.customer_type_id = " . intval($params['customer_type_id']) . " AND  
                 a.comfort_super_id = " . intval($params['comfort_super_id']) . " AND  
@@ -1127,12 +1127,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }                            
-            $vehiclesEndgroupId = null;
-            if ((isset($params['VehiclesEndgroupId']) && $params['VehiclesEndgroupId'] != "")) {
-                $vehiclesEndgroupId = $params['VehiclesEndgroupId'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
+                           
             $VehiclesTradeId = 0;
             if ((isset($params['VehiclesTradeId']) && $params['VehiclesTradeId'] != "")) {
                 $VehiclesTradeId = intval($params['VehiclesTradeId']);
@@ -1209,7 +1204,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'project_id' => $ProjectId,  
-                            'vehicles_endgroup_id' =>  $vehiclesEndgroupId,  
+                           
                             'vehicles_trade_id' => $VehiclesTradeId,  
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
@@ -1228,7 +1223,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     $sql = "
                     INSERT INTO info_project_buyback(
                             project_id,
-                            vehicles_endgroup_id,
+                        
                             vehicles_trade_id,
                             customer_type_id,
                             comfort_super_id,
@@ -1251,7 +1246,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                             )
                     VALUES ( 
                             " .  intval($ProjectId). ",
-                            " .  intval($vehiclesEndgroupId) . ",
+                         
                             " .  intval($VehiclesTradeId). ",
                             " .  intval($CustomerTypeId). ",
                             " .  intval($ComfortSuperId) . ",
@@ -1329,12 +1324,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             } else {
                 throw new \PDOException($errorInfo[0]);
             }                            
-            $vehiclesEndgroupId = null;
-            if ((isset($params['VehiclesEndgroupId']) && $params['VehiclesEndgroupId'] != "")) {
-                $vehiclesEndgroupId = $params['VehiclesEndgroupId'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
+                           
             $VehiclesTradeId = 0;
             if ((isset($params['VehiclesTradeId']) && $params['VehiclesTradeId'] != "")) {
                 $VehiclesTradeId = intval($params['VehiclesTradeId']);
@@ -1414,7 +1404,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'project_id' => $ProjectId,  
-                            'vehicles_endgroup_id' =>  $vehiclesEndgroupId,  
+                           
                             'vehicles_trade_id' => $VehiclesTradeId,  
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
@@ -1436,7 +1426,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                   $sql = "
                 INSERT INTO info_project_buyback (  
                         project_id,
-                        vehicles_endgroup_id,
+                       
                         vehicles_trade_id,
                         customer_type_id,
                         comfort_super_id,
@@ -1459,7 +1449,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                         )  
                 SELECT  
                     " .  intval($ProjectId). ",
-                    " .  intval($vehiclesEndgroupId) . ",
+                   
                     " .  intval($VehiclesTradeId). ",
                     " .  intval($CustomerTypeId). ",
                     " .  intval($ComfortSuperId) . ",
