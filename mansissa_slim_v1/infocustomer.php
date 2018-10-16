@@ -549,6 +549,61 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
                                                 $app,
                                                 $_GET['segment_type_id']));
     } 
+    $address1 = NULL;
+    if (isset($_GET['address1'])) {
+         $stripper->offsetSet('address1',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address1']));
+    }  
+     $address2 = NULL;
+    if (isset($_GET['address2'])) {
+         $stripper->offsetSet('address2',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address2']));
+    }  
+     $address3 = NULL;
+    if (isset($_GET['address3'])) {
+         $stripper->offsetSet('address3',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['address3']));
+    }  
+     $postalcode = NULL;
+    if (isset($_GET['postalcode'])) {
+         $stripper->offsetSet('postalcode',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['postalcode']));
+    }  
+    $phonenumber = NULL;
+    if (isset($_GET['phonenumber'])) {
+         $stripper->offsetSet('phonenumber',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['phonenumber']));
+    } 
+     $email = NULL;
+    if (isset($_GET['email'])) {
+         $stripper->offsetSet('email',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['email']));
+    } 
+     $city = NULL;
+    if (isset($_GET['city_id'])) {
+         $stripper->offsetSet('city_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['city_id']));
+    } 
+     $country = NULL;
+    if (isset($_GET['country_id'])) {
+         $stripper->offsetSet('country_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country_id']));
+    } 
+    
+     $country2 = NULL;
+    if (isset($_GET['country2_id'])) {
+         $stripper->offsetSet('country2_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country2_id']));
+    } 
      
     
     
@@ -573,6 +628,21 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
     if($stripper->offsetExists('sector_type_id')) $sectorTypeId  = $stripper->offsetGet('sector_type_id')->getFilterValue();
     if($stripper->offsetExists('application_type_id')) $applicationTypeId = $stripper->offsetGet('application_type_id')->getFilterValue();
     if($stripper->offsetExists('segment_type_id')) $segmentTypeId = $stripper->offsetGet('segment_type_id')->getFilterValue();
+    
+    if($stripper->offsetExists('address1')) $address1 = $stripper->offsetGet('address1')->getFilterValue();
+    if($stripper->offsetExists('address2')) $address2 = $stripper->offsetGet('address2')->getFilterValue();
+    if($stripper->offsetExists('address3')) $address3 = $stripper->offsetGet('address3')->getFilterValue();
+    if($stripper->offsetExists('postalcode')) $postalcode = $stripper->offsetGet('postalcode')->getFilterValue();
+    if($stripper->offsetExists('phonenumber')) $phonenumber = $stripper->offsetGet('phonenumber')->getFilterValue();
+    if($stripper->offsetExists('email')) $email = $stripper->offsetGet('email')->getFilterValue();
+    if($stripper->offsetExists('turnover_rate_id')) $turnoverRateId = $stripper->offsetGet('turnover_rate_id')->getFilterValue();
+    
+     if($stripper->offsetExists('country2_id')) $country2 = $stripper->offsetGet('country2_id')->getFilterValue();
+      if($stripper->offsetExists('country_id')) $country = $stripper->offsetGet('country_id')->getFilterValue();
+       if($stripper->offsetExists('city_id')) $city = $stripper->offsetGet('city_id')->getFilterValue();
+     //  if($stripper->offsetExists('turnover_rate_id')) $turnoverRateId = $stripper->offsetGet('turnover_rate_id')->getFilterValue();
+    
+    
   
     $resDataInsert = $BLL->insertAct(array(
             'EmbraceCustomerNo' => $embraceCustomerNo,   
@@ -593,6 +663,19 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
             'SectorTypeId' => $sectorTypeId,   
             'ApplicationTypeId' => $applicationTypeId,  
             'SegmentTypeId' => $segmentTypeId,  
+        
+         'Address1' => $address1,  
+         'Address2' => $address2,  
+         'Address1' => $address3,  
+         'PostalCode' => $postalcode,  
+         'PhoneNumber' => $phonenumber,  
+         'Email' => $email,  
+        
+         'CityId' => $city,  
+         'CountryId' => $country,  
+         'TurnoverRateId' => $turnoverRateId,  
+         'FirmCountryId' => $country2,  
+        
           
             'pk' => $pk));
         
