@@ -513,7 +513,9 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             }  
                             
             $sql =  "    
-                SELECT                    
+            
+                select * from ( 
+                  SELECT      distinct              
                     a.act_parent_id AS id, 	
                     concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
                     concat(sv.name,' - ' , svgt.name) AS name_eng,
@@ -521,15 +523,17 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                     a.active,
                     0 AS state_type   
                 FROM sys_vehicle_gt_models a  
-                inner join info_project_buyback pvm on pvm.vehicles_endgroup_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
+                INNER JOIN info_project_vehicle_models pvmo ON  pvmo.active =0 AND  pvmo.deleted =0  
+                LEFt join info_project_buyback pvm on pvm.vehicles_endgroup_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
                 inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
                 inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
                 WHERE  
-                    ".$addSQL."
+                     ".$addSQL."
                     a.deleted = 0 AND
-                    a.active =0   
-                ORDER BY  svgt.vehicle_groups_id , concat(sv.name,' - ' , svgt.name)  , a.name  
- 
+                    a.active =0   ) asd 
+                    
+                ORDER BY   name  
+  
                                  " ;
              $statement = $pdo->prepare($sql);
         //   echo debugPDO($sql, $params);
