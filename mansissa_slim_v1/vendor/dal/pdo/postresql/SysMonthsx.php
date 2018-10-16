@@ -574,8 +574,14 @@ class SysMonthsx extends \DAL\DalSlim {
                 
 
             SELECT 
-            name as id , 
-            name from (  
+                name as id , 
+                name,
+                name_eng,
+                parent_id,
+                type_id,
+                active,
+                state_type  
+            from (  
                 SELECT                    
               /*      a.act_parent_id AS id,   */ 
                    cast( ( SELECT date_part('year', CURRENT_DATE) -mvalue +9  )  as  character varying(10)) as name,
