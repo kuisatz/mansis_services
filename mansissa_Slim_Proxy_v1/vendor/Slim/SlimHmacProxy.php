@@ -22,11 +22,16 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+          //**---- infoCustomerCpersonVehicleBLL -------------------   
+                                    'pkFillCustomerCpVehiclesGridx_infocustomercpersonvehicle' => 'restApiDefaultCall',   
+                                    'pkUpdateMakeActiveOrPassive_infocustomercpersonvehicle' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_infocustomercpersonvehicle' => 'restApiDefaultCall',  
+                                    'pkDeletedAct_infocustomercpersonvehicle' => 'restApiDefaultCall', 
+            
+        //** infoCustomerCpersonVehicleBLL ----------------------//  
         
-           //**---- sysSisMonthlyQuotasBLL -------------------  
-            
-            
+           //**---- sysSisMonthlyQuotasBLL -------------------   
                                     'pkFillQuotasMatrixGridx_syssisquotasmatrix' => 'restApiDefaultCall',   
                                     'pkUpdateMakeActiveOrPassive_syssisquotasmatrix' => 'restApiDefaultCall', 
         
@@ -2143,10 +2148,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
+             case "_infocustomercpersonvehicle":  
+                $this->setRestApiEndPoint('infocustomercpersonvehicle.php/');
+                break;  
              case "_syssisquotasmatrix":  
                 $this->setRestApiEndPoint('syssisquotasmatrix.php/');
                 break; 
-            
             case "_syssisquotas":  
                 $this->setRestApiEndPoint('syssisquotas.php/');
                 break; 

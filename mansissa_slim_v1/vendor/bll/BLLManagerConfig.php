@@ -49,7 +49,7 @@ class BLLManagerConfig{
                     'infoProjectTradebackBLL' => 'BLL\BLL\InfoProjectTradeback',
                     'infoCustomerContactPersonsBLL' => 'BLL\BLL\InfoCustomerContactPersons',
                     'infoCustomerPurchasePlanBLL' => 'BLL\BLL\InfoCustomerPurchasePlan',
-                 
+                    'infoCustomerCpersonVehicleBLL' => 'BLL\BLL\InfoCustomerCpersonVehicle',
                  
                  
                  

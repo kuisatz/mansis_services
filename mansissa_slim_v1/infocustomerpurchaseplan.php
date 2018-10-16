@@ -125,7 +125,7 @@ $app->get("/pkFillCustomerPurchaseGridx_infocustomerpurchaseplan/", function () 
              
                 "last_brand" => html_entity_decode($menu["last_brand"]),
                 "description" => html_entity_decode($menu["description"]),
-                "date_of_purchase" =>  ($menu["date_of_purchase"]),
+            //    "date_of_purchase" =>  ($menu["date_of_purchase"]),
                 "quantity" =>  ($menu["quantity"]),
                 
                 

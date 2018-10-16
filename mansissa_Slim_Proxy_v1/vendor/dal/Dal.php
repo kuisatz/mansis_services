@@ -89,6 +89,16 @@ class Dal {
             $sql = "    
                SELECT id,pkey,sf_private_key_value,role_id FROM (
                             SELECT id, 	
+                                redis_key as pkey,	                                
+                                sf_private_key_value,
+                                role_id
+                            FROM info_users WHERE active=0 AND deleted =0 AND redis_key=  '".$publicKey."'   ) AS logintable
+                        WHERE pkey is not null 
+                    "; 
+            
+           /*    $sql = "    
+               SELECT id,pkey,sf_private_key_value,role_id FROM (
+                            SELECT id, 	
                                 CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$publicKey."','*','/'))) = CONCAT('_J9..',REPLACE('".$publicKey."','*','/')) as pkey,	                                
                                 sf_private_key_value,
                                 role_id
@@ -96,6 +106,7 @@ class Dal {
                         WHERE pkey = TRUE
           
                     "; 
+            */
             
             //print_r($sql);
     
@@ -130,11 +141,17 @@ class Dal {
             $pdo = $this->getPdo();    
             
             $sql = "              
+                    SELECT true as kontrol
+                    FROM info_users a                  
+                    WHERE a.redis_key =   '".$params['pk']."'
+                    ";       
+            /*    
+                $sql = "              
                     SELECT a.public_key =  '".$params['pk']."'   as kontrol
                     FROM act_session a                  
                     WHERE a.public_key =   '".$params['pk']."'
-                    ";           
-            
+                    ";    
+            */ 
             $statement = $pdo->prepare($sql);            
             //echo debugPDO($sql, $params);
             $statement->execute();
