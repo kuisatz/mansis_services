@@ -571,8 +571,13 @@ class SysMonthsx extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
                             
             $statement = $pdo->prepare("    
+                
+
+            SELECT 
+            name as id , 
+            name from (  
                 SELECT                    
-                    a.act_parent_id AS id,  
+              /*      a.act_parent_id AS id,   */ 
                    cast( ( SELECT date_part('year', CURRENT_DATE) -mvalue +9  )  as  character varying(10)) as name,
                     '' AS name_eng,
                     a.parent_id,
@@ -585,6 +590,7 @@ class SysMonthsx extends \DAL\DalSlim {
                     a.active =0 AND
                     a.parent_id = 9   
                 ORDER BY  a.priority
+                ) asd 
 
                                  ");
             $statement->execute();
