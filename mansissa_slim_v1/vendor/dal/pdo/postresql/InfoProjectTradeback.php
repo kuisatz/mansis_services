@@ -213,7 +213,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                 a.customer_type_id = " . intval($params['customer_type_id']) . " AND  
                 a.comfort_super_id = " . intval($params['comfort_super_id']) . " AND  
                 a.terrain_id = " . intval($params['terrain_id']) . " AND  
-                a.vehicle_group_id = " . intval($params['vehicle_group_id']) . " AND  
+          
                 a.hydraulics_id = " . intval($params['hydraulics_id']) . " AND  
                 a.buyback_matrix_id = " . intval($params['buyback_matrix_id']) . " AND  
                 a.is_other = " . intval($params['is_other']) . " AND  
@@ -1228,7 +1228,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                             customer_type_id,
                             comfort_super_id,
                             terrain_id,
-                            vehicle_group_id,
+                           
                             hydraulics_id,
                             buyback_matrix_id,
                             quantity,
@@ -1251,7 +1251,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                             " .  intval($CustomerTypeId). ",
                             " .  intval($ComfortSuperId) . ",
                             " .  intval($TerrainId). ",
-                            " .  intval($VehicleGroupId). ",
+                         
                             " .  intval($HydraulicsId). ",
                             " .  intval($BuybackMatrixId) . ",
                             " .  intval($Quantity). ",
@@ -1408,7 +1408,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
                             'terrain_id' => $TerrainId, 
-                            'vehicle_group_id' => $VehicleGroupId,  
+                           
                             'hydraulics_id' =>  $HydraulicsId,  
                             'buyback_matrix_id' => $BuybackMatrixId, 
                             'is_other' => $IsOther,  
@@ -1430,7 +1430,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                         customer_type_id,
                         comfort_super_id,
                         terrain_id,
-                        vehicle_group_id,
+                    
                         hydraulics_id,
                         buyback_matrix_id,
                         quantity,
@@ -1453,7 +1453,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                         " .  intval($CustomerTypeId). ",
                         " .  intval($ComfortSuperId) . ",
                         " .  intval($TerrainId). ",
-                        " .  intval($VehicleGroupId). ",
+                    
                         " .  intval($HydraulicsId). ",
                         " .  intval($BuybackMatrixId) . ",
                         " .  intval($Quantity). ",
