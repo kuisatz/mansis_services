@@ -130,7 +130,10 @@ $app->get("/pkFillSisMonthlyQuotasGridx_syssismonthlyquotas/", function () use (
                 "quantity" => $menu["quantity"],   
                 "model_id" => $menu["model_id"],  
                 "vehicle_groups_name" => html_entity_decode($menu["vehicle_groups_name"]), 
- 
+                 "sis_quota_id" => $menu["sis_quota_id"],  
+                "name" => html_entity_decode($menu["name"]), 
+                
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
