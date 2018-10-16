@@ -563,28 +563,28 @@ class InfoProjectBuyback extends \DAL\DalSlim {
                 $addSQL =   " pvmo.project_id   = " . intval($ProjectId). "  AND  " ;
             }              
               
-            $sql =  "    
-                
-           select * from ( 
-                  SELECT      distinct              
-                    a.act_parent_id AS id, 	
-                    concat(sv.name,' - ' , svgt.name ,' - ' , a.name)   AS name, 
+            $sql =  "     
+            SELECT * from ( 
+                  SELECT   distinct              
+                    pvm.act_parent_id AS id, 	
+                    pvm.description  AS name, 
                     concat(sv.name,' - ' , svgt.name) AS name_eng,
                     0 as parent_id,
                     a.active,
-                    0 AS state_type   
+                    0 AS state_type ,
+                    sv.name as groups_name,
+                    svgt.name as groups_type_name 
                 FROM sys_vehicle_gt_models a  
-                INNER JOIN info_project_vehicle_models pvmo ON  pvmo.active =0 AND  pvmo.deleted =0  
-                LEFt join info_project_buyback pvm on pvm.vehicles_endgroup_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
+                INNER JOIN info_project_vehicle_models pvmo ON  pvmo.active =0 AND  pvmo.deleted =0 AND pvmo.vehicle_gt_model_id = a.act_parent_id 
+                LEFt join sys_vehicles_trade pvm on pvm.vehicle_gt_model_id = a.act_parent_id AND pvm.active =0 AND pvm.deleted =0  
                 inner join sys_vehicle_group_types svgt ON svgt.id = a.vehicle_group_types_id AND svgt.active =0 AND svgt.deleted =0 
                 inner join sys_vehicle_groups sv ON sv.id =svgt.vehicle_groups_id AND sv.deleted =0 AND sv.active =0  
                 WHERE  
-                     ".$addSQL."
+                    ".$addSQL."
                     a.deleted = 0 AND
-                    a.active =0   ) asd 
-                    
-                ORDER BY   name   
- 
+                    a.active =0   ) asd  
+                ORDER BY   groups_name , groups_type_name, name    
+                 
                                  " ;
              $statement = $pdo->prepare($sql);
      //     echo debugPDO($sql, $params);
