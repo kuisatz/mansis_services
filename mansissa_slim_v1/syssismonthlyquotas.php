@@ -144,7 +144,7 @@ $app->get("/pkFillSisMonthlyQuotasGridx_syssismonthlyquotas/", function () use (
                 "vehicle_group_types_name" => html_entity_decode($menu["vehicle_group_types_name"]), 
                   "vehicle_groups_id" => $menu["vehicle_groups_id"],  
                 "vehicle_groups_name" => html_entity_decode($menu["vehicle_groups_name"]), 
-                 
+                  
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       

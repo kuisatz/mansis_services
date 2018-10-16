@@ -581,7 +581,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                         a.id, 
                         a.act_parent_id as apid,  
                         COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
-                      /*  a.name_eng, */
+                        a.sis_quota_id,
                         a.year,
                         a.value,    
                         a.active,
@@ -601,6 +601,7 @@ class SysSisQuotasMatrix extends \DAL\DalSlim {
                     LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . " AND lx.show_it =0  
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
+                  
 		    INNER JOIN sys_sis_quotas drd ON drd.act_parent_id = a.sis_quota_id AND drd.show_it = 0 AND drd.language_id= l.id
 		    LEFT JOIN sys_sis_quotas drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
                     /*----*/   
