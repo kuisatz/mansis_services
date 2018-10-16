@@ -638,6 +638,13 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 			a.month_id,
 			m.mvalue month_value, 
 			a.quantity , 
+                        
+                        vgtm.vehicle_group_types_id ,
+			vgt.name vehicle_group_types_name, 
+			vgt.vehicle_groups_id,
+			vgm.name vehicle_groups_name,
+                        
+
  
 			ve.ckdcbu_type_id,
 		        vcc.name as cbuckd_name, 
@@ -671,6 +678,11 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 		    INNER JOIN sys_vehicle_cap_types vcat ON vcat.act_parent_id = ve.cap_type_id AND vcat.show_it = 0  
 		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
                     INNER JOIN sys_vehicle_ckdcbu vcc ON vcc.id = ve.ckdcbu_type_id  AND vcc.show_it= 0  
+                    
+ 
+                    INNER JOIN sys_vehicle_group_types vgt ON vgt.act_parent_id = vgtm.vehicle_group_types_id AND vgt.show_it = 0 
+                    INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = vgt.vehicle_groups_id AND vgm.show_it = 0 
+
 		    
                     /*----*/   
                    /***/
