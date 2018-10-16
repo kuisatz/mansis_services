@@ -580,6 +580,10 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
 			a.last_brand,
 			a.description,
 			a.date_of_purchase,
+                        a.purchase_decision_id,
+                        COALESCE(NULLIF(sd32x.description, ''), sd32.description_eng) AS purchase_decision, 
+                        a.date_of_plan_id,
+                        nr.name as date_of_plan,
 			a.quantity, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
@@ -597,7 +601,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
-                     
+                    LEFT JOIN sys_numerical_ranges nr ON nr.parent_id = 27 AND nr.act_parent_id= a.date_of_plan_id AND nr.show_it =0 AND nr.language_id =l.id
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -605,6 +609,9 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                   /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
+                    LEFT JOIN sys_specific_definitions sd32 ON sd32.main_group = 32 AND sd32.first_group= a.purchase_decision_id AND sd32.deleted = 0 AND sd32.active = 0 AND sd32.language_id =l.id
+                    LEFT JOIN sys_specific_definitions sd32x ON sd32x.language_id = lx.id AND (sd32x.id = sd32.id OR sd32x.language_parent_id = sd32.id) AND sd32x.deleted = 0 AND sd32x.active = 0
+                     
                     WHERE  
                         " . $addSql . "
                         a.deleted =0 AND
@@ -700,6 +707,8 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         description,
                         date_of_purchase,
                         quantity,
+                        purchase_decision_id,
+                        date_of_plan_id,
   
                         active,
                         deleted,
@@ -714,6 +723,8 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         description,
                         date_of_purchase,
                         quantity,
+                        purchase_decision_id,
+                        date_of_plan_id,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -787,7 +798,15 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             $LastBrand= null;
             if ((isset($params['LastBrand']) && $params['LastBrand'] != "")) {
                 $LastBrand = $params['LastBrand'];
-            }              
+            }  
+            $PurchaseDecisionId=null ;               
+            if ((isset($params['PurchaseDecisionId']) && $params['PurchaseDecisionId'] != "")) {
+                $PurchaseDecisionId = intval($params['PurchaseDecisionId']);
+            }   
+             $DateOfPlanId=null ;               
+            if ((isset($params['DateOfPlanId']) && $params['DateOfPlanId'] != "")) {
+                $DateOfPlanId = intval($params['DateOfPlanId']);
+            } 
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -800,6 +819,8 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                             description,
                             ".$addSQL1." 
                             quantity,
+                            purchase_decision_id,
+                            date_of_plan_id,
  
                             op_user_id,
                             act_parent_id  
@@ -810,6 +831,8 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                             '" . $Description . "',
                             ".$addSQL2."  
                             " .  intval($Quantity) . ", 
+                            " .  intval($PurchaseDecisionId) . ", 
+                            " .  intval($DateOfPlanId) . ", 
  
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_purchase_plan_id_seq)

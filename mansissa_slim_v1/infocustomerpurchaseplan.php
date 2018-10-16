@@ -127,6 +127,13 @@ $app->get("/pkFillCustomerPurchaseGridx_infocustomerpurchaseplan/", function () 
                 "description" => html_entity_decode($menu["description"]),
                 "date_of_purchase" =>  ($menu["date_of_purchase"]),
                 "quantity" =>  ($menu["quantity"]),
+                
+                
+                 "purchase_decision_id" =>  ($menu["purchase_decision_id"]), 
+                "purchase_decision" => html_entity_decode($menu["purchase_decision"]),
+                 "date_of_plan_id" =>  ($menu["date_of_plan_id"]), 
+                "date_of_plan" => html_entity_decode($menu["date_of_plan"]),
+              
                  
                 "op_username" => html_entity_decode($menu["op_user_name"]),  
                 "date_saved" => $menu["date_saved"],
@@ -238,7 +245,7 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
     if (isset($_GET['customer_id'])) {
         $stripper->offsetSet('customer_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_id']));
     }
-      $quantity= NULL;
+    $quantity= NULL;
     if (isset($_GET['quantity'])) {
         $stripper->offsetSet('quantity', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['quantity']));
     } 
@@ -254,7 +261,15 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $app,
                                                 $_GET['last_brand']));
     }  
-      
+    $purchaseDecisionId= NULL;
+    if (isset($_GET['purchase_decision_id'])) {
+        $stripper->offsetSet('purchase_decision_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['purchase_decision_id']));
+    } 
+     $dateOfPlanId= NULL;
+    if (isset($_GET['date_of_plan_id'])) {
+        $stripper->offsetSet('date_of_plan_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['date_of_plan_id']));
+    } 
+   
     //  &customer_id=1&last_purchase_date=2016-04-10&date_of_purchase=2018-10-10&quantity=22&description=asdasd&last_brand=VW
      
     $stripper->strip(); 
@@ -265,6 +280,8 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
     if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
     if($stripper->offsetExists('last_brand')) $lastBrand = $stripper->offsetGet('last_brand')->getFilterValue();
+     if($stripper->offsetExists('purchase_decision_id')) $purchaseDecisionId = $stripper->offsetGet('purchase_decision_id')->getFilterValue();
+      if($stripper->offsetExists('date_of_plan_id')) $dateOfPlanId = $stripper->offsetGet('date_of_plan_id')->getFilterValue();
   
     $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
@@ -273,6 +290,8 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
             'Quantity' => $quantity,  
             'LastBrand' => $lastBrand,  
             'Description' => $Description,  
+            'PurchaseDecisionId' => $purchaseDecisionId,  
+            'DateOfPlanId' => $dateOfPlanId,  
           
             'pk' => $pk));
         
