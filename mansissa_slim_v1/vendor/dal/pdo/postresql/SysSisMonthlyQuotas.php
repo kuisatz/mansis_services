@@ -608,6 +608,8 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                    SELECT    
                         a.id, 
                         a.act_parent_id as apid,  
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
+                        a.sis_quota_id,
 			a.year, 
 			a.month_id,
 			m.mvalue month_value, 
@@ -626,10 +628,12 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM sys_sis_monthly_quotas a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =385  AND lx.show_it =0 
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0 
 		 
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
+                    INNER JOIN sys_sis_quotas drd ON drd.act_parent_id = a.sis_quota_id AND drd.show_it = 0 AND drd.language_id= l.id
+		    LEFT JOIN sys_sis_quotas drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
                     
                     INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
 		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.id = a.month_id AND m.show_it= 0  
@@ -643,10 +647,9 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     /***/ 
                     WHERE  
-                        " . $addSql . "
+                       " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0   
-               
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
@@ -777,25 +780,28 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
-                       SELECT    
+                          SELECT    
                         a.id, 
                         a.act_parent_id as apid,  
+                        COALESCE(NULLIF(drdx.name, ''), drd.name_eng) AS name,
+                        a.sis_quota_id,
 			a.year, 
 			a.month_id,
 			m.mvalue month_value, 
                         m.name as month_name, 
 			a.quantity ,                          
 			vgm.name vehicle_groups_name,                         
-                        a.model_id, 
-                        a.active,
+                        a.model_id,  
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
                     FROM sys_sis_monthly_quotas a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =385  AND lx.show_it =0 
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "    AND lx.show_it =0 
 		 
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/
+                    INNER JOIN sys_sis_quotas drd ON drd.act_parent_id = a.sis_quota_id AND drd.show_it = 0 AND drd.language_id= l.id
+		    LEFT JOIN sys_sis_quotas drdx ON (drdx.act_parent_id = drd.act_parent_id OR drdx.language_parent_id= drd.act_parent_id) AND drdx.show_it= 0 AND drdx.language_id =lx.id  
                     
                     INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
 		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.id = a.month_id AND m.show_it= 0  
@@ -809,7 +815,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     /***/ 
                     WHERE  
-                        " . $addSql . "
+                       " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0   
                          " . $sorguStr . " 
