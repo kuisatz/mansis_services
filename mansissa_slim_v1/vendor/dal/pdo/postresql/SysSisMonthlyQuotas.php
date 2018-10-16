@@ -632,7 +632,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     /*----*/
                     
                     INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
-		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
+		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.id = a.month_id AND m.show_it= 0  
 		    
                     /*----*/   
                    /***/
@@ -798,7 +798,7 @@ class SysSisMonthlyQuotas extends \DAL\DalSlim {
                     /*----*/
                     
                     INNER JOIN sys_vehicle_groups vgm ON vgm.act_parent_id = a.model_id AND vgm.show_it = 0 
-		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.mvalue = a.month_id AND m.show_it= 0  
+		    INNER JOIN sys_monthsx m ON m.parent_id = 9 AND m.id = a.month_id AND m.show_it= 0  
 		    
                     /*----*/   
                    /***/
