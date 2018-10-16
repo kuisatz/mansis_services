@@ -198,6 +198,17 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
         $resultSet = $DAL->fillYesNoTypes($params);
         return $resultSet['resultSet'];
     }
+   
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillMaybeYesNoTypes($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPostgrePDO');
+        $resultSet = $DAL->fillMaybeYesNoTypes($params);
+        return $resultSet['resultSet'];
+    }
     
     
 }

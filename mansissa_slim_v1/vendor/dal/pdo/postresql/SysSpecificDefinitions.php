@@ -866,7 +866,7 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
         }
     }
  
-           /** 
+    /** 
      * @author Okan CIRAN
      * @ var yok gec dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
      * @version v 1.0  03.02.2016
@@ -903,6 +903,60 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
                 LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
                 WHERE                     
                     a.main_group = 19 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+ 
+    
+    /** 
+     * @author Okan CIRAN
+     * @ var yok gec dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  03.02.2016
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillMaybeYesNoTypes($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+            $languageIdValue = 385;
+            if (isset($params['language_code']) && $params['language_code'] != "") { 
+                $languageCodeParams = array('language_code' => $params['language_code'],);
+                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
+                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
+                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
+                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
+                }    
+            }    
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            }  
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    COALESCE(NULLIF(sd.description, ''), a.description_eng) AS name,  
+                    a.description_eng AS name_eng,
+                    a.parent_id,
+                    a.active,
+                    0 AS state_type   
+                FROM sys_specific_definitions a    
+                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
+		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). " AND lx.deleted =0 AND lx.active =0                      		
+                LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                   
+                WHERE                     
+                    a.main_group = 32 AND                    
                     a.deleted = 0 AND
                     a.language_parent_id =0 
                 ORDER BY a.id, a.parent_id   
