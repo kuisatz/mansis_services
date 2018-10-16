@@ -82,40 +82,19 @@ class InfoCustomerCpersonVehicle  extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-    
-    /**
-     * Function to fill text on user interface layer
-     * @param array $params
-     * @return array 
-    */
-    public function customeractivAtionsDdList($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoCustomerCpersonVehiclePostgrePDO');
-        $resultSet = $DAL->customeractivAtionsDdList($params);
-        return $resultSet['resultSet'];
-    }
      
     /**
      * Function to fill datagrid on user interface layer
      * @param array | null $params
      * @return array
      */
-    public function fillCustomeractivationsGridx ($params = array()) { 
+    public function fillCustomerCpVehiclesGridx ($params = array()) { 
         $DAL = $this->slimApp->getDALManager()->get('infoCustomerCpersonVehiclePostgrePDO');
-        $resultSet = $DAL->fillCustomeractivationsGridx($params);  
+        $resultSet = $DAL->fillCustomerCpVehiclesGridx($params);  
         return $resultSet['resultSet'];
     }
     
-    /**
-     * Function to get datagrid row count on user interface layer
-     * @param array | null $params
-     * @return array
-     */
-    public function fillCustomeractivationsGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoCustomerCpersonVehiclePostgrePDO');
-        $resultSet = $DAL->fillCustomeractivationsGridxRtl($params);  
-        return $resultSet['resultSet'];
-    }
-    
+   
     /**
      * public key / private key and value update function
      * @param array | null $params
@@ -146,15 +125,7 @@ class InfoCustomerCpersonVehicle  extends \BLL\BLLSlim{
         return $DAL->insertAct($params);
     }
     
-    /**
-     * Data update action function
-     * @param array | null $params
-     * @return array
-     */
-    public function updateAct($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('infoCustomerCpersonVehiclePostgrePDO');
-        return $DAL->updateAct($params);
-    }
+   
     
 }
 
