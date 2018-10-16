@@ -208,8 +208,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                 CONCAT(  ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_project_tradeback  a                          
             WHERE 
-                a.project_id = " . intval($params['project_id']) . " AND  
-                a.vehicles_endgroup_id = " . intval($params['vehicles_endgroup_id']) . " AND  
+                a.project_id = " . intval($params['project_id']) . " AND   
                 a.vehicles_trade_id = " . intval($params['vehicles_trade_id']) . " AND  
                 a.customer_type_id = " . intval($params['customer_type_id']) . " AND  
                 a.comfort_super_id = " . intval($params['comfort_super_id']) . " AND  
@@ -1123,29 +1122,23 @@ class InfoProjectTradeback extends \DAL\DalSlim {
             $errorInfo[0] = "99999";
             $addSQL1 =null ;    
             $addSQL2 =null ;               
-            $ProjectId = null;
+            $ProjectId = null; // 
             if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
                 $ProjectId = $params['ProjectId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }                            
-            $vehiclesEndgroupId = null;
-            if ((isset($params['VehiclesEndgroupId']) && $params['VehiclesEndgroupId'] != "")) {
-                $vehiclesEndgroupId = $params['VehiclesEndgroupId'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
-            $VehiclesTradeId = 0;
+            }               
+            $VehiclesTradeId = 0;//
             if ((isset($params['VehiclesTradeId']) && $params['VehiclesTradeId'] != "")) {
                 $VehiclesTradeId = intval($params['VehiclesTradeId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }   
-            $CustomerTypeId = null;
+            $CustomerTypeId = null;// 
             if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
                 $CustomerTypeId = $params['CustomerTypeId'];
             } 
-            $ComfortSuperId = null;
+            $ComfortSuperId = null;//
             if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
                 $ComfortSuperId = $params['ComfortSuperId'];
             } 
@@ -1157,31 +1150,31 @@ class InfoProjectTradeback extends \DAL\DalSlim {
             if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
                 $VehicleGroupId = $params['VehicleGroupId'];
             } 
-            $HydraulicsId = null;
+            $HydraulicsId = null; // 
             if ((isset($params['HydraulicsId']) && $params['HydraulicsId'] != "")) {
                 $HydraulicsId = $params['HydraulicsId'];
             } 
-            $BuybackMatrixId = null;
+            $BuybackMatrixId = null;//
             if ((isset($params['BuybackMatrixId']) && $params['BuybackMatrixId'] != "")) {
                 $BuybackMatrixId = $params['BuybackMatrixId'];
             } 
-            $Quantity = null;
+            $Quantity = null;// 
             if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
                 $Quantity = $params['Quantity'];
             } 
-            $IsOther = null;
+            $IsOther = null;//
             if ((isset($params['IsOther']) && $params['IsOther'] != "")) {
-                $IsOther = $params['IsOther'];
+                $IsOther = $params['IsOther'];  
             } 
-            $OtherMonthValue = null;
+            $OtherMonthValue = null;//
             if ((isset($params['OtherMonthValue']) && $params['OtherMonthValue'] != "")) {
                 $OtherMonthValue = $params['OtherMonthValue'];
             } 
-            $OtherMilagesValue = null;
+            $OtherMilagesValue = null;//
             if ((isset($params['OtherMilagesValue']) && $params['OtherMilagesValue'] != "")) {
                 $OtherMilagesValue = $params['OtherMilagesValue'];
             } 
-            $OtherDescription = null;
+            $OtherDescription = null;//
             if ((isset($params['OtherDescription']) && $params['OtherDescription'] != "")) {
                 $OtherDescription = $params['OtherDescription'];
             } 
@@ -1203,6 +1196,8 @@ class InfoProjectTradeback extends \DAL\DalSlim {
             if ((isset($params['IsHosConfirm']) && $params['IsHosConfirm'] != "")) {
                 $IsHosConfirm = $params['IsHosConfirm'];
             } 
+            
+                           
                            
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1210,18 +1205,16 @@ class InfoProjectTradeback extends \DAL\DalSlim {
 
                 $kontrol = $this->haveRecords(
                         array(
-                            'project_id' => $ProjectId,  
-                            'vehicles_endgroup_id' =>  $vehiclesEndgroupId,  
+                            'project_id' => $ProjectId,   
                             'vehicles_trade_id' => $VehiclesTradeId,  
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
-                            'terrain_id' => $TerrainId, 
-                            'vehicle_group_id' => $VehicleGroupId,  
+                            'terrain_id' => $TerrainId,  
                             'hydraulics_id' =>  $HydraulicsId,  
                             'buyback_matrix_id' => $BuybackMatrixId, 
                             'is_other' => $IsOther,  
                             'other_month_value' =>  $OtherMonthValue,  
-                            'other_milages_value' => $OtherMilagesValue, 
+                            'other_milages_value' => $OtherMilagesValue,  
                             'isbo_confirm' => $IsBoConfirm,  
                             'ishos_confirm' =>  $IsHosConfirm,   
                             
@@ -1230,7 +1223,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                     $sql = "
                     INSERT INTO info_project_tradeback(
                             project_id,
-                            vehicles_endgroup_id,
+                           
                             vehicles_trade_id,
                             customer_type_id,
                             comfort_super_id,
@@ -1253,7 +1246,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                             )
                     VALUES ( 
                             " .  intval($ProjectId). ",
-                            " .  intval($vehiclesEndgroupId) . ",
+                          
                             " .  intval($VehiclesTradeId). ",
                             " .  intval($CustomerTypeId). ",
                             " .  intval($ComfortSuperId) . ",
@@ -1325,29 +1318,23 @@ class InfoProjectTradeback extends \DAL\DalSlim {
             
             $addSQL1 =null ;    
             $addSQL2 =null ;               
-            $ProjectId = null;
+           $ProjectId = null; // 
             if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
                 $ProjectId = $params['ProjectId'];
             } else {
                 throw new \PDOException($errorInfo[0]);
-            }                            
-            $vehiclesEndgroupId = null;
-            if ((isset($params['VehiclesEndgroupId']) && $params['VehiclesEndgroupId'] != "")) {
-                $vehiclesEndgroupId = $params['VehiclesEndgroupId'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }                 
-            $VehiclesTradeId = 0;
+            }               
+            $VehiclesTradeId = 0;//
             if ((isset($params['VehiclesTradeId']) && $params['VehiclesTradeId'] != "")) {
                 $VehiclesTradeId = intval($params['VehiclesTradeId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }   
-            $CustomerTypeId = null;
+            $CustomerTypeId = null;// 
             if ((isset($params['CustomerTypeId']) && $params['CustomerTypeId'] != "")) {
                 $CustomerTypeId = $params['CustomerTypeId'];
             } 
-            $ComfortSuperId = null;
+            $ComfortSuperId = null;//
             if ((isset($params['ComfortSuperId']) && $params['ComfortSuperId'] != "")) {
                 $ComfortSuperId = $params['ComfortSuperId'];
             } 
@@ -1359,31 +1346,31 @@ class InfoProjectTradeback extends \DAL\DalSlim {
             if ((isset($params['VehicleGroupId']) && $params['VehicleGroupId'] != "")) {
                 $VehicleGroupId = $params['VehicleGroupId'];
             } 
-            $HydraulicsId = null;
+            $HydraulicsId = null; // 
             if ((isset($params['HydraulicsId']) && $params['HydraulicsId'] != "")) {
                 $HydraulicsId = $params['HydraulicsId'];
             } 
-            $BuybackMatrixId = null;
+            $BuybackMatrixId = null;//
             if ((isset($params['BuybackMatrixId']) && $params['BuybackMatrixId'] != "")) {
                 $BuybackMatrixId = $params['BuybackMatrixId'];
             } 
-            $Quantity = null;
+            $Quantity = null;// 
             if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
                 $Quantity = $params['Quantity'];
             } 
-            $IsOther = null;
+            $IsOther = null;//
             if ((isset($params['IsOther']) && $params['IsOther'] != "")) {
-                $IsOther = $params['IsOther'];
+                $IsOther = $params['IsOther'];  
             } 
-            $OtherMonthValue = null;
+            $OtherMonthValue = null;//
             if ((isset($params['OtherMonthValue']) && $params['OtherMonthValue'] != "")) {
                 $OtherMonthValue = $params['OtherMonthValue'];
             } 
-            $OtherMilagesValue = null;
+            $OtherMilagesValue = null;//
             if ((isset($params['OtherMilagesValue']) && $params['OtherMilagesValue'] != "")) {
                 $OtherMilagesValue = $params['OtherMilagesValue'];
             } 
-            $OtherDescription = null;
+            $OtherDescription = null;//
             if ((isset($params['OtherDescription']) && $params['OtherDescription'] != "")) {
                 $OtherDescription = $params['OtherDescription'];
             } 
@@ -1416,7 +1403,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'project_id' => $ProjectId,  
-                            'vehicles_endgroup_id' =>  $vehiclesEndgroupId,  
+                           
                             'vehicles_trade_id' => $VehiclesTradeId,  
                             'customer_type_id' => $ProjectId,  
                             'comfort_super_id' =>  $ComfortSuperId,  
@@ -1438,7 +1425,7 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                   $sql = "
                 INSERT INTO info_project_tradeback (  
                         project_id,
-                        vehicles_endgroup_id,
+                           
                         vehicles_trade_id,
                         customer_type_id,
                         comfort_super_id,
@@ -1460,26 +1447,26 @@ class InfoProjectTradeback extends \DAL\DalSlim {
                         act_parent_id  
                         )  
                 SELECT  
-                    " .  intval($ProjectId). ",
-                    " .  intval($vehiclesEndgroupId) . ",
-                    " .  intval($VehiclesTradeId). ",
-                    " .  intval($CustomerTypeId). ",
-                    " .  intval($ComfortSuperId) . ",
-                    " .  intval($TerrainId). ",
-                    " .  intval($VehicleGroupId). ",
-                    " .  intval($HydraulicsId). ",
-                    " .  intval($BuybackMatrixId) . ",
-                    " .  intval($Quantity). ",
-                    " .  intval($IsOther). ",
-                    " .  intval($OtherMonthValue). ",
-                    " .  intval($OtherMilagesValue). ",
-                    " .  intval($OtherDescription). ",
-                    " .   $addSQL2 . "
-                    " .  intval($DealTbValue). ",
-                    " .  intval($IsBoConfirm). ",
-                    " .  intval($IsHosConfirm). ",
-                                 
-                    " . intval($opUserIdValue) . " AS op_user_id,  
+                        " .  intval($ProjectId). ",
+                          
+                        " .  intval($VehiclesTradeId). ",
+                        " .  intval($CustomerTypeId). ",
+                        " .  intval($ComfortSuperId) . ",
+                        " .  intval($TerrainId). ",
+                        " .  intval($VehicleGroupId). ",
+                        " .  intval($HydraulicsId). ",
+                        " .  intval($BuybackMatrixId) . ",
+                        " .  intval($Quantity). ",
+                        " .  intval($IsOther). ",
+                        " .  intval($OtherMonthValue). ",
+                        " .  intval($OtherMilagesValue). ",
+                        " .  intval($OtherDescription). ",
+                        " .   $addSQL2 . "
+                        " .  intval($DealTbValue). ",
+                        " .  intval($IsBoConfirm). ",
+                        " .  intval($IsHosConfirm). ",
+
+                        " . intval($opUserIdValue) . ", 
                     act_parent_id
                 FROM info_project_tradeback 
                 WHERE 
