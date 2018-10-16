@@ -560,7 +560,7 @@ class InfoProjectBuyback extends \DAL\DalSlim {
             $ProjectId=-1 ;
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId'];
-                $addSQL =   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
+                $addSQL =   " pvmo.project_id   = " . intval($ProjectId). "  AND  " ;
             }              
               
             $sql =  "    
