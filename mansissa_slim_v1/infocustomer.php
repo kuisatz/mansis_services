@@ -672,7 +672,7 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
         
          'Address1' => $address1,  
          'Address2' => $address2,  
-         'Address1' => $address3,  
+         'Address3' => $address3,  
          'PostalCode' => $postalcode,  
          'PhoneNumber' => $phonenumber,  
          'Email' => $email,  
