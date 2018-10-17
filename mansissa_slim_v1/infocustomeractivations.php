@@ -236,6 +236,9 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "activty_tracking_type_id" =>  ($menu["activty_tracking_type_id"]),
                 "activty_tracking_type_name" =>  (""),
                  
+                 "report" => html_entity_decode($menu["report"]),
+                 "realization_date" =>  ($menu["realization_date"]),
+          
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
@@ -401,9 +404,21 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     if (isset($_GET['activty_tracking_type_id'])) {
         $stripper->offsetSet('activty_tracking_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['activty_tracking_type_id']));
     }
+     $realization = NULL;
+    if (isset($_GET['realization_date'])) {
+         $stripper->offsetSet('realization_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['realization_date']));
+    }  
+     $report = NULL;
+    if (isset($_GET['report'])) {
+         $stripper->offsetSet('report',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['report']));
+    }  
      
     $stripper->strip();
-    
+  
     
     if($stripper->offsetExists('act_date')) $ActDate = $stripper->offsetGet('act_date')->getFilterValue();
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
@@ -418,6 +433,8 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
     if($stripper->offsetExists('activity_tracking_date')) $ActivityTrackingDate = $stripper->offsetGet('activity_tracking_date')->getFilterValue();
     if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
+    if($stripper->offsetExists('realization_date')) $realization = $stripper->offsetGet('realization_date')->getFilterValue();
+    if($stripper->offsetExists('report')) $report = $stripper->offsetGet('report')->getFilterValue();
   
     $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
@@ -433,6 +450,8 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
             'ManagerDescription' => $ManagerDescription,   
             'ActivityTrackingDate' => $ActivityTrackingDate,   
             'ActivtyTrackingTypeId' => $activtyTrackingTypeId,   
+            'RealizationDate' => $realization,   
+            'report' => $report,   
           
             'pk' => $pk));
         
@@ -451,7 +470,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoCustomerActivationsBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsertAct_infocustomeractivations" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdateAct_infocustomeractivations" end point, X-Public variable not found');    
      $pk =  $headerParams['X-Public'];
       
      $vId = NULL;
@@ -520,7 +539,18 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if (isset($_GET['activty_tracking_type_id'])) {
         $stripper->offsetSet('activty_tracking_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['activty_tracking_type_id']));
     }
-    
+    $realization = NULL;
+    if (isset($_GET['realization_date'])) {
+         $stripper->offsetSet('realization_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['realization_date']));
+    }  
+    $report = NULL;
+    if (isset($_GET['report'])) {
+         $stripper->offsetSet('report',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['report']));
+    }  
     
     // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
     
@@ -542,7 +572,8 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
     if($stripper->offsetExists('activity_tracking_date')) $ActivityTrackingDate = $stripper->offsetGet('activity_tracking_date')->getFilterValue();
     if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
-  
+    if($stripper->offsetExists('realization_date')) $realization = $stripper->offsetGet('realization_date')->getFilterValue();
+    if($stripper->offsetExists('report')) $report = $stripper->offsetGet('report')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
     $resDataInsert = $BLL->updateAct(array( 
@@ -558,7 +589,9 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
             'Description' => $Description,  
             'ManagerDescription' => $ManagerDescription,  
             'ActivityTrackingDate' => $ActivityTrackingDate,   
-            'ActivtyTrackingTypeId' => $activtyTrackingTypeId,   
+            'ActivtyTrackingTypeId' => $activtyTrackingTypeId, 
+            'RealizationDate' => $realization,   
+            'report' => $report,   
             'Id' => $vId,
             'pk' => $pk));
         

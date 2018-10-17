@@ -687,7 +687,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         a.manager_description,
                         a.activity_tracking_date,
                         a.activty_tracking_type_id,        /*--------------------*/                  
-
+                        a.realization_date,
+                        a.report,
  			 
                         concat(cp.name ,' ' ,  cp.surname ) as name,
 			cp.email,
@@ -900,7 +901,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         a.manager_description,
                         a.activity_tracking_date,
                         a.activty_tracking_type_id,        /*--------------------*/                  
-
+                        a.realization_date,
+                        a.report,
  			 
                         concat(cp.name ,' ' ,  cp.surname ) as name,
 			cp.email,
@@ -1030,7 +1032,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         manager_description,
                         activity_tracking_date,
                         activty_tracking_type_id,
-                        
+                        realization_date,
+                        report,
   
                         active,
                         deleted,
@@ -1052,6 +1055,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         manager_description,
                         activity_tracking_date,
                         activty_tracking_type_id,
+                        realization_date,
+                        report,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1120,11 +1125,17 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $addSQL1 .= 'act_date,  ';
                 $addSQL2 .= "'". $ActDate."',";
             }  
-             $ActivityTrackingDate= null;
+            $ActivityTrackingDate= null;
             if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
                 $ActivityTrackingDate = $params['ActivityTrackingDate'];
                 $addSQL1 .= 'activity_tracking_date,  ';
                 $addSQL2 .= "'". $ActivityTrackingDate."',";
+            }  
+             $RealizationDate= null;
+            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
+                $RealizationDate = $params['RealizationDate'];
+                $addSQL1 .= 'realization_date,  ';
+                $addSQL2 .= "'". $RealizationDate."',";
             }  
             $CsStatuTypesId =-1111 ;  
             if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
@@ -1162,6 +1173,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
                 $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
             }   
+             $report= null;
+            if ((isset($params['report']) && $params['report'] != "")) {
+                $report = $params['report'];
+            }  
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1188,7 +1203,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             vehicle_model_id,
                             description,
                             manager_description, 
-                            activty_tracking_type_id,
+                            activty_tracking_type_id, 
+                            report,
  
                             op_user_id,
                             act_parent_id  
@@ -1206,6 +1222,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             '" . $Description . "',
                             '" . $ManagerDescription . "', 
                             " .  intval($ActivtyTrackingTypeId) . ",
+                            '" . $report . "', 
  
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_activations_id_seq)
@@ -1292,6 +1309,12 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $addSQL1 .= 'activity_tracking_date,  ';
                 $addSQL2 .= "'". $ActivityTrackingDate."',";
             }  
+             $RealizationDate= null;
+            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
+                $RealizationDate = $params['RealizationDate'];
+                $addSQL1 .= 'realization_date,  ';
+                $addSQL2 .= "'". $RealizationDate."',";
+            }  
             $CsStatuTypesId =-1111 ;  
             if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
                 $CsStatuTypesId = intval($params['CsStatuTypesId']);
@@ -1327,6 +1350,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $ActivtyTrackingTypeId = 0;
             if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
                 $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
+            }  
+            $report= null;
+            if ((isset($params['report']) && $params['report'] != "")) {
+                $report = $params['report'];
             }              
                             
             $opUserIdParams = array('pk' => $params['pk'],);
@@ -1361,6 +1388,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         description,
                         manager_description, 
                         activty_tracking_type_id,
+                        report,
                         
                         op_user_id,
                         act_parent_id  
@@ -1378,6 +1406,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     '" . $Description . "',
                     '" . $ManagerDescription . "', 
                     " .  intval($ActivtyTrackingTypeId) . ",
+                    '" . $report . "', 
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
