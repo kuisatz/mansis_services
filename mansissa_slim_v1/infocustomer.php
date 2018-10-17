@@ -525,6 +525,12 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
                                                 $app,
                                                 $_GET['reliability_id']));
     } 
+    $credibilityId = NULL;
+    if (isset($_GET['credibilityId'])) {
+         $stripper->offsetSet('credibilityId',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['credibilityId']));
+    } 
     $turnoverRateId = NULL;
     if (isset($_GET['turnover_rate_id'])) {
          $stripper->offsetSet('turnover_rate_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -641,7 +647,7 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
       if($stripper->offsetExists('country_id')) $country = $stripper->offsetGet('country_id')->getFilterValue();
        if($stripper->offsetExists('city_id')) $city = $stripper->offsetGet('city_id')->getFilterValue();
      //  if($stripper->offsetExists('turnover_rate_id')) $turnoverRateId = $stripper->offsetGet('turnover_rate_id')->getFilterValue();
-    
+    if($stripper->offsetExists('credibilityId')) $credibilityId = $stripper->offsetGet('credibilityId')->getFilterValue();
     
   
     $resDataInsert = $BLL->insertAct(array(
@@ -675,6 +681,7 @@ $app->get("/pkInsertAct_infocustomer/", function () use ($app ) {
          'CountryId' => $country,  
          'TurnoverRateId' => $turnoverRateId,  
          'FirmCountryId' => $country2,  
+         'CredibilityId' => $credibilityId,  
         
           
             'pk' => $pk));

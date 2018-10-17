@@ -1510,6 +1510,11 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['ReliabilityId']) && $params['ReliabilityId'] != "")) {
                 $reliabilityId = intval($params['ReliabilityId']);
             } 
+           // $CredibilityId = 0;
+            if ((isset($params['CredibilityId']) && $params['CredibilityId'] != "")) {
+                $reliabilityId = intval($params['CredibilityId']);
+            } 
+            
             $turnoverRateId = 0;
             if ((isset($params['TurnoverRateId']) && $params['TurnoverRateId'] != "")) {
                 $turnoverRateId = intval($params['TurnoverRateId']);
