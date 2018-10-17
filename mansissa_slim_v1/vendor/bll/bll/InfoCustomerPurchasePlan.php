@@ -124,6 +124,16 @@ class InfoCustomerPurchasePlan  extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('infoCustomerPurchasePlanPostgrePDO');
         return $DAL->insertAct($params);
     }
+    
+    /**
+     * Data update action function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateAct($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoCustomerPurchasePlanPostgrePDO');
+        return $DAL->updateAct($params);
+    }
    
     
 }

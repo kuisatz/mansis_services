@@ -319,7 +319,7 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-     $lastPurchaseDate = NULL;
+        $lastPurchaseDate = NULL;
     if (isset($_GET['last_purchase_date'])) {
          $stripper->offsetSet('last_purchase_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
@@ -335,7 +335,7 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
     if (isset($_GET['customer_id'])) {
         $stripper->offsetSet('customer_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_id']));
     }
-      $quantity= NULL;
+    $quantity= NULL;
     if (isset($_GET['quantity'])) {
         $stripper->offsetSet('quantity', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['quantity']));
     } 
@@ -351,8 +351,16 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $app,
                                                 $_GET['last_brand']));
     }  
-      
-    // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
+    $purchaseDecisionId= NULL;
+    if (isset($_GET['purchase_decision_id'])) {
+        $stripper->offsetSet('purchase_decision_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['purchase_decision_id']));
+    } 
+     $dateOfPlanId= NULL;
+    if (isset($_GET['date_of_plan_id'])) {
+        $stripper->offsetSet('date_of_plan_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['date_of_plan_id']));
+    } 
+   
+    //  &customer_id=1&last_purchase_date=2016-04-10&date_of_purchase=2018-10-10&quantity=22&description=asdasd&last_brand=VW
      
     $stripper->strip(); 
     
@@ -362,6 +370,8 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
     if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
     if($stripper->offsetExists('last_brand')) $lastBrand = $stripper->offsetGet('last_brand')->getFilterValue();
+    if($stripper->offsetExists('purchase_decision_id')) $purchaseDecisionId = $stripper->offsetGet('purchase_decision_id')->getFilterValue();
+    if($stripper->offsetExists('date_of_plan_id')) $dateOfPlanId = $stripper->offsetGet('date_of_plan_id')->getFilterValue();
  
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
@@ -372,6 +382,8 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
             'Quantity' => $quantity,  
             'LastBrand' => $lastBrand,  
             'Description' => $Description,  
+            'PurchaseDecisionId' => $purchaseDecisionId,  
+            'DateOfPlanId' => $dateOfPlanId,  
             'Id' => $vId,
             'pk' => $pk));
         

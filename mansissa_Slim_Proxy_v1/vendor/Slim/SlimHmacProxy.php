@@ -76,6 +76,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'pkFillCustomerPurchaseGridx_infocustomerpurchaseplan' => 'restApiDefaultCall',  
                                     'pkInsertAct_infocustomerpurchaseplan' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infocustomerpurchaseplan' => 'restApiDefaultCall', 
+        
+                                    'pkUpdateAct_infocustomerpurchaseplan' => 'restApiDefaultCall', 
             
             //** infoCustomerPurchasePlanBLL ----------------------//   
             //**---- sysCurrencyTypesBLL -------------------  

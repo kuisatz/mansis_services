@@ -208,11 +208,10 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                 CONCAT( ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM info_customer_purchase_plan  a                          
             WHERE 
-                a.customer_id = " . intval($params['customer_id']) . " AND 
-                a.act_date = '" .  ($params['act_date']) . "' AND 
-                a.contact_person_id = " . intval($params['contact_person_id']) . "   
+                a.customer_id = " . intval($params['customer_id']) . " AND  
+                a.date_of_plan_id = " . intval($params['date_of_plan_id']) . "   
                 " . $addSql . " 
-                AND a.deleted =0    
+                AND a.deleted =0   
                  
                                ";
             $statement = $pdo->prepare($sql);
@@ -765,7 +764,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
-            $kontrol =0 ;                
+                            
             $errorInfo[0] = "99999";
             $addSQL1 =null ;    
             $addSQL2 =null ;             
@@ -859,5 +858,146 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
+        /**
+     * @author Okan CIRAN
+     * info_customer_purchase_plan tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo->beginTransaction();
+            $errorInfo[0] = "99999";
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {    
+                throw new \PDOException($errorInfo[0]);
+            }
+
+            $errorInfo[0] = "99999";
+            $addSQL1 =null ;    
+            $addSQL2 =null ;             
+            $CustomerId=-1111 ;               
+            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
+                $CustomerId = intval($params['CustomerId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }                
+            $LastPurchaseDate= null;
+            if ((isset($params['LastPurchaseDate']) && $params['LastPurchaseDate'] != "")) {
+                $LastPurchaseDate = $params['LastPurchaseDate'];
+                $addSQL1 .= 'last_purchase_date,  ';
+                $addSQL2 .= "'". $LastPurchaseDate."',";
+            }  
+            $DateOfPurchase= null;
+            if ((isset($params['DateOfPurchase']) && $params['DateOfPurchase'] != "")) {
+                $DateOfPurchase = $params['DateOfPurchase'];
+                $addSQL1 .= 'date_of_purchase,  ';
+                $addSQL2 .= "'". $DateOfPurchase."',";
+            }               
+            $Quantity = 0;
+            if ((isset($params['Quantity']) && $params['Quantity'] != "")) {
+                $Quantity = intval($params['Quantity']);
+            }            
+            $Description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $Description = $params['Description'];
+            }             
+            $LastBrand= null;
+            if ((isset($params['LastBrand']) && $params['LastBrand'] != "")) {
+                $LastBrand = $params['LastBrand'];
+            }  
+            $PurchaseDecisionId=null ;               
+            if ((isset($params['PurchaseDecisionId']) && $params['PurchaseDecisionId'] != "")) {
+                $PurchaseDecisionId = intval($params['PurchaseDecisionId']);
+            }   
+             $DateOfPlanId=null ;               
+            if ((isset($params['DateOfPlanId']) && $params['DateOfPlanId'] != "")) {
+                $DateOfPlanId = intval($params['DateOfPlanId']);
+            } 
+          
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'customer_id' =>$CustomerId,
+                            'date_of_plan_id' => $DateOfPlanId,
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['Id']));
+
+               $sql = "
+                INSERT INTO info_customer_purchase_plan (  
+                        customer_id, 
+                        last_brand,
+                        description,
+                        ".$addSQL1." 
+                        quantity,
+                        purchase_decision_id,
+                        date_of_plan_id, 
+                        
+                        op_user_id,
+                        act_parent_id 
+                        )  
+                SELECT  
+                    " .  intval($CustomerId). ", 
+                    '" . $LastBrand . "',
+                    '" . $Description . "',
+                    ".$addSQL2."  
+                    " .  intval($Quantity) . ", 
+                    " .  intval($PurchaseDecisionId) . ", 
+                    " .  intval($DateOfPlanId) . ",  
+                  
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id
+                FROM info_customer_purchase_plan 
+                WHERE 
+                    id  =" . intval($Id) . "                  
+                                                ";
+                    $statementInsert = $pdo->prepare($sql);
+                  //    echo debugPDO($sql, $params);
+                    $result = $statementInsert->execute(); 
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+
+                     
+                    $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');}
+                    else $insertID =0 ;  
+                    
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
                             
 }
