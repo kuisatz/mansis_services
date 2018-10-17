@@ -870,11 +870,12 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $isboConfirm = -1 ; 
-            if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
-                $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
-            }      
+            $addSql =  "" ;
+            $CustomerId= -1 ; 
+             if (isset($params['CustomerId']) && $params['CustomerId'] != "") {
+                 $CustomerId = $params['CustomerId']; 
+                  $addSql =  " a.customer_id  = " . intval($CustomerId)." AND " ;
+             }        
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 

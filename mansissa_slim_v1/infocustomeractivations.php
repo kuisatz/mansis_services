@@ -145,6 +145,12 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                                                 $app,
                                                 $_GET['lid']));
     }
+     $customerId = NULL;
+    if (isset($_GET['customer_id'])) {
+         $stripper->offsetSet('customer_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_id']));
+    } 
     $stripper->strip();
     if($stripper->offsetExists('lid')) $lid = $stripper->offsetGet('lid')->getFilterValue();
     if ($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();    
@@ -154,6 +160,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
     if ($stripper->offsetExists('sort')) { $vSort = $stripper->offsetGet('sort')->getFilterValue(); }
     if ($stripper->offsetExists('order')) { $vOrder = $stripper->offsetGet('order')->getFilterValue(); }
     if ($stripper->offsetExists('filterRules')) { $filterRules = $stripper->offsetGet('filterRules')->getFilterValue(); } 
+    if ($stripper->offsetExists('customer_id')) { $customerId = $stripper->offsetGet('customer_id')->getFilterValue(); }
 
     $resDataGrid = $BLL->fillCustomeractivationsGridx(array(
         'language_code' => $vLanguageCode,
@@ -162,6 +169,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
         'rows' => $vRows,
         'sort' => $vSort,
         'order' => $vOrder,
+        'CustomerId' => $customerId,
  
         'filterRules' => $filterRules,
         'pk' => $pk,
