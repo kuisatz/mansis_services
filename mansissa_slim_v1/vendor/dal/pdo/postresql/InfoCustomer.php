@@ -1703,9 +1703,9 @@ class InfoCustomer extends \DAL\DalSlim {
             
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
-            $addSQL1 =null ;    
+           $addSQL1 =null ;    
             $addSQL2 =null ;             
-           $embraceCustomerNo = null;
+            $embraceCustomerNo = null;
             if ((isset($params['EmbraceCustomerNo']) && $params['EmbraceCustomerNo'] != "")) {
                 $embraceCustomerNo = $params['EmbraceCustomerNo'];
             } else {
@@ -1831,7 +1831,7 @@ class InfoCustomer extends \DAL\DalSlim {
             if ((isset($params['CityId']) && $params['CityId'] != "")) {
                 $cityId = intval($params['CityId']);
             }  
-             $phonenumber= null;
+            $phonenumber= null;
             if ((isset($params['PhoneNumber']) && $params['PhoneNumber'] != "")) {
                 $phonenumber = $params['PhoneNumber'];
             }  
