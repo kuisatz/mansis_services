@@ -687,16 +687,13 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         a.activity_tracking_date,
                         a.activty_tracking_type_id,        /*--------------------*/                  
 
- 			cp.name,
-			cp.surname,
+ 			 
+                        concat(cp.name ,' ' ,  cp.surname ) as name,
 			cp.email,
 			cp.cep,
 			cp.tel,
 			cp.fax, 
-                        cs.embrace_customer_no , 
-                        cs.tu_emb_customer_no,
-			cs.ce_emb_customer_no,
-			cs.other_emb_customer_no,
+                      
                         cs.www, 
                         cs.vatnumber, 
                         cs.registration_number, 

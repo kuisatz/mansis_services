@@ -185,10 +185,11 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "registration_name" => html_entity_decode($menu["registration_name"]),
                 "trading_name" => html_entity_decode($menu["trading_name"]),
              
-                "embrace_customer_no" => html_entity_decode($menu["embrace_customer_no"]),
+           /*     "embrace_customer_no" => html_entity_decode($menu["embrace_customer_no"]),
                 "tu_emb_customer_no" => html_entity_decode($menu["tu_emb_customer_no"]),
                 "ce_emb_customer_no" => html_entity_decode($menu["ce_emb_customer_no"]),
                 "other_emb_customer_no" => html_entity_decode($menu["other_emb_customer_no"]),
+            */ 
                 "www" => html_entity_decode($menu["www"]),
                 "vatnumber" => html_entity_decode($menu["vatnumber"]),
                 "registration_number" => html_entity_decode($menu["registration_number"]),
@@ -214,7 +215,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "manager_description" => html_entity_decode($menu["manager_description"]),
                
                 "name" => html_entity_decode($menu["name"]),
-                "surname" => html_entity_decode($menu["surname"]),
+             
                 "email" => html_entity_decode($menu["email"]),
                 "cep" => html_entity_decode($menu["cep"]),
                 "tel" => html_entity_decode($menu["tel"]),
