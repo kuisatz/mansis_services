@@ -870,8 +870,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $addSql =  "" ;
-            $CustomerId= -1 ; 
+            $addSql =  "" ; 
              if (isset($params['CustomerId']) && $params['CustomerId'] != "") {
                  $CustomerId = $params['CustomerId']; 
                   $addSql =  " a.customer_id  = " . intval($CustomerId)." AND " ;
