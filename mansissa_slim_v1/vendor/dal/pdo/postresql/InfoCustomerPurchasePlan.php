@@ -571,7 +571,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                             
                             
                 $sql = "    
-                    SELECT  
+                      SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
 			a.customer_id,
@@ -595,7 +595,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer_purchase_plan a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "   AND lx.show_it =0 
+                    LEFT JOIN sys_language lx ON lx.id =" . intval($languageIdValue) . "  AND lx.show_it =0 
                    
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
@@ -615,6 +615,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0     
+                   
                 " . $sorguStr . " 
                 /*  ORDER BY    " . $sort . " "
                     . "" . $order . " "
