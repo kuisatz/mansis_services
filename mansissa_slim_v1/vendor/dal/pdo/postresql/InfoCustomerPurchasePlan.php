@@ -976,7 +976,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                      
                     $affectedRows = $statementInsert->rowCount();
                     if ($affectedRows> 0 ){
-                    $insertID = $pdo->lastInsertId('sys_acc_body_deff_id_seq');}
+                    $insertID = $pdo->lastInsertId('info_customer_purchase_plan_id_seq');}
                     else $insertID =0 ;  
                     
                     $pdo->commit();
