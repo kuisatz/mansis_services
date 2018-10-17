@@ -1042,29 +1042,28 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
             $kontrol =0 ;                
+            $addSQL1 =null ;    
+            $addSQL2 =null ;   
             $errorInfo[0] = "99999";
-                            
-            $CustomerId=-1111 ;               
+           $CustomerId=-1111 ;               
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $CustomerId = intval($params['CustomerId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }  
-                            
             $Name = null;
             if ((isset($params['Name']) && $params['Name'] != "")) {
                 $Name = $params['Name'];
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
+            
             $Surname = null;
             if ((isset($params['Surname']) && $params['Surname'] != "")) {
-                $Surname = $params['Surname']; 
+                $Surname = $params['Surname'];
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }
-                            
             $Email = null;
             if ((isset($params['Email']) && $params['Email'] != "")) {
                 $Email = $params['Email'];
@@ -1072,10 +1071,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $Cep = null;
             if ((isset($params['Cep']) && $params['Cep'] != "")) {
                 $Cep = $params['Cep'];
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-                            
+            } 
             $Tel = null;
             if ((isset($params['Tel']) && $params['Tel'] != "")) {
                 $Tel = $params['Tel'];
@@ -1083,7 +1079,37 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $Fax=-1111 ;  
             if ((isset($params['Fax']) && $params['Fax'] != "")) {
                 $Fax = intval($params['Fax']);
-            }               
+            }   
+            $title = null ;  
+            if ((isset($params['Title']) && $params['Title'] != "")) {
+                $title =  ($params['Title']);
+            }  
+            $PriorityId = null ;  
+            if ((isset($params['PriorityId']) && $params['PriorityId'] != "")) {
+                $PriorityId = intval($params['PriorityId']);
+            }                
+            $ConEndDate= null;
+            if ((isset($params['ConEndDate']) && $params['ConEndDate'] != "")) {
+                $ConEndDate = $params['ConEndDate'];
+                $addSQL1 = 'con_end_date,  ';
+                $addSQL2 = "'". $ConEndDate."',";
+            }  
+            $reference = null ;  
+            if ((isset($params['reference']) && $params['reference'] != "")) {
+                $reference =  ($params['reference']);
+            }  
+            $CompetitorSatisfactionId = null ;  
+            if ((isset($params['CompetitorSatisfactionId']) && $params['CompetitorSatisfactionId'] != "")) {
+                $CompetitorSatisfactionId = intval($params['CompetitorSatisfactionId']);
+            }  
+            $BrandLoyaltyId = null ;  
+            if ((isset($params['BrandLoyaltyId']) && $params['BrandLoyaltyId'] != "")) {
+                $BrandLoyaltyId = intval($params['BrandLoyaltyId']);
+            }  
+            $LastBrandId = null ;  
+            if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
+                $LastBrandId = intval($params['LastBrandId']);
+            }              
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1100,25 +1126,40 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO info_customer_contact_persons(
-                            customer_id, 
-                            name,
-                            surname,
-                            email,
-                            cep,
-                            tel,
-                            fax,
+                        customer_id, 
+                        name,
+                        surname,
+                        email,
+                        cep,
+                        tel,
+                        fax,
+                        title,
+                        priority_id,
+                        ".$addSQL1." 
+                        reference,
+                  
+                        competitor_satisfaction_id,
+                        brand_loyalty_id,
+                        last_brand_id,
  
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES ( 
-                            " .  intval($CustomerId). ",
+                             " .  intval($CustomerId). ",
                             '" .   ($Name) . "',
                             '" .   ($Surname). "',
                             '" .   ($Email). "',
                             '" .   ($Cep). "',
                             '" .   ($Tel). "',
                             '" .   ($Fax). "',
+                            '" .   ($title). "',
+                            " . intval($PriorityId) . ", 
+                            ".$addSQL2." 
+                            '" .   ($reference). "',
+                            " . intval($CompetitorSatisfactionId) . ", 
+                            " . intval($BrandLoyaltyId) . ", 
+                            " . intval($LastBrandId) . ", 
                          
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_contact_persons_id_seq)
@@ -1164,7 +1205,8 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction(); 
             $errorInfo[0] = "99999";
-            
+            $addSQL1 =null ;    
+            $addSQL2 =null ;     
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
@@ -1208,7 +1250,37 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $Fax=-1111 ;  
             if ((isset($params['Fax']) && $params['Fax'] != "")) {
                 $Fax = intval($params['Fax']);
-            }                 
+            }   
+            $title = null ;  
+            if ((isset($params['Title']) && $params['Title'] != "")) {
+                $title =  ($params['Title']);
+            }  
+            $PriorityId = null ;  
+            if ((isset($params['PriorityId']) && $params['PriorityId'] != "")) {
+                $PriorityId = intval($params['PriorityId']);
+            }                
+            $ConEndDate= null;
+            if ((isset($params['ConEndDate']) && $params['ConEndDate'] != "")) {
+                $ConEndDate = $params['ConEndDate'];
+                $addSQL1 = 'con_end_date,  ';
+                $addSQL2 = "'". $ConEndDate."',";
+            }  
+            $reference = null ;  
+            if ((isset($params['reference']) && $params['reference'] != "")) {
+                $reference =  ($params['reference']);
+            }  
+            $CompetitorSatisfactionId = null ;  
+            if ((isset($params['CompetitorSatisfactionId']) && $params['CompetitorSatisfactionId'] != "")) {
+                $CompetitorSatisfactionId = intval($params['CompetitorSatisfactionId']);
+            }  
+            $BrandLoyaltyId = null ;  
+            if ((isset($params['BrandLoyaltyId']) && $params['BrandLoyaltyId'] != "")) {
+                $BrandLoyaltyId = intval($params['BrandLoyaltyId']);
+            }  
+            $LastBrandId = null ;  
+            if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
+                $LastBrandId = intval($params['LastBrandId']);
+            }  
                             
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1238,7 +1310,15 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         cep,
                         tel,
                         fax,
-                        
+                        title,
+                        priority_id,
+                        ".$addSQL1." 
+                        reference,
+                  
+                        competitor_satisfaction_id,
+                        brand_loyalty_id,
+                        last_brand_id,
+                         
                         op_user_id,
                         act_parent_id  
                         )  
@@ -1250,6 +1330,13 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                     '" .   ($Cep). "',
                     '" .   ($Tel). "',
                     '" .   ($Fax). "',
+                    '" .   ($title). "',
+                    " . intval($PriorityId) . ", 
+                    ".$addSQL2." 
+                    '" .   ($reference). "',
+                    " . intval($CompetitorSatisfactionId) . ", 
+                    " . intval($BrandLoyaltyId) . ", 
+                    " . intval($LastBrandId) . ", 
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

@@ -1236,7 +1236,7 @@ class SysAccBodyDeff extends \DAL\DalSlim {
                     act_parent_id
                 FROM sys_acc_body_deff 
                 WHERE 
-                    language_id = 385 AND id  =" . intval($Id) . "                  
+                     id  =" . intval($Id) . "                  
                                                 ";
                     $statementInsert = $pdo->prepare($sql);
                   //    echo debugPDO($sql, $params);
