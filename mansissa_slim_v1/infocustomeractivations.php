@@ -178,6 +178,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
     $resTotalRowCount = $BLL->fillCustomeractivationsGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
+        'CustomerId' => $customerId,
   
         'filterRules' => $filterRules,
         'pk' => $pk,
