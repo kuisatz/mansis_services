@@ -222,6 +222,11 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 
                 
                 
+                "activity_tracking_date" =>  ($menu["activity_tracking_date"]),
+                "activty_tracking_type_id" =>  ($menu["activty_tracking_type_id"]),
+                "activty_tracking_type_name" =>  (""),
+                 
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -376,12 +381,16 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
                                                 $app,
                                                 $_GET['manager_description']));
     }  
-    
-    
-    
-    // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
-    
-    
+     $ActivityTrackingDate = NULL;
+    if (isset($_GET['activity_tracking_date'])) {
+         $stripper->offsetSet('activity_tracking_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['activity_tracking_date']));
+    }  
+     $activtyTrackingTypeId= NULL;
+    if (isset($_GET['activty_tracking_type_id'])) {
+        $stripper->offsetSet('activty_tracking_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['activty_tracking_type_id']));
+    }
      
     $stripper->strip();
     
@@ -397,7 +406,8 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('vehicle_model_id')) $VehicleModelId= $stripper->offsetGet('vehicle_model_id')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
     if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
- 
+    if($stripper->offsetExists('activity_tracking_date')) $ActivityTrackingDate = $stripper->offsetGet('activity_tracking_date')->getFilterValue();
+    if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
   
     $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
@@ -411,6 +421,8 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
             'VehicleModelId' => $VehicleModelId,   
             'Description' => $Description,  
             'ManagerDescription' => $ManagerDescription,   
+            'ActivityTrackingDate' => $ActivityTrackingDate,   
+            'ActivtyTrackingTypeId' => $activtyTrackingTypeId,   
           
             'pk' => $pk));
         
@@ -488,7 +500,16 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
                                                 $app,
                                                 $_GET['manager_description']));
     }  
-    
+    $ActivityTrackingDate = NULL;
+    if (isset($_GET['activity_tracking_date'])) {
+         $stripper->offsetSet('activity_tracking_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['activity_tracking_date']));
+    }  
+     $activtyTrackingTypeId= NULL;
+    if (isset($_GET['activty_tracking_type_id'])) {
+        $stripper->offsetSet('activty_tracking_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['activty_tracking_type_id']));
+    }
     
     
     // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
@@ -509,6 +530,9 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('vehicle_model_id')) $VehicleModelId= $stripper->offsetGet('vehicle_model_id')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
     if($stripper->offsetExists('manager_description')) $ManagerDescription = $stripper->offsetGet('manager_description')->getFilterValue();
+    if($stripper->offsetExists('activity_tracking_date')) $ActivityTrackingDate = $stripper->offsetGet('activity_tracking_date')->getFilterValue();
+    if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
+  
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
     $resDataInsert = $BLL->updateAct(array( 
@@ -522,7 +546,9 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
             'CustomerSegmentTypeId' => $CustomerSegmentTypeId,     
             'VehicleModelId' => $VehicleModelId,   
             'Description' => $Description,  
-            'ManagerDescription' => $ManagerDescription,   
+            'ManagerDescription' => $ManagerDescription,  
+            'ActivityTrackingDate' => $ActivityTrackingDate,   
+            'ActivtyTrackingTypeId' => $activtyTrackingTypeId,   
             'Id' => $vId,
             'pk' => $pk));
         

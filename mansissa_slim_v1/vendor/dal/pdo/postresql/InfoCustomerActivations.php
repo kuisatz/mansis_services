@@ -684,6 +684,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 			vg.name as vehicle_model_name,
 			a.description , 
                         a.manager_description,
+                        a.activity_tracking_date,
+                        a.activty_tracking_type_id,        /*--------------------*/                  
+
  			cp.name,
 			cp.surname,
 			cp.email,
@@ -1033,6 +1036,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         vehicle_model_id,
                         description,
                         manager_description,
+                        activity_tracking_date,
+                        activty_tracking_type_id,
+                        
   
                         active,
                         deleted,
@@ -1052,6 +1058,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         vehicle_model_id,
                         description,
                         manager_description,
+                        activity_tracking_date,
+                        activty_tracking_type_id,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1117,8 +1125,14 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $ActDate= null;
             if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
                 $ActDate = $params['ActDate'];
-                $addSQL1 = 'act_date,  ';
-                $addSQL2 = "'". $ActDate."',";
+                $addSQL1 .= 'act_date,  ';
+                $addSQL2 .= "'". $ActDate."',";
+            }  
+             $ActivityTrackingDate= null;
+            if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
+                $ActivityTrackingDate = $params['ActivityTrackingDate'];
+                $addSQL1 .= 'activity_tracking_date,  ';
+                $addSQL2 .= "'". $ActivityTrackingDate."',";
             }  
             $CsStatuTypesId =-1111 ;  
             if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
@@ -1151,7 +1165,11 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $ManagerDescription= null;
             if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
                 $ManagerDescription = $params['ManagerDescription'];
-            }              
+            }   
+            $ActivtyTrackingTypeId = 0;
+            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
+                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
+            }   
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1170,14 +1188,15 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             customer_id,
                             contact_person_id,
                             cs_activation_type_id,
-                            ".$addSQL1."  
+                            ".$addSQL1."   
                             cs_statu_types_id,
                             cs_act_statutype_id,
                             project_id,
                             customer_segment_type_id,
                             vehicle_model_id,
                             description,
-                            manager_description,
+                            manager_description, 
+                            activty_tracking_type_id,
  
                             op_user_id,
                             act_parent_id  
@@ -1194,6 +1213,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             " .  intval($VehicleModelId) . ",
                             '" . $Description . "',
                             '" . $ManagerDescription . "', 
+                            " .  intval($ActivtyTrackingTypeId) . ",
  
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_activations_id_seq)
@@ -1251,8 +1271,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $errorInfo[0] = "99999";
             $addSQL1 =null ;    
             $addSQL2 =null ;             
-          $CustomerId=-1111 ;               
-            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
+          if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $CustomerId = intval($params['CustomerId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
@@ -1272,8 +1291,14 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $ActDate= null;
             if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
                 $ActDate = $params['ActDate'];
-                $addSQL1 = 'act_date,  ';
-                $addSQL2 = "'". $ActDate."',";
+                $addSQL1 .= 'act_date,  ';
+                $addSQL2 .= "'". $ActDate."',";
+            }  
+             $ActivityTrackingDate= null;
+            if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
+                $ActivityTrackingDate = $params['ActivityTrackingDate'];
+                $addSQL1 .= 'activity_tracking_date,  ';
+                $addSQL2 .= "'". $ActivityTrackingDate."',";
             }  
             $CsStatuTypesId =-1111 ;  
             if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
@@ -1306,6 +1331,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $ManagerDescription= null;
             if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
                 $ManagerDescription = $params['ManagerDescription'];
+            }   
+            $ActivtyTrackingTypeId = 0;
+            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
+                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
             }              
                             
             $opUserIdParams = array('pk' => $params['pk'],);
@@ -1331,14 +1360,15 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         customer_id,
                         contact_person_id,
                         cs_activation_type_id,
-                        ".$addSQL1."  
+                        ".$addSQL1."   
                         cs_statu_types_id,
                         cs_act_statutype_id,
                         project_id,
                         customer_segment_type_id,
                         vehicle_model_id,
                         description,
-                        manager_description,
+                        manager_description, 
+                        activty_tracking_type_id,
                         
                         op_user_id,
                         act_parent_id  
@@ -1355,6 +1385,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     " .  intval($VehicleModelId) . ",
                     '" . $Description . "',
                     '" . $ManagerDescription . "', 
+                    " .  intval($ActivtyTrackingTypeId) . ",
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
