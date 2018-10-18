@@ -131,6 +131,9 @@ class BLLManagerConfig{
                  
                    'sysSisStatusBLL' => 'BLL\BLL\SysSisStatus',
                    'sysStrategicImportancesBLL' => 'BLL\BLL\SysStrategicImportances',
+                 
+                   'sysSourceOfLeadBLL' => 'BLL\BLL\SysSourceOfLead',
+                 
                    'sysSupplierBLL' => 'BLL\BLL\SysSupplier',
                    'sysTerrainsBLL' => 'BLL\BLL\SysTerrains',
                    'sysTonnageBLL' => 'BLL\BLL\SysTonnage', 

@@ -22,6 +22,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+          //**---- sysTitlesBLL -------------------   
+                                    'pkSourceOfLeadDdList_syssourceoflead' => 'restApiDefaultCall',  
+        //** sysTitlesBLL ----------------------//   
         
            //**---- sysTitlesBLL -------------------   
                                     'pkTitlesCustomerDdList_systitles' => 'restApiDefaultCall',  
@@ -2155,6 +2158,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
+            case "_syssourceoflead":  
+                $this->setRestApiEndPoint('syssourceoflead.php/');
+                break;  
             case "_systitles":  
                 $this->setRestApiEndPoint('systitles.php/');
                 break;  

@@ -86,7 +86,7 @@ class DalManagerConfig {
                    'sysCustomerSectorTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCustomerSectorTypesFactory',
                    'sysCustomerSegmentTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCustomerSegmentTypesFactory',
                    'sysCustomerTurnoverRatesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCustomerTurnoverRatesFactory',
-              'sysCustomerTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCustomerTypesFactory',
+                   'sysCustomerTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysCustomerTypesFactory',
                    'sysDemoAllocationTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysDemoAllocationTypesFactory',
                    'sysDemoQuotasOraPDO' => 'DAL\Factory\PDO\Oracle\SysDemoQuotasFactory',
                    'sysDepartmentsOraPDO' => 'DAL\Factory\PDO\Oracle\SysDepartmentsFactory',
@@ -98,6 +98,8 @@ class DalManagerConfig {
                    'sysFinanceTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysFinanceTypesFactory',
                    'sysFixedSalesCostsOraPDO' => 'DAL\Factory\PDO\Oracle\SysFixedSalesCostsFactory',
                    'sysKpnumbersOraPDO' => 'DAL\Factory\PDO\Oracle\SysKpnumbersFactory',
+                   'sysSourceOfLeadOraPDO' => 'DAL\Factory\PDO\Oracle\SysSourceOfLeadFactory',                
+                
                    'sysMileagesOraPDO' => 'DAL\Factory\PDO\Oracle\SysMileagesFactory',
                    'sysMonthsOraPDO' => 'DAL\Factory\PDO\Oracle\SysMonthsFactory',
                    'sysNumericalRangesOraPDO' => 'DAL\Factory\PDO\Oracle\SysNumericalRangesFactory',
@@ -291,6 +293,9 @@ class DalManagerConfig {
                 'sysFixedSalesCostsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysFixedSalesCostsFactory',
                 'sysHorsepowerPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysHorsepowerFactory',                
                 'sysKpnumbersPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysKpnumbersFactory',
+                
+                'sysSourceOfLeadPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysSourceOfLeadFactory',
+                
                 'sysMileagesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMileagesFactory',
                 'sysMonthsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysMonthsFactory',
                 'sysNumericalRangesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysNumericalRangesFactory',
