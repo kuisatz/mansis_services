@@ -1255,7 +1255,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'fillMaybeYesNoTypes_sysSpecificDefinitions' => 'restApiDefaultCall', 
         
                                     'getserverkontrol_sysSpecificDefinitions' => 'restApiDefaultCall', 
-        
+                                    'testfileupload_sysSpecificDefinitions' => 'restApiDefaultCall', 
         
         
         

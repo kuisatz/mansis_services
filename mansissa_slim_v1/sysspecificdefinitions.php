@@ -666,6 +666,118 @@ $app->get("/fillMaybeYesNoTypes_sysSpecificDefinitions/", function () use ($app 
     $app->response()->body(json_encode($menus));
 });
 
+/**
+ *  * Okan CIRAN
+ * @since 15-07-2016
+ */
+$app->get("/testfileupload_sysSpecificDefinitions/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    
+    //////////////////////////////////////////////
+    
+      $app->post('/uploadTest', function() {
+    
+        if(!empty($_FILES['file']['name'])){
+         $uploadedFile = '';
+         if(!empty($_FILES["file"]["type"])){
+             $fileName = time().'_'.$_FILES['file']['name'];
+             $valid_extensions = array("jpeg", "jpg", "png","pdf");
+             $temporary = explode(".", $_FILES["file"]["name"]);
+             $file_extension = end($temporary);
+             if((($_FILES["file"]["type"] == "application/pdf") ||  
+                 ($_FILES["file"]["type"] == "image/png") || 
+                 ($_FILES["file"]["type"] == "image/jpg") || 
+                 ($_FILES["file"]["type"] == "image/jpeg")) 
+                     && in_array($file_extension, $valid_extensions)){
+                 $sourcePath = $_FILES['file']['tmp_name'];
+                 $targetPath = "D:/app/uploads/".$fileName;
+                 if(move_uploaded_file($sourcePath,$targetPath)){
+                     $uploadedFile = $fileName;
+                 }
+             }
+         }
+
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+
+            //include database configuration file
+            //include_once 'dbConfig.php';
+
+            //insert form data in the database
+            //$insert = $db->query("INSERT form_data (name,email,file_name) VALUES ('".$name."','".$email."','".$uploadedFile."')");
+
+            //echo $insert?'ok':'err';
+            echo $uploadedFile?'ok':'err';
+            } 
+
+        });   
+    
+     
+    
+    ///////////////////////////////////////////
+    
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    }
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
+    } 
+    $stripper->strip();
+    
+    if ($stripper->offsetExists('sid')) 
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }
+    if ($stripper->offsetExists('lid')) 
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+
+    $resCombobox = $BLL->fillMaybeYesNoTypes(array( 
+                    'url' => $_GET['url'],  
+                    'SID' => $vSID,
+                    'LanguageID' => $vLanguageID, 
+        )); 
+
+        $menus = array();
+  //      $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); //
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" => $menu["name"],
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                 
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" => $menu["name"],
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" => $menu["name_eng"],
+               // "imageSrc" => ""
+               
+            );
+        }
+    }
+
+    $app->response()->header("Content-Type", "application/json");
+
+    $app->response()->body(json_encode($menus));
+});
+
 
 
 $app->run();
