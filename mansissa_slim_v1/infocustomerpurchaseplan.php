@@ -123,7 +123,7 @@ $app->get("/pkFillCustomerPurchaseGridx_infocustomerpurchaseplan/", function () 
                 "customer_id" =>  ($menu["customer_id"]),
                 "last_purchase_date" =>  ($menu["last_purchase_date"]),
              
-                "last_brand" => html_entity_decode($menu["last_brand"]),
+                "last_brand_id" =>  ($menu["last_brand_id"]),
                 "description" => html_entity_decode($menu["description"]),
             //    "date_of_purchase" =>  ($menu["date_of_purchase"]),
                 "quantity" =>  ($menu["quantity"]),
@@ -256,10 +256,10 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $_GET['description']));
     }   
     $lastBrand = NULL;
-    if (isset($_GET['last_brand'])) {
-         $stripper->offsetSet('last_brand',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['last_brand_id'])) {
+         $stripper->offsetSet('last_brand_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['last_brand']));
+                                                $_GET['last_brand_id']));
     }  
     $purchaseDecisionId= NULL;
     if (isset($_GET['purchase_decision_id'])) {
@@ -279,7 +279,7 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
     if($stripper->offsetExists('date_of_purchase')) $dateOfPurchase = $stripper->offsetGet('date_of_purchase')->getFilterValue();
     if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
-    if($stripper->offsetExists('last_brand')) $lastBrand = $stripper->offsetGet('last_brand')->getFilterValue();
+    if($stripper->offsetExists('last_brand_id')) $lastBrand = $stripper->offsetGet('last_brand_id')->getFilterValue();
      if($stripper->offsetExists('purchase_decision_id')) $purchaseDecisionId = $stripper->offsetGet('purchase_decision_id')->getFilterValue();
       if($stripper->offsetExists('date_of_plan_id')) $dateOfPlanId = $stripper->offsetGet('date_of_plan_id')->getFilterValue();
   
@@ -288,7 +288,7 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
             'LastPurchaseDate' => $lastPurchaseDate,  
             'DateOfPurchase' => $dateOfPurchase,   
             'Quantity' => $quantity,  
-            'LastBrand' => $lastBrand,  
+            'LastBrandId' => $lastBrand,  
             'Description' => $Description,  
             'PurchaseDecisionId' => $purchaseDecisionId,  
             'DateOfPlanId' => $dateOfPlanId,  
@@ -346,10 +346,10 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
                                                 $_GET['description']));
     }   
     $lastBrand = NULL;
-    if (isset($_GET['last_brand'])) {
-         $stripper->offsetSet('last_brand',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['last_brand_id'])) {
+         $stripper->offsetSet('last_brand_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['last_brand']));
+                                                $_GET['last_brand_id']));
     }  
     $purchaseDecisionId= NULL;
     if (isset($_GET['purchase_decision_id'])) {
@@ -369,7 +369,7 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
     if($stripper->offsetExists('date_of_purchase')) $dateOfPurchase = $stripper->offsetGet('date_of_purchase')->getFilterValue();
     if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
-    if($stripper->offsetExists('last_brand')) $lastBrand = $stripper->offsetGet('last_brand')->getFilterValue();
+    if($stripper->offsetExists('last_brand_id')) $lastBrand = $stripper->offsetGet('last_brand_id')->getFilterValue();
     if($stripper->offsetExists('purchase_decision_id')) $purchaseDecisionId = $stripper->offsetGet('purchase_decision_id')->getFilterValue();
     if($stripper->offsetExists('date_of_plan_id')) $dateOfPlanId = $stripper->offsetGet('date_of_plan_id')->getFilterValue();
  
@@ -380,7 +380,7 @@ $app->get("/pkUpdateAct_infocustomerpurchaseplan/", function () use ($app ) {
             'LastPurchaseDate' => $lastPurchaseDate,  
             'DateOfPurchase' => $dateOfPurchase,   
             'Quantity' => $quantity,  
-            'LastBrand' => $lastBrand,  
+            'LastBrandId' => $lastBrand,  
             'Description' => $Description,  
             'PurchaseDecisionId' => $purchaseDecisionId,  
             'DateOfPlanId' => $dateOfPlanId,  

@@ -236,8 +236,8 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "activty_tracking_type_id" =>  ($menu["activty_tracking_type_id"]),
                 "activty_tracking_type_name" =>  (""),
                  
-                 "report" => html_entity_decode($menu["report"]),
-                 "realization_date" =>  ($menu["realization_date"]),
+                "report" => html_entity_decode($menu["report"]),
+                "realization_date" =>  ($menu["realization_date"]),
           
                 
                 "op_username" => html_entity_decode($menu["op_user_name"]), 

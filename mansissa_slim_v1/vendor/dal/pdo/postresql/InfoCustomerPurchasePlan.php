@@ -576,7 +576,10 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         a.act_parent_id as apid, 
 			a.customer_id,
 			a.last_purchase_date,
-			a.last_brand,
+			 
+                        a.last_brand_id,
+                        vb.name AS last_brand_name,
+                        
 			a.description,
 			a.date_of_purchase,
                         a.purchase_decision_id,
@@ -601,6 +604,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     LEFT JOIN sys_numerical_ranges nr ON nr.parent_id = 27 AND nr.act_parent_id= a.date_of_plan_id AND nr.show_it =0 AND nr.language_id =l.id
+                    LEFT JOIN sys_vehicle_brand vb ON vb.act_parent_id = last_brand_id AND vb.show_it=0 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -709,6 +713,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         quantity,
                         purchase_decision_id,
                         date_of_plan_id,
+                        last_brand_id,
   
                         active,
                         deleted,
@@ -725,6 +730,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         quantity,
                         purchase_decision_id,
                         date_of_plan_id,
+                        last_brand_id,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -794,11 +800,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             $Description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $Description = $params['Description'];
-            }             
-            $LastBrand= null;
-            if ((isset($params['LastBrand']) && $params['LastBrand'] != "")) {
-                $LastBrand = $params['LastBrand'];
-            }  
+            }                
             $PurchaseDecisionId=null ;               
             if ((isset($params['PurchaseDecisionId']) && $params['PurchaseDecisionId'] != "")) {
                 $PurchaseDecisionId = intval($params['PurchaseDecisionId']);
@@ -807,6 +809,10 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             if ((isset($params['DateOfPlanId']) && $params['DateOfPlanId'] != "")) {
                 $DateOfPlanId = intval($params['DateOfPlanId']);
             } 
+            $LastBrandId=null ;               
+            if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
+                $LastBrandId = intval($params['LastBrandId']);
+            }   
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -814,25 +820,25 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                     $this->makePassive(array('id' => $params['CustomerId']));       
                     $sql = "
                     INSERT INTO info_customer_purchase_plan(
-                            customer_id, 
-                            last_brand,
+                            customer_id,  
                             description,
                             ".$addSQL1." 
                             quantity,
                             purchase_decision_id,
                             date_of_plan_id,
+                            last_brand_id,
  
                             op_user_id,
                             act_parent_id  
                             )
                     VALUES ( 
-                            " .  intval($CustomerId). ", 
-                            '" . $LastBrand . "',
+                            " .  intval($CustomerId). ",   
                             '" . $Description . "',
                             ".$addSQL2."  
                             " .  intval($Quantity) . ", 
                             " .  intval($PurchaseDecisionId) . ", 
                             " .  intval($DateOfPlanId) . ", 
+                            " .  intval($LastBrandId) . ", 
  
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_purchase_plan_id_seq)
@@ -908,11 +914,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             $Description = null;
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $Description = $params['Description'];
-            }             
-            $LastBrand= null;
-            if ((isset($params['LastBrand']) && $params['LastBrand'] != "")) {
-                $LastBrand = $params['LastBrand'];
-            }  
+            }                
             $PurchaseDecisionId=null ;               
             if ((isset($params['PurchaseDecisionId']) && $params['PurchaseDecisionId'] != "")) {
                 $PurchaseDecisionId = intval($params['PurchaseDecisionId']);
@@ -921,6 +923,10 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
             if ((isset($params['DateOfPlanId']) && $params['DateOfPlanId'] != "")) {
                 $DateOfPlanId = intval($params['DateOfPlanId']);
             } 
+            $LastBrandId=null ;               
+            if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
+                $LastBrandId = intval($params['LastBrandId']);
+            }   
           
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -948,6 +954,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         quantity,
                         purchase_decision_id,
                         date_of_plan_id, 
+                        last_brand_id,
                         
                         op_user_id,
                         act_parent_id 
@@ -960,6 +967,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                     " .  intval($Quantity) . ", 
                     " .  intval($PurchaseDecisionId) . ", 
                     " .  intval($DateOfPlanId) . ",  
+                    " .  intval($LastBrandId) . ", 
                   
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id
