@@ -126,8 +126,8 @@ $app->get("/pkFillCustomerPurchaseGridx_infocustomerpurchaseplan/", function () 
                 "last_brand_id" =>  ($menu["last_brand_id"]),
                 "description" => html_entity_decode($menu["description"]),
             //    "date_of_purchase" =>  ($menu["date_of_purchase"]),
-                "quantity" =>  ($menu["quantity"]),
-                
+                "quantity_id" =>  ($menu["quantity_id"]),
+                "quantity_name" => html_entity_decode($menu["quantity_name"]),
                 
                  "purchase_decision_id" =>  ($menu["purchase_decision_id"]), 
                 "purchase_decision" => html_entity_decode($menu["purchase_decision"]),
@@ -246,8 +246,8 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
         $stripper->offsetSet('customer_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_id']));
     }
     $quantity= NULL;
-    if (isset($_GET['quantity'])) {
-        $stripper->offsetSet('quantity', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['quantity']));
+    if (isset($_GET['quantity_id'])) {
+        $stripper->offsetSet('quantity_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['quantity_id']));
     } 
     $Description = NULL;
     if (isset($_GET['description'])) {
@@ -277,7 +277,7 @@ $app->get("/pkInsertAct_infocustomerpurchaseplan/", function () use ($app ) {
     if($stripper->offsetExists('last_purchase_date')) $lastPurchaseDate = $stripper->offsetGet('last_purchase_date')->getFilterValue();
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('date_of_purchase')) $dateOfPurchase = $stripper->offsetGet('date_of_purchase')->getFilterValue();
-    if($stripper->offsetExists('quantity')) $quantity = $stripper->offsetGet('quantity')->getFilterValue();
+    if($stripper->offsetExists('quantity_id')) $quantity = $stripper->offsetGet('quantity_id')->getFilterValue();
     if($stripper->offsetExists('description')) $Description = $stripper->offsetGet('description')->getFilterValue();
     if($stripper->offsetExists('last_brand_id')) $lastBrand = $stripper->offsetGet('last_brand_id')->getFilterValue();
      if($stripper->offsetExists('purchase_decision_id')) $purchaseDecisionId = $stripper->offsetGet('purchase_decision_id')->getFilterValue();

@@ -586,7 +586,8 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         COALESCE(NULLIF(sd32x.description, ''), sd32.description_eng) AS purchase_decision, 
                         a.date_of_plan_id,
                         nr.name as date_of_plan,
-			a.quantity, 
+			a.quantity_id, 
+                        nrq.name as quantity_name, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,
@@ -604,6 +605,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
                     LEFT JOIN sys_numerical_ranges nr ON nr.parent_id = 27 AND nr.act_parent_id= a.date_of_plan_id AND nr.show_it =0 AND nr.language_id =l.id
+                    LEFT JOIN sys_numerical_ranges nrq ON nrq.parent_id = 27 AND nrq.act_parent_id= a.quantity_id AND nrq.show_it =0 AND nrq.language_id =l.id
                     LEFT JOIN sys_vehicle_brand vb ON vb.act_parent_id = last_brand_id AND vb.show_it=0 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -710,7 +712,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         last_brand,
                         description,
                         date_of_purchase,
-                        quantity,
+                        quantity_id,
                         purchase_decision_id,
                         date_of_plan_id,
                         last_brand_id,
@@ -727,7 +729,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         last_brand,
                         description,
                         date_of_purchase,
-                        quantity,
+                        quantity_id,
                         purchase_decision_id,
                         date_of_plan_id,
                         last_brand_id,
@@ -823,7 +825,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                             customer_id,  
                             description,
                             ".$addSQL1." 
-                            quantity,
+                            quantity_id,
                             purchase_decision_id,
                             date_of_plan_id,
                             last_brand_id,
@@ -951,7 +953,7 @@ class InfoCustomerPurchasePlan extends \DAL\DalSlim {
                         last_brand,
                         description,
                         ".$addSQL1." 
-                        quantity,
+                        quantity_id,
                         purchase_decision_id,
                         date_of_plan_id, 
                         last_brand_id,
