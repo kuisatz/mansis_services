@@ -210,8 +210,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             WHERE 
                 a.customer_id = " . intval($params['customer_id']) . " AND 
                 LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))  AND 
-                LOWER(REPLACE(surname,' ','')) = LOWER(REPLACE('" . $params['surname'] . "',' ',''))  AND 
-                LOWER(REPLACE(cep,' ','')) = LOWER(REPLACE('" . $params['cep'] . "',' ',''))  
+                LOWER(REPLACE(surname,' ','')) = LOWER(REPLACE('" . $params['surname'] . "',' ',''))   
                 " . $addSql . " 
                 AND a.deleted =0    
                                ";
@@ -662,7 +661,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $isboConfirm = -1 ; 
             if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
                 $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql .=  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+                 $addSql .=  " cs.is_bo_confirm = " . intval($isboConfirm)." AND " ;
             }    
             $addSql =  " 1=2" ;
            $CustomerId= -1 ; 
@@ -678,8 +677,8 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         a.name,
 			a.surname,
 			a.email,
-			a.cep,
-			a.tel,
+			a.mobile,
+			a.phone,
 			a.fax, 
 			cs.registration_name, 
                         cs.trading_name,  
@@ -688,11 +687,26 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         cs.tu_emb_customer_no,
 			cs.ce_emb_customer_no,
 			cs.other_emb_customer_no,
-                        cs.www, 
-                        cs.vatnumber, 
+                        cs.www,                        
                         cs.registration_number, 
-                        cs.registration_date,  
-                      
+
+			a.source_of_lead_id,
+			sol.name as source_of_lead_name,
+			a.con_end_date,
+			a.title_id,
+			
+			a.title_role_id,
+			rt.name as role_name,
+			a.priority_id,
+			pt.name as priority_name,
+			a.brand_loyalty_id,
+			cr.name as brand_loyalty_name, 
+			a.last_brand_id,
+			vb.name as last_brand_name, 
+			a.competitor_satisfaction_id,
+			scs1.name as competitor_satisfaction_name, 
+			a.man_satisfaction_id,
+                        scs2.name as man_satisfaction_name, 
                         a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active, 
                         a.op_user_id,
@@ -704,12 +718,18 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         COALESCE(NULLIF(lx.language, ''), 'en') AS language_name
                     FROM info_customer_contact_persons a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "   AND lx.show_it =0  
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "   AND lx.show_it =0   
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
-                     
-                     
+		    LEFT join sys_titles rt on rt.act_parent_id = a.title_role_id AND rt.show_it =0 
+		    LEFT join sys_source_of_lead sol on sol.act_parent_id = a.source_of_lead_id AND sol.show_it =0 
+		    LEFT join sys_priority_type pt on pt.act_parent_id = a.priority_id AND pt.show_it =0 
+		    LEFT join sys_competitor_satisfaction scs1 on scs1.act_parent_id = a.competitor_satisfaction_id AND scs1.show_it =0 
+	            LEFT join sys_competitor_satisfaction scs2 on scs2.act_parent_id = a.man_satisfaction_id AND scs2.show_it =0 
+	            LEFT join sys_vehicle_brand vb on vb.act_parent_id = a.last_brand_id AND vb.show_it =0 
+		    LEFT join sys_customer_reliability cr on cr.act_parent_id = a.brand_loyalty_id AND cr.show_it =0 
+ 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -718,7 +738,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                        " . $addSql . "
+                       " . $addSql . " 
                         a.deleted =0 AND
                         a.show_it =0   
                 " . $sorguStr . " 
@@ -871,29 +891,53 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         a.name,
 			a.surname,
 			a.email,
-			a.cep,
-			a.tel,
+			a.mobile,
+			a.phone,
 			a.fax, 
 			cs.registration_name, 
-                        cs.trading_name,   
+                        cs.trading_name,  
+ 		        a.customer_id,
                         cs.embrace_customer_no , 
                         cs.tu_emb_customer_no,
 			cs.ce_emb_customer_no,
 			cs.other_emb_customer_no,
-                        cs.www, 
-                        cs.vatnumber, 
+                        cs.www,                        
                         cs.registration_number, 
-                        cs.registration_date,   
+
+			a.source_of_lead_id,
+			sol.name as source_of_lead_name,
+			a.con_end_date,
+			a.title_id,
+			
+			a.title_role_id,
+			rt.name as role_name,
+			a.priority_id,
+			pt.name as priority_name,
+			a.brand_loyalty_id,
+			cr.name as brand_loyalty_name, 
+			a.last_brand_id,
+			vb.name as last_brand_name, 
+			a.competitor_satisfaction_id,
+			scs1.name as competitor_satisfaction_name, 
+			a.man_satisfaction_id,
+                        scs2.name as man_satisfaction_name, 
+                        a.active,
                         COALESCE(NULLIF(sd16x.description, ''), sd16.description_eng) AS state_active,  
                         u.username AS op_user_name 
                     FROM info_customer_contact_persons a                    
                     INNER JOIN sys_language l ON l.id = 385 AND l.show_it =0
-                    LEFT JOIN sys_language lx ON lx.id =  " . intval($languageIdValue) . "    AND lx.show_it =0   
+                    LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue) . "   AND lx.show_it =0   
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		    inner join info_customer cs on cs.act_parent_id = a.customer_id AND cs.show_it =0 
-                     
-                     
+		    LEFT join sys_titles rt on rt.act_parent_id = a.title_role_id AND rt.show_it =0 
+		    LEFT join sys_source_of_lead sol on sol.act_parent_id = a.source_of_lead_id AND sol.show_it =0 
+		    LEFT join sys_priority_type pt on pt.act_parent_id = a.priority_id AND pt.show_it =0 
+		    LEFT join sys_competitor_satisfaction scs1 on scs1.act_parent_id = a.competitor_satisfaction_id AND scs1.show_it =0 
+	            LEFT join sys_competitor_satisfaction scs2 on scs2.act_parent_id = a.man_satisfaction_id AND scs2.show_it =0 
+	            LEFT join sys_vehicle_brand vb on vb.act_parent_id = a.last_brand_id AND vb.show_it =0 
+		    LEFT join sys_customer_reliability cr on cr.act_parent_id = a.brand_loyalty_id AND cr.show_it =0 
+ 
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
                     INNER JOIN sys_specific_definitions sd16 ON sd16.main_group = 16 AND sd16.first_group= a.active AND sd16.deleted = 0 AND sd16.active = 0 AND sd16.language_id =l.id
@@ -901,8 +945,8 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                   /*  LEFT JOIN sys_specific_definitions sd15x ON sd15x.language_id =lx.id AND (sd15x.id = sd15.id OR sd15x.language_parent_id = sd15.id) AND sd15x.deleted =0 AND sd15x.active =0  */
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
-                    WHERE 
-                        " . $addSql . "
+                    WHERE  
+                       " . $addSql . " 
                         a.deleted =0 AND
                         a.show_it =0   
                          " . $sorguStr . " 
@@ -979,13 +1023,22 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
 
                 $statementInsert = $pdo->prepare(" 
                     INSERT INTO info_customer_contact_persons ( 
-                        customer_id, 
+                        customer_id,
                         name,
                         surname,
                         email,
-                        cep,
-                        tel,
+                        mobile,
+                        phone,
                         fax,
+                        priority_id,
+                        source_of_lead_id,
+                        con_end_date, 
+                        title_id,
+                        title_role_id,
+                        brand_loyalty_id,
+                        last_brand_id,
+                        competitor_satisfaction_id,
+                        man_satisfaction_id,
   
                         active,
                         deleted,
@@ -994,13 +1047,22 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         show_it
                         )
                     SELECT
-                        customer_id, 
+                        customer_id,
                         name,
                         surname,
                         email,
-                        cep,
-                        tel,
+                        mobile,
+                        phone,
                         fax,
+                        priority_id,
+                        source_of_lead_id,
+                        con_end_date, 
+                        title_id,
+                        title_role_id,
+                        brand_loyalty_id,
+                        last_brand_id,
+                        competitor_satisfaction_id,
+                        man_satisfaction_id,
                         
                         1 AS active,  
                         1 AS deleted, 
@@ -1045,7 +1107,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $addSQL1 =null ;    
             $addSQL2 =null ;   
             $errorInfo[0] = "99999";
-           $CustomerId=-1111 ;               
+            $CustomerId=-1111 ;               
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $CustomerId = intval($params['CustomerId']);
             }  else {
@@ -1109,7 +1171,23 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $LastBrandId = null ;  
             if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
                 $LastBrandId = intval($params['LastBrandId']);
-            }              
+            }  
+            $SourceOfLeadId = null ;  
+            if ((isset($params['SourceOfLeadId']) && $params['SourceOfLeadId'] != "")) {
+                $SourceOfLeadId = intval($params['SourceOfLeadId']);
+            }   
+            $TitleId = null ;  
+            if ((isset($params['TitleId']) && $params['TitleId'] != "")) {
+                $TitleId = intval($params['TitleId']);
+            }  
+            $TitleRoleId = null ;  
+            if ((isset($params['TitleRoleId']) && $params['TitleRoleId'] != "")) {
+                $TitleRoleId = intval($params['TitleRoleId']);
+            }  
+            $ManSatisfactionId = null ;  
+            if ((isset($params['ManSatisfactionId']) && $params['ManSatisfactionId'] != "")) {
+                $ManSatisfactionId = intval($params['ManSatisfactionId']);
+            } 
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1119,29 +1197,29 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                         array(
                             'customer_id' => $CustomerId, 
                             'name' => $Name,
-                            'surname' => $Surname, 
-                            'cep' => $Cep, 
+                            'surname' => $Surname,  
                             
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     $sql = "
                     INSERT INTO info_customer_contact_persons(
-                        customer_id, 
-                        name,
-                        surname,
-                        email,
-                        cep,
-                        tel,
-                        fax,
-                        title,
-                        priority_id,
-                        ".$addSQL1." 
-                        reference,
-                  
-                        competitor_satisfaction_id,
-                        brand_loyalty_id,
-                        last_brand_id,
- 
+                            customer_id,
+                            name,
+                            surname,
+                            email,
+                            mobile,
+                            phone,
+                            fax,
+                            priority_id,
+                            ".$addSQL1." 
+                            source_of_lead_id, 
+                            title_id,
+                            title_role_id,
+                            brand_loyalty_id,
+                            last_brand_id,
+                            competitor_satisfaction_id,
+                            man_satisfaction_id,
+                        
                             op_user_id,
                             act_parent_id  
                             )
@@ -1156,10 +1234,14 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                             '" .   ($title). "',
                             " . intval($PriorityId) . ", 
                             ".$addSQL2." 
-                            '" .   ($reference). "',
-                            " . intval($CompetitorSatisfactionId) . ", 
-                            " . intval($BrandLoyaltyId) . ", 
+                            " . intval($SourceOfLeadId) . ", 
+                            " . intval($TitleId) . ", 
+                            " . intval($TitleRoleId) . ", 
+                            " . intval($BrandLoyaltyId) . ",  
                             " . intval($LastBrandId) . ", 
+                            " . intval($CompetitorSatisfactionId) . ", 
+                            " . intval($ManSatisfactionId) . ", 
+                           
                          
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_contact_persons_id_seq)
@@ -1216,7 +1298,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
-           $CustomerId=-1111 ;               
+            $CustomerId=-1111 ;               
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $CustomerId = intval($params['CustomerId']);
             }  else {
@@ -1281,6 +1363,22 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             if ((isset($params['LastBrandId']) && $params['LastBrandId'] != "")) {
                 $LastBrandId = intval($params['LastBrandId']);
             }  
+            $SourceOfLeadId = null ;  
+            if ((isset($params['SourceOfLeadId']) && $params['SourceOfLeadId'] != "")) {
+                $SourceOfLeadId = intval($params['SourceOfLeadId']);
+            }   
+            $TitleId = null ;  
+            if ((isset($params['TitleId']) && $params['TitleId'] != "")) {
+                $TitleId = intval($params['TitleId']);
+            }  
+            $TitleRoleId = null ;  
+            if ((isset($params['TitleRoleId']) && $params['TitleRoleId'] != "")) {
+                $TitleRoleId = intval($params['TitleRoleId']);
+            }  
+            $ManSatisfactionId = null ;  
+            if ((isset($params['ManSatisfactionId']) && $params['ManSatisfactionId'] != "")) {
+                $ManSatisfactionId = intval($params['ManSatisfactionId']);
+            } 
                             
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1303,21 +1401,22 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
 
                   $sql = "
                 INSERT INTO info_customer_contact_persons (  
-                        customer_id, 
+                        customer_id,
                         name,
                         surname,
                         email,
-                        cep,
-                        tel,
+                        mobile,
+                        phone,
                         fax,
-                        title,
                         priority_id,
                         ".$addSQL1." 
-                        reference,
-                  
-                        competitor_satisfaction_id,
+                        source_of_lead_id, 
+                        title_id,
+                        title_role_id,
                         brand_loyalty_id,
                         last_brand_id,
+                        competitor_satisfaction_id,
+                        man_satisfaction_id,
                          
                         op_user_id,
                         act_parent_id  
@@ -1333,10 +1432,13 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                     '" .   ($title). "',
                     " . intval($PriorityId) . ", 
                     ".$addSQL2." 
-                    '" .   ($reference). "',
-                    " . intval($CompetitorSatisfactionId) . ", 
-                    " . intval($BrandLoyaltyId) . ", 
+                    " . intval($SourceOfLeadId) . ", 
+                    " . intval($TitleId) . ", 
+                    " . intval($TitleRoleId) . ", 
+                    " . intval($BrandLoyaltyId) . ",  
                     " . intval($LastBrandId) . ", 
+                    " . intval($CompetitorSatisfactionId) . ", 
+                    " . intval($ManSatisfactionId) . ", 
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id

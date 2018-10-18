@@ -192,8 +192,8 @@ $app->get("/pkCustomerContactPersonGridx_infocustomercontactpersons/", function 
                 "name" => html_entity_decode($menu["name"]),
                 "surname" => html_entity_decode($menu["surname"]),
                 "email" => html_entity_decode($menu["email"]),
-                "cep" => html_entity_decode($menu["cep"]),
-                "tel" => html_entity_decode($menu["tel"]),
+                "mobile" => html_entity_decode($menu["mobile"]),
+                "phone" => html_entity_decode($menu["phone"]),
                 "fax" => html_entity_decode($menu["fax"]),
                 "embrace_customer_no" => html_entity_decode($menu["embrace_customer_no"]),
                 "tu_emb_customer_no" => html_entity_decode($menu["tu_emb_customer_no"]),
@@ -202,8 +202,24 @@ $app->get("/pkCustomerContactPersonGridx_infocustomercontactpersons/", function 
                 "www" => html_entity_decode($menu["www"]),
                 "vatnumber" => html_entity_decode($menu["vatnumber"]),
                 "registration_number" => html_entity_decode($menu["registration_number"]),
-                "registration_date" => html_entity_decode($menu["registration_date"]),
-         
+                "registration_date" =>  ($menu["registration_date"]), 
+                "registration_name" => html_entity_decode($menu["registration_name"]),  
+                "source_of_lead_id" =>  ($menu["source_of_lead_id"]), 
+                "source_of_lead_name" => html_entity_decode($menu["source_of_lead_name"]), 
+                "con_end_date" =>  ($menu["con_end_date"]),  
+                "title_id" =>  ($menu["title_id"]),   
+                "title_role_id" =>  ($menu["title_role_id"]), 
+                "role_name" => html_entity_decode($menu["v"]),  
+                "priority_id" =>  ($menu["priority_id"]), 
+                "priority_name" => html_entity_decode($menu["priority_name"]),  
+                "brand_loyalty_id" =>  ($menu["brand_loyalty_id"]), 
+                "brand_loyalty_name" => html_entity_decode($menu["brand_loyalty_name"]),  
+                "last_brand_id" =>  ($menu["last_brand_id"]), 
+                "last_brand_name" => html_entity_decode($menu["last_brand_name"]), 
+                "competitor_satisfaction_id" =>  ($menu["competitor_satisfaction_id"]), 
+                "competitor_satisfaction_name" => html_entity_decode($menu["competitor_satisfaction_name"]),  
+                "man_satisfaction_id" =>  ($menu["man_satisfaction_id"]), 
+                "man_satisfaction_name" => html_entity_decode($menu["man_satisfaction_name"]),  
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -322,7 +338,7 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $app,
                                                 $_GET['surname']));
     }  
-    print_r($surname);
+ 
     $email = NULL;
     if (isset($_GET['email'])) {
          $stripper->offsetSet('email',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
@@ -330,16 +346,16 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $_GET['email']));
     }  
     $cep = NULL;
-    if (isset($_GET['cep'])) {
-         $stripper->offsetSet('cep',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['mobile'])) {
+         $stripper->offsetSet('mobile',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['cep']));
+                                                $_GET['mobile']));
     }  
     $tel = NULL;
-    if (isset($_GET['tel'])) {
-         $stripper->offsetSet('tel',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['phone'])) {
+         $stripper->offsetSet('phone',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['tel']));
+                                                $_GET['phone']));
     }  
     $fax = NULL;
     if (isset($_GET['fax'])) {
@@ -347,8 +363,64 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $app,
                                                 $_GET['fax']));
     }  
-    
-    
+    $priorityId= NULL;
+    if (isset($_GET['priority_id'])) {
+         $stripper->offsetSet('priority_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['priority_id']));
+    }  
+    $sourceofleadId= NULL;
+    if (isset($_GET['source_of_lead_id'])) {
+         $stripper->offsetSet('source_of_lead_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['source_of_lead_id']));
+    }  
+     $conEndDate= NULL;
+    if (isset($_GET['con_end_date'])) {
+         $stripper->offsetSet('con_end_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['con_end_date']));
+    }  
+    $titleId= NULL;
+    if (isset($_GET['title_id'])) {
+         $stripper->offsetSet('title_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['title_id']));
+    }  
+    $titleRoleId= NULL;
+    if (isset($_GET['title_role_id'])) {
+         $stripper->offsetSet('title_role_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['title_role_id']));
+    }  
+    $brandLoyaltyId= NULL;
+    if (isset($_GET['brand_loyalty_id'])) {
+         $stripper->offsetSet('brand_loyalty_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['brand_loyalty_id']));
+    }  
+    $lastBrandId= NULL;
+    if (isset($_GET['last_brand_id'])) {
+         $stripper->offsetSet('last_brand_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['last_brand_id']));
+    }  
+    $competitorSatisfactionId= NULL;
+    if (isset($_GET['competitor_satisfaction_id'])) {
+         $stripper->offsetSet('competitor_satisfaction_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['competitor_satisfaction_id']));
+    }  
+     $manSatisfactionId= NULL;
+    if (isset($_GET['man_satisfaction_id'])) {
+         $stripper->offsetSet('man_satisfaction_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['man_satisfaction_id']));
+    }                      
+                      
+                      
+                    
+                   
     $stripper->strip();
     
     /*
@@ -360,18 +432,37 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('surname')) $surname = $stripper->offsetGet('surname')->getFilterValue();
     if($stripper->offsetExists('email')) $email = $stripper->offsetGet('email')->getFilterValue();
-    if($stripper->offsetExists('cep')) $cep = $stripper->offsetGet('cep')->getFilterValue();
-    if($stripper->offsetExists('tel')) $tel = $stripper->offsetGet('tel')->getFilterValue();
+    if($stripper->offsetExists('mobile')) $cep = $stripper->offsetGet('mobile')->getFilterValue();
+    if($stripper->offsetExists('phone')) $tel = $stripper->offsetGet('phone')->getFilterValue();
     if($stripper->offsetExists('fax')) $fax = $stripper->offsetGet('fax')->getFilterValue(); 
-    print_r($surname);
+    if($stripper->offsetExists('priority_id')) $priorityId = $stripper->offsetGet('priority_id')->getFilterValue(); 
+    if($stripper->offsetExists('source_of_lead_id')) $sourceofleadId = $stripper->offsetGet('source_of_lead_id')->getFilterValue(); 
+    if($stripper->offsetExists('con_end_date')) $conEndDate = $stripper->offsetGet('con_end_date')->getFilterValue(); 
+    if($stripper->offsetExists('title_id')) $titleId= $stripper->offsetGet('title_id')->getFilterValue(); 
+    if($stripper->offsetExists('title_role_id')) $titleRoleId = $stripper->offsetGet('title_role_id')->getFilterValue(); 
+    if($stripper->offsetExists('brand_loyalty_id')) $brandLoyaltyId = $stripper->offsetGet('brand_loyalty_id')->getFilterValue(); 
+    if($stripper->offsetExists('last_brand_id')) $lastBrandId = $stripper->offsetGet('last_brand_id')->getFilterValue(); 
+    if($stripper->offsetExists('competitor_satisfaction_id')) $competitorSatisfactionId = $stripper->offsetGet('competitor_satisfaction_id')->getFilterValue(); 
+    if($stripper->offsetExists('man_satisfaction_id')) $manSatisfactionId = $stripper->offsetGet('man_satisfaction_id')->getFilterValue(); 
+  
+    
     $resDataInsert = $BLL->insertAct(array( 
-            'CustomerId' => $CustomerId,  
-            'Name' => $name,  
-            'Surname' => $surname,   
-            'Email' => $email,  
-            'Cep' => $cep,  
-            'Tel' => $tel,  
-            'Fax' => $fax,    
+            'name'=> $name ,
+            'customer_id'=> $CustomerId  ,
+            'surname'=> $surname ,
+            'email'=> $email  ,
+            'mobile' => $cep ,
+            'phone' => $tel ,
+            'fax' => $fax  ,
+            'priority_id' =>$priorityId  ,
+            'source_of_lead_id'=>  $sourceofleadId  ,
+            'con_end_date' => $conEndDate ,
+            'title_id' =>$titleId ,
+            'title_role_id'=> $titleRoleId ,
+            'brand_loyalty_id' =>$brandLoyaltyId  ,
+            'last_brand_id'=> $lastBrandId ,
+            'competitor_satisfaction_id'=>$competitorSatisfactionId ,
+            'man_satisfaction_id' => $manSatisfactionId  ,
             
             'pk' => $pk));
         
@@ -399,7 +490,7 @@ $app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $app,
                                                 $_GET['id']));
     } 
-    $CustomerId= NULL;
+       $CustomerId= NULL;
     if (isset($_GET['customer_id'])) {
         $stripper->offsetSet('customer_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['customer_id']));
     }
@@ -414,6 +505,7 @@ $app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $app,
                                                 $_GET['surname']));
     }  
+ 
     $email = NULL;
     if (isset($_GET['email'])) {
          $stripper->offsetSet('email',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
@@ -421,44 +513,125 @@ $app->get("/pkUpdateAct_infocustomercontactpersons/", function () use ($app ) {
                                                 $_GET['email']));
     }  
     $cep = NULL;
-    if (isset($_GET['cep'])) {
-         $stripper->offsetSet('cep',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['mobile'])) {
+         $stripper->offsetSet('mobile',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['cep']));
+                                                $_GET['mobile']));
     }  
     $tel = NULL;
-    if (isset($_GET['tel'])) {
-         $stripper->offsetSet('tel',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['phone'])) {
+         $stripper->offsetSet('phone',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['tel']));
+                                                $_GET['phone']));
     }  
     $fax = NULL;
     if (isset($_GET['fax'])) {
-         $stripper->offsetSet('fax',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+         $stripper->offsetSet('fax',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
                                                 $_GET['fax']));
-    }   
+    }  
+    $priorityId= NULL;
+    if (isset($_GET['priority_id'])) {
+         $stripper->offsetSet('priority_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['priority_id']));
+    }  
+    $sourceofleadId= NULL;
+    if (isset($_GET['source_of_lead_id'])) {
+         $stripper->offsetSet('source_of_lead_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['source_of_lead_id']));
+    }  
+     $conEndDate= NULL;
+    if (isset($_GET['con_end_date'])) {
+         $stripper->offsetSet('con_end_date',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['con_end_date']));
+    }  
+    $titleId= NULL;
+    if (isset($_GET['title_id'])) {
+         $stripper->offsetSet('title_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['title_id']));
+    }  
+    $titleRoleId= NULL;
+    if (isset($_GET['title_role_id'])) {
+         $stripper->offsetSet('title_role_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['title_role_id']));
+    }  
+    $brandLoyaltyId= NULL;
+    if (isset($_GET['brand_loyalty_id'])) {
+         $stripper->offsetSet('brand_loyalty_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['brand_loyalty_id']));
+    }  
+    $lastBrandId= NULL;
+    if (isset($_GET['last_brand_id'])) {
+         $stripper->offsetSet('last_brand_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['last_brand_id']));
+    }  
+    $competitorSatisfactionId= NULL;
+    if (isset($_GET['competitor_satisfaction_id'])) {
+         $stripper->offsetSet('competitor_satisfaction_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['competitor_satisfaction_id']));
+    }  
+     $manSatisfactionId= NULL;
+    if (isset($_GET['man_satisfaction_id'])) {
+         $stripper->offsetSet('man_satisfaction_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['man_satisfaction_id']));
+    }                      
+                      
+                      
+                    
+                   
+    $stripper->strip();
     
-    $stripper->strip(); 
-    
+    /*
+     
+      &customer_id= 1&name= Asterix&surname =Idefix&email= AsterixIdefix@gmail.com&cep =01234567898&tel =&fax =9 
+      
+     */
     if($stripper->offsetExists('name')) $name = $stripper->offsetGet('name')->getFilterValue();
     if($stripper->offsetExists('customer_id')) $CustomerId = $stripper->offsetGet('customer_id')->getFilterValue();
     if($stripper->offsetExists('surname')) $surname = $stripper->offsetGet('surname')->getFilterValue();
     if($stripper->offsetExists('email')) $email = $stripper->offsetGet('email')->getFilterValue();
-    if($stripper->offsetExists('cep')) $cep = $stripper->offsetGet('cep')->getFilterValue();
-    if($stripper->offsetExists('tel')) $tel = $stripper->offsetGet('tel')->getFilterValue();
+    if($stripper->offsetExists('mobile')) $cep = $stripper->offsetGet('mobile')->getFilterValue();
+    if($stripper->offsetExists('phone')) $tel = $stripper->offsetGet('phone')->getFilterValue();
     if($stripper->offsetExists('fax')) $fax = $stripper->offsetGet('fax')->getFilterValue(); 
+    if($stripper->offsetExists('priority_id')) $priorityId = $stripper->offsetGet('priority_id')->getFilterValue(); 
+    if($stripper->offsetExists('source_of_lead_id')) $sourceofleadId = $stripper->offsetGet('source_of_lead_id')->getFilterValue(); 
+    if($stripper->offsetExists('con_end_date')) $conEndDate = $stripper->offsetGet('con_end_date')->getFilterValue(); 
+    if($stripper->offsetExists('title_id')) $titleId= $stripper->offsetGet('title_id')->getFilterValue(); 
+    if($stripper->offsetExists('title_role_id')) $titleRoleId = $stripper->offsetGet('title_role_id')->getFilterValue(); 
+    if($stripper->offsetExists('brand_loyalty_id')) $brandLoyaltyId = $stripper->offsetGet('brand_loyalty_id')->getFilterValue(); 
+    if($stripper->offsetExists('last_brand_id')) $lastBrandId = $stripper->offsetGet('last_brand_id')->getFilterValue(); 
+    if($stripper->offsetExists('competitor_satisfaction_id')) $competitorSatisfactionId = $stripper->offsetGet('competitor_satisfaction_id')->getFilterValue(); 
+    if($stripper->offsetExists('man_satisfaction_id')) $manSatisfactionId = $stripper->offsetGet('man_satisfaction_id')->getFilterValue(); 
+  
   
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
     $resDataInsert = $BLL->updateAct(array( 
-            'CustomerId' => $CustomerId,  
-            'Name' => $name,  
-            'Surname' => $surname,   
-            'Email' => $email,  
-            'Cep' => $cep,  
-            'Tel' => $tel,  
-            'Fax' => $fax,     
+           'name'=> $name ,
+            'customer_id'=> $CustomerId  ,
+            'surname'=> $surname ,
+            'email'=> $email  ,
+            'mobile' => $cep ,
+            'phone' => $tel ,
+            'fax' => $fax  ,
+            'priority_id' =>$priorityId  ,
+            'source_of_lead_id'=>  $sourceofleadId  ,
+            'con_end_date' => $conEndDate ,
+            'title_id' =>$titleId ,
+            'title_role_id'=> $titleRoleId ,
+            'brand_loyalty_id' =>$brandLoyaltyId  ,
+            'last_brand_id'=> $lastBrandId ,
+            'competitor_satisfaction_id'=>$competitorSatisfactionId ,
+            'man_satisfaction_id' => $manSatisfactionId  ,
             'Id' => $vId,
             'pk' => $pk));
         
