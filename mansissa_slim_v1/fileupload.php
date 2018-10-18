@@ -67,8 +67,8 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
              }
          }
 
-            $name = $_POST['name'];
-            $email = $_POST['email'];
+         //   $name = $_POST['name'];
+         //   $email = $_POST['email'];
 
             //include database configuration file
             //include_once 'dbConfig.php';
