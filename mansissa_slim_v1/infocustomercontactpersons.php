@@ -424,7 +424,7 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
     
     /*
      
-      &customer_id= 1&name= Asterix&surname =Idefix&email= AsterixIdefix@gmail.com&cep =01234567898&tel =&fax =9 
+      &customer_id=29&name=asdasd&surname=asdasdad&email=asdas&mobile=2912312&phone=29333222&fax=2923&priority_id=2&source_of_lead_id=1&con_end_date=2018-05-05&title_id=2&title_role_id=1&brand_loyalty_id=2&last_brand_id=2&competitor_satisfaction_id=3&man_satisfaction_id=2
       
      */
     if($stripper->offsetExists('name')) $name = $stripper->offsetGet('name')->getFilterValue();
@@ -446,22 +446,22 @@ $app->get("/pkInsertAct_infocustomercontactpersons/", function () use ($app ) {
   
     
     $resDataInsert = $BLL->insertAct(array( 
-            'name'=> $name ,
-            'customer_id'=> $CustomerId  ,
-            'surname'=> $surname ,
-            'email'=> $email  ,
-            'mobile' => $cep ,
-            'phone' => $tel ,
-            'fax' => $fax  ,
-            'priority_id' =>$priorityId  ,
-            'source_of_lead_id'=>  $sourceofleadId  ,
-            'con_end_date' => $conEndDate ,
-            'title_id' =>$titleId ,
-            'title_role_id'=> $titleRoleId ,
-            'brand_loyalty_id' =>$brandLoyaltyId  ,
-            'last_brand_id'=> $lastBrandId ,
-            'competitor_satisfaction_id'=>$competitorSatisfactionId ,
-            'man_satisfaction_id' => $manSatisfactionId  ,
+            'Name'=> $name ,
+            'CustomerId'=> $CustomerId  ,
+            'Surname'=> $surname ,
+            'Email'=> $email  ,
+            'Mobile' => $cep ,
+            'Phone' => $tel ,
+            'Fax' => $fax  ,
+            'PriorityId' =>$priorityId  ,
+            'SourceOfLeadId'=>  $sourceofleadId  ,
+            'ConEndDate' => $conEndDate ,
+            'TitleId' =>$titleId ,
+            'TitleRoleId'=> $titleRoleId ,
+            'BrandLoyaltyId' =>$brandLoyaltyId  ,
+            'LastBrandId'=> $lastBrandId ,
+            'CompetitorSatisfactionId'=>$competitorSatisfactionId ,
+            'ManSatisfactionId' => $manSatisfactionId  ,
             
             'pk' => $pk));
         
