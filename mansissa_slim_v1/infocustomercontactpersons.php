@@ -200,9 +200,8 @@ $app->get("/pkCustomerContactPersonGridx_infocustomercontactpersons/", function 
                 "ce_emb_customer_no" => html_entity_decode($menu["ce_emb_customer_no"]),
                 "other_emb_customer_no" => html_entity_decode($menu["other_emb_customer_no"]),
                 "www" => html_entity_decode($menu["www"]),
-                "vatnumber" => html_entity_decode($menu["vatnumber"]),
-                "registration_number" => html_entity_decode($menu["registration_number"]),
-                "registration_date" =>  ($menu["registration_date"]), 
+               
+              
                 "registration_name" => html_entity_decode($menu["registration_name"]),  
                 "source_of_lead_id" =>  ($menu["source_of_lead_id"]), 
                 "source_of_lead_name" => html_entity_decode($menu["source_of_lead_name"]), 
