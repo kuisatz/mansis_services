@@ -1228,7 +1228,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                             '" .   ($Cep). "',
                             '" .   ($Tel). "',
                             '" .   ($Fax). "',
-                            '" .   ($title). "',
+                            
                             " . intval($PriorityId) . ", 
                             ".$addSQL2." 
                             " . intval($SourceOfLeadId) . ", 
@@ -1329,11 +1329,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             $Fax=-1111 ;  
             if ((isset($params['Fax']) && $params['Fax'] != "")) {
                 $Fax = intval($params['Fax']);
-            }   
-            $title = null ;  
-            if ((isset($params['Title']) && $params['Title'] != "")) {
-                $title =  ($params['Title']);
-            }  
+            }                
             $PriorityId = null ;  
             if ((isset($params['PriorityId']) && $params['PriorityId'] != "")) {
                 $PriorityId = intval($params['PriorityId']);
@@ -1426,7 +1422,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                     '" .   ($Cep). "',
                     '" .   ($Tel). "',
                     '" .   ($Fax). "',
-                    '" .   ($title). "',
+                  
                     " . intval($PriorityId) . ", 
                     ".$addSQL2." 
                     " . intval($SourceOfLeadId) . ", 
