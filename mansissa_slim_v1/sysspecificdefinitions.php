@@ -693,7 +693,7 @@ $app->get("/testfileupload_sysSpecificDefinitions/", function () use ($app ) {
                  ($_FILES["file"]["type"] == "image/jpeg")) 
                      && in_array($file_extension, $valid_extensions)){
                  $sourcePath = $_FILES['file']['tmp_name'];
-                 $targetPath = "D:/app/uploads/".$fileName;
+                 $targetPath = "C:/app/uploads/".$fileName;
                  if(move_uploaded_file($sourcePath,$targetPath)){
                      $uploadedFile = $fileName;
                  }
@@ -742,15 +742,15 @@ $app->get("/testfileupload_sysSpecificDefinitions/", function () use ($app ) {
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
 
-    $resCombobox = $BLL->fillMaybeYesNoTypes(array( 
+   /* $resCombobox = $BLL->fillMaybeYesNoTypes(array( 
                     'url' => $_GET['url'],  
                     'SID' => $vSID,
                     'LanguageID' => $vLanguageID, 
         )); 
-
+*/
         $menus = array();
   //      $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); //
-    if ($componentType == 'bootstrap') {
+ /*   if ($componentType == 'bootstrap') {
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
@@ -772,9 +772,8 @@ $app->get("/testfileupload_sysSpecificDefinitions/", function () use ($app ) {
             );
         }
     }
-
-    $app->response()->header("Content-Type", "application/json");
-
+*/
+    $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($menus));
 });
 
