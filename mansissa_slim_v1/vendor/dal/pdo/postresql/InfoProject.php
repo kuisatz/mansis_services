@@ -657,7 +657,7 @@ class InfoProject extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		      
-                   left join info_customer cc ON cc.act_parent_id = a.customer_id 
+                   inner join info_customer cc ON cc.act_parent_id = a.customer_id AND cc.show_it=0
                     
                    LEFT join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0  
 		   LEFT join sys_probabilities scp on scp.act_parent_id = a.probability_id and scp.show_it = 0 
@@ -688,7 +688,7 @@ class InfoProject extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-         echo debugPDO($sql, $params);               
+        // echo debugPDO($sql, $params);               
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -859,7 +859,7 @@ class InfoProject extends \DAL\DalSlim {
                     INNER JOIN info_users u ON u.id = a.op_user_id 
                     /*----*/   
 		      
-                   left join info_customer cc ON cc.act_parent_id = a.customer_id 
+                   inner join info_customer cc ON cc.act_parent_id = a.customer_id AND cc.show_it=0
                     
                    LEFT join sys_customer_reliability scr on scr.act_parent_id = a.reliability_id and scr.show_it = 0  
 		   LEFT join sys_probabilities scp on scp.act_parent_id = a.probability_id and scp.show_it = 0 
