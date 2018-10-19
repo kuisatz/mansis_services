@@ -1132,12 +1132,12 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
                 $Email = $params['Email'];
             } 
             $Cep = null;
-            if ((isset($params['Cep']) && $params['Cep'] != "")) {
-                $Cep = $params['Cep'];
+            if ((isset($params['Mobile']) && $params['Mobile'] != "")) {
+                $Cep = $params['Mobile'];
             } 
             $Tel = null;
-            if ((isset($params['Tel']) && $params['Tel'] != "")) {
-                $Tel = $params['Tel'];
+            if ((isset($params['Phone']) && $params['Phone'] != "")) {
+                $Tel = $params['Phone'];
             } 
             $Fax=-1111 ;  
             if ((isset($params['Fax']) && $params['Fax'] != "")) {
@@ -1319,13 +1319,13 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
             if ((isset($params['Email']) && $params['Email'] != "")) {
                 $Email = $params['Email'];
             } 
-            $Cep = null;
-            if ((isset($params['Cep']) && $params['Cep'] != "")) {
-                $Cep = $params['Cep'];
+             $Cep = null;
+            if ((isset($params['Mobile']) && $params['Mobile'] != "")) {
+                $Cep = $params['Mobile'];
             } 
             $Tel = null;
-            if ((isset($params['Tel']) && $params['Tel'] != "")) {
-                $Tel = $params['Tel'];
+            if ((isset($params['Phone']) && $params['Phone'] != "")) {
+                $Tel = $params['Phone'];
             } 
             $Fax=-1111 ;  
             if ((isset($params['Fax']) && $params['Fax'] != "")) {
