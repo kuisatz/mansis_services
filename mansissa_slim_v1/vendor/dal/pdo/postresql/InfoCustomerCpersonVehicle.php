@@ -211,7 +211,7 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
                 a.customer_contact_persons_id = " . intval($params['customer_contact_persons_id']) . " AND  
                 a.vehicle_group_id = " . intval($params['vehicle_group_id']) . "   
                 " . $addSql . " 
-                AND a.deleted =0     
+                AND a.deleted =5     
                  
                                ";
             $statement = $pdo->prepare($sql);
