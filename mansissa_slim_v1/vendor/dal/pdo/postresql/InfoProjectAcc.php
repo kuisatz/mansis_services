@@ -495,6 +495,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
             $errorInfo[0] = "99999";         
             $addSQL =NULL;
             $ProjectId=-1 ;
+            print_r($params);
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId'];
                 $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
