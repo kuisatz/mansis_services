@@ -752,7 +752,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-               echo debugPDO($sql, $params);                
+          //     echo debugPDO($sql, $params);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -906,8 +906,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
  			 
                         concat(cp.name ,' ' ,  cp.surname ) as name,
 			cp.email,
-			cp.cep,
-			cp.tel,
+			cp.mobile,
+			cp.phone,
 			cp.fax, 
                       
                         cs.www, 
