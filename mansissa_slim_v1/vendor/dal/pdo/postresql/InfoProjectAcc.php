@@ -558,7 +558,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
 
             $sortArr = array();
             $orderArr = array();
-            $addSql = NULL;
+                            
             if (isset($params['sort']) && $params['sort'] != "") {
                 $sort = trim($params['sort']);
                 $sortArr = explode(",", $sort);
@@ -708,7 +708,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                     
 		   
                     WHERE  
-                     " . $addSql . " 
+                     " . $addSQL . " 
                         a.deleted =0 AND
                         a.show_it =0   
                      " . $sorguStr . " 
