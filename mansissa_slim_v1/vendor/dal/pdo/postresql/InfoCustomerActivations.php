@@ -692,8 +692,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
  			 
                         concat(cp.name ,' ' ,  cp.surname ) as name,
 			cp.email,
-			cp.cep,
-			cp.tel,
+			cp.mobile,
+			cp.phone,
 			cp.fax, 
                       
                         cs.www, 
@@ -752,7 +752,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             ); 
                 $statement = $pdo->prepare($sql);
-            //   echo debugPDO($sql, $params);                
+               echo debugPDO($sql, $params);                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo(); 
@@ -1034,6 +1034,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         activty_tracking_type_id,
                         realization_date,
                         report,
+                        is_done,
   
                         active,
                         deleted,
@@ -1057,6 +1058,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         activty_tracking_type_id,
                         realization_date,
                         report,
+                        is_done,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1094,6 +1096,356 @@ class InfoCustomerActivations extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function insertAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo->beginTransaction();
+            $kontrol =0 ;                
+            $errorInfo[0] = "99999";
+            $addSQL1 =null ;    
+            $addSQL2 =null ;             
+            $CustomerId=-1111 ;               
+            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
+                $CustomerId = intval($params['CustomerId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $ContactPersonId=-1111 ;  
+            if ((isset($params['ContactPersonId']) && $params['ContactPersonId'] != "")) {
+                $ContactPersonId = intval($params['ContactPersonId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $CsActivationTypeId=-1111 ;  
+            if ((isset($params['CsActivationTypeId']) && $params['CsActivationTypeId'] != "")) {
+                $CsActivationTypeId = intval($params['CsActivationTypeId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $ActDate= null;
+            if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
+                $ActDate = $params['ActDate'];
+                $addSQL1 .= 'act_date,  ';
+                $addSQL2 .= "'". $ActDate."',";
+            }  
+            $ActivityTrackingDate= null;
+            if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
+                $ActivityTrackingDate = $params['ActivityTrackingDate'];
+                $addSQL1 .= 'activity_tracking_date,  ';
+                $addSQL2 .= "'". $ActivityTrackingDate."',";
+            }  
+             $RealizationDate= null;
+            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
+                $RealizationDate = $params['RealizationDate'];
+                $addSQL1 .= 'realization_date,  ';
+                $addSQL2 .= "'". $RealizationDate."',";
+            }  
+            $CsStatuTypesId =0 ;  
+            if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
+                $CsStatuTypesId = intval($params['CsStatuTypesId']);
+            }   
+            $CsActStatutypeId =0;  
+            if ((isset($params['CsActStatutypeId']) && $params['CsActStatutypeId'] != "")) {
+                $CsActStatutypeId = intval($params['CsActStatutypeId']);
+            }                
+            $CustomerSegmentTypeId= 0;
+            if ((isset($params['CustomerSegmentTypeId']) && $params['CustomerSegmentTypeId'] != "")) {
+                $CustomerSegmentTypeId = intval($params['CustomerSegmentTypeId']);
+            }  
+            $VehicleModelId = 0;
+            if ((isset($params['VehicleModelId']) && $params['VehicleModelId'] != "")) {
+                $VehicleModelId = intval($params['VehicleModelId']);
+            }            
+            $Description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $Description = $params['Description'];
+            }             
+            $ManagerDescription= null;
+            if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
+                $ManagerDescription = $params['ManagerDescription'];
+            }   
+            $ActivtyTrackingTypeId = 0;
+            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
+                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
+            }   
+           
+                            
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'customer_id' => $CustomerId, 
+                            'act_date' => $ActDate,
+                            'contact_person_id' => $ContactPersonId, 
+                            
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+                    $sql = "
+                    INSERT INTO info_customer_activations(
+                            customer_id,
+                            contact_person_id,
+                            cs_activation_type_id,
+                            ".$addSQL1."   
+                            cs_statu_types_id,
+                            cs_act_statutype_id,
+                         
+                            customer_segment_type_id,
+                            vehicle_model_id,
+                            description,
+                            manager_description, 
+                            activty_tracking_type_id, 
+                         
+                            op_user_id,
+                            act_parent_id  
+                            )
+                    VALUES ( 
+                            " .  intval($CustomerId). ",
+                            " .  intval($ContactPersonId) . ",
+                            " .  intval($CsActivationTypeId). ",
+                            ".$addSQL2." 
+                            " .  intval($CsStatuTypesId). ",
+                            " .  intval($CsActStatutypeId) . ",
+                         
+                            " .  intval($CustomerSegmentTypeId) . ",
+                            " .  intval($VehicleModelId) . ",
+                            '" . $Description . "',
+                            '" . $ManagerDescription . "', 
+                            " .  intval($ActivtyTrackingTypeId) . ",
+                            
+                            " . intval($opUserIdValue) . ",
+                           (SELECT last_value FROM info_customer_activations_id_seq)
+                                                 )   ";
+                    $statement = $pdo->prepare($sql);
+               //  echo debugPDO($sql, $params);
+                    $result = $statement->execute();
+                    $errorInfo = $statement->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                    $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+                            
+    /**
+     * @author Okan CIRAN
+     * info_customer_activations tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function updateAct($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo->beginTransaction(); 
+            $errorInfo[0] = "99999";
+            
+            $Id = -1111;
+            if ((isset($params['Id']) && $params['Id'] != "")) {
+                $Id = intval($params['Id']);
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            
+            $kontrol =0 ;                
+            $errorInfo[0] = "99999";
+            $addSQL1 =null ;    
+            $addSQL2 =null ;    
+            $CustomerId=-1111 ;     
+            if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
+                $CustomerId = intval($params['CustomerId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }  
+            $ContactPersonId=-1111 ;  
+            if ((isset($params['ContactPersonId']) && $params['ContactPersonId'] != "")) {
+                $ContactPersonId = intval($params['ContactPersonId']);
+            }  else {
+                throw new \PDOException($errorInfo[0]);
+            }
+            $CsActivationTypeId=0 ;  
+            if ((isset($params['CsActivationTypeId']) && $params['CsActivationTypeId'] != "")) {
+                $CsActivationTypeId = intval($params['CsActivationTypeId']);
+            }  
+            $ActDate= null;
+            if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
+                $ActDate = $params['ActDate'];
+                $addSQL1 .= 'act_date,  ';
+                $addSQL2 .= "'". $ActDate."',";
+            }  
+             $ActivityTrackingDate= null;
+            if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
+                $ActivityTrackingDate = $params['ActivityTrackingDate'];
+                $addSQL1 .= 'activity_tracking_date,  ';
+                $addSQL2 .= "'". $ActivityTrackingDate."',";
+            }  
+             $RealizationDate= null;
+            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
+                $RealizationDate = $params['RealizationDate'];
+                $addSQL1 .= 'realization_date,  ';
+                $addSQL2 .= "'". $RealizationDate."',";
+            }  
+            $CsStatuTypesId =0 ;  
+            if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
+                $CsStatuTypesId = intval($params['CsStatuTypesId']);
+            }  
+            $CsActStatutypeId =0 ;  
+            if ((isset($params['CsActStatutypeId']) && $params['CsActStatutypeId'] != "")) {
+                $CsActStatutypeId = intval($params['CsActStatutypeId']);
+            }   
+            $ProjectId =-1111 ;  
+            if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
+                $ProjectId = intval($params['ProjectId']);
+            }   
+            $CustomerSegmentTypeId= 0;
+            if ((isset($params['CustomerSegmentTypeId']) && $params['CustomerSegmentTypeId'] != "")) {
+                $CustomerSegmentTypeId = intval($params['CustomerSegmentTypeId']);
+            }  
+            $VehicleModelId = 0;
+            if ((isset($params['VehicleModelId']) && $params['VehicleModelId'] != "")) {
+                $VehicleModelId = intval($params['VehicleModelId']);
+            }            
+            $Description = null;
+            if ((isset($params['Description']) && $params['Description'] != "")) {
+                $Description = $params['Description'];
+            }             
+            $ManagerDescription= null;
+            if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
+                $ManagerDescription = $params['ManagerDescription'];
+            }   
+            $ActivtyTrackingTypeId = 0;
+            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
+                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
+            }  
+            $report= null;
+            if ((isset($params['report']) && $params['report'] != "")) {
+                $report = $params['report'];
+            }  
+            $IsDone = 0;
+            if ((isset($params['IsDone']) && $params['IsDone'] != "")) {
+                $IsDone = intval($params['IsDone']);
+            }              
+                            
+            $opUserIdParams = array('pk' => $params['pk'],);
+            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
+            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
+
+                $kontrol = $this->haveRecords(
+                        array(
+                            'customer_id' => $CustomerId, 
+                            'act_date' => $ActDate,
+                            'contact_person_id' => $ContactPersonId, 
+                            'id' => $Id
+                ));
+                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+
+                    $this->makePassive(array('id' => $params['Id']));
+
+                  $sql = "
+                INSERT INTO info_customer_activations (  
+                        customer_id,
+                        contact_person_id,
+                        cs_activation_type_id,
+                        ".$addSQL1."   
+                        cs_statu_types_id,
+                        cs_act_statutype_id, 
+                        customer_segment_type_id,
+                        vehicle_model_id,
+                        description,
+                        manager_description, 
+                        activty_tracking_type_id,
+                        is_done,
+                        report,
+                        
+                        op_user_id,
+                        act_parent_id  ,
+                        project_id
+                        )  
+                SELECT  
+                    " .  intval($CustomerId). ",
+                    " .  intval($ContactPersonId) . ",
+                    " .  intval($CsActivationTypeId). ",
+                    ".$addSQL2." 
+                    " .  intval($CsStatuTypesId). ",
+                    " .  intval($CsActStatutypeId) . ", 
+                    " .  intval($CustomerSegmentTypeId) . ",
+                    " .  intval($VehicleModelId) . ",
+                    '" . $Description . "',
+                    '" . $ManagerDescription . "', 
+                    " .  intval($ActivtyTrackingTypeId) . ",
+                    " .  intval($IsDone) . ",
+                    '" . $report . "', 
+                                 
+                    " . intval($opUserIdValue) . " AS op_user_id,  
+                    act_parent_id,
+                    project_id
+                FROM info_customer_activations 
+                WHERE 
+                    id  =" . intval($Id) . "                  
+                                                " ;
+                    $statementInsert = $pdo->prepare($sql);
+                // echo debugPDO($sql, $params);
+                    $result = $statementInsert->execute();  
+                    $errorInfo = $statementInsert->errorInfo();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
+                            
+                     $affectedRows = $statementInsert->rowCount();
+                    if ($affectedRows> 0 ){
+                    $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');}
+                    else $insertID =0 ;   
+                            
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
+                } else {
+                    $errorInfo = '23505';
+                    $errorInfoColumn = 'name';
+                    $pdo->rollback();
+                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                }
+            } else {
+                $errorInfo = '23502';   // 23502  user_id not_null_violation
+                $errorInfoColumn = 'pk';
+                $pdo->rollback();
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+        } catch (\PDOException $e /* Exception $e */) {
+            // $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }  
+    
+    
+        /**
+     * @author Okan CIRAN
+     * @ info_customer_activations tablosuna yeni bir kayıt oluşturur.  !! 
+     * @version v 1.0  26.08.2018
+     * @param type $params
+     * @return array
+     * @throws \PDOException
+     */
+    public function insertTrackingAct($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();
@@ -1254,197 +1606,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-                            
-    /**
-     * @author Okan CIRAN
-     * info_customer_activations tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
-     * @version v 1.0  26.08.2018
-     * @param type $params
-     * @return array
-     * @throws \PDOException
-     */
-    public function updateAct($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $pdo->beginTransaction(); 
-            $errorInfo[0] = "99999";
-            
-            $Id = -1111;
-            if ((isset($params['Id']) && $params['Id'] != "")) {
-                $Id = intval($params['Id']);
-            } else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            
-            $kontrol =0 ;                
-            $errorInfo[0] = "99999";
-            $addSQL1 =null ;    
-            $addSQL2 =null ;             
-          if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
-                $CustomerId = intval($params['CustomerId']);
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }  
-            $ContactPersonId=-1111 ;  
-            if ((isset($params['ContactPersonId']) && $params['ContactPersonId'] != "")) {
-                $ContactPersonId = intval($params['ContactPersonId']);
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $CsActivationTypeId=-1111 ;  
-            if ((isset($params['CsActivationTypeId']) && $params['CsActivationTypeId'] != "")) {
-                $CsActivationTypeId = intval($params['CsActivationTypeId']);
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $ActDate= null;
-            if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
-                $ActDate = $params['ActDate'];
-                $addSQL1 .= 'act_date,  ';
-                $addSQL2 .= "'". $ActDate."',";
-            }  
-             $ActivityTrackingDate= null;
-            if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
-                $ActivityTrackingDate = $params['ActivityTrackingDate'];
-                $addSQL1 .= 'activity_tracking_date,  ';
-                $addSQL2 .= "'". $ActivityTrackingDate."',";
-            }  
-             $RealizationDate= null;
-            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
-                $RealizationDate = $params['RealizationDate'];
-                $addSQL1 .= 'realization_date,  ';
-                $addSQL2 .= "'". $RealizationDate."',";
-            }  
-            $CsStatuTypesId =-1111 ;  
-            if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
-                $CsStatuTypesId = intval($params['CsStatuTypesId']);
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $CsActStatutypeId =-1111 ;  
-            if ((isset($params['CsActStatutypeId']) && $params['CsActStatutypeId'] != "")) {
-                $CsActStatutypeId = intval($params['CsActStatutypeId']);
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }
-            $ProjectId =-1111 ;  
-            if ((isset($params['ProjectId']) && $params['ProjectId'] != "")) {
-                $ProjectId = intval($params['ProjectId']);
-            }   
-            $CustomerSegmentTypeId= 0;
-            if ((isset($params['CustomerSegmentTypeId']) && $params['CustomerSegmentTypeId'] != "")) {
-                $CustomerSegmentTypeId = intval($params['CustomerSegmentTypeId']);
-            }  
-            $VehicleModelId = 0;
-            if ((isset($params['VehicleModelId']) && $params['VehicleModelId'] != "")) {
-                $VehicleModelId = intval($params['VehicleModelId']);
-            }            
-            $Description = null;
-            if ((isset($params['Description']) && $params['Description'] != "")) {
-                $Description = $params['Description'];
-            }             
-            $ManagerDescription= null;
-            if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
-                $ManagerDescription = $params['ManagerDescription'];
-            }   
-            $ActivtyTrackingTypeId = 0;
-            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
-                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
-            }  
-            $report= null;
-            if ((isset($params['report']) && $params['report'] != "")) {
-                $report = $params['report'];
-            }              
-                            
-            $opUserIdParams = array('pk' => $params['pk'],);
-            $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
-            $opUserId = $opUserIdArray->getUserId($opUserIdParams);
-            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
-                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
-                $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];
-
-                $kontrol = $this->haveRecords(
-                        array(
-                            'customer_id' => $CustomerId, 
-                            'act_date' => $ActDate,
-                            'contact_person_id' => $ContactPersonId, 
-                            'id' => $Id
-                ));
-                if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
-
-                    $this->makePassive(array('id' => $params['Id']));
-
-                  $sql = "
-                INSERT INTO info_customer_activations (  
-                        customer_id,
-                        contact_person_id,
-                        cs_activation_type_id,
-                        ".$addSQL1."   
-                        cs_statu_types_id,
-                        cs_act_statutype_id,
-                        project_id,
-                        customer_segment_type_id,
-                        vehicle_model_id,
-                        description,
-                        manager_description, 
-                        activty_tracking_type_id,
-                        report,
-                        
-                        op_user_id,
-                        act_parent_id  
-                        )  
-                SELECT  
-                    " .  intval($CustomerId). ",
-                    " .  intval($ContactPersonId) . ",
-                    " .  intval($CsActivationTypeId). ",
-                    ".$addSQL2." 
-                    " .  intval($CsStatuTypesId). ",
-                    " .  intval($CsActStatutypeId) . ",
-                    " .  intval($ProjectId) . ",
-                    " .  intval($CustomerSegmentTypeId) . ",
-                    " .  intval($VehicleModelId) . ",
-                    '" . $Description . "',
-                    '" . $ManagerDescription . "', 
-                    " .  intval($ActivtyTrackingTypeId) . ",
-                    '" . $report . "', 
-                                 
-                    " . intval($opUserIdValue) . " AS op_user_id,  
-                    act_parent_id
-                FROM info_customer_activations 
-                WHERE 
-                    id  =" . intval($Id) . "                  
-                                                " ;
-                    $statementInsert = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
-                    $result = $statementInsert->execute();  
-                    $errorInfo = $statementInsert->errorInfo();
-                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                        throw new \PDOException($errorInfo[0]);
-                            
-                     $affectedRows = $statementInsert->rowCount();
-                    if ($affectedRows> 0 ){
-                    $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');}
-                    else $insertID =0 ;   
-                            
-                    $pdo->commit();
-                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
-                } else {
-                    $errorInfo = '23505';
-                    $errorInfoColumn = 'name';
-                    $pdo->rollback();
-                    return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
-                }
-            } else {
-                $errorInfo = '23502';   // 23502  user_id not_null_violation
-                $errorInfoColumn = 'pk';
-                $pdo->rollback();
-                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
-            }
-        } catch (\PDOException $e /* Exception $e */) {
-            // $pdo->rollback();
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }    
+  
     
     
 }
