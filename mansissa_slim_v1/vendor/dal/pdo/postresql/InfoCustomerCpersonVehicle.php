@@ -500,14 +500,16 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
                         a.id, 
                         a.act_parent_id as apid,  
 			a.vehicle_group_id, 
-			cs.model_description   as name   ,  
+			cs.endgroup_description   as name   ,  
                         a.s_date date_saved 
                     FROM info_customer_cperson_vehicle a 
-		    inner join sys_vehicle_gt_models cs on cs.act_parent_id = a.vehicle_group_id AND cs.show_it =0  
+		    inner join sys_vehicles_endgroups cs on cs.act_parent_id = a.vehicle_group_id AND cs.show_it =0  
                     WHERE   
                         " . $addSql . "
                         a.deleted =0 AND
                         a.show_it =0  
+                        
+ 
  
                          
                   ";  
