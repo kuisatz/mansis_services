@@ -214,8 +214,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 
                 "cs_act_statutype_id" =>  ($menu["cs_act_statutype_id"]),
                 "cs_act_statutype_name" => html_entity_decode($menu["cs_act_statutype_name"]),
-                
-                
+                 
                 "project_id" => intval($menu["project_id"]),  
 
                 "vehicle_model_id" =>  ($menu["vehicle_model_id"]),
@@ -226,20 +225,18 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "name" => html_entity_decode($menu["name"]),
              
                 "email" => html_entity_decode($menu["email"]),
-                "cep" => html_entity_decode($menu["cep"]),
-                "tel" => html_entity_decode($menu["tel"]),
+                "mobile" => html_entity_decode($menu["mobile"]),
+                "phone" => html_entity_decode($menu["phone"]),
                 "fax" => html_entity_decode($menu["fax"]),
-                
-                
-                
+                 
                 "activity_tracking_date" =>  ($menu["activity_tracking_date"]),
                 "activty_tracking_type_id" =>  ($menu["activty_tracking_type_id"]),
                 "activty_tracking_type_name" =>  (""),
                  
                 "report" => html_entity_decode($menu["report"]),
                 "realization_date" =>  ($menu["realization_date"]),
-          
-                
+                "is_done" =>  ($menu["is_done"]),
+           
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -249,8 +246,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "op_user_id" => $menu["op_user_id"], 
                 "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
-                 
-               
+                  
             );
         }
        $counts = $resTotalRowCount[0]['count'];
@@ -551,6 +547,10 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
                                                 $app,
                                                 $_GET['report']));
     }  
+    $IsDone= NULL;
+    if (isset($_GET['is_done'])) {
+        $stripper->offsetSet('is_done', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['is_done']));
+    }
     
     // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
     
@@ -574,6 +574,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
     if($stripper->offsetExists('realization_date')) $realization = $stripper->offsetGet('realization_date')->getFilterValue();
     if($stripper->offsetExists('report')) $report = $stripper->offsetGet('report')->getFilterValue();
+    if($stripper->offsetExists('is_done')) $IsDone = $stripper->offsetGet('is_done')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
     $resDataInsert = $BLL->updateAct(array( 
@@ -592,6 +593,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
             'ActivtyTrackingTypeId' => $activtyTrackingTypeId, 
             'RealizationDate' => $realization,   
             'report' => $report,   
+            'IsDone' => $IsDone,
             'Id' => $vId,
             'pk' => $pk));
         
