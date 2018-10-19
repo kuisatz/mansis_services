@@ -39,13 +39,65 @@ $app->add(new \Slim\Middleware\MiddlewareDalManager());
 $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 
  
-   
+  
 
 /**
  *  * Okan CIRAN
  * @since 15-08-2018
  */
 $app->get("/pkFillCustomerCpVehiclesGridx_infocustomercpersonvehicle/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoCustomerCpersonVehicleBLL');
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public']))
+        throw new Exception('rest api "pkFillCustomerCpVehiclesGridx_infocustomercpersonvehicle" end point, X-Public variable not found');
+    $pk = $headerParams['X-Public'];
+
+    
+    $customerId = NULL;
+    if (isset($_GET['customer_contact_persons_id'])) {
+         $stripper->offsetSet('customer_contact_persons_id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['customer_contact_persons_id']));
+    } 
+    $stripper->strip();
+    if($stripper->offsetExists('customer_contact_persons_id')) $customerId = $stripper->offsetGet('customer_contact_persons_id')->getFilterValue();
+     
+
+    $resDataGrid = $BLL->fillCustomerCpVehiclesGridx(array( 
+        'CustomerContactPersonsId' => $customerId,  
+        'pk' => $pk,
+    ));
+    $counts=0;
+  
+    $menu = array();            
+    if (isset($resDataGrid[0]['id'])) {      
+        foreach ($resDataGrid as $menu) {
+            $menus[] = array(
+               "vehicle_group_id" =>  ($menu["vehicle_group_id"]), 
+                "name" => html_entity_decode($menu["name"]), 
+                
+            );
+        }
+       $counts = $resTotalRowCount[0]['count'];
+      } ELSE  $menus = array();       
+
+    $app->response()->header("Content-Type", "application/json");
+    $resultArray = array();
+    $resultArray['totalCount'] = $counts;
+    $resultArray['items'] = $menus;
+    $app->response()->body(json_encode($resultArray));
+});
+ 
+
+
+
+/**
+ *  * Okan CIRAN
+ * @since 15-08-2018
+ */
+$app->get("/pkFillCustomerCpVehiclesGridx1_infocustomercpersonvehicle/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('infoCustomerCpersonVehicleBLL');
