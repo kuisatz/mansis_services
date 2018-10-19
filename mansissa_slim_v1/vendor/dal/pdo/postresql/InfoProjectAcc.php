@@ -1178,6 +1178,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                             " .  intval($DetailInformation). ",
                             " .  intval($IsOther). ",
                             " .  intval($IsBoConfirm). ", 
+                            " .  intval($IsHosConfirm). ", 
                             '" .   ($SaDescription). "',
                             '" .   ($BoDescription). "',
                             '" .   ($OtherAccName). "',
@@ -1364,7 +1365,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                         act_parent_id  
                         )  
                 SELECT  
-                     " .  intval($ProjectId). ",
+                    " .  intval($ProjectId). ",
                          
                     " .  intval($VehiclesGroupId). ",
                     " .  intval($VehicleGtModelId). ",
@@ -1378,6 +1379,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                     " .  intval($DetailInformation). ",
                     " .  intval($IsOther). ",
                     " .  intval($IsBoConfirm). ", 
+                    " .  intval($IsHosConfirm). ", 
                     '" .   ($SaDescription). "',
                     '" .   ($BoDescription). "',
                     '" .   ($OtherAccName). "',
