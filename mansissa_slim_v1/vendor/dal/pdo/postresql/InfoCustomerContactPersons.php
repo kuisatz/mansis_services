@@ -499,7 +499,7 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
               SELECT      
                     a.act_parent_id AS id, 	
                     concat(a.name ,' ' ,  a.surname )   AS name,  
-                    a.cep AS name_eng,
+                    a.mobile AS name_eng,
                     0 as parent_id,
                     a.active,
                     0 AS state_type   
