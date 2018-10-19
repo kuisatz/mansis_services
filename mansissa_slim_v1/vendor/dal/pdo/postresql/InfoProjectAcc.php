@@ -212,7 +212,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                 a.vehicles_group_id = " . intval($params['vehicles_group_id']) . " AND  
                 a.vehicle_gt_model_id = " . intval($params['vehicle_gt_model_id']) . " AND  
                 a.acc_option_id = " . intval($params['acc_option_id']) . " AND  
-                a.accessories_matrix_id = " . intval($params['accessories_matrix_id']) . " AND   
+                a.accessories_matrix_id = " . intval($params['accessories_matrix_id']) . "     
                 " . $addSql . " 
                 AND a.deleted =0   
                  
@@ -1190,7 +1190,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                            (SELECT last_value FROM info_project_acc_id_seq)
                                                  )   ";
                     $statement = $pdo->prepare($sql);
-             echo debugPDO($sql, $params);
+           //  echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
