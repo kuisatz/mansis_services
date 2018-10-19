@@ -547,7 +547,7 @@ class InfoCustomerCpersonVehicle extends \DAL\DalSlim {
                     active = 1 ,
                     deleted= 1,
                     show_it =1 
-               WHERE active = 0 AND customer_contact_persons_id = :id  ");
+               WHERE active = 0 AND id = :id  ");
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
             $afterRows = $statement->rowCount();
