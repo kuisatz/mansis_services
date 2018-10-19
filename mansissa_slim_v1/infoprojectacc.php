@@ -62,7 +62,7 @@ $app->get("/pkProjectVehicleDdList_infoprojectacc/", function () use ($app ) {
                                                 $app,
                                                 $_GET['language_code']));
     }
-    $lid = null;
+    $lid = 385;
     if (isset($_GET['lid'])) {
          $stripper->offsetSet('lid',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,

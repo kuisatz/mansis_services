@@ -494,14 +494,12 @@ class InfoProjectAcc extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
             $errorInfo[0] = "99999";         
             $addSQL =NULL;
-            $ProjectId=-1 ;
-            print_r($params);
+            $ProjectId=-1 ; 
+                            
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId'];
                 $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
-            }  else {
-                throw new \PDOException($errorInfo[0]);
-            }  
+            }   
             if (isset($params['VehicleGroupsId']) && $params['VehicleGroupsId'] != "") {
                 $ProjectId = $params['VehicleGroupsId'];
                 $addSQL .=   " svgt.vehicle_groups_id  = " . intval($ProjectId). "  AND  " ;
