@@ -50,6 +50,7 @@ class BLLManagerConfig{
                     'infoCustomerContactPersonsBLL' => 'BLL\BLL\InfoCustomerContactPersons',
                     'infoCustomerPurchasePlanBLL' => 'BLL\BLL\InfoCustomerPurchasePlan',
                     'infoCustomerCpersonVehicleBLL' => 'BLL\BLL\InfoCustomerCpersonVehicle',
+                    'infoProjectAccBLL' => 'BLL\BLL\InfoProjectAcc',
                  
                  
                  

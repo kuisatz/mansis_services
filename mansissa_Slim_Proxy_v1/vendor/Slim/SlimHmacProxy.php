@@ -22,6 +22,19 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+        
+        
+           //**---- infoProjectAccBLL -------------------   
+                                    'pkProjectVehicleDdList_infoprojectacc' => 'restApiDefaultCall',   
+                                    'pkFillProjectVehicleAccGridx_infoprojectacc' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoprojectacc' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infoprojectacc' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojectacc' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojectacc' => 'restApiDefaultCall', 
+            
+        //** infoProjectAccBLL ----------------------//   
+        
           //**---- sysTitlesBLL -------------------   
                                     'pkSourceOfLeadDdList_syssourceoflead' => 'restApiDefaultCall',  
         //** sysTitlesBLL ----------------------//   
