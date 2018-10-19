@@ -75,6 +75,7 @@ $app->get("/pkFillCustomerCpVehiclesGridx_infocustomercpersonvehicle/", function
     if (isset($resDataGrid[0]['id'])) {      
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
+                "id" =>  ($menu["id"]), 
                "vehicle_group_id" =>  ($menu["vehicle_group_id"]), 
                 "name" => html_entity_decode($menu["name"]),  
             );
