@@ -79,7 +79,7 @@ $app->get("/pkProjectVehicleDdList_infoprojectacc/", function () use ($app ) {
     if($stripper->offsetExists('project_id')) $ProjectId = $stripper->offsetGet('project_id')->getFilterValue();
     if($stripper->offsetExists('language_code')) $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
         
-    $resCombobox = $BLL->projectVehicleBBDdList(array(                                   
+    $resCombobox = $BLL->ProjectVehicleDdList(array(                                   
                                     'language_code' => $vLanguageCode,
                                     'ProjectId' => $ProjectId,
                                     'LanguageID' => $lid,
