@@ -76,11 +76,9 @@ $app->get("/pkFillCustomerCpVehiclesGridx_infocustomercpersonvehicle/", function
         foreach ($resDataGrid as $menu) {
             $menus[] = array(
                "vehicle_group_id" =>  ($menu["vehicle_group_id"]), 
-                "name" => html_entity_decode($menu["name"]), 
-                
+                "name" => html_entity_decode($menu["name"]),  
             );
-        }
-       $counts = $resTotalRowCount[0]['count'];
+        } 
       } ELSE  $menus = array();       
 
     $app->response()->header("Content-Type", "application/json");
