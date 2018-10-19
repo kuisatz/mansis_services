@@ -2171,9 +2171,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-            case "_syssourceoflead":  
-                $this->setRestApiEndPoint('syssourceoflead.php/');
+            case "_infoprojectacc":  
+                $this->setRestApiEndPoint('infoprojectacc.php/');
                 break;  
+             case "_syssourceoflead":  
+                $this->setRestApiEndPoint('syssourceoflead.php/');
+                break;
             case "_systitles":  
                 $this->setRestApiEndPoint('systitles.php/');
                 break;  
