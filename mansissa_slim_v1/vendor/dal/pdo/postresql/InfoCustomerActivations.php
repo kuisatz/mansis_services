@@ -669,6 +669,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     SELECT  
                         a.id, 
                         a.act_parent_id as apid, 
+                        a.customer_id, 
                         cs.registration_name, 
                         cs.trading_name, 
 			a.cs_activation_type_id,
@@ -695,6 +696,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 			cp.mobile,
 			cp.phone,
 			cp.fax, 
+                        a.is_done,
                       
                         cs.www, 
                         cs.vatnumber, 

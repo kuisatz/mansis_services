@@ -191,6 +191,7 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
+                 "customer_id" => $menu["customer_id"],
                 "registration_name" => html_entity_decode($menu["registration_name"]),
                 "trading_name" => html_entity_decode($menu["trading_name"]),
              
