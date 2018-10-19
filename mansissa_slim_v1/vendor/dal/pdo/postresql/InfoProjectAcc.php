@@ -1339,7 +1339,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
 
                   $sql = "
                 INSERT INTO info_project_acc (  
-                          project_id,
+                        project_id,
                         vehicles_group_id,
                         vehicle_gt_model_id,
                         acc_option_id,
@@ -1349,7 +1349,7 @@ class InfoProjectAcc extends \DAL\DalSlim {
                         deal_acc_newvalue,
                         quantity,
                         is_onsite_offsite,
-                        sis_statu_id,
+
                         detail_information,
                         is_other,
 
