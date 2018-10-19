@@ -207,6 +207,7 @@ $app->get("/pkCustomerContactPersonGridx_infocustomercontactpersons/", function 
                 "source_of_lead_name" => html_entity_decode($menu["source_of_lead_name"]), 
                 "con_end_date" =>  ($menu["con_end_date"]),  
                 "title_id" =>  ($menu["title_id"]),   
+                "title_name" => html_entity_decode($menu["title_name"]),  
                 "title_role_id" =>  ($menu["title_role_id"]), 
                 "role_name" => html_entity_decode($menu["role_name"]),  
                 "priority_id" =>  ($menu["priority_id"]), 
