@@ -952,39 +952,26 @@ class SysNumericalRanges extends \DAL\DalSlim {
     public function  numericalRangesQuartersDdList($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
-            $languageIdValue = 385;
-            if (isset($params['language_code']) && $params['language_code'] != "") { 
-                $languageCodeParams = array('language_code' => $params['language_code'],);
-                $languageId = $this->slimApp-> getBLLManager()->get('languageIdBLL');  
-                $languageIdsArray= $languageId->getLanguageId($languageCodeParams);
-                if (\Utill\Dal\Helper::haveRecord($languageIdsArray)) { 
-                     $languageIdValue = $languageIdsArray ['resultSet'][0]['id']; 
-                }    
-            }    
-            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
-                $languageIdValue = $params['LanguageID'];
-            }   
+           
                             
             $statement = $pdo->prepare("    
                 SELECT                    
                     a.act_parent_id AS id, 	
-                    COALESCE(NULLIF(sd.name, ''), a.name_eng) AS name,  
-                    a.name_eng AS name_eng,
+                    concat( cast(value1 as character varying(4)),'-',a.name ) AS name,  
+                     cast(value1 as character varying(4))  AS name_eng,
                     a.parent_id,
                     a.active,
                     0 AS state_type ,
                     a.priority
-                FROM sys_numerical_ranges a    
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). "  AND lx.deleted =0 AND lx.active =0                      		
-                LEFT JOIN sys_numerical_ranges sd ON (sd.act_parent_id =a.act_parent_id OR sd.language_parent_id = a.act_parent_id) AND sd.show_it =0 AND lx.id = sd.language_id   
+                FROM sys_numerical_ranges a  
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND
                     a.parent_id = 27 AND
-                    a.language_parent_id =0 
+                    a.language_parent_id =0 and 
+                     a.value1    =   ( SELECT date_part('year', CURRENT_DATE)     ) 
                   
-                ORDER BY  a.priority
+                ORDER BY  a.priority 
 
                                  ");
             $statement->execute();
