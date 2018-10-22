@@ -95,6 +95,18 @@ class SysCsActStatutypes extends \BLL\BLLSlim{
         $resultSet = $DAL->csActStatutypesDdList($params);
         return $resultSet['resultSet'];
     }
+     
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     *  örnek olarak  bırakıldı
+    */
+    public function csActStatutypesPUDdList($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysCsActStatutypesPostgrePDO');
+        $resultSet = $DAL->csActStatutypesPUDdList($params);
+        return $resultSet['resultSet'];
+    }
     
     /**
      * Function to fill datagrid on user interface layer

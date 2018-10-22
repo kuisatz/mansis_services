@@ -23,7 +23,15 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+          //**---- infoProjectTradeinBLL -------------------   
+                                    'pkFillProjectTIGridx_infoprojecttradein' => 'restApiDefaultCall',  
+                                    'pkUpdateMakeActiveOrPassive_infoprojecttradein' => 'restApiDefaultCall', 
         
+                                    'pkInsertAct_infoprojecttradein' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojecttradein' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojecttradein' => 'restApiDefaultCall', 
+            
+        //** infoProjectTradeinBLL ----------------------//   
            //**---- infoProjectAccBLL -------------------   
                                     'pkProjectVehicleDdList_infoprojectacc' => 'restApiDefaultCall',   
                                     'pkFillProjectVehicleAccGridx_infoprojectacc' => 'restApiDefaultCall', 
@@ -385,6 +393,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
          //** sysCsActivationTypesBLL ----------------------//          
         
         //**---- sysCsActStatutypesBLL ------------------- 
+                                    'pkCsActStatutypesPUDdList_syscsactstatutypess' => 'restApiDefaultCall', 
                                     'pkCsActStatutypesDdList_syscsactstatutypess' => 'restApiDefaultCall', 
         
          //** sysCsActStatutypesBLL ----------------------//  
@@ -2171,7 +2180,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-            case "_infoprojectacc":  
+            case "_infoprojecttradein":  
+                $this->setRestApiEndPoint('infoprojecttradein.php/');
+                break;  
+             case "_infoprojectacc":  
                 $this->setRestApiEndPoint('infoprojectacc.php/');
                 break;  
              case "_syssourceoflead":  
