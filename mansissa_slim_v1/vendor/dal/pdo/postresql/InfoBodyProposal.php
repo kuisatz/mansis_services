@@ -612,7 +612,7 @@ class InfoBodyProposal extends \DAL\DalSlim {
             $sorguStr = rtrim($sorguStr, "AND "); 
 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');       
-            $addSQL =null ;       
+                            
                             
             $languageIdValue = 385;
             if (isset($params['language_code']) && $params['language_code'] != "") { 
@@ -626,11 +626,13 @@ class InfoBodyProposal extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }    
-            $ProjectId =-1 ;
-            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
-                $ProjectId = $params['ProjectId']; 
-            }   
-              $addSQL .=   " a.project_id  = " . intval($ProjectId). "  AND  " ;
+            $addSQL = " 1 = 2 AND ";  
+            $opUserIdValue = -1111; 
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $addSQL .=   " pvm.op_user_id   = " . intval($opUserIdValue). "  AND  " ;
+            }
                             
                 $sql = "   
                     SELECT  
@@ -720,7 +722,7 @@ class InfoBodyProposal extends \DAL\DalSlim {
     public function fillCustomerBodyProposalGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
-            $addSQL = null;
+                            
             if (isset($params['filterRules'])) {
                 $filterRules = trim($params['filterRules']);
                 $jsonFilter = json_decode($filterRules, true);
@@ -775,11 +777,13 @@ class InfoBodyProposal extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $ProjectId =-1 ;
-            if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
-                $ProjectId = $params['ProjectId']; 
-            }   
-              $addSQL .=   " a.project_id  = " . intval($ProjectId). "  AND  " ;  
+            $addSQL = " 1 = 2 AND ";  
+            $opUserIdValue = -1111; 
+            $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
+            if (\Utill\Dal\Helper::haveRecord($opUserId)) {
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $addSQL .=   " pvm.op_user_id   = " . intval($opUserIdValue). "  AND  " ;
+            }
 
                 $sql = "
                    SELECT COUNT(asdx.id) count FROM ( 
