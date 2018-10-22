@@ -209,8 +209,8 @@ class InfoBodyProposal extends \DAL\DalSlim {
             FROM info_body_proposal  a                          
             WHERE 
                 a.op_user_id = " . intval($params['op_user_id']) . " AND  
-                a.vehicles_endgroup_id = " . intval($params['vehicles_endgroup_id']) . " AND  
-                a.body_brand = '" .  ($params['body_brand']) . "'   
+                a.vehicles_endgroup_id = " . intval($params['vehicles_endgroup_id']) . " AND   
+                LOWER(REPLACE(body_brand,' ','')) = LOWER(REPLACE('" . $params['body_brand'] . "',' ',''))
                 " . $addSql . " 
                 AND a.deleted =0    
                  
