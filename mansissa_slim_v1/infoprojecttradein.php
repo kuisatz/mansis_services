@@ -129,8 +129,7 @@ $app->get("/pkFillProjectTIGridx_infoprojecttradein/", function () use ($app ) {
                 "project_id" =>  ($menu["project_id"]),
               
                 "quantity" =>  ($menu["quantity"]),
-                "topused" => ($menu["topused"]),
-                "km" =>  ($menu["km"]),
+                "topused" => ($menu["topused"]), 
                 "customer" => ($menu["customer"]),
                 "over_allowance" => ($menu["over_allowance"]),
                
