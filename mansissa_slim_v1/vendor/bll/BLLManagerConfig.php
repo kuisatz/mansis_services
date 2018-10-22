@@ -35,10 +35,7 @@ class BLLManagerConfig{
                   'salesBLL' => 'BLL\BLL\InfoSales',
                   'dealerOwnerBLL' => 'BLL\BLL\InfoDealerOwner',
               
-                 
-                 
-                 
-                 
+                  
                  
                  
                    'infoCustomerBLL' => 'BLL\BLL\InfoCustomer',
@@ -51,6 +48,12 @@ class BLLManagerConfig{
                     'infoCustomerPurchasePlanBLL' => 'BLL\BLL\InfoCustomerPurchasePlan',
                     'infoCustomerCpersonVehicleBLL' => 'BLL\BLL\InfoCustomerCpersonVehicle',
                     'infoProjectAccBLL' => 'BLL\BLL\InfoProjectAcc',
+                    'infoProjectTradeinvehicleBLL' => 'BLL\BLL\InfoProjectTradeinvehicle',
+                    'infoProjectTradeinBLL' => 'BLL\BLL\InfoProjectTradein',
+                    'infoProjectWarrantiesBLL' => 'BLL\BLL\InfoProjectWarranties',
+                    'infoProjectCampaignBLL' => 'BLL\BLL\InfoProjectCampaign',
+                    'infoProjectAccBLL' => 'BLL\BLL\InfoProjectAcc',
+                    'infoBodyProposalBLL' => 'BLL\BLL\InfoBodyProposal',
                  
                  
                  

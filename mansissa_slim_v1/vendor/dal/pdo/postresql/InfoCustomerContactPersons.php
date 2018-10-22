@@ -695,7 +695,8 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
 			a.con_end_date,
 			a.title_id,
 			case a.title_id when 1 then 'Ms'
-			else 'Mr' end title_name,
+                                        when 2 then 'Mr'
+                                else 'Mrs' end title_name,
 			a.title_role_id,
 			rt.name as role_name,
 			a.priority_id,
@@ -909,7 +910,9 @@ class InfoCustomerContactPersons extends \DAL\DalSlim {
 			sol.name as source_of_lead_name,
 			a.con_end_date,
 			a.title_id,
-			
+			case a.title_id when 1 then 'Ms'
+                                        when 2 then 'Mr'
+                                else 'Mrs' end title_name,
 			a.title_role_id,
 			rt.name as role_name,
 			a.priority_id,

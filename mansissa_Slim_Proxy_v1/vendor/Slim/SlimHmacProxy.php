@@ -23,6 +23,37 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+        //**---- infoBodyProposalBLL -------------------   
+                                    'pkCustomerBodyProposalDdList_infobodyproposal' => 'restApiDefaultCall',  
+                                    'pkFillCustomerBodyProposalGridx_infobodyproposal' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infobodyproposal' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infobodyproposal' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infobodyproposal' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infobodyproposal' => 'restApiDefaultCall', 
+            
+        //** infoBodyProposalBLL ----------------------//       
+        //**---- infoProjectCampaignBLL -------------------   
+                                    'pkProjectVehicleCampaignDdList_infoprojectcampaign' => 'restApiDefaultCall',  
+                                    'pkFillProjectCampaignGridx_infoprojectcampaign' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoprojectcampaign' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infoprojectcampaign' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojectcampaign' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojectcampaign' => 'restApiDefaultCall', 
+            
+        //** infoProjectCampaignBLL ----------------------//   
+        
+        //**---- infoProjectWarrantiesBLL -------------------   
+                                    'pkProjectVehicleWarrantiesDdList_infoprojectwarranties' => 'restApiDefaultCall',  
+                                    'pkFillProjectWarrantiesGridx_infoprojectwarranties' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoprojectwarranties' => 'restApiDefaultCall', 
+        
+                                    'pkInsertAct_infoprojectwarranties' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojectwarranties' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojectwarranties' => 'restApiDefaultCall', 
+            
+        //** infoProjectWarrantiesBLL ----------------------//   
           //**---- infoProjectTradeinBLL -------------------   
                                     'pkFillProjectTIGridx_infoprojecttradein' => 'restApiDefaultCall',  
                                     'pkUpdateMakeActiveOrPassive_infoprojecttradein' => 'restApiDefaultCall', 
@@ -2180,7 +2211,17 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-            case "_infoprojecttradein":  
+            
+            case "_infobodyproposal":  
+                $this->setRestApiEndPoint('infobodyproposal.php/');
+                break;  
+            case "_infoprojectcampaign":  
+                $this->setRestApiEndPoint('infoprojectcampaign.php/');
+                break;  
+              case "_infoprojectwarranties":  
+                $this->setRestApiEndPoint('infoprojectwarranties.php/');
+                break;  
+             case "_infoprojecttradein":  
                 $this->setRestApiEndPoint('infoprojecttradein.php/');
                 break;  
              case "_infoprojectacc":  

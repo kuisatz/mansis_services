@@ -555,7 +555,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
 
             $sortArr = array();
             $orderArr = array();
-            $addSql = NULL;
+            $addSQL = NULL;
             if (isset($params['sort']) && $params['sort'] != "") {
                 $sort = trim($params['sort']);
                 $sortArr = explode(",", $sort);
@@ -673,7 +673,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     LEFT JOIN sys_specific_definitions sd16x ON sd16x.language_id = lx.id AND (sd16x.id = sd16.id OR sd16x.language_parent_id = sd16.id) AND sd16x.deleted = 0 AND sd16x.active = 0
                     
                     WHERE  
-                     " . $addSql . "
+                     " . $addSQL . "
                         a.deleted =0 AND
                         a.show_it =0  
                      " . $sorguStr . " 
@@ -717,7 +717,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
     public function fillProjectVehicleModelsGridxRtl($params = array()) {
         try {             
             $sorguStr = null;    
-            $addSql = null;
+            $addSQL = null;
             if (isset($params['filterRules'])) {
                 $filterRules = trim($params['filterRules']);
                 $jsonFilter = json_decode($filterRules, true);
@@ -775,7 +775,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
             $isboConfirm = -1 ; 
             if (isset($params['IsBoConfirm']) && $params['IsBoConfirm'] != "") {
                 $isboConfirm = $params['IsBoConfirm']; 
-                 $addSql =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
+                 $addSQL =  " a.is_bo_confirm = " . intval($isboConfirm)." AND " ;
             }      
 
                 $sql = "
@@ -819,7 +819,7 @@ class InfoProjectVehicleModels extends \DAL\DalSlim {
                     WHERE  
                         a.deleted =0 AND
                         a.show_it =0   
-                         " . $addSql . "
+                         " . $addSQL . "
                          " . $sorguStr . " 
                     ) asdx
                         

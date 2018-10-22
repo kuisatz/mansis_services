@@ -1464,7 +1464,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException
      */
-    public function insertTrackingAct($params = array()) {
+    public function insertTrackingAct($params = array()) {               
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction();

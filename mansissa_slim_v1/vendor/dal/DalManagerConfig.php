@@ -48,7 +48,13 @@ class DalManagerConfig {
                   'infoCustomerPurchasePlanOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerPurchasePlanFactory',
                   'infoCustomerCpersonVehicleOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoCustomerCpersonVehicleFactory',
                   'infoProjectAccOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectAccFactory',
-                 
+                  'infoProjectTradeinvehicleOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectTradeinvehicleFactory',
+                  'infoProjectTradeinOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectTradeinFactory',
+                  'infoProjectWarrantiesOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectWarrantiesFactory',
+                  'infoProjectCampaignOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectCampaignFactory',
+                  'infoProjectAccOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectAccFactory',
+                  'infoBodyProposalOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoBodyProposalFactory',
+                
                 
                 
                  
@@ -239,6 +245,13 @@ class DalManagerConfig {
                 'infoCustomerPurchasePlanPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerPurchasePlanFactory',
                 'infoCustomerCpersonVehiclePostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoCustomerCpersonVehicleFactory',
                 'infoProjectAccPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectAccFactory',
+                'infoProjectTradeinvehiclePostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectTradeinvehicleFactory',
+                'infoProjectTradeinPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectTradeinFactory',
+                'infoProjectWarrantiesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectWarrantiesFactory',
+                'infoProjectCampaignPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectCampaignFactory',
+                'infoProjectAccPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectAccFactory',
+                'infoBodyProposalPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoBodyProposalFactory',
+                
                 
                 'infoAfterSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoAfterSalesFactory',
                 'infoSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoSalesFactory',
