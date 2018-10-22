@@ -418,9 +418,7 @@ $app->get("/pkInsertAct_infoprojectwarranties/", function () use ($app ) {
     
       
     /*                      
-                                 
-      &project_id=1&vehicles_endgroup_id=1&vehicles_trade_id=1&customer_type_id=1&comfort_super_id=1&terrain_id=1&vehicle_group_id=1&hydraulics_id=1&buyback_matrix_id=1&quantity=1&is_other=1&other_month_value=1&other_milages_value=1&other_description=1&deal_tb_value=1&isbo_confirm=1&ishos_confirm=1                     
-    
+&project_id=80&vehicle_group_id=3&vehicles_endgroup_id=2&monthsx_id=3&warranty_matrix_id=38&quantity=55&warranty_type_id=1&new_price=123 &is_other=&other_month=&other_km=&other_desc=
      */ 
      
     
