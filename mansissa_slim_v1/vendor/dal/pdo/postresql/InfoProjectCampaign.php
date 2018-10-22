@@ -211,13 +211,9 @@ class InfoProjectCampaign extends \DAL\DalSlim {
                 a.project_id = " . intval($params['project_id']) . " AND  
                 a.vehicles_endgroup_id = " . intval($params['vehicles_endgroup_id']) . " AND   
                 a.vehicle_group_id = " . intval($params['vehicle_group_id']) . " AND  
-                a.monthsx_id = " . intval($params['monthsx_id']) . " AND  
-                a.mileages_id = " . intval($params['mileages_id']) . " AND  
-                a.warranty_matrix_id = " . intval($params['warranty_matrix_id']) . " AND  
-                a.warranty_type_id = " . intval($params['warranty_type_id']) . "  
+                a.campaign_vehicle_id = " . intval($params['campaign_vehicle_id']) . "  
                 " . $addSql . " 
-                AND a.deleted =0   
-                 
+                AND a.deleted =0     
                                ";
             $statement = $pdo->prepare($sql);
                             
@@ -495,13 +491,11 @@ class InfoProjectCampaign extends \DAL\DalSlim {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
             $errorInfo[0] = "99999";         
-            $addSQL =null;
+            $addSQL =" 1 = 2 AND";
             $ProjectId=-1 ;
             if (isset($params['ProjectId']) && $params['ProjectId'] != "") {
                 $ProjectId = $params['ProjectId'];
-                $addSQL .=   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
-            }  else {
-                throw new \PDOException($errorInfo[0]);
+                $addSQL  =   " pvm.project_id   = " . intval($ProjectId). "  AND  " ;
             }  
                             
             $sql =  "    
