@@ -496,7 +496,7 @@ class InfoBodyProposal extends \DAL\DalSlim {
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
-                $addSQL .=   " pvm.op_user_id   = " . intval($opUserIdValue). "  AND  " ;
+                $addSQL =   " pvm.op_user_id   = " . intval($opUserIdValue). "  AND  " ;
             }
                             
             $sql =  "    
@@ -519,7 +519,7 @@ class InfoBodyProposal extends \DAL\DalSlim {
  
                                  " ;
              $statement = $pdo->prepare($sql);
-      echo debugPDO($sql, $params);
+        //   echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
