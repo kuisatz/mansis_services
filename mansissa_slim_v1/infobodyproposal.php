@@ -47,14 +47,14 @@ $app->get("/pkCustomerBodyProposalDdList_infobodyproposal/", function () use ($a
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoBodyProposalBLL');
-    
+     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
     $headerParams = $app->request()->headers();
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkCustomerBodyProposalDdList_infobodyproposal" end point, X-Public variable not found');
-   // $pk = $headerParams['X-Public'];
+    $pk = $headerParams['X-Public'];
     
     $vLanguageCode = 'en';
     if (isset($_GET['language_code'])) {
@@ -83,6 +83,7 @@ $app->get("/pkCustomerBodyProposalDdList_infobodyproposal/", function () use ($a
                                     'language_code' => $vLanguageCode,
                                     'ProjectId' => $ProjectId,
                                     'LanguageID' => $lid,
+                                    'pk' => $pk,
                         ));    
 
     $flows = array(); 
