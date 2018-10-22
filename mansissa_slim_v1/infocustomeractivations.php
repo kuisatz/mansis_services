@@ -238,6 +238,11 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "realization_date" =>  ($menu["realization_date"]),
                 "is_done" =>  ($menu["is_done"]),
            
+                
+                
+                "planned_unplaned_id" =>  ($menu["planned_unplaned_id"]),
+                "planned_unplaned_name" => html_entity_decode($menu["planned_unplaned_name"]),
+                
                 "op_username" => html_entity_decode($menu["op_user_name"]), 
                 "state_active" => html_entity_decode($menu["state_active"]),       
                 "date_saved" => $menu["date_saved"],
@@ -412,7 +417,11 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
          $stripper->offsetSet('report',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['report']));
-    }  
+    } 
+    $plannedUnplanedId= NULL;
+    if (isset($_GET['planned_unplaned_id'])) {
+        $stripper->offsetSet('planned_unplaned_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['planned_unplaned_id']));
+    }
      
     $stripper->strip();
   
@@ -432,6 +441,7 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('activty_tracking_type_id')) $activtyTrackingTypeId = $stripper->offsetGet('activty_tracking_type_id')->getFilterValue();
     if($stripper->offsetExists('realization_date')) $realization = $stripper->offsetGet('realization_date')->getFilterValue();
     if($stripper->offsetExists('report')) $report = $stripper->offsetGet('report')->getFilterValue();
+    if($stripper->offsetExists('planned_unplaned_id')) $plannedUnplanedId = $stripper->offsetGet('planned_unplaned_id')->getFilterValue();
   
     $resDataInsert = $BLL->insertAct(array( 
             'CustomerId' => $CustomerId,  
@@ -448,6 +458,7 @@ $app->get("/pkInsertAct_infocustomeractivations/", function () use ($app ) {
             'ActivityTrackingDate' => $ActivityTrackingDate,   
             'ActivtyTrackingTypeId' => $activtyTrackingTypeId,   
             'RealizationDate' => $realization,   
+            'PlannedUnplanedId' => $plannedUnplanedId,   
             'report' => $report,   
           
             'pk' => $pk));
@@ -552,6 +563,10 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if (isset($_GET['is_done'])) {
         $stripper->offsetSet('is_done', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['is_done']));
     }
+      $plannedUnplanedId= NULL;
+    if (isset($_GET['planned_unplaned_id'])) {
+        $stripper->offsetSet('planned_unplaned_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,  $app,   $_GET['planned_unplaned_id']));
+    }
     
     // &act_date=2018-10-12&customer_id=1&contact_person_id=2&cs_activation_type_id=2&cs_statu_types_id=1&cs_act_statutype_id=1&project_id=2&customer_segment_type_id=2&vehicle_model_id=3&description=32222&manager_description=
     
@@ -576,6 +591,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
     if($stripper->offsetExists('realization_date')) $realization = $stripper->offsetGet('realization_date')->getFilterValue();
     if($stripper->offsetExists('report')) $report = $stripper->offsetGet('report')->getFilterValue();
     if($stripper->offsetExists('is_done')) $IsDone = $stripper->offsetGet('is_done')->getFilterValue();
+    if($stripper->offsetExists('planned_unplaned_id')) $plannedUnplanedId = $stripper->offsetGet('planned_unplaned_id')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();
   
     $resDataInsert = $BLL->updateAct(array( 
@@ -595,6 +611,7 @@ $app->get("/pkUpdateAct_infocustomeractivations/", function () use ($app ) {
             'RealizationDate' => $realization,   
             'report' => $report,   
             'IsDone' => $IsDone,
+           'PlannedUnplanedId' => $plannedUnplanedId,   
             'Id' => $vId,
             'pk' => $pk));
         

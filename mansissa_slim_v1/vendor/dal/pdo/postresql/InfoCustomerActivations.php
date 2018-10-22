@@ -678,6 +678,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 			a.cs_statu_types_id,
                         acs.name as statu_types_name,
 			a.cs_act_statutype_id,
+                        a.planned_unplaned_id,
+                        acsp.name as planned_unplaned_name,
                         cas.name as cs_act_statutype_name,
 			a.project_id,
 			a.customer_segment_type_id, 
@@ -727,6 +729,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
 		    left join sys_vehicle_gt_models vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
                     left join sys_cs_statu_types acs on acs.act_parent_id = a.cs_statu_types_id and acs.show_it = 0 
                     left join sys_cs_act_statutypes  cas on cas.act_parent_id = a.cs_statu_types_id and cas.show_it = 0 
+                    left join sys_cs_statu_types acsp on acsp.act_parent_id = a.planned_unplaned_id and acsp.show_it = 0 
                      
                     /*----*/   
                    /* INNER JOIN sys_specific_definitions sd15 ON sd15.main_group = 15 AND sd15.first_group= a.deleted AND sd15.deleted =0 AND sd15.active =0 AND sd15.language_parent_id =0 */
@@ -1037,6 +1040,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         realization_date,
                         report,
                         is_done,
+                        planned_unplaned_id,
   
                         active,
                         deleted,
@@ -1061,6 +1065,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         realization_date,
                         report,
                         is_done,
+                        planned_unplaned_id,
                          
                         1 AS active,  
                         1 AS deleted, 
@@ -1169,6 +1174,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
                 $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
             }   
+             $PlannedUnplanedId = 0;
+            if ((isset($params['PlannedUnplanedId']) && $params['PlannedUnplanedId'] != "")) {
+                $PlannedUnplanedId = intval($params['PlannedUnplanedId']);
+            }   
            
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
@@ -1197,6 +1206,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             description,
                             manager_description, 
                             activty_tracking_type_id, 
+                            planned_unplaned_id,
                          
                             op_user_id,
                             act_parent_id  
@@ -1214,6 +1224,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             '" . $Description . "',
                             '" . $ManagerDescription . "', 
                             " .  intval($ActivtyTrackingTypeId) . ",
+                            " .  intval($PlannedUnplanedId) . ",
                             
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_activations_id_seq)
@@ -1344,7 +1355,11 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $IsDone = 0;
             if ((isset($params['IsDone']) && $params['IsDone'] != "")) {
                 $IsDone = intval($params['IsDone']);
-            }              
+            }  
+            $PlannedUnplanedId = 0;
+            if ((isset($params['PlannedUnplanedId']) && $params['PlannedUnplanedId'] != "")) {
+                $PlannedUnplanedId = intval($params['PlannedUnplanedId']);
+            }               
                             
             $opUserIdParams = array('pk' => $params['pk'],);
             $opUserIdArray = $this->slimApp->getBLLManager()->get('opUserIdBLL');
@@ -1379,6 +1394,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         activty_tracking_type_id,
                         is_done,
                         report,
+                        planned_unplaned_id,
                         
                         op_user_id,
                         act_parent_id  ,
@@ -1398,6 +1414,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     " .  intval($ActivtyTrackingTypeId) . ",
                     " .  intval($IsDone) . ",
                     '" . $report . "', 
+                    " .  intval($PlannedUnplanedId) . ",
                                  
                     " . intval($opUserIdValue) . " AS op_user_id,  
                     act_parent_id,
