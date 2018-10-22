@@ -360,9 +360,9 @@ $app->get("/pkInsertAct_infobodyproposal/", function () use ($app ) {
     
      
     /*                      
-                                               
-      &project_id=1&vehicles_endgroup_id=1&vehicles_trade_id=1&customer_type_id=1&comfort_super_id=1&terrain_id=1&vehicle_group_id=1&hydraulics_id=1&buyback_matrix_id=1&quantity=1&is_other=1&other_month_value=1&other_milages_value=1&other_description=1&deal_tb_value=1&isbo_confirm=1&ishos_confirm=1                     
-    
+     &vehicle_group_id=1&vehicles_endgroup_id=2&body_brand=asdasd&body_options=ddffdd&body_desc=fsdfsdf&demand_date=2019-10-10
+                                         
+     
      */ 
       
     $resDataInsert = $BLL->insertAct(array( 
