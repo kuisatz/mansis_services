@@ -174,7 +174,7 @@ $app->get("/pkFillCustomerBodyProposalGridx_infobodyproposal/", function () use 
         'pk' => $pk,
     ));
    
-    $resTotalRowCount = $BLL->fillProjectCampaignGridxRtl(array(
+    $resTotalRowCount = $BLL->fillCustomerBodyProposalGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
         'ProjectId' => $ProjectId,
