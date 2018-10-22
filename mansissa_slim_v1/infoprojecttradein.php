@@ -122,16 +122,16 @@ $app->get("/pkFillProjectTIGridx_infoprojecttradein/", function () use ($app ) {
   
     $menu = array();            
     if (isset($resDataGrid[0]['id'])) {      
-        foreach ($resDataGrid as $menu) {
+        foreach ($resDataGrid as $menu) {     
             $menus[] = array(
                "id" => $menu["id"],
                 "apid" => intval($menu["apid"]),  
                 "project_id" =>  ($menu["project_id"]),
               
-                "quantity" =>  ($menu["quantity"]),
+                "quantity" =>  ($menu["quantity"]),    
                 "topused" => ($menu["topused"]), 
                 "customer" => ($menu["customer"]),
-                "over_allowance" => ($menu["over_allowance"]),
+                "over_allowance" => ($menu["over_allowance"]),// gıcık idil
                
                 "isbo_confirm" =>  ($menu["isbo_confirm"]),
                 "ishos_confirm" =>  ($menu["ishos_confirm"]),
