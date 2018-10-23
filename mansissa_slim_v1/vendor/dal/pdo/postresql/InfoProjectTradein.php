@@ -1121,12 +1121,12 @@ class InfoProjectTradein extends \DAL\DalSlim {
                         topused,
                         customer,
                         over_allowance,
-                        
+
                         isbo_confirm,
                         ishos_confirm,
                         sa_description,
                         bo_description,
-                             
+
                         op_user_id,
                         act_parent_id  
                         )  
@@ -1136,7 +1136,7 @@ class InfoProjectTradein extends \DAL\DalSlim {
                     " .  floatval($Topused). ",
                     " .  floatval($Customer). ",
                     " .  floatval($OverAllowance). ",
-                    " .  intval($OverAllowanceTypeId) . ",  
+
                     " .  intval($IsBoConfirm). ",
                     " .  intval($IsHosConfirm). ",
                     '" .  ($SaDescription). "',
