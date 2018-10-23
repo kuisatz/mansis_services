@@ -22,6 +22,19 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+         //**---- infoProjectTradeinvehicleBLL -------------------   
+                                    'pkProjectVehicleTradeInAllDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall',  
+                                    'pkProjectVehicleTradeInBoDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+                                    'pkProjectVehicleTradeInHosDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+                                    'pkFillProjectVehicleTIGridx_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+                                    'pkUpdateMakeActiveOrPassive_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+        
+        
+                                    'pkInsertAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+                                    'pkUpdateAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+                                    'pkDeletedAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
+            
+        //** infoProjectTradeinvehicleBLL ----------------------//       
         
         //**---- infoBodyProposalBLL -------------------   
                                     'pkCustomerBodyProposalDdList_infobodyproposal' => 'restApiDefaultCall',  
@@ -2211,7 +2224,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-            
+             case "_infoprojecttradeinvehicle":  
+                $this->setRestApiEndPoint('infoprojecttradeinvehicle.php/');
+                break;  
             case "_infobodyproposal":  
                 $this->setRestApiEndPoint('infobodyproposal.php/');
                 break;  
