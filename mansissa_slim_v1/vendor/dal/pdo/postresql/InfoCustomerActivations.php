@@ -213,11 +213,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 a.contact_person_id = " . intval($params['contact_person_id']) . "   
                 " . $addSql . " 
                 AND a.deleted =0    
- 
                  
                                ";
             $statement = $pdo->prepare($sql);
-       echo debugPDO($sql, $params);
+         // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1134,7 +1133,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $ActDate = $params['ActDate'];
                 $addSQL1 .= 'act_date,  ';
                 $addSQL2 .= "'". $ActDate."',";
-            }  
+            } else {
+                throw new \PDOException($errorInfo[0]);
+            }
             $ActivityTrackingDate= null;
             if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
                 $ActivityTrackingDate = $params['ActivityTrackingDate'];
@@ -1304,7 +1305,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $ActDate = $params['ActDate'];
                 $addSQL1 .= 'act_date,  ';
                 $addSQL2 .= "'". $ActDate."',";
-            }  
+            }    else {
+                throw new \PDOException($errorInfo[0]);
+            }
              $ActivityTrackingDate= null;
             if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
                 $ActivityTrackingDate = $params['ActivityTrackingDate'];
@@ -1425,7 +1428,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     id  =" . intval($Id) . "                  
                                                 " ;
                     $statementInsert = $pdo->prepare($sql);
-                 echo debugPDO($sql, $params);
+                // echo debugPDO($sql, $params);
                     $result = $statementInsert->execute();  
                     $errorInfo = $statementInsert->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
