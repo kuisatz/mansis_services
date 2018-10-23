@@ -209,23 +209,10 @@ class InfoProjectTradeinvehicle extends \DAL\DalSlim {
             FROM info_project_tradeinvehicle  a                          
             WHERE 
                 a.project_id = " . intval($params['project_id']) . " AND  
-              
-                a.vehicles_trade_id = " . intval($params['vehicles_trade_id']) . " AND  
-                a.customer_type_id = " . intval($params['customer_type_id']) . " AND  
-                a.comfort_super_id = " . intval($params['comfort_super_id']) . " AND  
-                a.terrain_id = " . intval($params['terrain_id']) . " AND  
-             
-                a.hydraulics_id = " . intval($params['hydraulics_id']) . " AND  
-                a.buyback_matrix_id = " . intval($params['buyback_matrix_id']) . " AND  
-                a.is_other = " . intval($params['is_other']) . " AND  
-                a.other_month_value = " . intval($params['other_month_value']) . " AND   
-                a.other_milages_value = " . intval($params['other_milages_value']) . " AND  
-                a.isbo_confirm = " . intval($params['isbo_confirm']) . " AND  
-                a.ishos_confirm = " . intval($params['ishos_confirm']) . "    
-     
+                LOWER(REPLACE(engine_number,' ','')) = LOWER(REPLACE('" . $params['engine_number'] . "',' ',''))AND
+                LOWER(REPLACE(vin_number,' ','')) = LOWER(REPLACE('" . $params['vin_number'] . "',' ','')) 
                 " . $addSql . " 
-                AND a.deleted =0   
-                 
+                AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
                             
@@ -1306,7 +1293,7 @@ class InfoProjectTradeinvehicle extends \DAL\DalSlim {
                            
             $EngineNumber =null;
             if ((isset($params['EngineNumber']) && $params['EngineNumber'] != "")) {
-                $EngineNumber = intval($params['EngineNumber']);
+                $EngineNumber =  ($params['EngineNumber']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
             }   

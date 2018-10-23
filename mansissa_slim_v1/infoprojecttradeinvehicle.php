@@ -573,8 +573,8 @@ $app->get("/pkInsertAct_infoprojecttradeinvehicle/", function () use ($app ) {
     if($stripper->offsetExists('embrace_transfer_date')) $embraceTransferDate = $stripper->offsetGet('embrace_transfer_date')->getFilterValue(); 
       
     /*           
-                           
-      &project_id=1&vehicles_endgroup_id=1&vehicles_trade_id=1&customer_type_id=1&comfort_super_id=1&terrain_id=1&vehicle_group_id=1&hydraulics_id=1&buyback_matrix_id=1&quantity=1&is_other=1&other_month_value=1&other_milages_value=1&other_description=1&deal_tb_value=1&isbo_confirm=1&ishos_confirm=1                     
+         &project_id=80&engine_number=123123&vin_number=123333&km=322&brand=MAN&vehicle_brand=MANa&vehicle_model=MANb&license_plate=32 ssd 555&model_year=2018&waranty=ddeeasdasda sda&truck_number=123123&embrace_transfer_date=2017-10-10&vehicle_location=cape town&vehicle_up_desc=bişiy yok&vehicle_type_of_body= bi suru var&sa_description=&bo_description=&isbo_confirm=&ishos_confirm=                 
+      
     
      */ 
      
@@ -770,7 +770,7 @@ $app->get("/pkUpdateAct_infoprojecttradeinvehicle/", function () use ($app ) {
           
     $resDataInsert = $BLL->updateAct(array(
             'Id' => $vId,    
-             'ProjectId' => $ProjectId,   
+            'ProjectId' => $ProjectId,   
             'EngineNumber' => $engineNumber,
             'VinNumber' => $vinNumber,  
             'KM' => $km,  
