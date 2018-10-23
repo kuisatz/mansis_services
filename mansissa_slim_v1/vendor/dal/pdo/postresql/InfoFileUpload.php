@@ -114,9 +114,9 @@ class InfoFileUpload extends \DAL\DalSlim {
     public function testvasxmlupload($params = array()) {
         try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            
-            
-                         $str_xml='<?xml version="1.0" encoding="iso-8859-1"?>
+             $string = 'D:/VAS.xml'; 
+             $str_xml = simplexml_load_file($string);
+        /*     $str_xml='<?xml version="1.0" encoding="iso-8859-1"?>
                 <products>
                   <product id="809809">
                     <name>LongJohn</name>
@@ -129,6 +129,8 @@ class InfoFileUpload extends \DAL\DalSlim {
                     <sum>110297</sum>
                   </product>
                 </products>';
+         *  
+         */
     $library = new \SimpleXMLElement( $str_xml );
   //   $xml = new \SimpleXMLElement($this->create_gk_xml(), 0, true);
     print_r( $library );
