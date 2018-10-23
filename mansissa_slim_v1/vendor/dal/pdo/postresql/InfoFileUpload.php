@@ -118,11 +118,12 @@ class InfoFileUpload extends \DAL\DalSlim {
                 $sql = "                 
                   select oki_xml_import('D:/VAS.xml');
                 "  ;
-                $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
-                $update = $statement->execute();
+               $statement = $pdo->prepare($sql);
+         //    echo debugPDO($sql, $params);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
            
-                print_r($statement);
+                print_r($result);
                 
                 
                 
