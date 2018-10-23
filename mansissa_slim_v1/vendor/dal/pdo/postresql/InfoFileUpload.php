@@ -124,7 +124,7 @@ class InfoFileUpload extends \DAL\DalSlim {
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
            
                 print_r($statement);
-                $string = 'D:\\VAS.xml'; 
+                $string = 'D:/VAS.xml'; 
                 if (file_exists($string)) {
                     $xml = simplexml_load_file($string);
                   //   print_r($xml);
@@ -135,7 +135,7 @@ class InfoFileUpload extends \DAL\DalSlim {
                      print_r("wwwww");
                 
            //     $xml = simplexml_load_string($myXMLData);
-                $string = 'D:/VAS.xml';
+               
                 $xml = new \SimpleXMLElement($string);
                 foreach($xml->VehicleAssyfo->Details as $item){
                     echo $item->ChassisNo.' - ';
