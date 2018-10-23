@@ -127,10 +127,10 @@ class InfoFileUpload extends \DAL\DalSlim {
                 $string = 'D://VAS.xml'; 
                 if (file_exists($string)) {
                     $xml = simplexml_load_file($string);
-                     print_r($xml);
+                  //   print_r($xml);
                        print_r("qqqqqq");
                 }
-                  print_r($xml);
+             //     print_r($xml);
                   
                      print_r("wwwww");
                 
