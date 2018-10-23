@@ -117,7 +117,7 @@ class InfoFileUpload extends \DAL\DalSlim {
            // $pdo->beginTransaction();
            
             
-            $xml=simplexml_load_file("d:/VAS.xml") or die("Error: Cannot create object");
+            $xml=simplexml_load_file("D:/xampp/htdocs/VAS.xml") or die("Error: Cannot create object");
 
            print_r($xml); 
             
