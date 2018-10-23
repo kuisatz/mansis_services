@@ -140,7 +140,7 @@ class InfoFileUpload extends \DAL\DalSlim {
                                     ELSE 0
                                 END activex
                                 FROM info_project
-                                WHERE id = " . intval($params['id']) . "
+                                WHERE id =  
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
