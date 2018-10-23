@@ -136,7 +136,21 @@ class InfoFileUpload extends \DAL\DalSlim {
                   //  mysqli_query($conn, "INSERT INTO users (ID, username ,email ) VALUES (". $item->ID.", '". $item->username."', '" .$item->email."')" );
                 }
                 
-                
+                  $str_xml='<?xml version="1.0" encoding="iso-8859-1"?>
+                <products>
+                  <product id="809809">
+                    <name>LongJohn</name>
+                    <brand>7</brand>
+                    <product_url>https://www.example.com/producturl.html</product_url>
+                    <image_url>https://www.example.com/product.jpg</image_url>
+                    <price>369.00</price>
+                    <former_price>369.00</former_price>
+                    <in>Y</in>
+                    <sum>110297</sum>
+                  </product>
+                </products>';
+    $library = new SimpleXMLElement( $str_xml );
+    print_r( $library );
             
        //     $xml=simplexml_load_file("D://xampp//htdocs//VAS.xml") or die("Error: Cannot create object");
 
