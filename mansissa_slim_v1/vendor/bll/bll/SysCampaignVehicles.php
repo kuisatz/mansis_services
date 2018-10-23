@@ -83,8 +83,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
         $resultSet = $DAL->fillGridRowTotalCount($params);  
         return $resultSet['resultSet'];
     }
-   
-     
+    
     /**
      * Function to fill text on user interface layer
      * @param array $params
@@ -94,6 +93,28 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
     public function fillLanguageDdList($params = array()) {
         $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         $resultSet = $DAL->fillLanguageDdList($params);
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCampaignVehiclesGridx ($params = array()) { 
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
+        $resultSet = $DAL->fillCampaignVehiclesGridx($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillCampaignVehiclesGridxRtl($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $resultSet = $DAL->fillCampaignVehiclesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
     

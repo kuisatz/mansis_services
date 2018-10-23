@@ -22,7 +22,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
-        
+          
+        //**---- sysCampaignVehiclesBLL -------------------   
+                                    'pkFillCampaignVehiclesGridx_syscampaignvehicles' => 'restApiDefaultCall',   
+        //** sysCampaignVehiclesBLL ----------------------//       
         
         //**---- infoFileUploadBLL -------------------   
                                     'pktestvasxmlupload_infofileupload' => 'restApiDefaultCall',   
@@ -2221,7 +2224,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
     public function setEndPointByClosure(Array $EndPointClosure = null) {
         
         $xxroleid = $this->hmacObj->getRoleID(); 
-     //   print_r($xxroleid) ;        
+            
             
         
         $endPointFunction = $this->getRestApiEndPointFunction();
@@ -2235,7 +2238,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 echo "_test!";
                 break; 
             
-             
+            
+             case "_syscampaignvehicles":  
+                $this->setRestApiEndPoint('syscampaignvehicles.php/');
+                break;
             case "_infofileupload":  
                 $this->setRestApiEndPoint('infofileupload.php/');
                 break;  
