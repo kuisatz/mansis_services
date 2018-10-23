@@ -114,7 +114,7 @@ class InfoFileUpload extends \DAL\DalSlim {
     public function testvasxmlupload($params = array()) {
         try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-             $string =file_get_contents( 'file:///C:/Users/musti/AppData/Local/Temp/VAS.xml'); 
+             $string =file_get_contents( 'C:/VAS.xml'); 
              $str_xml = simplexml_load_file($string);
         /*     $str_xml='<?xml version="1.0" encoding="iso-8859-1"?>
                 <products>
