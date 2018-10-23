@@ -213,10 +213,11 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 a.contact_person_id = " . intval($params['contact_person_id']) . "   
                 " . $addSql . " 
                 AND a.deleted =0    
+ 
                  
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+       echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
