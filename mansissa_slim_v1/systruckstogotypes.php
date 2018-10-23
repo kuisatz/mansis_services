@@ -47,7 +47,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 $app->get("/pkTruckstogoTypeDdList_systruckstogotypes/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysVehicleTtogoTypeBLL');
+    $BLL = $app->getBLLManager()->get('sysTruckstogoTypesBLL');
     
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
