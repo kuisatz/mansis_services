@@ -54,6 +54,7 @@ class DalManagerConfig {
                   'infoProjectCampaignOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectCampaignFactory',
                   'infoProjectAccOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoProjectAccFactory',
                   'infoBodyProposalOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoBodyProposalFactory',
+                  'infoFileUploadOraclePDO' => 'DAL\Factory\PDO\Oracle\InfoFileUploadFactory',
                 
                 
                 
@@ -256,6 +257,8 @@ class DalManagerConfig {
                 'infoProjectCampaignPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectCampaignFactory',
                 'infoProjectAccPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoProjectAccFactory',
                 'infoBodyProposalPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoBodyProposalFactory',
+                'infoFileUploadPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoFileUploadFactory',
+                
                 
                 
                 'infoAfterSalesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\InfoAfterSalesFactory',

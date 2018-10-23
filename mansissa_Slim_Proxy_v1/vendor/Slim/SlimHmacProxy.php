@@ -24,6 +24,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
+        //**---- infoFileUploadBLL -------------------   
+                                    'pktestvasxmlupload_infofileupload' => 'restApiDefaultCall',   
+        //** infoFileUploadBLL ----------------------//       
         
         //**---- sysVehicleTtogoTypeBLL -------------------   
                                     'pkTruckstogoTypeDdList_systruckstogotypes' => 'restApiDefaultCall',   

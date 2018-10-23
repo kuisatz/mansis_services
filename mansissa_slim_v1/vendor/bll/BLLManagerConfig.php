@@ -54,6 +54,7 @@ class BLLManagerConfig{
                     'infoProjectCampaignBLL' => 'BLL\BLL\InfoProjectCampaign',
                     'infoProjectAccBLL' => 'BLL\BLL\InfoProjectAcc',
                     'infoBodyProposalBLL' => 'BLL\BLL\InfoBodyProposal',
+                    'infoFileUploadBLL' => 'BLL\BLL\InfoFileUpload',
                  
                  
                  
