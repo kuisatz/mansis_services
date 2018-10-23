@@ -122,7 +122,7 @@ class InfoFileUpload extends \DAL\DalSlim {
                     //  echo debugPDO($sql, $params);
                 $update = $statement->execute();
            
-                print_r($update);
+                print_r($statement);
                 
                 
                 
