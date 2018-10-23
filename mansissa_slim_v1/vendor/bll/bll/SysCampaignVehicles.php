@@ -113,7 +113,7 @@ class SysCampaignVehicles extends \BLL\BLLSlim{
      * @return array
      */
     public function fillCampaignVehiclesGridxRtl($params = array()) {
-        $DAL = $this->slimApp->getDALManager()->get('sysBuybackMatrixPostgrePDO');
+        $DAL = $this->slimApp->getDALManager()->get('sysCampaignVehiclesPostgrePDO');
         $resultSet = $DAL->fillCampaignVehiclesGridxRtl($params);  
         return $resultSet['resultSet'];
     }
