@@ -967,7 +967,7 @@ class InfoProjectTradein extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                     
-                    $this->makePassive(array('id' => $params['project_id']));
+                    $this->makePassive(array('id' => $params['ProjectId']));
                     
                     $sql = "
                     INSERT INTO info_project_tradein(
@@ -1112,7 +1112,7 @@ class InfoProjectTradein extends \DAL\DalSlim {
                 ));
                 if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
 
-                    $this->makePassive(array('id' => $params['Id']));
+                    $this->makePassive(array('id' => $params['ProjectId']));
 
                   $sql = "
                 INSERT INTO info_project_tradein (  
