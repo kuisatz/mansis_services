@@ -115,9 +115,19 @@ class InfoFileUpload extends \DAL\DalSlim {
         try { 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
            // $pdo->beginTransaction();
+                $sql = "                 
+                  select oki_xml_import('D:/VAS.xml');
+                "  ;
+                $statement = $pdo->prepare($sql);
+                    //  echo debugPDO($sql, $params);
+                $update = $statement->execute();
            
+                print_r($update);
+                
+                
+                
             
-            $xml=simplexml_load_file("D:\xampp\htdocs\VAS.xml") or die("Error: Cannot create object");
+            $xml=simplexml_load_file("D://xampp//htdocs//VAS.xml") or die("Error: Cannot create object");
 
            print_r($xml); 
             
