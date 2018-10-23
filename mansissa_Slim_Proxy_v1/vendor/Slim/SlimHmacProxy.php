@@ -22,14 +22,21 @@ class SlimHmacProxy extends \Proxy\Proxy {
                                     'getOracleConnTest' => 'restApiDefaultCall',
         
         
+        
+        
+        
+        
+         
+         //**---- infoProjectTradeinvehicleBLL -------------------   
+                                    'pkVehicleTtogoTypeDdList_sysvehiclettogotype' => 'restApiDefaultCall',   
+        //** infoProjectTradeinvehicleBLL ----------------------//       
          //**---- infoProjectTradeinvehicleBLL -------------------   
                                     'pkProjectVehicleTradeInAllDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall',  
                                     'pkProjectVehicleTradeInBoDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
                                     'pkProjectVehicleTradeInHosDdList_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
                                     'pkFillProjectVehicleTIGridx_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
                                     'pkUpdateMakeActiveOrPassive_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
-        
-        
+            
                                     'pkInsertAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
                                     'pkUpdateAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 
                                     'pkDeletedAct_infoprojecttradeinvehicle' => 'restApiDefaultCall', 

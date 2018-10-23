@@ -152,7 +152,11 @@ class DalManagerConfig {
                    'sysVehicleGtModelsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleGtModelsFactory',
                    'sysVehicleModelVariantsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleModelVariantsFactory',
                    'sysVehiclesOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehiclesFactory',
-                   'sysVehicleBtobtsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleBtobtsFactory',                 
+                   'sysVehicleBtobtsOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleBtobtsFactory',    
+                   'sysVehicleTtogoTypeOraPDO' => 'DAL\Factory\PDO\Oracle\SysVehicleTtogoTypeFactory',    
+                
+                
+                
                    'sysWarrantiesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantiesFactory', 
                    'sysWarrantyMatrixOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyMatrixFactory',
                    'sysWarrantyTypesOraPDO' => 'DAL\Factory\PDO\Oracle\SysWarrantyTypesFactory',                 
@@ -355,6 +359,7 @@ class DalManagerConfig {
                 'sysVehiclesTradePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesTradeFactory',  
                 'sysVehiclesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehiclesFactory',
                 'sysVehicleBtobtsPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleBtobtsFactory',                 
+                'sysVehicleTtogoTypePostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysVehicleTtogoTypeFactory',    
                 'sysWarrantiesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantiesFactory', 
                 'sysWarrantyMatrixPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantyMatrixFactory',
                 'sysWarrantyTypesPostgrePDO' => 'DAL\Factory\PDO\Postgresql\SysWarrantyTypesFactory',                 
