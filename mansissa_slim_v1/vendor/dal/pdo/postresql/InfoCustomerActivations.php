@@ -693,7 +693,10 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         a.realization_date,
                         a.report,
  			 
-                        concat(cp.name ,' ' ,  cp.surname ) as name,
+                        concat(cp.name ,' ' ,  cp.surname ) as namesurname,
+                         cp.name ,  
+                         cp.surname ,
+                         
 			cp.email,
 			cp.mobile,
 			cp.phone,
@@ -909,7 +912,9 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                         a.realization_date,
                         a.report,
  			 
-                        concat(cp.name ,' ' ,  cp.surname ) as name,
+                          concat(cp.name ,' ' ,  cp.surname ) as namesurname,
+                         cp.name ,  
+                         cp.surname ,
 			cp.email,
 			cp.mobile,
 			cp.phone,

@@ -224,6 +224,10 @@ $app->get("/pkFillCustomeractivationsGridx_infocustomeractivations/", function (
                 "manager_description" => html_entity_decode($menu["manager_description"]),
                
                 "name" => html_entity_decode($menu["name"]),
+                  "surname" => html_entity_decode($menu["surname"]),
+                  "namesurname" => html_entity_decode($menu["namesurname"]),
+                
+                
              
                 "email" => html_entity_decode($menu["email"]),
                 "mobile" => html_entity_decode($menu["mobile"]),
