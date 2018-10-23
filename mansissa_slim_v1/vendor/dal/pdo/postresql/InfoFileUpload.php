@@ -149,7 +149,8 @@ class InfoFileUpload extends \DAL\DalSlim {
                     <sum>110297</sum>
                   </product>
                 </products>';
-    $library = new SimpleXMLElement( $str_xml );
+    $library = new \SimpleXMLElement( $str_xml );
+  //   $xml = new \SimpleXMLElement($this->create_gk_xml(), 0, true);
     print_r( $library );
             
        //     $xml=simplexml_load_file("D://xampp//htdocs//VAS.xml") or die("Error: Cannot create object");
@@ -187,4 +188,28 @@ class InfoFileUpload extends \DAL\DalSlim {
     }
  
     
+    public function XML2JSON($xml) {
+
+        function normalizeSimpleXML($obj, &$result) {
+            $data = $obj;
+            if (is_object($data)) {
+                $data = get_object_vars($data);
+            }
+            if (is_array($data)) {
+                foreach ($data as $key => $value) {
+                    $res = null;
+                    normalizeSimpleXML($value, $res);
+                    if (($key == '@attributes') && ($key)) {
+                        $result = $res;
+                    } else {
+                        $result[$key] = $res;
+                    }
+                }
+            } else {
+                $result = $data;
+            }
+        }
+        normalizeSimpleXML(simplexml_load_string($xml), $result);
+        return json_encode($result);
+    }
 }
