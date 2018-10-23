@@ -2229,8 +2229,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_test":
                 echo "_test!";
                 break; 
-            
-            
+             
+              case "_sysvehiclettogotype":  
+                $this->setRestApiEndPoint('sysvehiclettogotype.php/');
+                break;  
              case "_infoprojecttradeinvehicle":  
                 $this->setRestApiEndPoint('infoprojecttradeinvehicle.php/');
                 break;  
