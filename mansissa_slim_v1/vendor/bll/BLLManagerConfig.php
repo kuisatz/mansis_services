@@ -160,6 +160,8 @@ class BLLManagerConfig{
                    'sysVehiclesBLL' => 'BLL\BLL\SysVehicles',
                    'sysVehicleBtobtsBLL' => 'BLL\BLL\SysVehicleBtobts', 
                    'sysVehicleTtogoTypeBLL' => 'BLL\BLL\SysVehicleTtogoType', 
+                   'sysTruckstogoTypesBLL' => 'BLL\BLL\SysTruckstogoTypes', 
+                 
                  
                    'sysWarrantiesBLL' => 'BLL\BLL\SysWarranties', 
                    'sysWarrantyMatrixBLL' => 'BLL\BLL\SysWarrantyMatrix',

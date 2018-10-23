@@ -25,7 +25,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
         
-        
+        //**---- sysVehicleTtogoTypeBLL -------------------   
+                                    'pkTruckstogoTypeDdList_systruckstogotypes' => 'restApiDefaultCall',   
+        //** sysVehicleTtogoTypeBLL ----------------------//       
          
          //**---- infoProjectTradeinvehicleBLL -------------------   
                                     'pkVehicleTtogoTypeDdList_sysvehiclettogotype' => 'restApiDefaultCall',   
@@ -2229,8 +2231,12 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_test":
                 echo "_test!";
                 break; 
+            
              
-              case "_sysvehiclettogotype":  
+            case "_systruckstogotypes":  
+                $this->setRestApiEndPoint('systruckstogotypes.php/');
+                break;  
+             case "_sysvehiclettogotype":  
                 $this->setRestApiEndPoint('sysvehiclettogotype.php/');
                 break;  
              case "_infoprojecttradeinvehicle":  
@@ -2242,7 +2248,7 @@ class SlimHmacProxy extends \Proxy\Proxy {
             case "_infoprojectcampaign":  
                 $this->setRestApiEndPoint('infoprojectcampaign.php/');
                 break;  
-              case "_infoprojectwarranties":  
+            case "_infoprojectwarranties":  
                 $this->setRestApiEndPoint('infoprojectwarranties.php/');
                 break;  
              case "_infoprojecttradein":  
