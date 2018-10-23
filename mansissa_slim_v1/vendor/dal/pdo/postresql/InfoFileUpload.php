@@ -127,7 +127,7 @@ class InfoFileUpload extends \DAL\DalSlim {
                 
            //     $xml = simplexml_load_string($myXMLData);
                 $string = 'D:/VAS.xml';
-                $xml = new SimpleXMLElement($string);
+                $xml = new \SimpleXMLElement($string);
                 foreach($xml->VehicleAssyfo->Details as $item){
                     echo $item->ChassisNo.' - ';
                     echo $item->ProdPeriod.' - ';
