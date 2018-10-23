@@ -124,7 +124,7 @@ class InfoFileUpload extends \DAL\DalSlim {
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
            
                 print_r($statement);
-                $string = 'D://VAS.xml'; 
+                $string = 'D:\\VAS.xml'; 
                 if (file_exists($string)) {
                     $xml = simplexml_load_file($string);
                   //   print_r($xml);
