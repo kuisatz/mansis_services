@@ -142,8 +142,8 @@ class InfoFileUpload extends \DAL\DalSlim {
                                 FROM info_project
                                 WHERE id =  
                 ),
-                op_user_id = " . intval($opUserIdValue) . "
-                WHERE id = " . intval($params['id']);
+                op_user_id =  
+                WHERE id =  ";
                     $statement = $pdo->prepare($sql);
                     //  echo debugPDO($sql, $params);
                 //    $update = $statement->execute();
