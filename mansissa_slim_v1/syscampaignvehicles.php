@@ -167,7 +167,7 @@ $app->get("/pkFillCampaignVehiclesGridx_syscampaignvehicles/", function () use (
     if ($stripper->offsetExists('campaign_id')) { $campaignId = $stripper->offsetGet('campaign_id')->getFilterValue(); }
     if ($stripper->offsetExists('vehicle_groups_id')) { $vehicleGroups = $stripper->offsetGet('vehicle_groups_id')->getFilterValue(); }
 
-    $resDataGrid = $BLL->fillCampaignVehiclesGridx(array(
+    $resDataGrid = $BLL->FillCampaignVehiclesGridx(array(
         'language_code' => $vLanguageCode,
         'LanguageID' => $lid,
         'page' => $vPage,
@@ -181,7 +181,7 @@ $app->get("/pkFillCampaignVehiclesGridx_syscampaignvehicles/", function () use (
         'pk' => $pk,
     ));
    
-    $resTotalRowCount = $BLL->fillvehicleAppTypesGridxRtl(array(
+    $resTotalRowCount = $BLL->FillCampaignVehiclesGridxRtl(array(
         'language_code' => $vLanguageCode, 
         'LanguageID' => $lid,
         'VehicleGroupsID' => $vehicleGroups,
