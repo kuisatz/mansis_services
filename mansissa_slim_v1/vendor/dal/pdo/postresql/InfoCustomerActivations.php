@@ -1114,7 +1114,8 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $kontrol =0 ;                
             $errorInfo[0] = "99999";
             $addSQL1 =null ;    
-            $addSQL2 =null ;             
+            $addSQL2 =null ;  
+            $control = 1;
             $CustomerId=-1111 ;               
             if ((isset($params['CustomerId']) && $params['CustomerId'] != "")) {
                 $CustomerId = intval($params['CustomerId']);
@@ -1138,6 +1139,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $ActDate = $params['ActDate'];
                 $addSQL1 .= 'act_date,  ';
                 $addSQL2 .= "'". $ActDate."',";
+                $control=2 ; 
             } else {
                 throw new \PDOException($errorInfo[0]);
             }
@@ -1243,7 +1245,13 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                     $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');
-                            
+                         
+                    
+                    if ($control==2)
+                    {
+                         $logDbData = $this->insertTrackingAct($params);     
+                    }
+                    
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
                 } else {
@@ -1277,7 +1285,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $pdo->beginTransaction(); 
             $errorInfo[0] = "99999";
-            
+            $control=1 ; 
             $Id = -1111;
             if ((isset($params['Id']) && $params['Id'] != "")) {
                 $Id = intval($params['Id']);
@@ -1318,6 +1326,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $ActivityTrackingDate = $params['ActivityTrackingDate'];
                 $addSQL1 .= 'activity_tracking_date,  ';
                 $addSQL2 .= "'". $ActivityTrackingDate."',";
+                $control=2 ; 
             }  
              $RealizationDate= null;
             if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
@@ -1443,7 +1452,12 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     if ($affectedRows> 0 ){
                     $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');}
                     else $insertID =0 ;   
-                            
+                        
+                     if ($control==2)
+                    {
+                          $this->insertTrackingAct($params);     
+                    }
+                    
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows,"lastInsertId" => $insertID);
                 } else {
@@ -1498,25 +1512,13 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $CsActivationTypeId = intval($params['CsActivationTypeId']);
             }  else {
                 throw new \PDOException($errorInfo[0]);
-            }
-            $ActDate= null;
-            if ((isset($params['ActDate']) && $params['ActDate'] != "")) {
-                $ActDate = $params['ActDate'];
-                $addSQL1 .= 'act_date,  ';
-                $addSQL2 .= "'". $ActDate."',";
-            }  
+            }             
             $ActivityTrackingDate= null;
             if ((isset($params['ActivityTrackingDate']) && $params['ActivityTrackingDate'] != "")) {
                 $ActivityTrackingDate = $params['ActivityTrackingDate'];
-                $addSQL1 .= 'activity_tracking_date,  ';
+                $addSQL1 .= 'act_date,  ';
                 $addSQL2 .= "'". $ActivityTrackingDate."',";
-            }  
-             $RealizationDate= null;
-            if ((isset($params['RealizationDate']) && $params['RealizationDate'] != "")) {
-                $RealizationDate = $params['RealizationDate'];
-                $addSQL1 .= 'realization_date,  ';
-                $addSQL2 .= "'". $RealizationDate."',";
-            }  
+            }                
             $CsStatuTypesId =-1111 ;  
             if ((isset($params['CsStatuTypesId']) && $params['CsStatuTypesId'] != "")) {
                 $CsStatuTypesId = intval($params['CsStatuTypesId']);
@@ -1545,18 +1547,6 @@ class InfoCustomerActivations extends \DAL\DalSlim {
             if ((isset($params['Description']) && $params['Description'] != "")) {
                 $Description = $params['Description'];
             }             
-            $ManagerDescription= null;
-            if ((isset($params['ManagerDescription']) && $params['ManagerDescription'] != "")) {
-                $ManagerDescription = $params['ManagerDescription'];
-            }   
-            $ActivtyTrackingTypeId = 0;
-            if ((isset($params['ActivtyTrackingTypeId']) && $params['ActivtyTrackingTypeId'] != "")) {
-                $ActivtyTrackingTypeId = intval($params['ActivtyTrackingTypeId']);
-            }   
-             $report= null;
-            if ((isset($params['report']) && $params['report'] != "")) {
-                $report = $params['report'];
-            }  
                             
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -1565,7 +1555,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                 $kontrol = $this->haveRecords(
                         array(
                             'customer_id' => $CustomerId, 
-                            'act_date' => $ActDate,
+                            'act_date' => $ActivityTrackingDate,
                             'contact_person_id' => $ContactPersonId, 
                             
                 ));
@@ -1582,9 +1572,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             customer_segment_type_id,
                             vehicle_model_id,
                             description,
-                            manager_description, 
-                            activty_tracking_type_id, 
-                            report,
+                          
  
                             op_user_id,
                             act_parent_id  
@@ -1600,9 +1588,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                             " .  intval($CustomerSegmentTypeId) . ",
                             " .  intval($VehicleModelId) . ",
                             '" . $Description . "',
-                            '" . $ManagerDescription . "', 
-                            " .  intval($ActivtyTrackingTypeId) . ",
-                            '" . $report . "', 
+                           
  
                             " . intval($opUserIdValue) . ",
                            (SELECT last_value FROM info_customer_activations_id_seq)
@@ -1613,7 +1599,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                    $insertID = $pdo->lastInsertId('info_customer_activations_id_seq');
+                   $insertID = 1;
                             
                     $pdo->commit();
                     return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
