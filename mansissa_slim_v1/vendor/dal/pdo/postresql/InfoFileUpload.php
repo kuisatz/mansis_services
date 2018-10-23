@@ -123,8 +123,18 @@ class InfoFileUpload extends \DAL\DalSlim {
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
            
-                print_r($result);
+                print_r($statement);
                 
+           //     $xml = simplexml_load_string($myXMLData);
+                $string = 'D:/VAS.xml';
+                $xml = new SimpleXMLElement($string);
+                foreach($xml->VehicleAssyfo->Details as $item){
+                    echo $item->ChassisNo.' - ';
+                    echo $item->ProdPeriod.' - ';
+                    echo $item->OrderNo.' - ';
+                    echo '<br/>';
+                  //  mysqli_query($conn, "INSERT INTO users (ID, username ,email ) VALUES (". $item->ID.", '". $item->username."', '" .$item->email."')" );
+                }
                 
                 
             
