@@ -2243,8 +2243,8 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
-             case "_infocalendarevent":  
-                $this->setRestApiEndPoint('infocalendarevent.php/');
+             case "_infocalendarevents":  
+                $this->setRestApiEndPoint('infocalendarevents.php/');
                 break;
              case "_syscampaignvehicles":  
                 $this->setRestApiEndPoint('syscampaignvehicles.php/');
