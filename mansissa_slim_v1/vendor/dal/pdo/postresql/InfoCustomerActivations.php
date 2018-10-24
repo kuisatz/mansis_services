@@ -941,7 +941,7 @@ class InfoCustomerActivations extends \DAL\DalSlim {
                     left join sys_customer_segment_types cst on cst.act_parent_id = a.customer_segment_type_id and cst.show_it = 0 
                     left join sys_cs_activation_types cat on cat.act_parent_id = a.cs_activation_type_id and cat.show_it = 0 
 		    left join sys_vehicle_gt_models vg on vg.act_parent_id = a.vehicle_model_id and vg.show_it = 0 
-                    left join sys_cs_statu_types acs on acs.act_parent_id = a.cs_statu_types_id and acs.show_it = 0 
+                    left join sys_cs_act_statutypes acs on acs.act_parent_id = a.cs_statu_types_id and acs.show_it = 0 
                     left join sys_cs_act_statutypes  cas on cas.act_parent_id = a.cs_statu_types_id and cas.show_it = 0 
                      
                     /*----*/   
