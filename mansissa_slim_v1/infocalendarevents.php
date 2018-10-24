@@ -137,7 +137,7 @@ $app->get("/pkFillCalendarEventsGridx_infocalendarevents/", function () use ($ap
                 "event_start_date" =>  ($menu["event_start_date"]),
                 "event_end_date" => html_entity_decode($menu["event_end_date"]),
                 "event_user_id" =>  ($menu["event_user_id"]), 
-                "op_user_name" => html_entity_decode($menu["op_user_name"]),       
+                "event_user_name" => html_entity_decode($menu["op_user_name"]),       
                 
                 
                 "state_active" => html_entity_decode($menu["state_active"]),       
