@@ -55,6 +55,7 @@ class BLLManagerConfig{
                     'infoProjectAccBLL' => 'BLL\BLL\InfoProjectAcc',
                     'infoBodyProposalBLL' => 'BLL\BLL\InfoBodyProposal',
                     'infoFileUploadBLL' => 'BLL\BLL\InfoFileUpload',
+                    'infoCalendarEventsBLL' => 'BLL\BLL\InfoCalendarEvents',
                  
                  
                  

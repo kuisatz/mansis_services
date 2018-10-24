@@ -23,6 +23,10 @@ class SlimHmacProxy extends \Proxy\Proxy {
         
         
           
+        //**---- infoCalendarEventsBLL -------------------   
+                                    'pkFillCalendarEventsGridx_infocalendarevents' => 'restApiDefaultCall',   
+        //** infoCalendarEventsBLL ----------------------//       
+          
         //**---- sysCampaignVehiclesBLL -------------------   
                                     'pkFillCampaignVehiclesGridx_syscampaignvehicles' => 'restApiDefaultCall',   
         //** sysCampaignVehiclesBLL ----------------------//       
@@ -2239,6 +2243,9 @@ class SlimHmacProxy extends \Proxy\Proxy {
                 break; 
             
             
+             case "_infocalendarevent":  
+                $this->setRestApiEndPoint('infocalendarevent.php/');
+                break;
              case "_syscampaignvehicles":  
                 $this->setRestApiEndPoint('syscampaignvehicles.php/');
                 break;
