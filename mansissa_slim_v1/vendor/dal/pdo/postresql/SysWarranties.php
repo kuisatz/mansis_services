@@ -513,7 +513,8 @@ class SysWarranties extends \DAL\DalSlim {
                 WHERE   
                     a.deleted = 0 AND
                     a.active =0 AND 
-                    a.parent_id =0  
+                    a.parent_id =0  AND 
+                    a.is_factory=0 
                 ORDER BY  id   
                                  ");
             $statement->execute();
@@ -576,7 +577,8 @@ class SysWarranties extends \DAL\DalSlim {
                     ".$addSql."
                     a.deleted = 0 AND
                     a.active =0 AND
-                    a.language_parent_id =0  
+                    a.language_parent_id =0  AND 
+                    a.is_factory=0 
                 ORDER BY  id  
                                  ");
             $statement->execute();
@@ -969,6 +971,7 @@ class SysWarranties extends \DAL\DalSlim {
                         name,
                         name_eng, 
                         vehicle_group_id,
+                        is_fabric,
                         
                         language_id,
                         language_parent_id,
@@ -982,6 +985,7 @@ class SysWarranties extends \DAL\DalSlim {
                         name,
                         name_eng, 
                         vehicle_group_id,
+                        is_fabric,
                         
                         language_id,
                         language_parent_id, 
