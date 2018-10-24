@@ -142,8 +142,7 @@ $app->get("/pkFillCalendarEventsGridx_infocalendarevents/", function () use ($ap
                 "date_saved" => $menu["date_saved"],
                 "date_modified" => $menu["date_modified"],  
                 "language_code" => $menu["language_code"],
-                "active" => $menu["active"], 
-                "op_user_id" => $menu["op_user_id"], 
+                "active" => $menu["active"],  
                 "language_id" => $menu["language_id"],
                 "language_name" =>html_entity_decode( $menu["language_name"]), 
                 
